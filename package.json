@@ -1,0 +1,31 @@
+{
+  "name": "rk-offlinedev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "express": "^4.16.2",
+    "http": "^0.0.0",
+    "lodash": "^4.17.4",
+    "https": "^1.0.0",
+    "path": "^0.12.7",
+    "url": "^0.11.0",
+    "body-parser": "^1.18.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhanglei923/rk-offlinedev.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zhanglei923/rk-offlinedev/issues"
+  },
+  "homepage": "https://github.com/zhanglei923/rk-offlinedev#readme"
+}

@@ -1,0 +1,44 @@
+<!doctype html>
+<html>
+<head>
+    <title>离线开发- 首页</title>
+    <style>
+      .about{
+    background-color: #fbfb97;
+    width: 800px;
+    font-size: 11px;
+    color: #f36f2d;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+      }
+    </style>
+</head>
+<body>
+    <img src="/img/fet.jpg" style="width:42px;"/>
+    <div>
+  <b>欢迎！！离线开发首页</b>
+  <div class="about">
+    说明： 
+    <br>-去\\10.10.0.115\publicwebapp\offlinedev目录，用户名密码是developer/developer
+    <br>-找一个感兴趣的STORY目录，将里面的文件整体拷贝到你本地web工程的\webapp\offlinedev\mocking\actions 目录下
+    <br>-然后，点击下面的主页面入口：
+
+  </div>
+  <span><a href="./index.action">首页</a></span>、
+  <span style="display: none;"><a href="./index.action?isdeploy=true">首页（打包）</a></span>
+  <span><a href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
+  <span><a href="./appdesigner.action?entityId=1&layoutId=58473">APP设计器</a></span>
+  </div>
+<hr>
+    <div>
+  <span>单元测试</span>
+  <span><a href="./test.action">Unit Tests</a></span>
+</div>
+<div>
+  <span>端测试</span>
+  <span><a href="./test.action?case=testCase_datetimepicker">datetimepicker</a></span>
+  </div>
+</body>
+</html>
