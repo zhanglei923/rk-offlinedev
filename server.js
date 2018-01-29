@@ -5,6 +5,7 @@ var app = express();
 var fs = require('fs');
 var https = require('https');
 var http = require('http');
+var pathutil = require('path');
 var URL = require('url');
 var bodyParser = require('body-parser')
 var _ = require('lodash')
@@ -64,7 +65,10 @@ app.use(function (req, res, next) {
     next();
 });
 //全局静态资源
-app.use('/', express.static(__dirname + '/'));
+//app.use('/', express.static(__dirname + '/'));
+//全局静态资源
+app.use('/', express.static(pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')));
+
 
 app.post('*',function(req, res){
    var accept = req.headers.accept;
