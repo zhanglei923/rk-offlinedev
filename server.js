@@ -5,10 +5,10 @@ var app = express();
 var fs = require('fs');
 var https = require('https');
 var http = require('http');
-var pathutil = require('path');
 var URL = require('url');
 var bodyParser = require('body-parser')
 var _ = require('lodash')
+var pathutil = require('path');
 var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
@@ -66,13 +66,20 @@ app.use(function (req, res, next) {
 });
 //全局静态资源
 //app.use('/', express.static(__dirname + '/'));
-//全局静态资源
 app.use('/', express.static(pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')));
-
 
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;
+
+    if(/^\/offlinedev\//.test(req.url)){
+        var result = require('./offlinedev/jsmodule/processConfigRequest').processPost(req, res)
+        res.json({
+            status: 0,
+            result: result
+        })
+        return;
+    }
 
     var data = getMockingData.getData(originalUrl, req)
     if(data){

@@ -26,6 +26,7 @@
     <br>-然后，点击下面的主页面入口：
 
   </div>
+  选择模拟数据：<span><select id="caseselect"></select></span>
   <span><a href="./index.action">首页</a></span>、
   <span style="display: none;"><a href="./index.action?isdeploy=true">首页（打包）</a></span>
   <span><a href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
@@ -40,5 +41,51 @@
   <span>端测试</span>
   <span><a href="./test.action?case=testCase_datetimepicker">datetimepicker</a></span>
   </div>
+  <script src="./offlinedev/js/jquery.min.js"></script>
+  <script type="text/javascript">
+    var ls_key = 'offlinedev_casename'
+
+    $('#caseselect').on('change', function(){
+      var casename = $(this).val();
+      localStorage.setItem(ls_key, casename);
+    })
+    $.ajax({
+            url: 'http://10.10.0.115:3004/offlinedev/folders',
+            jsonp: "callback",
+            jsonpCallback:"Callback",
+            dataType: "jsonp",
+            cache: false,
+            data: {},
+            success: function( response ) {
+                console.log(response)
+                var data = JSON.parse(response);
+                console.log(data)
+                var html = '<option value="">LOCAL</option>'
+                data.forEach(function(name){
+                  name = name.replace(/\/{1,}/g,'');
+                  html += '<option value="'+name+'">remote115: ' +name+ '</option>'
+                })
+                $('#caseselect').html(html)
+                $('#caseselect').val(localStorage.getItem(ls_key))
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    var save = function(){
+      $.ajax({
+            url: '/offlinedev/saveUserConfig/',
+            cache: false,
+            method: 'POST',
+            data: {
+              caseName: 2222
+            },
+            success: function( response ) {
+
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    }
+  </script>
 </body>
 </html>

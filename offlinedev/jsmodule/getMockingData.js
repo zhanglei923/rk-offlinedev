@@ -13,6 +13,14 @@ var getParamAsSurfix = function(query){
     arrz = _.sortedUniq(arrz);
     return arrz.join('&');
 }
+var readFile = function(fpath){
+    // var request = require('sync-request');
+    // var data = request('GET', webUrl); 
+
+    var data = fs.readFileSync(fpath, 'utf8');
+
+    return data;
+}
 module.exports = {
     getData: function(actionname, req){
         //if(data_cache[actionname]) return data_cache[actionname]
@@ -23,8 +31,15 @@ module.exports = {
         }
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
-        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action');
-        //console.log(fullfilepath)
+        var fpath = 'mocking/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'
+        var fullfilepath = pathutil.resolve(__dirname, '../'+fpath);
+        console.log(fpath)
+        var requester = require('sync-request');
+        var data = requester('GET', 'http://10.10.0.115/public/offlinedev/' + fpath);   
+        console.log('http://10.10.0.115/public/offlinedev/' + fpath, data) 
+        var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
+        console.log('webresultText', webresultText)
+        //return webresultText
         if (!fs.existsSync(fullfilepath)) {
             console.log('can not find: ', fullfilepath)
             fullfilepath =  pathutil.resolve(__dirname, '../mocking/actions/' + actionname + '.action')
@@ -32,7 +47,7 @@ module.exports = {
         if (!fs.existsSync(fullfilepath)) {
             return null;
         } else {
-            var data = fs.readFileSync(fullfilepath, 'utf8');
+            var data = readFile(fullfilepath, 'utf8');
             data_cache[actionname] = data;
             return data;
         }
@@ -49,7 +64,7 @@ module.exports = {
             var wtype = param.__wtype;
             var fpath = rootFolder + '/mocking/actions/platform_widgets/' + wtype + '.compdata'
             if(fs.existsSync(fpath)){
-                var data = fs.readFileSync(fpath, 'utf8');
+                var data = readFile(fpath, 'utf8');
                 if(data){
                     result[uuid] = JSON.parse(data);
                 }
