@@ -70,7 +70,7 @@
                 var html = ''// '<option value="">LOCAL</option>'
                 data.forEach(function(name){
                   name = name.replace(/\/{1,}/g,'');
-                  html += '<option value="'+name+'">remote115: ' +name+ '</option>'
+                  html += '<option value="'+name+'">[115]:' +name+ '</option>'
                 })
                 $('#caseselect').html(html)
                 $('#caseselect').val(localStorage.getItem(ls_key))
