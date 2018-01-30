@@ -29,10 +29,9 @@
   <b>欢迎！！离线开发首页</b>
   <div class="about">
     说明： 
-    <br>点击下面绿色的"Sync"按钮下载模拟数据
+    <br>-选择想要的模拟story数据，然后点击绿色的"Sync"按钮下载到本地
     <br>-去\\10.10.0.115\publicwebapp\offlinedev目录，用户名密码是developer/developer
     <br>-然后，点击下面的主页面入口：
-
   </div>
   选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Sync</button></span>
   <span><a target="_blank" href="./index.action">首页</a></span>、
@@ -68,7 +67,7 @@
                 console.log(response)
                 var data = JSON.parse(response);
                 console.log(data)
-                var html = '<option value="">LOCAL</option>'
+                var html = ''// '<option value="">LOCAL</option>'
                 data.forEach(function(name){
                   name = name.replace(/\/{1,}/g,'');
                   html += '<option value="'+name+'">remote115: ' +name+ '</option>'
