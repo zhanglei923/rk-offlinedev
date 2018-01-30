@@ -58,8 +58,12 @@ var updateJsContent = require('./offlinedev/jsmodule/updateJsContent')
 //全局拦截器
 app.use(function (req, res, next) {
     if(/\.js$/.test(req.path)) {
-        var jscontent = updateJsContent.update(req.path)
-        res.send(jscontent);
+        if(/^\/offlinedev\//.test(req.path)){
+            next();
+        }else{
+            var jscontent = updateJsContent.update(req.path)
+            res.send(jscontent);            
+        }
         //next();
         return;
         //res.send();
