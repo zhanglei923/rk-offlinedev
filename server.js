@@ -94,10 +94,11 @@ app.post('*',function(req, res){
     var originalUrl = req.originalUrl;
 
     if(/^\/offlinedev\//.test(req.url)){
-        var result = require('./offlinedev/jsmodule/processConfigRequest').processPost(req, res)
-        res.json({
-            status: 0,
-            result: result
+        var result = require('./offlinedev/jsmodule/processConfigRequest').processPost(req, res, function(){
+            res.json({
+                status: 0,
+                result: []
+            })            
         })
         return;
     }

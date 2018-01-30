@@ -4,16 +4,20 @@
     <title>离线开发- 首页</title>
     <style>
       .about{
-    background-color: #fbfb97;
-    width: 800px;
-    font-size: 11px;
-    color: #f36f2d;
-    font-weight: bold;
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+      background-color: #fbfb97;
+      width: 800px;
+      font-size: 11px;
+      color: #f36f2d;
+      font-weight: bold;
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
       }
       .download-btn{
+        background-color: green;
+        color:white;
+      }
+      .download-btn.busy{
         background-color: red;
         color:white;
       }
@@ -91,6 +95,8 @@
         });
     }
     $('#download-btn').click(function(){
+      $('#download-btn').addClass('busy')
+      $('#download-btn').text('downloading...')
        $.ajax({
             url: '/offlinedev/syncCases/',
             cache: false,
@@ -99,7 +105,8 @@
               caseName: $('#caseselect').val()
             },
             success: function( response ) {
-
+              $('#download-btn').removeClass('busy')
+              $('#download-btn').text('Success, reSync')
             },
             error:function(ajaxObj,msg,err){
             }

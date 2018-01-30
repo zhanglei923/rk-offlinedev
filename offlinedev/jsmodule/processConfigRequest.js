@@ -8,7 +8,7 @@ var getConfig = require('./getConfig')
 var configJson = require('./getConfig').get()
 
 module.exports = {
-    processPost: function (req, res){
+    processPost: function (req, res, callback){
 
         if(/^\/offlinedev\/saveUserConfig/.test(req.url)){
             var caseName = req.body.caseName
@@ -37,6 +37,7 @@ module.exports = {
                 setTimeout(function(){
                      console.log('unzip', filepath)
                     fs.createReadStream(filepath).pipe(unzip.Extract({ path: pathutil.resolve(__dirname, "../mocking/") }));
+                    callback()
                 }, 4000)
             });
         }
