@@ -35,8 +35,9 @@ module.exports = {
         var fullfilepath = pathutil.resolve(__dirname, '../'+fpath);
         console.log(fpath)
         var requester = require('sync-request');
-        var data = requester('GET', 'http://10.10.0.115/public/offlinedev/' + fpath);   
-        console.log('http://10.10.0.115/public/offlinedev/' + fpath) 
+        var furl = 'http://10.10.0.115/public/offlinedev/' + fpath
+        var data = requester('GET', furl, {timeout: 2000});   
+        console.log(furl) 
         var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
         console.log('webresultText', webresultText)
         //return webresultText
