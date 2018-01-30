@@ -40,6 +40,18 @@ module.exports = {
         if(!fs.existsSync(path)){
             fs.mkdirSync(path);
         } 
+        var path = rootpath + '/mocking-default/'
+        if(!fs.existsSync(path)){
+            fs.mkdirSync(path);
+        } 
+        path = rootpath + '/mocking-default/actions'
+        if(!fs.existsSync(path)){
+            fs.mkdirSync(path);
+        } 
+        path = rootpath + '/mocking-default/pages'
+        if(!fs.existsSync(path)){
+            fs.mkdirSync(path);
+        } 
         path = pathutil.resolve(__dirname, '../../.config')
         if(!fs.existsSync(path)){
             fs.writeFileSync(path, JSON.stringify({
