@@ -36,7 +36,7 @@ module.exports = {
         console.log(fpath)
         var requester = require('sync-request');
         var data = requester('GET', 'http://10.10.0.115/public/offlinedev/' + fpath);   
-        console.log('http://10.10.0.115/public/offlinedev/' + fpath, data) 
+        console.log('http://10.10.0.115/public/offlinedev/' + fpath) 
         var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
         console.log('webresultText', webresultText)
         //return webresultText

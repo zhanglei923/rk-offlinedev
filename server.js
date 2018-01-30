@@ -12,7 +12,10 @@ var pathutil = require('path');
 var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
+var getConfig = require('./offlinedev/jsmodule/getConfig')
 var credentials = {key: privateKey, cert: certificate};
+
+getConfig.initFiles();//初始化配置
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
@@ -35,7 +38,7 @@ let getPageHtml = function(isdeploy, filename){
     if(isdeploy) filename = filename.replace(/\.html$/, '.deploy.html')
     var html = fs.readFileSync(__dirname +'/offlinedev/mocking/pages/'+ filename, 'utf8');
     html = updateStaticsUrl.updateHtml(html);
-    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/mocking/session.mock', 'utf8');
+    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/mocking-default/session.mock', 'utf8');
     //注入标志和辅助性的js文件
     html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
     return html;

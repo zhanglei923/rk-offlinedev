@@ -1,12 +1,13 @@
 var fs = require('fs');
 var pathutil = require('path');
+var getConfig = require('./getConfig')
 
 var cache = {}
 
 module.exports = {
     update: function (path){
         //if(cache[path]) return cache[path];
-        var rootFolder = pathutil.resolve(__dirname, '../../../apps-ingage-web/src/main/webapp/');
+        var rootFolder = getConfig.getWebProjectFolder()
         var fullfilepath = rootFolder + '/' + path
         var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         cache[path] = jsContent;

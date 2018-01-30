@@ -1,3 +1,4 @@
 node_modules/
 offlinedev/mocking/actions/
 offlinedev/mocking/
+.config
