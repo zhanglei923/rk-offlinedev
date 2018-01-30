@@ -13,6 +13,10 @@
     margin-top: 20px;
     margin-bottom: 20px;
       }
+      .download-btn{
+        background-color: red;
+        color:white;
+      }
     </style>
 </head>
 <body>
@@ -26,7 +30,7 @@
     <br>-然后，点击下面的主页面入口：
 
   </div>
-  选择模拟数据：<span><select id="caseselect"></select></span>
+  选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Sync</button></span>
   <span><a target="_blank" href="./index.action">首页</a></span>、
   <span style="display: none;"><a target="_blank" href="./index.action?isdeploy=true">首页（打包）</a></span>
   <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
@@ -86,6 +90,21 @@
             }
         });
     }
+    $('#download-btn').click(function(){
+       $.ajax({
+            url: '/offlinedev/syncCases/',
+            cache: false,
+            method: 'POST',
+            data: {
+              caseName: $('#caseselect').val()
+            },
+            success: function( response ) {
+
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    })
   </script>
 </body>
 </html>
