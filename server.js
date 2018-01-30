@@ -60,6 +60,7 @@ app.use(function (req, res, next) {
     if(/\.js$/.test(req.path)) {
         if(/^\/offlinedev\//.test(req.path)){
             next();
+            return;
         }else{
             var jscontent = updateJsContent.update(req.path)
             res.send(jscontent);            
@@ -67,7 +68,7 @@ app.use(function (req, res, next) {
         //next();
         return;
         //res.send();
-    }
+    }else 
     if(req.originalUrl === '/'){
         //var html = getPageHtml(false, 'index.html');
         var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
