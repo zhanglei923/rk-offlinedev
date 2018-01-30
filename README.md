@@ -6,3 +6,4 @@ How to:
  - Run `cd rk-offlinedev`
  - Run `npm install`
  - Run `node server.js`
+ - Visit `http://localhost:666/`
