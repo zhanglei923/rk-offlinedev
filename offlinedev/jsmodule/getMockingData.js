@@ -33,17 +33,17 @@ module.exports = {
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
         var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'
         {//test
-            console.log(fpath)
+            //console.log(fpath)
             var requester = require('sync-request');
             var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
             var data = requester('GET', furl, {timeout: 2000});   
-            console.log(furl) 
+            //console.log(furl) 
             var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
-            console.log('webresultText', webresultText)
+            //console.log('webresultText', webresultText)
         }
         //return webresultText
         var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/'+fpath);
-                console.log('fullfilepath: ', fullfilepath)
+        //console.log('fullfilepath: ', fullfilepath)
         if (!fs.existsSync(fullfilepath)) {
             fullfilepath = pathutil.resolve(__dirname, '../mocking/'+fpath);
             if (!fs.existsSync(fullfilepath)) {

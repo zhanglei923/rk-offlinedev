@@ -59,8 +59,10 @@ var updateJsContent = require('./offlinedev/jsmodule/updateJsContent')
 app.use(function (req, res, next) {
     if(/\.js$/.test(req.path)) {
         if(/^\/offlinedev\//.test(req.path)){
-            next();
-            return;
+            //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
+            var fpath = pathutil.resolve(__dirname, '.'+req.path)
+            var jscontent = fs.readFileSync(fpath, 'utf8'); 
+            res.send(jscontent);    
         }else{
             var jscontent = updateJsContent.update(req.path)
             res.send(jscontent);            
