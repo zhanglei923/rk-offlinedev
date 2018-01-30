@@ -9,6 +9,10 @@ module.exports = {
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebProjectFolder()
         var fullfilepath = rootFolder + '/' + path
+        if(!fs.existsSync(fullfilepath)){
+            console.log('nofile:', fullfilepath)
+            return null;
+        }
         var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         if(jsContent){
             cache[path] = jsContent;
