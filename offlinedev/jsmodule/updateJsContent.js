@@ -10,8 +10,12 @@ module.exports = {
         var rootFolder = getConfig.getWebProjectFolder()
         var fullfilepath = rootFolder + '/' + path
         var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
-        cache[path] = jsContent;
-        //console.log(fs.existsSync(fullfilepath), fullfilepath)
-        return jsContent+'\n//mocked-js';
+        if(jsContent){
+            cache[path] = jsContent;
+            //console.log(fs.existsSync(fullfilepath), fullfilepath)
+            return jsContent+'\n//mocked-js';            
+        }else{
+            return null;
+        }
     }
 }

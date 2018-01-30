@@ -65,7 +65,7 @@ app.use(function (req, res, next) {
             res.send(jscontent);    
         }else{
             var jscontent = updateJsContent.update(req.path)
-            res.send(jscontent);            
+            jscontent ? res.send(jscontent) : res.sendStatus(404);;            
         }
         //next();
         return;
