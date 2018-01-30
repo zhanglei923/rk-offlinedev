@@ -95,6 +95,11 @@
         });
     }
     $('#download-btn').click(function(){
+      var caseName = $('#caseselect').val()
+      if(!caseName){
+         alert('本地开发，不需同步')
+         return;
+      }
       $('#download-btn').addClass('busy')
       $('#download-btn').text('downloading...')
        $.ajax({
