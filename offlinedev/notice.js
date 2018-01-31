@@ -24,14 +24,16 @@ window.onload=function(){
     }, 100);
 
     $('#maintenance_bar').show().css({
+        height:10,
+        'line-height': '9px',
         backgroundColor: '#2ecc71',
         color: 'white',
-        fontSize: '20px'
+        fontSize: '10px'
     })
     $('#maintenance_bar .msg').text('离线开发模式！').css({
         background: 'url(/offlinedev/img/fet.jpg) left 14px no-repeat',
         'background-size': '26px 25px',
-        'padding-left': '50px'
+        'padding-left': '20px'
     })
 
     $('#offlinedev_start').click(function(){
