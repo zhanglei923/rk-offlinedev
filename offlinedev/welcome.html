@@ -29,11 +29,11 @@
   <b>欢迎！！离线开发首页</b>
   <div class="about">
     说明： 
-    <br>-选择想要的模拟story数据，然后点击绿色的"Sync"按钮下载到本地
+    <br>-选择想要的模拟story数据，然后点击绿色的"Use"按钮下载到本地
     <br>-去\\10.10.0.115\publicwebapp\offlinedev目录，用户名密码是developer/developer
     <br>-然后，点击下面的主页面入口：
   </div>
-  选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Sync</button></span>
+  选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Use</button></span>
   <span><a target="_blank" href="./index.action">首页</a></span>、
   <span style="display: none;"><a target="_blank" href="./index.action?isdeploy=true">首页（打包）</a></span>
   <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
@@ -100,7 +100,7 @@
          return;
       }
       $('#download-btn').addClass('busy')
-      $('#download-btn').text('downloading...')
+      $('#download-btn').text('Downloading...')
        $.ajax({
             url: '/offlinedev/syncCases/',
             cache: false,
@@ -110,7 +110,7 @@
             },
             success: function( response ) {
               $('#download-btn').removeClass('busy')
-              $('#download-btn').text('Success, reSync')
+              $('#download-btn').text('Success, re-Use')
             },
             error:function(ajaxObj,msg,err){
             }
