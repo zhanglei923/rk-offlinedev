@@ -49,7 +49,12 @@
     .branchname{
        color:blue;
     }
+    .about{
 
+    }
+    .body{
+      margin-left: 20px;
+    }
 
     </style>
 </head>
@@ -66,24 +71,25 @@
     <br>-然后选择页面入口里的页面点进去就可以看了
     <br>-注意，所有交互都是假数据，因此业务操作是无任何效果或反馈的
   </div>
-  <span>当前调试分支：<span id="branchname" class="branchname"></span>，路径：<span id="webpath" class="branchname"></span></span>
-  <br>选择模拟数据：<span><select id="caseselect" style="font-size: 17px;"></select><button id="download-btn" class="download-btn">Use</button></span>
-  <div>
-<hr>
-  <span><b>页面入口：</b></span>
-  <span><a target="_blank" href="./index.action">首页</a></span>、
-  <span style="display: none;"><a target="_blank" href="./index.action?isdeploy=true">首页（打包）</a></span>
-  <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
-  <span><a target="_blank" href="./appdesigner.action?entityId=1&layoutId=58473">APP设计器</a></span>
-</div>
-  </div>
+  <div class="body">
+    <span>当前调试分支：<span id="branchname" class="branchname"></span>，路径：<span id="webpath" class="branchname"></span></span>
+    <br>选择模拟数据：<span><select id="caseselect" style="font-size: 17px;"></select><button id="download-btn" class="download-btn">Use</button></span>
+    <hr>
     <div>
-  <span><b>单元测试入口：</b></span>
-  <span><a href="./test.action">Unit Tests</a></span>
-</div>
-<div>
-  <span><b>控件测试入口：</b></span>
-  <span><a href="./test.action?case=testCase_datetimepicker">datetimepicker</a></span>
+      <span><b>页面入口：</b></span>
+      <span><a target="_blank" href="./index.action">首页</a></span>、
+      <span style="display: none;"><a target="_blank" href="./index.action?isdeploy=true">首页（打包）</a></span>
+      <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
+      <span><a target="_blank" href="./appdesigner.action?entityId=1&layoutId=58473">APP设计器</a></span>
+    </div>
+    <div>
+      <span><b>单元测试入口：</b></span>
+      <span><a href="./test.action">Unit Tests</a></span>
+    </div>
+    <div>
+      <span><b>控件测试入口：</b></span>
+      <span><a href="./test.action?case=testCase_datetimepicker">datetimepicker</a></span>
+    </div>
   </div>
   <script src="./offlinedev/js/jquery.min.js"></script>
   <script type="text/javascript">
