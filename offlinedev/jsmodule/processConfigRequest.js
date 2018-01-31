@@ -3,13 +3,22 @@ var pathutil = require('path');
 var requester = require('sync-request');
 var http = require('http');
 var unzip = require("unzip");
+var _ = require('lodash')
 var getConfig = require('./getConfig')
 
 var configJson = require('./getConfig').get()
 
 module.exports = {
     processPost: function (req, res, callback){
-
+        if(/^\/offlinedev\/getWebProjectInfo/.test(req.url)){
+            var webpath = pathutil.resolve(__dirname, "../../../apps-ingage-web/")
+            var branchName = getBranchName(webpath)
+            console.log(webpath, branchName)
+            callback({
+                branchName: branchName,
+                webpath: webpath
+            })
+        }
         if(/^\/offlinedev\/saveUserConfig/.test(req.url)){
             var caseName = req.body.caseName
             console.log(caseName)
@@ -49,4 +58,13 @@ var getUrlContent = function(url){
         console.log(furl) 
         var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
         return webresultText;
+};
+var getBranchName = function(prjPath){
+        var gitPath = prjPath + '/.git/'
+        if(!fs.existsSync(prjPath)) return '';
+        if(!fs.existsSync(gitPath)) return '';
+        var HEAD = fs.readFileSync(gitPath + 'HEAD','utf8');
+        HEAD = _.trim(HEAD)
+        var branchName = HEAD.replace('ref: refs/heads/', '');
+        return branchName;
 };

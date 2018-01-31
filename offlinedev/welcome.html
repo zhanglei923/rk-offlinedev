@@ -46,6 +46,9 @@
       margin-top: 7px;
       margin-left: 7px;
     }
+    .branchname{
+       color:blue;
+    }
 
 
     </style>
@@ -63,7 +66,8 @@
     <br>-去\\10.10.0.115\publicwebapp\offlinedev目录，用户名密码是developer/developer
     <br>-然后，点击下面的主页面入口：
   </div>
-  选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Use</button></span>
+  <span>当前调试分支：<span id="branchname" class="branchname"></span>，路径：<span id="webpath" class="branchname"></span></span>
+  <br>选择模拟数据：<span><select id="caseselect"></select><button id="download-btn" class="download-btn">Use</button></span>
   <span><a target="_blank" href="./index.action">首页</a></span>、
   <span style="display: none;"><a target="_blank" href="./index.action?isdeploy=true">首页（打包）</a></span>
   <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC设计器</a></span>、
@@ -104,6 +108,19 @@
                 })
                 $('#caseselect').html(html)
                 $('#caseselect').val(localStorage.getItem(ls_key))
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    $.ajax({
+            url: '/offlinedev/getWebProjectInfo/',
+            cache: false,
+            method: 'POST',
+            data: {},
+            success: function( response ) {
+              console.log(response)
+              $('#branchname').text(response.result.branchName)
+              $('#webpath').text(response.result.webpath)
             },
             error:function(ajaxObj,msg,err){
             }
