@@ -156,6 +156,7 @@ var isJsonAccept = function(accept, req){
     return returnJson;
 }
 
+exec.exec('git pull');
 //启动
 var server = httpServer.listen(PORT, function() {
     var host = server.address().address;
