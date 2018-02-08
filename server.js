@@ -11,6 +11,7 @@ var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
 var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
+var scriptLoader = require('./offlinedev/jsmodule/scriptLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/getConfig')
@@ -62,7 +63,6 @@ let getPageHtml = function(isdeploy, filename){
 var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 
 
-var updateJsContent = require('./offlinedev/jsmodule/updateJsContent')
 //全局拦截器
 app.use(function (req, res, next) {
     if(/\.js$/.test(req.path)) {
@@ -72,7 +72,7 @@ app.use(function (req, res, next) {
             var jscontent = fs.readFileSync(fpath, 'utf8'); 
             res.send(jscontent);    
         }else{
-            var jscontent = updateJsContent.update(req.path)
+            var jscontent = scriptLoader.update(req.path)
             jscontent ? res.send(jscontent) : res.sendStatus(404);;            
         }
         //next();
