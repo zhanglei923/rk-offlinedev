@@ -69,17 +69,12 @@ app.use(function (req, res, next) {
         if(/^\/offlinedev\//.test(req.path)){
             //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
             var fpath = pathutil.resolve(__dirname, '.'+req.path)
-            fs.readFile(fpath,'utf-8', function(err,jscontent){ 
-                if (err) throw err;
-                res.send(jscontent);   
-            })            
+            var jscontent = fs.readFileSync(fpath, 'utf8'); 
+            res.send(jscontent);    
         }else{
-            //对web工程目录的请求
-            updateJsContent.update(req.path, function(jscontent){
-                jscontent ? res.send(jscontent) : res.sendStatus(404);
-            })
-            return;
-        }   
+            var jscontent = updateJsContent.update(req.path)
+            jscontent ? res.send(jscontent) : res.sendStatus(404);;            
+        }
         //next();
         return;
         //res.send();
@@ -116,16 +111,8 @@ app.post('*',function(req, res){
     var data = getMockingData.getData(originalUrl, req)
     if(data){
         if(isJsonAccept(accept, req)){
-            if(typeof data === 'string') {
-                try{
-                    data = JSON.parse(data)
-                    res.json(data)
-                }catch(e){
-                    res.send(data);
-                }
-            }else{
-                res.json(data);
-            }
+            if(typeof data === 'string') data = JSON.parse(data)
+            res.json(data)
         }else{
             res.send(data);
         }
@@ -173,8 +160,8 @@ var isJsonAccept = function(accept, req){
     if(/^application/.test(accept) || req.is('application/*') || req.is('json'))returnJson = true;
     return returnJson;
 }
+console.log('Updating...')
 exec.exec('git pull');
-console.log('Updated')
 //启动
 var server = httpServer.listen(PORT, function() {
     var host = server.address().address;
