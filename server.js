@@ -65,31 +65,29 @@ var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {
+    if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.originalUrl)){
+        var fpath = pathutil.resolve(__dirname, '.'+req.path)
+        var jscontent = fs.readFileSync(fpath, 'utf8'); 
+        res.send(jscontent);
+        return;
+    }
+    if(req.originalUrl === '/'){
+        var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
+        res.send(html);
+        return;
+    }
     if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
-        if(/^\/offlinedev\//.test(req.path)){
-            //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
-            var fpath = pathutil.resolve(__dirname, '.'+req.path)
-            var jscontent = fs.readFileSync(fpath, 'utf8'); 
-            res.send(jscontent);    
-        }else if(/\.js$/.test(req.path)){
+        if(/\.js$/.test(req.path)){
             var jscontent = scriptLoader.update(req.path)
-            jscontent ? res.send(jscontent) : res.sendStatus(404);;            
+            jscontent ? res.send(jscontent) : res.sendStatus(404);; 
+            return;           
         }else{
             next()
         }
         //next();
         return;
         //res.send();
-    }else 
-    if(req.originalUrl === '/'){
-        //var html = getPageHtml(false, 'index.html');
-        var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
-        res.send(html);
-        //next();
-        return;
-        //res.redirect('/index.action');
     }
-    //if(/\.action$/ig.test(req.originalUrl))console.log(req.originalUrl)
     next();
 });
 //全局静态资源
@@ -113,8 +111,15 @@ app.post('*',function(req, res){
     var data = getMockingData.getData(originalUrl, req)
     if(data){
         if(isJsonAccept(accept, req)){
-            if(typeof data === 'string') data = JSON.parse(data)
-            res.json(data)
+            if(typeof data === 'string') {
+                try{
+                    data = JSON.parse(data)
+                    res.json(data)
+                }catch(e){
+                    console.log('notjson:', req.url)
+                    res.send(data)
+                }
+            }
         }else{
             res.send(data);
         }
@@ -151,8 +156,15 @@ app.get('*', function(req, res) {
         }
     }
     if(isJsonAccept(accept, req)){
-        if(typeof html === 'string') html = JSON.parse(html)
-        res.json(html)
+        if(typeof html === 'string') {
+            try{
+                html = JSON.parse(html)
+                res.json(html)
+            }catch(e){
+                console.log('notjson:', req.url)
+                res.send(html)
+            }
+        }
     }else{
         res.send(html);
     }
