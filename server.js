@@ -65,15 +65,17 @@ var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {
-    if(/\.js$/.test(req.path)) {
+    if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
         if(/^\/offlinedev\//.test(req.path)){
             //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
             var fpath = pathutil.resolve(__dirname, '.'+req.path)
             var jscontent = fs.readFileSync(fpath, 'utf8'); 
             res.send(jscontent);    
-        }else{
+        }else if(/\.js$/.test(req.path)){
             var jscontent = scriptLoader.update(req.path)
             jscontent ? res.send(jscontent) : res.sendStatus(404);;            
+        }else{
+            next()
         }
         //next();
         return;
