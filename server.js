@@ -175,16 +175,18 @@ var isJsonAccept = function(accept, req){
     if(/^application/.test(accept) || req.is('application/*') || req.is('json'))returnJson = true;
     return returnJson;
 }
-exec.exec('git pull');
-console.log('Updated.')
-//启动
-var server = httpServer.listen(PORT, function() {
-    var host = server.address().address;
-    var port = server.address().port;
-    
-    console.log('HTTP http://localhost:%s', port);
-    //exec.exec('start http://localhost:'+port);
-});
-httpsServer.listen(SSLPORT, function() {
-    console.log('HTTPS: https://localhost:%s', SSLPORT);
+console.log('Updating...')
+exec.exec('git pull', {}, function(){
+    console.log('Updated.')
+    //启动
+    var server = httpServer.listen(PORT, function() {
+        var host = server.address().address;
+        var port = server.address().port;
+        
+        console.log('HTTP http://localhost:%s', port);
+        //exec.exec('start http://localhost:'+port);
+    });
+    httpsServer.listen(SSLPORT, function() {
+        console.log('HTTPS: https://localhost:%s', SSLPORT);
+    });
 });
