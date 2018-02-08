@@ -22,6 +22,7 @@ var readFile = function(fpath){
 
     return data;
 }
+var canVisit115 = true;
 module.exports = {
     getData: function(actionname, req){
         //if(data_cache[actionname]) return data_cache[actionname]
@@ -33,16 +34,19 @@ module.exports = {
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
         var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'        
-        if(false)try{//test
-            //console.log(fpath)
-            var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
-            var data = requester('GET', furl, {timeout: 2000});   
-            //console.log(furl) 
-            var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
-            //console.log('webresultText', webresultText)
-        }catch(e){
-            console.log('115 is unable to contact')
-            return;
+        if(canVisit115){
+            try{//test
+                //console.log(fpath)
+                var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
+                var data = requester('GET', furl, {timeout: 2000});   
+                //console.log(furl) 
+                var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
+                //console.log('webresultText', webresultText)
+            }catch(e){
+                console.log('115 is unable to contact')
+                canVisit115 = false;
+                return null;
+            }
         }
         //return webresultText
         var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/'+fpath);
