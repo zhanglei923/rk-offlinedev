@@ -120,7 +120,7 @@
                 $('#caseselect').val(localStorage.getItem(ls_key))
             },
             error:function(ajaxObj,msg,err){
-              $('#caseselect').replaceWith('115 is out-of-service.')
+              $('#caseselect').replaceWith('<span style="color:red">115 is out-of-service.</span>')
               $('#download-btn').remove();
             },
             complete: function(){

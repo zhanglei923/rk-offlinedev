@@ -32,8 +32,8 @@ module.exports = {
         }
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
-        var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'
-        try{//test
+        var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'        
+        if(false)try{//test
             //console.log(fpath)
             var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
             var data = requester('GET', furl, {timeout: 2000});   
@@ -42,6 +42,7 @@ module.exports = {
             //console.log('webresultText', webresultText)
         }catch(e){
             console.log('115 is unable to contact')
+            return;
         }
         //return webresultText
         var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/'+fpath);
