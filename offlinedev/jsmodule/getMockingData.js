@@ -92,5 +92,33 @@ module.exports = {
             data: result
         }
         return JSON.stringify(result)
+    },
+    listActions: function(){
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions');
+
+        var results1 = []
+        var results2 = []
+        var list = fs.readdirSync(fullfilepath)
+        list.forEach(function(file) {
+            file = fullfilepath + '/' + file
+            var stat = fs.statSync(file)
+            if (stat && stat.isDirectory()) results1.push(file.substring(file))
+            if (stat && !stat.isDirectory()) results2.push(file.substring(file.indexOf('~~')))
+        })
+        return {
+            files: results2,
+            folders: results1
+        }
+    },
+    getActionContent: function(url){
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
+
+        var results1 = []
+        var results2 = []
+        var content = fs.readFileSync(fullfilepath, 'utf8')
+        //console.log(content)
+        return {
+            content: content
+        }
     }
 }

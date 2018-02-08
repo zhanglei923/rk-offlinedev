@@ -4,6 +4,11 @@ html, body{
 .actonlist-panel{
 	height: 200px;
 	width: 80%;
+	overflow: auto;
+}
+.actonlist-panel url{
+	height: 100%;
+	width: 100%;
 }
 .actioncontent-panel{
 	height: calc(100% - 200px);

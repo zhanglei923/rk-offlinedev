@@ -25,6 +25,16 @@ module.exports = {
             return 'done'
 
         }
+        if(/^\/offlinedev\/action\/list\//.test(req.originalUrl)){
+            var list = require('./getMockingData').listActions()
+            callback(list)
+            return 'done'
+        }
+        if(/^\/offlinedev\/action\/content\//.test(req.originalUrl)){
+            var list = require('./getMockingData').getActionContent(req.body.url)
+            callback(list)
+            return 'done'
+        }
         if(/^\/offlinedev\/syncCases/.test(req.url)){
             var caseName = req.body.caseName
             console.log(caseName)
