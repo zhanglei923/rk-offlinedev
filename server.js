@@ -69,15 +69,17 @@ app.use(function (req, res, next) {
         if(/^\/offlinedev\//.test(req.path)){
             //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
             var fpath = pathutil.resolve(__dirname, '.'+req.path)
-            var jscontent = fs.readFileSync(fpath, 'utf8'); 
             fs.readFile(fpath,'utf-8', function(err,jscontent){ 
                 if (err) throw err;
                 res.send(jscontent);   
             })            
         }else{
-            var jscontent = updateJsContent.update(req.path)
-            jscontent ? res.send(jscontent) : res.sendStatus(404);;            
-        }
+            //对web工程目录的请求
+            updateJsContent.update(req.path, function(jscontent){
+                jscontent ? res.send(jscontent) : res.sendStatus(404);
+            })
+            return;
+        }   
         //next();
         return;
         //res.send();
@@ -114,8 +116,16 @@ app.post('*',function(req, res){
     var data = getMockingData.getData(originalUrl, req)
     if(data){
         if(isJsonAccept(accept, req)){
-            if(typeof data === 'string') data = JSON.parse(data)
-            res.json(data)
+            if(typeof data === 'string') {
+                try{
+                    data = JSON.parse(data)
+                    res.json(data)
+                }catch(e){
+                    res.send(data);
+                }
+            }else{
+                res.json(data);
+            }
         }else{
             res.send(data);
         }
