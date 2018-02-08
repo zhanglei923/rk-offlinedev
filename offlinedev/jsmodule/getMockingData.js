@@ -95,27 +95,31 @@ module.exports = {
     },
     listActions: function(){
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions');
-
-        var results1 = []
-        var results2 = []
+        var results = []
         var list = fs.readdirSync(fullfilepath)
         list.forEach(function(file) {
             var shortpath = file;
             file = fullfilepath + '/' + file
             var stat = fs.statSync(file)
-            if (stat && stat.isDirectory()) results1.push(shortpath)
-            if (stat && !stat.isDirectory()) results2.push(shortpath)
+            if (stat && !stat.isDirectory()) results.push(shortpath)
+        })
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/platform_widgets');
+        var resultsComp = []
+        var list = fs.readdirSync(fullfilepath)
+        list.forEach(function(file) {
+            var shortpath = file;
+            file = fullfilepath + '/' + file
+            var stat = fs.statSync(file)
+            if (stat && !stat.isDirectory()) resultsComp.push(shortpath)
         })
         return {
-            files: results2,
-            folders: results1
+            files: results,
+            filesComp: resultsComp
         }
     },
     getActionContent: function(url){
+        if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
-
-        var results1 = []
-        var results2 = []
         var content = fs.readFileSync(fullfilepath, 'utf8')
         //console.log(content)
         return {

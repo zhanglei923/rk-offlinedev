@@ -1,9 +1,9 @@
 html, body{
-	height: 100%;
+	height: 99%;
 }
 .actonlist-panel{
-	height: 200px;
-	width: 60%;
+	height: 300px;
+	width: 700px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -14,13 +14,15 @@ html, body{
 .actonlist-panel .selected{
 	background-color: yellow;
 }
+.actonlist-panel .comp a{
+	background-color: #ded5b4;
+}
 .actioncontent-panel{
-	height: calc(100% - 200px);
+	height: calc(100% - 320px);
 	width: 100%;
-	background-color: red;
 }
 .actioncontent{
-	height: 100%;
+	height: 90%;
 	width: 100%;
 	color: #111;
 

@@ -4,17 +4,22 @@ $.ajax({
     method: 'POST',
     data: {},
     success: function( response ) {
-      renderList(response.result.files)
+      renderList(response.result)
     },
     error:function(ajaxObj,msg,err){
     }
 });
-let renderList = function (files){
+let renderList = function (result){
   let html = ''
-  files.forEach(path =>{
+  result.files.forEach(path =>{
     var nicknamepath = path+'';
     path = path.replace(/\~\~/g, '/');
     html += `<li nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a></li>`
+  });
+  result.filesComp.forEach(path =>{
+    var nicknamepath = path+'';
+    path = path.replace(/\.compdata/g, '');
+    html += `<li nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a></li>`
   });
   $('#actonlist').html(html)
   
