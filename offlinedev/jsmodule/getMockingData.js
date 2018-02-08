@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
+var requester = require('sync-request');
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -32,14 +33,15 @@ module.exports = {
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
         var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'
-        {//test
+        try{//test
             //console.log(fpath)
-            var requester = require('sync-request');
             var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
             var data = requester('GET', furl, {timeout: 2000});   
             //console.log(furl) 
             var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
             //console.log('webresultText', webresultText)
+        }catch(e){
+            console.log('115 is unable to contact')
         }
         //return webresultText
         var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/'+fpath);
