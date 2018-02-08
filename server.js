@@ -17,6 +17,7 @@ var getConfig = require('./offlinedev/jsmodule/getConfig')
 var credentials = {key: privateKey, cert: certificate};
 
 getConfig.initFiles();//初始化配置
+var webPath = pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
@@ -87,7 +88,7 @@ app.use(function (req, res, next) {
 });
 //全局静态资源
 //app.use('/', express.static(__dirname + '/'));
-app.use('/', express.static(pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')));
+app.use('/', express.static(webPath));
 
 app.post('*',function(req, res){
    var accept = req.headers.accept;

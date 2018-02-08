@@ -105,6 +105,7 @@
             jsonpCallback:"Callback",
             dataType: "jsonp",
             cache: false,
+            timeout: 2500,
             data: {},
             success: function( response ) {
                 console.log(response)
@@ -119,6 +120,11 @@
                 $('#caseselect').val(localStorage.getItem(ls_key))
             },
             error:function(ajaxObj,msg,err){
+              $('#caseselect').replaceWith('115 is out-of-service.')
+              $('#download-btn').remove();
+            },
+            complete: function(){
+              
             }
         });
     $.ajax({
