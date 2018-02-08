@@ -70,7 +70,10 @@ app.use(function (req, res, next) {
             //注意，这里使用next() 是没用的，因为根目录已经转接到了web工程下
             var fpath = pathutil.resolve(__dirname, '.'+req.path)
             var jscontent = fs.readFileSync(fpath, 'utf8'); 
-            res.send(jscontent);    
+            fs.readFile(fpath,'utf-8', function(err,jscontent){ 
+                if (err) throw err;
+                res.send(jscontent);   
+            })            
         }else{
             var jscontent = updateJsContent.update(req.path)
             jscontent ? res.send(jscontent) : res.sendStatus(404);;            
