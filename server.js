@@ -18,6 +18,10 @@ var credentials = {key: privateKey, cert: certificate};
 
 getConfig.initFiles();//初始化配置
 var webPath = pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')
+if(!fs.existsSync(webPath)){
+    console.error('FATAL ERROR: Folder not found:', pathutil.resolve(__dirname, '../apps-ingage-web'))
+    return;
+} 
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
