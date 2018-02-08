@@ -100,10 +100,11 @@ module.exports = {
         var results2 = []
         var list = fs.readdirSync(fullfilepath)
         list.forEach(function(file) {
+            var shortpath = file;
             file = fullfilepath + '/' + file
             var stat = fs.statSync(file)
-            if (stat && stat.isDirectory()) results1.push(file.substring(file))
-            if (stat && !stat.isDirectory()) results2.push(file.substring(file.indexOf('~~')))
+            if (stat && stat.isDirectory()) results1.push(shortpath)
+            if (stat && !stat.isDirectory()) results2.push(shortpath)
         })
         return {
             files: results2,

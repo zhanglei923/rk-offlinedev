@@ -14,12 +14,13 @@ let renderList = function (files){
   files.forEach(path =>{
     var nicknamepath = path+'';
     path = path.replace(/\~\~/g, '/');
-    html += `<li nicknamepath="${nicknamepath}"><span href="javascript:">${path}</span></li>`
+    html += `<li nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a></li>`
   });
   $('#actonlist').html(html)
   
 }
 let showActionContent = function(url){
+  $('#actioncontent').val('loading...')
   $.ajax({
     url: '/offlinedev/action/content/',
     cache: false,
@@ -35,7 +36,10 @@ let showActionContent = function(url){
 });
 }
 $(document).on( "click", "li[nicknamepath]", function() {
-  var nicknamepath = $(this).attr('nicknamepath')
+  var li = $(this)
+  li.addClass('selected');
+  li.siblings().removeClass('selected')
+  var nicknamepath = li.attr('nicknamepath')
   showActionContent(nicknamepath)
   console.log(nicknamepath)
 });
