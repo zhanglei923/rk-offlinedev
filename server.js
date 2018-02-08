@@ -68,6 +68,7 @@ app.use(function (req, res, next) {
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.originalUrl)){
         var fpath = pathutil.resolve(__dirname, '.'+req.path)
         var jscontent = fs.readFileSync(fpath, 'utf8'); 
+        if(/\.css$/.test(req.originalUrl))res.set('Content-Type', 'text/css; charset=UTF-8');
         res.send(jscontent);
         return;
     }

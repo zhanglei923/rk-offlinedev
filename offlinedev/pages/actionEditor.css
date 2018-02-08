@@ -1,0 +1,18 @@
+html, body{
+	height: 100%;
+}
+.actonlist-panel{
+	height: 200px;
+	width: 80%;
+}
+.actioncontent-panel{
+	height: calc(100% - 200px);
+	width: 100%;
+	background-color: red;
+}
+.actioncontent{
+	height: 100%;
+	width: 100%;
+	color: #111;
+
+}
