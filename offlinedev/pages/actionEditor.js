@@ -67,7 +67,8 @@ let showActionContent = function(url, realpath){
     cache: false,
     method: 'POST',
     data: {
-      url: url
+      url: url,
+      prettify: true
     },
     success: function( response ) {
       $('#pathInput').val(realpath)

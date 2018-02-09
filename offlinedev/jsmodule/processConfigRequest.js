@@ -31,7 +31,7 @@ module.exports = {
             return 'done'
         }
         if(/^\/offlinedev\/action\/content\//.test(req.originalUrl)){
-            var list = require('./getMockingData').getActionContent(req.body.url)
+            var list = require('./getMockingData').getActionContent(req.body.url, req.body.prettify)
             callback(list)
             return 'done'
         }

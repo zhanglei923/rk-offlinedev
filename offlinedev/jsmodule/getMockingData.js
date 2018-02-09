@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
 var requester = require('sync-request');
+var jsonformatter = require('format-json');
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -117,11 +118,17 @@ module.exports = {
             filesComp: resultsComp
         }
     },
-    getActionContent: function(url){
+    getActionContent: function(url, prettify){
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
         var content = fs.readFileSync(fullfilepath, 'utf8')
         //console.log(content)
+        if(prettify){
+            try{
+                content = jsonformatter.diffy(JSON.parse(content))
+            }catch(e){
+            }
+        }
         return {
             content: content
         }

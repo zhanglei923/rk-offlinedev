@@ -176,8 +176,12 @@ var isJsonAccept = function(accept, req){
     return returnJson;
 }
 console.log('Updating...')
-exec.exec('git pull', {}, function(){
-    console.log('Updated.')
+exec.exec('git pull', {
+        timeout: 10*1000
+    }, (error, stdout, stderr) => {
+    console.log(`${stderr}`);
+    console.log(`${stdout}`);
+    console.log('----------')
     //启动
     var server = httpServer.listen(PORT, function() {
         var host = server.address().address;
