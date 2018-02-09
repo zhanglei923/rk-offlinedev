@@ -40,7 +40,7 @@ let filter_path = function(val){
       show ? li.show() : li.hide()
       show ? pathcount++ : null;
     })
-  $('#pathcount').text(pathcount)
+  $('#pathcount').text('Total: '+pathcount)
 }
 let renderList = function (result){
   let html = ''
@@ -58,7 +58,7 @@ let renderList = function (result){
     html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a></li>`
   });
   $('#actonlist').html(html)
-  $('#pathcount').text(pathcount)
+  $('#pathcount').text('Total: '+pathcount)
 }
 let showActionContent = function(url, realpath){
   $('#actioncontent').val('loading...')

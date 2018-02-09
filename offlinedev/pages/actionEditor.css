@@ -11,8 +11,8 @@ html, body{
 	overflow-y: auto;
 	overflow-x: hidden;
 }
-.actonlist-panel .pathfilterinput{
-	width: 80%;
+.pathfilterinput{
+	width: 670px;
 }
 .actonlist-panel ul{
 	height: 100%;
