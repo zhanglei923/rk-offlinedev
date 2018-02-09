@@ -25,9 +25,10 @@ let filter_path = function(val){
   var arr = val.split(/\s/)
       
   var lval = val ? val.toLowerCase() : ''
+  var pathcount=0
   $('#actonlist').find('>li').each(function(){
       var li = $(this)
-      var text = li.text().toLowerCase()
+      var text = li.attr('realpath').toLowerCase()
       var show = true;
       arr.forEach(function(key){
           if(text.indexOf(key)>= 0){
@@ -37,22 +38,27 @@ let filter_path = function(val){
          }
       })
       show ? li.show() : li.hide()
+      show ? pathcount++ : null;
     })
+  $('#pathcount').text(pathcount)
 }
 let renderList = function (result){
   let html = ''
+  let pathcount = 0;
   result.files.forEach(path =>{
+    pathcount++
     var nicknamepath = path+'';
     path = path.replace(/\~\~/g, '/');
-    html += `<li nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a></li>`
+    html += `<li realpath="${path}" nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a></li>`
   });
   result.filesComp.forEach(path =>{
+    pathcount++
     var nicknamepath = path+'';
     path = path.replace(/\.compdata/g, '');
-    html += `<li nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a></li>`
+    html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a></li>`
   });
   $('#actonlist').html(html)
-  
+  $('#pathcount').text(pathcount)
 }
 let showActionContent = function(url, realpath){
   $('#actioncontent').val('loading...')
