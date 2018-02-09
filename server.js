@@ -192,5 +192,6 @@ exec.exec('git pull', {
     });
     httpsServer.listen(SSLPORT, function() {
         console.log('HTTPS: https://localhost:%s', SSLPORT);
+        console.log('----------')
     });
 });
