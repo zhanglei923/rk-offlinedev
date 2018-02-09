@@ -118,19 +118,18 @@ module.exports = {
             filesComp: resultsComp
         }
     },
-    getActionContent: function(url, prettify){
+    getActionContent: function(url){
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
         var content = fs.readFileSync(fullfilepath, 'utf8')
-        //console.log(content)
-        if(prettify){
-            try{
-                content = jsonformatter.diffy(JSON.parse(content))
-            }catch(e){
-            }
+        var prettifycontent = content;
+        try{
+            prettifycontent = jsonformatter.diffy(JSON.parse(content))
+        }catch(e){
         }
         return {
-            content: content
+            content: content,
+            prettifycontent: prettifycontent
         }
     }
 }

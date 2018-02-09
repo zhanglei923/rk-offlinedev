@@ -67,12 +67,13 @@ let showActionContent = function(url, realpath){
     cache: false,
     method: 'POST',
     data: {
-      url: url,
-      prettify: true
+      url: url
     },
     success: function( response ) {
       $('#pathInput').val(realpath)
-      $('#actioncontent').val(response.result.content)
+      $('#actioncontent').val(
+        $('#prettify').prop('checked') ? response.result.prettifycontent : response.result.content
+      )
     }
 });
 }

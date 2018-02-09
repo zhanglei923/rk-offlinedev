@@ -1,5 +1,9 @@
 html, body{
 	height: 99%;
+	font-size: 14px;
+}
+body{
+	padding-left: 10px;
 }
 *{
 	margin: 0;
