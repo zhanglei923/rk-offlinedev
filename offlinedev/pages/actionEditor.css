@@ -1,6 +1,6 @@
 html, body{
 	height: 99%;
-	font-size: 14px;
+	font-size: 15px;
 }
 body{
 	padding-left: 10px;
@@ -9,9 +9,13 @@ body{
 	margin: 0;
 	padding: 0;
 }
+.editor{
+	width:50%;
+	height: 98%;
+}
 .actonlist-panel{
 	height: 300px;
-	width: 700px;
+	width: 100%;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -22,11 +26,26 @@ body{
 	height: 100%;
 	width: 100%;
 }
+.actonlist-panel ul a{
+	text-decoration:none
+}
 .actonlist-panel .selected{
 	background-color: yellow;
 }
 .actonlist-panel .mouseover{
 	background-color: #eee;
+}
+.actonlist-panel .toolbar{
+	float: right;
+	display: inline;
+	display:none;
+}
+.actonlist-panel .toolbar a{
+	color: red;
+}
+.actonlist-panel .mouseover .toolbar{
+	display:block;
+	display: inline;
 }
 .actonlist-panel .comp a{
 	background-color: #f9f3a9;
@@ -39,7 +58,7 @@ body{
 	overflow-x: hidden;
 }
 .editor-panel .pathInput{
-	width: 700px;
+	width: 540px;
 }
 .actioncontent-panel{
 	height: calc(100% - 338px);
@@ -47,7 +66,7 @@ body{
 }
 .actioncontent{
 	height: 99%;
-	width: 98%;
+	width: 100%;
 	color: #111;
 
 }

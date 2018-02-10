@@ -31,7 +31,7 @@ let initEvents = function(){
         li.addClass('selected');
         li.siblings().removeClass('selected')
         var nicknamepath = li.attr('nicknamepath')
-        var realpath = li.text()
+        var realpath = li.attr('realpath')
         showActionContent(nicknamepath, realpath)
         console.log(nicknamepath)
     });
@@ -71,13 +71,23 @@ let renderList = function (result){
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a></li>`
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a>
+               <div class="toolbar">
+                <a href="javascript:">+Schema</a>
+                <a href="javascript:">Use</a>
+                </div>
+                </li>`
   });
   result.filesComp.forEach(path =>{
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\.compdata/g, '');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a></li>`
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a>
+               <div class="toolbar">
+                <a href="javascript:">+Schema</a>
+                <a href="javascript:">Use</a>
+                </div>
+      </li>`
   });
   $('#actonlist').html(html)
   $('#pathcount').text('Total: '+pathcount)

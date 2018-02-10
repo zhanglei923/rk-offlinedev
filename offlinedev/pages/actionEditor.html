@@ -7,9 +7,10 @@
     <script src="/offlinedev/pages/actionEditor.js"></script>
 </head>
 <body>
-        <input type="text" id="pathfilterinput" class="pathfilterinput" placeholder="Filter path here">
-        <span id="pathcount"></span>
-        <input type="checkbox" name="" id="prettify" checked="true">Prettify
+    <div class="editor">
+    <input type="text" id="pathfilterinput" class="pathfilterinput" placeholder="Filter path here">
+    <span id="pathcount"></span>
+    <input type="checkbox" name="" id="prettify" checked="true">Prettify
     <div class="actonlist-panel">
         <ul id="actonlist">
         </ul>
@@ -17,13 +18,11 @@
     <div class="editor-panel">
         <input type="text" id="pathInput" class="pathInput" placeholder="Action url">
         <button id="btnsave">SAVE</button>
-        <button id="btncreate">CREATE</button>
-        |SCHEMA
-        <button id="btnschema">GENERATOR</button>
-        <button id="btnvalidate">VALIDATE</button>
+        <button id="btncreate">&nbsp;+&nbsp;</button>
     </div>
     <div class="actioncontent-panel">
-        <textarea id="actioncontent" class="actioncontent" placeholder="Action content"></textarea>
+        <textarea id="actioncontent" class="actioncontent" placeholder="Json content"></textarea>
+    </div>
     </div>
 </body>
 </html>
