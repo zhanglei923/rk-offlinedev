@@ -72,6 +72,7 @@ app.use(function (req, res, next) {
         res.send(jscontent);
         return;
     }
+    res.set('About-rk-offlinedev', 'This Is Mocking Data!');
     if(req.originalUrl === '/'){
         var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
         res.send(html);
