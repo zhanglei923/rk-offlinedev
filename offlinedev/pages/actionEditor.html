@@ -7,22 +7,25 @@
     <script src="/offlinedev/pages/actionEditor.js"></script>
 </head>
 <body>
-    <div class="editor">
-    <input type="text" id="pathfilterinput" class="pathfilterinput" placeholder="Filter path here">
-    <span id="pathcount"></span>
-    <input type="checkbox" name="" id="prettify" checked="true">Prettify
-    <div class="actonlist-panel">
-        <ul id="actonlist">
-        </ul>
+    <div class="leftpanel">
+        <input type="text" id="pathfilterinput" class="pathfilterinput" placeholder="Filter path here">
+        <span id="pathcount"></span>
+        <input type="checkbox" name="" id="prettify" checked="true">Prettify
+        <div class="actonlist-panel">
+            <ul id="actonlist">
+            </ul>
+        </div>
+        <div class="editor-panel">
+            <input type="text" id="pathInput" class="pathInput" placeholder="Action url">
+            <button id="btnsave">Save</button>
+            <button id="btncreate">&nbsp;Clear&nbsp;</button>
+        </div>
+        <div class="actioncontent-panel">
+            <textarea id="actioncontent" class="actioncontent" placeholder="Json content"></textarea>
+        </div>
     </div>
-    <div class="editor-panel">
-        <input type="text" id="pathInput" class="pathInput" placeholder="Action url">
-        <button id="btnsave">Save</button>
-        <button id="btncreate">&nbsp;Clear&nbsp;</button>
-    </div>
-    <div class="actioncontent-panel">
-        <textarea id="actioncontent" class="actioncontent" placeholder="Json content"></textarea>
-    </div>
+    <div class="rightpanel">
+
     </div>
 </body>
 </html>

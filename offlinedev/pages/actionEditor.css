@@ -9,9 +9,16 @@ body{
 	margin: 0;
 	padding: 0;
 }
-.editor{
-	width:50%;
+.leftpanel{
+	width:700px;
 	height: 98%;
+	float:left;
+}
+.rightpanel{
+	width:calc(100% - 700px);
+	height: 98%;
+	float:left;
+	background-color: #e5f7e3;
 }
 .actonlist-panel{
 	height: 300px;
@@ -20,7 +27,7 @@ body{
 	overflow-x: hidden;
 }
 .pathfilterinput{
-	width: 670px;
+	width: 100%;
 }
 .actonlist-panel ul{
 	height: 100%;
@@ -58,7 +65,7 @@ body{
 	overflow-x: hidden;
 }
 .editor-panel .pathInput{
-	width: 540px;
+	width: 508px;
 }
 .actioncontent-panel{
 	height: calc(100% - 338px);
