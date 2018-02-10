@@ -35,29 +35,30 @@ module.exports = {
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
         var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'        
-        if(canVisit115){
-            try{//test
-                //console.log(fpath)
-                var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
-                var data = requester('GET', furl, {timeout: 1500});   
-                //console.log(furl) 
-                var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
-                //console.log('webresultText', webresultText)
-            }catch(e){
-                console.log('115 is unable to contact')
-                canVisit115 = false;
-                return null;
-            }
-        }
-        //return webresultText
-        var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/'+fpath);
-        //console.log('fullfilepath: ', fullfilepath)
+        // if(canVisit115){
+        //     try{//test
+        //         //console.log(fpath)
+        //         var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
+        //         var data = requester('GET', furl, {timeout: 1500});   
+        //         //console.log(furl) 
+        //         var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
+        //         //console.log('webresultText', webresultText)
+        //     }catch(e){
+        //         console.log('115 is unable to contact')
+        //         canVisit115 = false;
+        //         return null;
+        //     }
+        // }
+        // return webresultText
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/actions/'+fpath);
         if (!fs.existsSync(fullfilepath)) {
-            fullfilepath = pathutil.resolve(__dirname, '../mocking/'+fpath);
+            fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/'+fpath);
             if (!fs.existsSync(fullfilepath)) {
                 fullfilepath =  pathutil.resolve(__dirname, '../mocking/actions/' + actionname + '.action')
             }
         }
+        var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
+        if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath
         if (!fs.existsSync(fullfilepath)) {
             return null;
         } else {
@@ -121,6 +122,8 @@ module.exports = {
     getActionContent: function(url){
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
+        var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
+        if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath
         var content = fs.readFileSync(fullfilepath, 'utf8')
         var prettifycontent = content;
         try{

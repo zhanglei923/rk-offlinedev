@@ -104,6 +104,10 @@ var doValidateSubmit = function(url, content) {
     alert('null url')
     return false;
   }
+  if(!/^\//.test(url)) {
+    alert('url without prefix "/"')
+    return false;
+  }
   if(!content) {
     alert('null content')
     return false;
