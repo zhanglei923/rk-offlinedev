@@ -153,7 +153,11 @@ app.get('*', function(req, res) {
         var data = getMockingData.getData(originalUrl, req)
         if(data || /\/json\//g.test(originalUrl)){
             html = data;
-            if(!data) console.log('no-file', originalUrl)
+            if(!data) {
+                console.log('no-file', originalUrl)
+                res.sendStatus(404)
+                return;
+            }
         }
     }
     if(isJsonAccept(accept, req)){
