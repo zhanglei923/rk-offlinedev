@@ -15,9 +15,12 @@ var scriptLoader = require('./offlinedev/jsmodule/scriptLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/getConfig')
+var localStatus = require('./offlinedev/jsmodule/localStatus')
 var credentials = {key: privateKey, cert: certificate};
 
 getConfig.initFiles();//初始化配置
+localStatus.init();
+
 var webPath = pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')
 if(!fs.existsSync(webPath)){
     console.error('FATAL ERROR: Folder not found:', pathutil.resolve(__dirname, '../apps-ingage-web'))
@@ -156,6 +159,9 @@ app.get('*', function(req, res) {
             html = data;
             if(!data) {
                 console.log('no-file', originalUrl)
+                var nofileUrls = localStatus.get('nofileUrls') ? localStatus.get('nofileUrls') : [];
+                nofileUrls.push(originalUrl)
+                localStatus.set('nofileUrls', _.uniq(nofileUrls))
                 res.sendStatus(404)
                 return;
             }
