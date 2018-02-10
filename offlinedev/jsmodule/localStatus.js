@@ -18,7 +18,7 @@ module.exports = {
     },
     set: function(name, value){
         config[name] = value;
-        console.log(name, value)
+        //console.log(name, value)
         fs.writeFileSync(configpath, JSON.stringify(config));
     },
     get: function(name){
