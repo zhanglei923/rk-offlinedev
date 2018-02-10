@@ -25,6 +25,9 @@ body{
 .actonlist-panel .selected{
 	background-color: yellow;
 }
+.actonlist-panel .mouseover{
+	background-color: #eee;
+}
 .actonlist-panel .comp a{
 	background-color: #f9f3a9;
 }

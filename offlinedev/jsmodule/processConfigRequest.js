@@ -35,6 +35,13 @@ module.exports = {
             callback(list)
             return 'done'
         }
+        if(/^\/offlinedev\/action\/save\//.test(req.originalUrl)){
+            var result = require('./saveMockingData').saveAction(req.body.url, req.body.content)
+            callback({
+                result: result
+            })
+            return 'done'
+        }
         if(/^\/offlinedev\/syncCases/.test(req.url)){
             var caseName = req.body.caseName
             console.log(caseName)

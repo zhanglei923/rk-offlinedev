@@ -39,7 +39,7 @@ module.exports = {
             try{//test
                 //console.log(fpath)
                 var furl = 'http://10.10.0.115/public/offlinedev/mocking/' + fpath
-                var data = requester('GET', furl, {timeout: 2000});   
+                var data = requester('GET', furl, {timeout: 1500});   
                 //console.log(furl) 
                 var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
                 //console.log('webresultText', webresultText)
