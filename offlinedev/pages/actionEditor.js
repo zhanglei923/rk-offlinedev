@@ -124,7 +124,12 @@ let showActionContent = function(url, realpath, is404){
           var opt = $(this)[0]
           if(opt.is404){
               $('#pathInput').val(realpath)
-              $('#actioncontent').val('<This mocking data does not exist!>')
+              $('#actioncontent').val(
+                ' >This mocking data does not exist!\n'+
+                ' >You can:\n'+
+                '   1. Put json content here and click [Save] to save.\n'+
+                '   2. Or, click [Sync from 115] to download from server115(N/A)\n'
+                )
           }
       }
   });
