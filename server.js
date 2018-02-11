@@ -131,7 +131,8 @@ app.post('*',function(req, res){
         //(req.is('application/*') || req.is('json')) ? res.json(JSON.parse(data)) : res.send((data));
         //res.json(JSON.parse(data)) 
     }else{
-        res.send('can_not_find_action_data');
+        localStatus.record404Actions(originalUrl)
+        res.sendStatus(404)
     }
 })
 
@@ -158,10 +159,7 @@ app.get('*', function(req, res) {
         if(data || /\/json\//g.test(originalUrl)){
             html = data;
             if(!data) {
-                console.log('no-file', originalUrl)
-                var nofileUrls = localStatus.get('nofileUrls') ? localStatus.get('nofileUrls') : [];
-                nofileUrls.push(originalUrl)
-                localStatus.set('nofileUrls', _.uniq(nofileUrls))
+                localStatus.record404Actions(originalUrl)
                 res.sendStatus(404)
                 return;
             }
