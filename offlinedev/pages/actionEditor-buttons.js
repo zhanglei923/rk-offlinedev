@@ -25,7 +25,7 @@ let filter_path = function(val){
 let handleSaveClick = function(){
     var url = $('#pathInput').val()
     var content = $('#actioncontent').val()
-    if(!doValidateSubmit(url, content)){
+    if(!doTestActionJson(url, content)){
       return;
     }
     $.ajax({
@@ -43,8 +43,11 @@ let handleSaveClick = function(){
     });
 }
 let handleTestClick = function(){
-    alert('test')
+    var url = $('#pathInput').val()
+    var content = $('#actioncontent').val()
+    var succ = doTestActionJson(url, content)
+    if(succ) alert('json is OK')
 }
 let handleSync115Click = function(){
-    alert('handleSync115Click')
+    alert('N/A')
 }
