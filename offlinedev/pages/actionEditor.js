@@ -33,7 +33,7 @@ let initEvents = function(){
         var nicknamepath = li.attr('nicknamepath')
         var realpath = li.attr('realpath')
         showActionContent(nicknamepath, realpath, li.hasClass('action404'))
-        console.log(nicknamepath)
+        //console.log(nicknamepath)
     });
     $(document).on( "mouseover", "li[nicknamepath]", function() {
         var li = $(this)
