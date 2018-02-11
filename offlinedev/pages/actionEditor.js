@@ -70,8 +70,9 @@ let renderList = function (result){
   result.files404.forEach(path =>{
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="action404">
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="actionurl action404">
                   <input type="checkbox">
+                  <span class="tag">404</span>
                   <a href="javascript:">${path}</a>
                 </li>`
   });
@@ -79,8 +80,9 @@ let renderList = function (result){
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}">
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="actionurl">
                   <input type="checkbox">
+                  <span class="tag">Local</span>
                   <a href="javascript:">${path}</a>
                   <div class="toolbar">
                     <a href="javascript:">+Schema</a>
@@ -92,13 +94,14 @@ let renderList = function (result){
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\.compdata/g, '');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp">
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="actionurl comp">
                   <input type="checkbox">
-                <a href="javascript:">控件：${path}</a>
-                <div class="toolbar">
+                  <span class="tag">Local</span>
+                  <a href="javascript:">${path}</a>
+                  <div class="toolbar">
                     <a href="javascript:">+Schema</a>
                     <a href="javascript:">Use</a>
-                </div>
+                  </div>
       </li>`
   });
   $('#actonlist').html(html)

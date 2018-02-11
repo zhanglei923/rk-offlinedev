@@ -33,8 +33,19 @@ body{
 	height: 100%;
 	width: 100%;
 }
+.actonlist-panel .actionurl .tag{
+	font-size: 11px;
+	border: 1px solid #cacaf9;
+	background-color: #e7fff5;
+	margin-right: 1px;
+	padding: 0 1px 0 2px;
+}
 .actonlist-panel .action404 a{
-	color:red;
+	color:#e64949;
+}
+.actonlist-panel .action404 .tag{
+	border: 1px solid #ff9f66;
+	background-color: #f5cbcb;
 }
 .actonlist-panel ul a{
 	text-decoration:none
@@ -44,6 +55,9 @@ body{
 }
 .actonlist-panel .mouseover{
 	background-color: #eee;
+}
+.actonlist-panel .mouseover .toolbar{
+	background-color: #eee;	
 }
 .actonlist-panel .toolbar{
 	float: right;
