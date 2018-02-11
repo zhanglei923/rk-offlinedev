@@ -17,7 +17,13 @@ module.exports = {
         if(jsContent){
             cache[path] = jsContent;
             //console.log(fs.existsSync(fullfilepath), fullfilepath)
-            return jsContent+'\n//mocked-js';            
+            jsContent =   ''
+                        +   jsContent
+                        + '\n/****'
+                        + '\n Powered by rk-offlinedev:'
+                        + '\n   https://github.com/zhanglei923/rk-offlinedev'
+                        + '\n****/'
+            return jsContent;
         }else{
             return null;
         }
