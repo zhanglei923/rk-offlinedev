@@ -1,6 +1,6 @@
 {
   "name": "rk-offlinedev",
-  "version": "1.0.0",
+  "version": "0.3.0",
   "description": "",
   "main": "server.js",
   "dependencies": {
@@ -26,7 +26,7 @@
     "type": "git",
     "url": "git+https://github.com/zhanglei923/rk-offlinedev.git"
   },
-  "author": "",
+  "author": "zhanglei923",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/zhanglei923/rk-offlinedev/issues"
