@@ -51,10 +51,11 @@ var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 app.use('/', express.static(webPath));
 //全局拦截器
 app.use(function (req, res, next) {
-    if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.originalUrl)){
+    if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
         var fpath = pathutil.resolve(__dirname, '.'+req.path)
         var jscontent = fs.readFileSync(fpath, 'utf8'); 
-        if(/\.css$/.test(req.originalUrl))res.set('Content-Type', 'text/css; charset=UTF-8');
+        if(/\.css$/.test(req.path))res.set('Content-Type', 'text/css; charset=UTF-8');
+        if(/\.js$/.test(req.path))res.set('Content-Type', 'text/javascript; charset=UTF-8');
         res.send(jscontent);
         return;
     }
