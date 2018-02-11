@@ -27,7 +27,7 @@ body{
 	overflow-x: hidden;
 }
 .pathfilterinput{
-	width: 100%;
+	width: 400px;
 }
 .actonlist-panel ul{
 	height: 100%;
