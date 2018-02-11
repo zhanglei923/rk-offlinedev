@@ -47,8 +47,6 @@ app.all('*', function(req, res, next) {
 var webProject = 'apps-ingage-web'
 var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 
-//全局静态资源
-app.use('/', express.static(webPath));
 //全局拦截器
 app.use(function (req, res, next) {
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
@@ -79,6 +77,8 @@ app.use(function (req, res, next) {
     }
     next();
 });
+//静态资源转接到web
+app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;
