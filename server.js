@@ -44,28 +44,11 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-let getPageHtml = function(isdeploy, filename){
-    if(isdeploy) filename = filename.replace(/\.html$/, '.deploy.html')
-    var fpath = pathutil.resolve(__dirname, './offlinedev/mocking-default/pages/'+ filename);
-    if(!fs.existsSync(fpath)){
-        fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
-        if(!fs.existsSync(fpath)){
-            var page404 = fs.readFileSync(pathutil.resolve(__dirname, './offlinedev/pages/file-not-exist.tmpl'), 'utf8')
-            var template = Handlebars.compile(page404);
-            var html404 = template({fpath: fpath});
-            return html404
-        }
-    }
-    var html = fs.readFileSync(fpath, 'utf8');
-    html = updateStaticsUrl.updateHtml(html);
-    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/mocking-default/session.mock', 'utf8');
-    //注入标志和辅助性的js文件
-    html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
-    return html;
-}
+var webProject = 'apps-ingage-web'
 var getMockingData = require('./offlinedev/jsmodule/getMockingData')
 
-
+//全局静态资源
+app.use('/', express.static(webPath));
 //全局拦截器
 app.use(function (req, res, next) {
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.originalUrl)){
@@ -95,14 +78,9 @@ app.use(function (req, res, next) {
     }
     next();
 });
-//全局静态资源
-//app.use('/', express.static(__dirname + '/'));
-app.use('/', express.static(webPath));
-
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;
-
     if(/^\/offlinedev\//.test(req.url)){
         var result = require('./offlinedev/jsmodule/processConfigRequest').processPost(req, res, function(data){
             res.json({
@@ -112,7 +90,6 @@ app.post('*',function(req, res){
         })
         return;
     }
-
     var data = getMockingData.getData(originalUrl, req)
     if(data){
         if(isJsonAccept(accept, req)){
@@ -135,8 +112,6 @@ app.post('*',function(req, res){
         res.sendStatus(404)
     }
 })
-
-var webProject = 'apps-ingage-web'
 //action转接
 app.get('*', function(req, res) {
    var html = 'unknown page.'
@@ -179,6 +154,25 @@ app.get('*', function(req, res) {
         res.send(html);
     }
 });
+let getPageHtml = function(isdeploy, filename){
+    if(isdeploy) filename = filename.replace(/\.html$/, '.deploy.html')
+    var fpath = pathutil.resolve(__dirname, './offlinedev/mocking-default/pages/'+ filename);
+    if(!fs.existsSync(fpath)){
+        fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
+        if(!fs.existsSync(fpath)){
+            var page404 = fs.readFileSync(pathutil.resolve(__dirname, './offlinedev/pages/file-not-exist.tmpl'), 'utf8')
+            var template = Handlebars.compile(page404);
+            var html404 = template({fpath: fpath});
+            return html404
+        }
+    }
+    var html = fs.readFileSync(fpath, 'utf8');
+    html = updateStaticsUrl.updateHtml(html);
+    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/mocking-default/session.mock', 'utf8');
+    //注入标志和辅助性的js文件
+    html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
+    return html;
+}
 var isJsonAccept = function(accept, req){
     var returnJson = false;
     if(/^application/.test(accept) || req.is('application/*') || req.is('json'))returnJson = true;
