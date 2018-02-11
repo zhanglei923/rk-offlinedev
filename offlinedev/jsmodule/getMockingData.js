@@ -3,6 +3,7 @@ var pathutil = require('path');
 var _ = require('lodash')
 var requester = require('sync-request');
 var jsonformatter = require('format-json');
+var localStatus = require('./localStatus')
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -114,7 +115,11 @@ module.exports = {
             var stat = fs.statSync(file)
             if (stat && !stat.isDirectory()) resultsComp.push(shortpath)
         })
+        var listof404 = localStatus.get('nofileUrls')
+        listof404 = listof404 ? listof404 : [];
+
         return {
+            files404: listof404,
             files: results,
             filesComp: resultsComp
         }

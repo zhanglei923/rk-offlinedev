@@ -33,6 +33,9 @@ body{
 	height: 100%;
 	width: 100%;
 }
+.actonlist-panel .action404 a{
+	color:red;
+}
 .actonlist-panel ul a{
 	text-decoration:none
 }

@@ -32,7 +32,7 @@ let initEvents = function(){
         li.siblings().removeClass('selected')
         var nicknamepath = li.attr('nicknamepath')
         var realpath = li.attr('realpath')
-        showActionContent(nicknamepath, realpath)
+        showActionContent(nicknamepath, realpath, li.hasClass('action404'))
         console.log(nicknamepath)
     });
     $(document).on( "mouseover", "li[nicknamepath]", function() {
@@ -67,37 +67,50 @@ let filter_path = function(val){
 let renderList = function (result){
   let html = ''
   let pathcount = 0;
+  result.files404.forEach(path =>{
+      var nicknamepath = path+'';
+      path = path.replace(/\~\~/g, '/');
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="action404">
+                  <a href="javascript:">${path}</a>
+                  <div class="toolbar">
+                    <a href="javascript:">+Add</a>
+                  </div>
+                </li>`
+  });
   result.files.forEach(path =>{
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}"><a href="javascript:">${path}</a>
-               <div class="toolbar">
-                <a href="javascript:">+Schema</a>
-                <a href="javascript:">Use</a>
-                </div>
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}">
+                  <a href="javascript:">${path}</a>
+                  <div class="toolbar">
+                    <a href="javascript:">+Schema</a>
+                    <a href="javascript:">Use</a>
+                  </div>
                 </li>`
   });
   result.filesComp.forEach(path =>{
       pathcount++
       var nicknamepath = path+'';
       path = path.replace(/\.compdata/g, '');
-      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp"><a href="javascript:">控件：${path}</a>
-               <div class="toolbar">
-                <a href="javascript:">+Schema</a>
-                <a href="javascript:">Use</a>
+      html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp">
+                <a href="javascript:">控件：${path}</a>
+                <div class="toolbar">
+                    <a href="javascript:">+Schema</a>
+                    <a href="javascript:">Use</a>
                 </div>
       </li>`
   });
   $('#actonlist').html(html)
   $('#pathcount').text('Total: '+pathcount)
 }
-let showActionContent = function(url, realpath){
+let showActionContent = function(url, realpath, is404){
   $('#actioncontent').val('loading...')
   $.ajax({
       url: '/offlinedev/action/content/',
       cache: false,
       method: 'POST',
+      is404: is404,
       data: {
           url: url
       },
@@ -106,6 +119,13 @@ let showActionContent = function(url, realpath){
           $('#actioncontent').val(
             $('#prettify').prop('checked') ? response.result.prettifycontent : response.result.content
           )
+      },
+      error: function(){
+          var opt = $(this)[0]
+          if(opt.is404){
+              $('#pathInput').val(realpath)
+              $('#actioncontent').val('<This mocking data does not exist!>')
+          }
       }
   });
 }
