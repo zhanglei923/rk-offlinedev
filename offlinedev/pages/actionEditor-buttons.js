@@ -19,7 +19,7 @@ let filter_path = function(val){
       show ? li.show() : li.hide()
       show ? pathcount++ : null;
     })
-  $('#pathcount').text('Total: '+pathcount)
+  updateTotal(pathcount, 0)
 }
 
 let handleSaveClick = function(){

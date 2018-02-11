@@ -49,9 +49,11 @@ let initEvents = function(){
 }
 let renderList = function (result){
   let html = ''
+  let path404count = 0;
   let pathcount = 0;
   result.files404.forEach(path =>{
       var nicknamepath = path+'';
+      path404count++
       path = path.replace(/\~\~/g, '/');
       html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="actionurl action404">
                   <input type="checkbox">
@@ -87,8 +89,11 @@ let renderList = function (result){
                   </div>
       </li>`
   });
-  $('#actonlist').html(html)
-  $('#pathcount').text('Total: '+pathcount)
+  $('#actonlist').html(html)  
+  updateTotal(pathcount, path404count)
+}
+let updateTotal = function(pathcount, path404count){
+  $('#pathcount').html(`Total: <span class="totalcount totalcount404">${path404count}</span><span class="totalcount">${pathcount}</span>`)
 }
 let showActionContent = function(url, realpath, is404){
   $('#actioncontent').val('loading...')

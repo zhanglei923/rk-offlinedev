@@ -47,6 +47,18 @@ body{
 	border: 1px solid #ff9f66;
 	background-color: #f5cbcb;
 }
+.totalcount{
+	font-size: 11px;
+	border: 1px solid #cacaf9;
+	background-color: #e7fff5;
+	margin-right: 1px;
+	padding: 0 2px 0 1px;
+
+}
+.totalcount404{
+	border: 1px solid #ff9f66;
+	background-color: #f5cbcb;
+}
 .actonlist-panel ul a{
 	text-decoration:none
 }
