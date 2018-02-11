@@ -71,10 +71,8 @@ let renderList = function (result){
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
       html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="action404">
+                  <input type="checkbox">
                   <a href="javascript:">${path}</a>
-                  <div class="toolbar">
-                    <a href="javascript:">+Add</a>
-                  </div>
                 </li>`
   });
   result.files.forEach(path =>{
@@ -82,6 +80,7 @@ let renderList = function (result){
       var nicknamepath = path+'';
       path = path.replace(/\~\~/g, '/');
       html += `<li realpath="${path}" nicknamepath="${nicknamepath}">
+                  <input type="checkbox">
                   <a href="javascript:">${path}</a>
                   <div class="toolbar">
                     <a href="javascript:">+Schema</a>
@@ -94,6 +93,7 @@ let renderList = function (result){
       var nicknamepath = path+'';
       path = path.replace(/\.compdata/g, '');
       html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="comp">
+                  <input type="checkbox">
                 <a href="javascript:">控件：${path}</a>
                 <div class="toolbar">
                     <a href="javascript:">+Schema</a>
@@ -125,10 +125,10 @@ let showActionContent = function(url, realpath, is404){
           if(opt.is404){
               $('#pathInput').val(realpath)
               $('#actioncontent').val(
-                ' >This mocking data does not exist!\n'+
+                ' >This data does not exist!\n'+
                 ' >You can:\n'+
-                '   1. Put json content here and click [Save] to save.\n'+
-                '   2. Or, click [Sync from 115] to download from server115(N/A)\n'
+                '   1. Put your json content here and click [Save] to save.\n'+
+                '   2. Or, click [Sync from 115] to download from server115 (N/A)\n'
                 )
           }
       }
