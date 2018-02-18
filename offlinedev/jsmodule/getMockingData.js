@@ -108,13 +108,15 @@ module.exports = {
         })
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/platform_widgets');
         var resultsComp = []
-        var list = fs.readdirSync(fullfilepath)
-        list.forEach(function(file) {
-            var shortpath = file;
-            file = fullfilepath + '/' + file
-            var stat = fs.statSync(file)
-            if (stat && !stat.isDirectory()) resultsComp.push(shortpath)
-        })
+        if (fs.existsSync(fullfilepath)) {
+            var list = fs.readdirSync(fullfilepath)
+            list.forEach(function(file) {
+                var shortpath = file;
+                file = fullfilepath + '/' + file
+                var stat = fs.statSync(file)
+                if (stat && !stat.isDirectory()) resultsComp.push(shortpath)
+            })
+        }
         var listof404 = localStatus.get('nofileUrls')
         listof404 = listof404 ? listof404 : [];
 
