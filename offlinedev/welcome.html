@@ -55,7 +55,12 @@
     .body{
       margin-left: 20px;
     }
-
+    .visithistory{
+      max-width: 500px;
+    }
+    .visithistory a{
+      display: block;
+    }
     </style>
 </head>
 <body>
@@ -96,6 +101,10 @@
     <div>
       <span><b>控件测试入口：</b></span>
       <span><a href="./test.action?case=testCase_datetimepicker">datetimepicker</a></span>
+    </div>
+    <div>
+      <span><b>历史：</b></span>
+      <span id="visithistory" class="visithistory"></span>
     </div>
   </div>
   <script src="./offlinedev/pages/js/jquery.min.js"></script>
@@ -185,6 +194,13 @@
             }
         });
     })
+    var visithistoryKey = 'offlinedev_visithistory'
+    var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
+    var visithistoryHtml = ''
+    visithistory.reverse().forEach(function(his){
+      visithistoryHtml += `<a href="${his}" target="_blank">${his}</a>`
+    })
+    $('#visithistory').html(visithistoryHtml)
   </script>
 </body>
 </html>

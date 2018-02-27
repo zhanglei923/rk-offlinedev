@@ -23,7 +23,6 @@ window.onload=function(){
             //
         }
     }, 100);
-
     var init = function(){
         $('#maintenance_bar').show().css({
             height:10,
@@ -69,6 +68,12 @@ window.onload=function(){
                 },
                 footer: ['cancel', 'ok']
             });
-        })        
+        })
+        //history
+        var visithistoryKey = 'offlinedev_visithistory'
+        var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
+        visithistory.push(window.location.href);
+        visithistory = _.uniq(visithistory)
+        localStorage.setItem(visithistoryKey, visithistory)    
     }
 }
