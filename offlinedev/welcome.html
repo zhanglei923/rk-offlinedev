@@ -58,8 +58,10 @@
     .visithistory{
       max-width: 500px;
     }
-    .visithistory a{
+    .visithistory li{
       display: block;
+       list-sytle:none;
+       padding-left: 20px;
     }
     </style>
 </head>
@@ -198,9 +200,9 @@
     var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
     var visithistoryHtml = ''
     visithistory.reverse().forEach(function(his){
-      visithistoryHtml += `<a href="${his}" target="_blank">${his}</a>`
+      visithistoryHtml += `<li><a href="${his}" target="_blank">${his}</a></li>`
     })
-    $('#visithistory').html(visithistoryHtml)
+    $('#visithistory').html('<ul>'+visithistoryHtml+'</ul>');
   </script>
 </body>
 </html>
