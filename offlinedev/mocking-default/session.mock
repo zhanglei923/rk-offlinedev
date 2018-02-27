@@ -1,10 +1,10 @@
 <style>
 
 .theme-default .nav-menu {
-  background: -webkit-linear-gradient(red, blue) !important; /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(red, blue) !important; /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(red, blue) !important; /* Firefox 3.6 - 15 */
-  background: linear-gradient(red, blue) !important; /* 标准的语法 */ 
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
 }
 
 /*一级菜单鼠标滑过*/
@@ -35,10 +35,10 @@
 /*头部logo*/
 
 .theme-default .logo {
-  background: -webkit-linear-gradient(red, blue) !important; /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(red, blue) !important; /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(red, blue) !important; /* Firefox 3.6 - 15 */
-  background: linear-gradient(red, blue) !important; /* 标准的语法 */ 
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
 }
 .theme-default .logo-img span.logo-pic{
     background: url(/img/fet.jpg) left center no-repeat;
@@ -50,16 +50,16 @@
     font-family: ‘Arial Black’, Gadget, sans-serif;
 }
 .xsy_platform_header{
-  background: -webkit-linear-gradient(red, blue) !important; /* Safari 5.1 - 6.0 */
-  background: -o-linear-gradient(red, blue) !important; /* Opera 11.1 - 12.0 */
-  background: -moz-linear-gradient(red, blue) !important; /* Firefox 3.6 - 15 */
-  background: linear-gradient(red, blue) !important; /* 标准的语法 */ 
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
 }
 .theme-default .page-link.selected{
-  background: -webkit-radial-gradient(red, blue) !important; /* Safari 5.1 - 6.0 */
-  background: -o-radial-gradient(red, blue) !important; /* Opera 11.1 - 12.0 */
-  background: -moz-radial-gradient(red, blue) !important; /* Firefox 3.6 - 15 */
-  background: radial-gradient(red, blue) !important; /* 标准的语法 */ 
+  background: -webkit-radial-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-radial-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-radial-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: radial-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
 }
 </style>
 <script>
