@@ -5,7 +5,6 @@ How to:
  - Stay in this folder and run `git clone https://github.com/zhanglei923/rk-offlinedev.git`
  - Run `cd rk-offlinedev`
  - Run `npm install`
- - Run
-      if windows: `node server.js`
-      if max/linux: `sudo node server.js`
+ - If windows Run `node server.js`
+ - If max/linux Run `sudo node server.js`
  - Visit `http://localhost:666/`
