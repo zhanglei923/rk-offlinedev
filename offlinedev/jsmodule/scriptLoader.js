@@ -20,17 +20,20 @@ module.exports = {
                 var script = jsContent.toString();
                 try{
                   var result = babel.transform(script, {
+                        sourceMap: true,
                       presets: ["es2015"],
                       code:true
                   })
-                   
+                  console.log('map', result.map)
                   jsContent = `
                         define(function(require, exports, module) {
                             ${result.code}
                         });
+                        //# sourceMappingURL=sourcemap.js.map
                   `
+                  fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));
                 }catch(e){
-                  console.log('  Warn: failed at transform es6:', filepath)
+                  console.log('  Warn: failed at transform es6:', e)
                 }
             }
             cache[path] = jsContent;
