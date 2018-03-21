@@ -21,9 +21,9 @@ module.exports = {
                 try{
                   var result = babel.transform(script, {
                         sourceMap: true,
-                        //presets: ["es2015"],
-                        presets: ['./node_modules/babel-preset-es2015'],
-                        plugins: ["transform-runtime", ],
+                        presets: ["es2015"],
+                        //presets: ['./node_modules/babel-preset-es2015'],
+                        //plugins: ["transform-runtime", ],
                         code:true
                   })
                   console.log('map', result.map)
