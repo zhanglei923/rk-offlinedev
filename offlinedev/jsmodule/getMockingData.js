@@ -132,8 +132,8 @@ module.exports = {
         var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
         var content;
         var prettifycontent;
-        if(fs.existsSync(fullsavepath)){
-            fullfilepath = fullsavepath
+        if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath;
+        if(fs.existsSync(fullfilepath)) {
             content = fs.readFileSync(fullfilepath, 'utf8')
             prettifycontent = content;
             try{
