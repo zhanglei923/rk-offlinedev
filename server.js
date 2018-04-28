@@ -109,7 +109,7 @@ app.post('*',function(req, res){
         //(req.is('application/*') || req.is('json')) ? res.json(JSON.parse(data)) : res.send((data));
         //res.json(JSON.parse(data)) 
     }else{
-        localStatus.record404Actions(originalUrl)
+        record404Actions(originalUrl)
         res.sendStatus(404)
     }
 })
@@ -135,7 +135,7 @@ app.get('*', function(req, res) {
         if(data || /\/json\//g.test(originalUrl)){
             html = data;
             if(!data) {
-                localStatus.record404Actions(originalUrl)
+                record404Actions(originalUrl)
                 res.sendStatus(404)
                 return;
             }
@@ -178,6 +178,13 @@ var isJsonAccept = function(accept, req){
     var returnJson = false;
     if(/^application/.test(accept) || req.is('application/*') || req.is('json'))returnJson = true;
     return returnJson;
+}
+var record404Actions = function(originalUrl){
+    var me = localStatus;
+    var nofileUrls = me.get('nofileUrls') ? me.get('nofileUrls') : [];
+    nofileUrls.push(originalUrl)
+    me.set('nofileUrls', _.uniq(nofileUrls))
+    console.log('no-file', originalUrl)
 }
 // console.log('Updating...')
 // exec.exec('git pull', {

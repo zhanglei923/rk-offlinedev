@@ -23,13 +23,5 @@ module.exports = {
     },
     get: function(name){
         return config[name];
-    },
-    //-------------------------------
-    record404Actions: function(originalUrl){
-        var me = this;
-        var nofileUrls = me.get('nofileUrls') ? me.get('nofileUrls') : [];
-        nofileUrls.push(originalUrl)
-        me.set('nofileUrls', _.uniq(nofileUrls))
-        console.log('no-file', originalUrl)
     }
 }

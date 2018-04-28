@@ -130,12 +130,16 @@ module.exports = {
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
         var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
-        if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath
-        var content = fs.readFileSync(fullfilepath, 'utf8')
-        var prettifycontent = content;
-        try{
-            prettifycontent = jsonformatter.diffy(JSON.parse(content))
-        }catch(e){
+        var content;
+        var prettifycontent;
+        if(fs.existsSync(fullsavepath)){
+            fullfilepath = fullsavepath
+            content = fs.readFileSync(fullfilepath, 'utf8')
+            prettifycontent = content;
+            try{
+                prettifycontent = jsonformatter.diffy(JSON.parse(content))
+            }catch(e){
+            }
         }
         return {
             content: content,
