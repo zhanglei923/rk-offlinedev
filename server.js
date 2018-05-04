@@ -156,7 +156,7 @@ app.get('*', function(req, res) {
     }
 });
 let getPageHtml = function(isdeploy, filename){
-    if(isdeploy) filename = filename.replace(/\.html$/, '.deploy.html')
+    if(isdeploy) filename = 'deploy.'+filename
     var fpath = pathutil.resolve(__dirname, './offlinedev/mocking-default/pages/'+ filename);
     if(!fs.existsSync(fpath)){
         fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
