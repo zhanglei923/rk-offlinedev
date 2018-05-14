@@ -173,7 +173,7 @@ let getPageHtml = function(isdeploy, filename){
     //注入标志和辅助性的js文件
     html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
 
-    if(isdeploy) html = html.replace(/\.[\w\d]{5,}\./g, '.000.')
+    if(isdeploy) html = html.replace(/\.[\w\d]{5,}\./g, '.debug000.')
 
     return html;
 }
