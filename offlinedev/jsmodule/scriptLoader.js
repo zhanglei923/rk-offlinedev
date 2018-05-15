@@ -21,7 +21,7 @@ module.exports = {
                 try{
                   var result = babel.transform(script, {
                         sourceMap: true,
-                        presets: ["es2015"],
+                        presets: ["env"],
                         //presets: ['./node_modules/babel-preset-es2015'],
                         //plugins: ["transform-runtime", ],
                         code:true
@@ -42,10 +42,10 @@ module.exports = {
             //console.log(fs.existsSync(fullfilepath), fullfilepath)
             jsContent =   ''
                         +   jsContent
-                        + '\n/****'
-                        + '\n Powered by rk-offlinedev:'
-                        + '\n   https://github.com/zhanglei923/rk-offlinedev'
-                        + '\n****/'
+                        // + '\n/****'
+                        // + '\n Powered by rk-offlinedev:'
+                        // + '\n   https://github.com/zhanglei923/rk-offlinedev'
+                        // + '\n****/'
             return jsContent;
         }else{
             return null;
