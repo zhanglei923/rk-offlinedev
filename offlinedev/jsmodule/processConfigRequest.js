@@ -2,7 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var requester = require('sync-request');
 var http = require('http');
-var unzip = require("unzip");
+//var unzip = require("unzip");
 var _ = require('lodash')
 var getConfig = require('./getConfig')
 
@@ -62,7 +62,7 @@ module.exports = {
                 response.pipe(file);
                 setTimeout(function(){
                      console.log('unzip', filepath)
-                    fs.createReadStream(filepath).pipe(unzip.Extract({ path: pathutil.resolve(__dirname, "../mocking/") }));
+                    //fs.createReadStream(filepath).pipe(unzip.Extract({ path: pathutil.resolve(__dirname, "../mocking/") }));
                     callback()
                 }, 4000)
             });
