@@ -1,7 +1,7 @@
 # rk-offlinedev
 
 LISCENSE:
-This is a `PRIVATE` toolkit, you are *NOT* allowed to use/clone/mondify/push if not the employee of [IngageApp](http://www.xiaoshouyi.com/)
+This is a `PRIVATE` toolkit, you are *NOT* allowed to Copy/Integrate/Clone/Mondify/Publish if not the employee of [EngageApp](http://www.xiaoshouyi.com/)
 
 How to:
  - Go to the parent folder of your local `apps-ingage-web` project.
