@@ -24,6 +24,14 @@ var readFile = function(fpath){
 
     return data;
 }
+var readRelativeFile = function(relativepath, fpath){
+    var fullfilepath = pathutil.resolve(__dirname, relativepath);
+    fullfilepath = fullfilepath + '/' + fpath;
+    console.log(fullfilepath, relativepath, fpath)
+    if (!fs.existsSync(fullfilepath)) return false;
+    var data = fs.readFileSync(fullfilepath, 'utf8');
+    return data;
+}
 var canVisit115 = true;
 module.exports = {
     getData: function(actionname, req){
@@ -51,6 +59,7 @@ module.exports = {
         //     }
         // }
         // return webresultText
+        //console.log(readRelativeFile('../mocking-default/',fpath))
         var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/actions/'+fpath);
         if (!fs.existsSync(fullfilepath)) {
             fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/'+fpath);

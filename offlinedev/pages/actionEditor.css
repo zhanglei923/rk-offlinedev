@@ -96,6 +96,9 @@ body{
 .editor-panel .pathInput{
 	width: 508px;
 }
+.actionfiles-panel{
+	height:326px;
+}
 .actioncontent-panel{
 	height: calc(100% - 338px);
 	width: 100%;

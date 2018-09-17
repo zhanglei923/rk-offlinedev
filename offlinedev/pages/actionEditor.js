@@ -31,6 +31,16 @@ let initEvents = function(){
     $('#btnsync115').on('click', function(){
         handleSync115Click()
     })
+    $('#file').on('change', function(){
+        var filepath = $(this).val()
+        $('#filelist').append(`<li class="file_item"><input type="checkbox">${filepath}</li>`)
+    })
+    $('#actionfiles').on('click', '.file_item', function(){
+        var item = $(this);
+        $('#actionfiles').find('.file_item input[type="checkbox"]').prop('checked','');
+        item.find('input[type="checkbox"]').prop('checked','true');
+
+    })
     
     $(document).on( "click", "li[nicknamepath]", function() {
         var li = $(this)
