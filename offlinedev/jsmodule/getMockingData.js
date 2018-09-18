@@ -27,7 +27,7 @@ var readFile = function(fpath){
 var readRelativeFile = function(relativepath, fpath){
     var fullfilepath = pathutil.resolve(__dirname, relativepath);
     fullfilepath = fullfilepath + '/' + fpath;
-    console.log(fullfilepath, fs.existsSync(fullfilepath))//, relativepath, fpath)
+    //console.log(fullfilepath, fs.existsSync(fullfilepath))//, relativepath, fpath)
     if (!fs.existsSync(fullfilepath)) return false;
     var data = fs.readFileSync(fullfilepath, 'utf8');
     return data;
@@ -61,7 +61,7 @@ module.exports = {
         // }
         // return webresultText
         let content;
-        if(!content) content = readRelativeFile('../mocking/actions-saveas/', f_path)
+        if(!content) content = readRelativeFile('../mocking/actions-local/', f_path)
         if(!content) content = readRelativeFile('../mocking-default/actions/', f_path)
         if(!content) content = readRelativeFile('../mocking/actions/', f_path)
 
@@ -132,7 +132,7 @@ module.exports = {
     getActionContent: function(url){
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/' + url);
-        var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
+        var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-local/')
         var content;
         var prettifycontent;
         if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath;

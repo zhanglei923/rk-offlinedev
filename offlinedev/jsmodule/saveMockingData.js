@@ -9,7 +9,7 @@ module.exports = {
     	saveUrl = saveUrl.replace(/\//ig, '~~')
     	console.log(saveUrl, content)
 
-    	var savepath = rootpath + '/mocking/actions-saveas/'
+    	var savepath = rootpath + '/mocking/actions-local/'
         if(!fs.existsSync(savepath)){
             fs.mkdirSync(savepath);
         }
