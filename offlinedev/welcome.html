@@ -207,7 +207,7 @@
     var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
     var visithistoryHtml = ''
     visithistory.reverse().forEach(function(his){
-      visithistoryHtml += `<li><a href="${his}" target="_blank">${his}</a></li>`
+      visithistoryHtml += `<li>- <a href="${his}" target="_blank">${his}</a></li>`
     })
     $('#visithistory').html('<ul>'+visithistoryHtml+'</ul>');
   </script>
