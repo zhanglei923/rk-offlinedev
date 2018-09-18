@@ -28,6 +28,15 @@ let handleSaveClick = function(){
     if(!doTestActionJson(url, content)){
       return;
     }
+    var list = []
+    $('#filelist li').each(function(i, li){
+        var li = $(this);
+        list.push({
+            selected: li.find('input[type="checkbox"]').prop('checked'),
+            filepath: li.attr('filepath')
+        })
+    });
+    console.log(list)
     $.ajax({
         url: '/offlinedev/action/save/',
         cache: false,

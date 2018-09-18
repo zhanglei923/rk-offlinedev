@@ -109,3 +109,6 @@ body{
 	color: #111;
 
 }
+textarea.readonly{
+	background-color: #f5cbcb;
+}

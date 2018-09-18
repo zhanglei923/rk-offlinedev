@@ -33,13 +33,18 @@ let initEvents = function(){
     })
     $('#file').on('change', function(){
         var filepath = $(this).val()
-        $('#filelist').append(`<li class="file_item"><input type="checkbox">${filepath}</li>`)
+        $('#filelist').append(`<li class="file_item" filepath="${filepath}"><input type="checkbox">${filepath}</li>`)
+        
     })
     $('#actionfiles').on('click', '.file_item', function(){
         var item = $(this);
         $('#actionfiles').find('.file_item input[type="checkbox"]').prop('checked','');
         item.find('input[type="checkbox"]').prop('checked','true');
-
+        if(item.attr('filepath')==="mock"){
+            $('#actioncontent').attr('readonly','').removeClass('readonly');
+        }else{
+            $('#actioncontent').attr('readonly','readonly').addClass('readonly');
+        }        
     })
     
     $(document).on( "click", "li[nicknamepath]", function() {
