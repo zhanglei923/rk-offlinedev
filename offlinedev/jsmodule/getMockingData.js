@@ -27,7 +27,7 @@ var readFile = function(fpath){
 var readRelativeFile = function(relativepath, fpath){
     var fullfilepath = pathutil.resolve(__dirname, relativepath);
     fullfilepath = fullfilepath + '/' + fpath;
-    console.log(fullfilepath, relativepath, fpath)
+    console.log(fullfilepath, fs.existsSync(fullfilepath))//, relativepath, fpath)
     if (!fs.existsSync(fullfilepath)) return false;
     var data = fs.readFileSync(fullfilepath, 'utf8');
     return data;
@@ -43,7 +43,8 @@ module.exports = {
         }
         var tail = getParamAsSurfix(req.query)
         var actionname = actionname.replace(/\//ig, '~~').replace(/\.action$/, '');
-        var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'        
+        var fpath = '/actions/' + actionname + (!tail ? '' : '.' + tail) + '.action'     
+        var f_path = '/' + actionname + (!tail ? '' : '.' + tail) + '.action'        
         // if(canVisit115){
         //     try{//test
         //         //console.log(fpath)
@@ -59,22 +60,15 @@ module.exports = {
         //     }
         // }
         // return webresultText
-        //console.log(readRelativeFile('../mocking-default/',fpath))
-        var fullfilepath = pathutil.resolve(__dirname, '../mocking-default/actions/'+fpath);
-        if (!fs.existsSync(fullfilepath)) {
-            fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/'+fpath);
-            if (!fs.existsSync(fullfilepath)) {
-                fullfilepath =  pathutil.resolve(__dirname, '../mocking/actions/' + actionname + '.action')
-            }
-        }
-        var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-saveas/')
-        if(fs.existsSync(fullsavepath)) fullfilepath = fullsavepath
-        if (!fs.existsSync(fullfilepath)) {
+        let content;
+        if(!content) content = readRelativeFile('../mocking/actions-saveas/', f_path)
+        if(!content) content = readRelativeFile('../mocking-default/actions/', f_path)
+        if(!content) content = readRelativeFile('../mocking/actions/', f_path)
+
+        if(!content) {
             return null;
-        } else {
-            var data = readFile(fullfilepath, 'utf8');
-            data_cache[actionname] = data;
-            return data;
+        }else{
+            return content;
         }
     },
     getPlatformData: function (req){
