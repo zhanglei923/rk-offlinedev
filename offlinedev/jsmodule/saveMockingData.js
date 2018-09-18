@@ -16,6 +16,12 @@ module.exports = {
     	fs.writeFileSync(savepath + '/' + saveName, content);
     },
     saveFileLinkAction:(url, flist)=>{
-        console.log(url, flist)
+		var saveName = saveutil.getSaveName(url);
+    	var savepath = rootpath + '/mocking/fileslink-local/'
+        if(!fs.existsSync(savepath)){
+            fs.mkdirSync(savepath);
+        }
+        console.log(savepath + '/' + saveName)
+    	fs.writeFileSync(savepath + '/' + saveName, JSON.stringify(flist));
     }
 }
