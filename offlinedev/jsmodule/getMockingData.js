@@ -64,14 +64,16 @@ module.exports = {
         // }
         // return webresultText
         let content;
-        if(!content) content = readRelativeFile('../mocking/actions-local/', f_path)
-        if(!content) content = readRelativeFile('../mocking-default/actions/', f_path)
-        if(!content) content = readRelativeFile('../mocking/actions/', f_path)
-
+        //
         let fname = saveutil.getSaveName(oactionname)
         if(!content) content = readRelativeFile('../mocking/actions-local/', fname)
         if(!content) content = readRelativeFile('../mocking-default/actions/', fname)
         if(!content) content = readRelativeFile('../mocking/actions/', fname)
+        //
+        if(!content) content = readRelativeFile('../mocking/actions-local/', f_path)
+        if(!content) content = readRelativeFile('../mocking-default/actions/', f_path)
+        if(!content) content = readRelativeFile('../mocking/actions/', f_path)
+
 
         if(!content) {
             return null;
