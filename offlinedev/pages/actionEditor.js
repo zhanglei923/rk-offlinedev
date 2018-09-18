@@ -34,7 +34,7 @@ let initEvents = function(){
     $('#file').on('change', function(){
         var filepath = $(this).val()
         $('#filelist').append(`<li class="file_item" filepath="${filepath}"><input type="checkbox">${filepath}</li>`)
-        
+        saveFileList();
     })
     $('#actionfiles').on('click', '.file_item', function(){
         var item = $(this);
@@ -44,7 +44,8 @@ let initEvents = function(){
             $('#actioncontent').attr('readonly','').removeClass('readonly');
         }else{
             $('#actioncontent').attr('readonly','readonly').addClass('readonly');
-        }        
+        }
+        saveFileList();
     })
     
     $(document).on( "click", "li[nicknamepath]", function() {
@@ -62,6 +63,30 @@ let initEvents = function(){
         li.siblings().removeClass('mouseover')
     });
 }
+let saveFileList = ()=>{
+    var url = $('#pathInput').val()
+    if(!doTestUrl(url, false)) return;
+    var flist = []
+    $('#filelist li').each(function(i, li){
+        li=$(li)
+        flist.push({
+            selected: li.find('input[type="checkbox"]').prop('checked'),
+            filepath: li.attr('filepath')
+        })
+    });
+    $.ajax({
+        url: '/offlinedev/action/savefilelink/',
+        cache: false,
+        method: 'POST',
+        data: {
+            url: url,
+            flist: flist
+        },
+        success: function( response ) {
+            console.log('sucess!')            
+        }
+    });
+};
 let renderList = function (result){
   let html = ''
   let path404count = 0;

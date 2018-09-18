@@ -14,5 +14,8 @@ module.exports = {
         }
         console.log(savepath + '/' + saveName)
     	fs.writeFileSync(savepath + '/' + saveName, content);
+    },
+    saveFileLinkAction:(url, flist)=>{
+        console.log(url, flist)
     }
 }
