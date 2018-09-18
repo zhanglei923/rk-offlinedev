@@ -4,6 +4,7 @@ var _ = require('lodash')
 var requester = require('sync-request');
 var jsonformatter = require('format-json');
 var localStatus = require('./localStatus')
+var saveutil = require('./utils/url')
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -35,7 +36,9 @@ var readRelativeFile = function(relativepath, fpath){
 var canVisit115 = true;
 module.exports = {
     getData: function(actionname, req){
+        console.log('actionname', actionname)
         //if(data_cache[actionname]) return data_cache[actionname]
+        var oactionname = actionname;
         actionname = actionname.split('?')[0]
 
         if(actionname.indexOf('load-pagedata.action') >= 0 || actionname.indexOf('load-compdata.action') >= 0){
@@ -64,6 +67,11 @@ module.exports = {
         if(!content) content = readRelativeFile('../mocking/actions-local/', f_path)
         if(!content) content = readRelativeFile('../mocking-default/actions/', f_path)
         if(!content) content = readRelativeFile('../mocking/actions/', f_path)
+
+        let fname = saveutil.getSaveName(oactionname)
+        if(!content) content = readRelativeFile('../mocking/actions-local/', fname)
+        if(!content) content = readRelativeFile('../mocking-default/actions/', fname)
+        if(!content) content = readRelativeFile('../mocking/actions/', fname)
 
         if(!content) {
             return null;

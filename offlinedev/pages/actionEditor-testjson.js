@@ -4,8 +4,8 @@ var doTestActionJson = function(url, content) {
     return false;
   }
   if(!/^\//.test(url)) {
-    alert('url without prefix "/"')
-    return false;
+    //alert('url without prefix "/"')
+    return true;
   }
   if(!content) {
     alert('null content')
