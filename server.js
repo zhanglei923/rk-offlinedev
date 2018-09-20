@@ -29,10 +29,20 @@ if(!fs.existsSync(webPath)){
 
 let arr = [
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking-default/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking-default/actions/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/fileslink-local/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/debug-action-data')    
+    pathutil.resolve(__dirname,'./offlinedev/mocking/debug-action-data'),
+    
+    // pathutil.resolve(__dirname,'../offlinedev-data/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/actions-local/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking-default/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking-default/actions/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/actions/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/fileslink-local/'),
+    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/debug-action-data')   
 ];
 arr.forEach((folderpath)=>{
     if (!fs.existsSync(folderpath)){
