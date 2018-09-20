@@ -36,6 +36,13 @@ let initEvents = function(){
         appendFileLink(filepath)
         saveFileList();
     })
+    $('#filepath_addbtn').on('click', function(){
+        var filepath = prompt('Input file path')
+        if(filepath){
+            appendFileLink(filepath)
+            saveFileList();
+        }
+    })
     $('#actionfiles').on('click', '.file_item', function(){
         var item = $(this);
         $('#actionfiles').find('.file_item input[type="checkbox"]').prop('checked','');
@@ -46,6 +53,8 @@ let initEvents = function(){
             $('#actioncontent').attr('readonly','readonly').addClass('readonly');
         }
         saveFileList();
+        let filepath = item.attr('filepath')
+        loadLinkFileContent(filepath)
     });    
     $(document).on( "click", "li[nicknamepath]", function() {
         var li = $(this)
@@ -53,6 +62,7 @@ let initEvents = function(){
         li.siblings().removeClass('selected')
         var nicknamepath = li.attr('nicknamepath')
         var realpath = li.attr('realpath')
+        showFileLinks(nicknamepath, realpath)
         showActionContent(nicknamepath, realpath, li.hasClass('action404'))
         //console.log(nicknamepath)
     });
@@ -146,29 +156,54 @@ let renderList = function (result){
 let updateTotal = function(pathcount, path404count){
   $('#pathcount').html(`Total: <span class="totalcount totalcount404">${path404count}</span><span class="totalcount">${pathcount}</span>`)
 }
+let loadLinkFileContent = function(filepath){
+    console.log('load:', filepath)
+    $.ajax({
+        url: '/offlinedev/action/loadfilelinkContent/',
+        cache: false,
+        method: 'POST',
+        data: {
+            filepath: encodeURIComponent(filepath)
+        },
+        success: function( response ) {
+            console.log(response);
+            if(response && response.result){
+                $('#actioncontent').val(response.result)
+            }
+        }
+    });
+}
+let showFileLinks = (url, realpath)=>{
+    $.ajax({
+        url: '/offlinedev/action/getfilelink/',
+        cache: false,
+        method: 'POST',
+        data: {
+            url: url
+        },
+        success: function( response ) {
+          $('#filelist').html('')
+          var notmock_path;
+            console.log(response)
+            if(response.result && $.isArray(response.result)){
+                appendFileLink('mock');
+                response.result.forEach((o)=>{
+                  if(o.filepath !== 'mock'){
+                    appendFileLink(o.filepath, o.selected);
+                    notmock_path=o.filepath;
+                  }
+                })
+            }else{              
+              appendFileLink('mock', true);
+            }
+            // $('#filelist li').each(()=>{
+
+            // })
+        }
+    });
+}
 let showActionContent = function(url, realpath, is404){
   $('#actioncontent').val('loading...');  
-  $.ajax({
-      url: '/offlinedev/action/getfilelink/',
-      cache: false,
-      method: 'POST',
-      data: {
-          url: url
-      },
-      success: function( response ) {
-        $('#filelist').html('')
-          console.log(response)
-          if(response.result && $.isArray(response.result)){
-              appendFileLink('mock');
-              response.result.forEach((o)=>{
-                if(o.filepath !== 'mock')
-                appendFileLink(o.filepath, o.selected==='true'?true:false);
-              })
-          }else{              
-            appendFileLink('mock', true);
-          }
-      }
-  });
   $.ajax({
       url: '/offlinedev/action/content/',
       cache: false,

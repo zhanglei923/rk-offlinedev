@@ -51,7 +51,26 @@ module.exports = {
             return 'done'
         }
         if(/^\/offlinedev\/action\/getfilelink\//.test(req.originalUrl)){
+            var allfiles = saveMockingData.getAllFileLinks()
             var result = saveMockingData.getFileLinkAction(req.body.url, req.body.flist)
+            var final = [];
+            allfiles.forEach((file)=>{
+                let found = false;
+                result.forEach((re)=>{
+                    if(re.filepath===file && (re.selected==='true' || re.selected===true)) found = true;
+                });
+                final.push({
+                    selected: found,
+                    filepath: file
+                })
+            })
+            console.log('result',result,'\n','final', final);
+            callback(final)
+            return 'done'
+        }
+        if(/^\/offlinedev\/action\/loadfilelinkContent\//.test(req.originalUrl)){
+            var filepath = decodeURIComponent(req.body.filepath)
+            var result = saveMockingData.getFileLinkContent(filepath)
             callback(result)
             return 'done'
         }
