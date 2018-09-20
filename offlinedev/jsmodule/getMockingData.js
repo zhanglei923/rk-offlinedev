@@ -27,8 +27,8 @@ var readFile = function(fpath){
     return data;
 }
 var readFileLink = function(nickname){
-    let filelink = saveMockingData.getCurrentFileLinkContent(nickname)
-    return filelink;
+    let content = saveMockingData.getCurrentFileLinkContent(nickname)
+    return content;
 }
 var readRelativeFile = function(relativepath, fpath){
     var fullfilepath = pathutil.resolve(__dirname, relativepath);
@@ -41,7 +41,7 @@ var readRelativeFile = function(relativepath, fpath){
 var canVisit115 = true;
 module.exports = {
     getData: function(actionname, req){
-        console.log('actionname', actionname)
+        //console.log('actionname', actionname)
         //if(data_cache[actionname]) return data_cache[actionname]
         var oactionname = actionname;
         actionname = actionname.split('?')[0]
@@ -72,8 +72,12 @@ module.exports = {
         //
         let fname = saveutil.getSaveName(oactionname)
         //
-        console.log('readFileLink:>', readFileLink(fname))
-        if(!content) content = readFileLink(fname)
+        let linkname = saveMockingData.getCurrentFileLink(fname)
+        console.log('readFileLink:>>>>>', linkname, fname)
+        if(linkname && linkname !== 'mock') {
+            content = saveMockingData.getFileLinkContent(linkname)
+            return content;
+        }
 
         if(!content) content = readRelativeFile('../mocking/actions-local/', fname)
         if(!content) content = readRelativeFile('../mocking-default/actions/', fname)

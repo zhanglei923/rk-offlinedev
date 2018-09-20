@@ -48,22 +48,24 @@ let initEvents = function(){
         $('#actionfiles').find('.file_item input[type="checkbox"]').prop('checked','');
         item.find('input[type="checkbox"]').prop('checked','true');
         updateToolbarStatus(item.attr('filepath'))
-        if(item.attr('filepath')==="mock"){
-            showActionContent(currentNickUrl)
-        }
         saveFileList();
         let filepath = item.attr('filepath')
-        loadLinkFileContent(filepath)
+        if(filepath === 'mock'){
+            showActionContent(currentNickUrl)
+        }else{
+            loadLinkFileContent(filepath)
+        }
     });    
     $(document).on( "click", "li[nicknamepath]", function() {
         var li = $(this)
         li.addClass('selected');
         li.siblings().removeClass('selected')
         var nicknamepath = li.attr('nicknamepath')
+        currentNickUrl  = nicknamepath;
         var realpath = li.attr('realpath')
         showFileLinks(nicknamepath, realpath)
         $('#pathInput').val(realpath)
-        showActionContent(nicknamepath, li.hasClass('action404'))
+        //showActionContent(nicknamepath, li.hasClass('action404'))
         //console.log(nicknamepath)
     });
     $(document).on( "mouseover", "li[nicknamepath]", function() {
@@ -178,6 +180,8 @@ let loadLinkFileContent = function(filepath){
             console.log(response);
             if(response && response.result){
                 $('#actioncontent').val(response.result)
+            }else{
+                $('#actioncontent').val('')
             }
         }
     });
@@ -191,7 +195,7 @@ let showFileLinks = (url, realpath)=>{
             url: url
         },
         success: function( response ) {
-          $('#filelist').html('')
+            $('#filelist').html('')
             if(response.result && $.isArray(response.result)){
                 appendFileLink('mock');
                 var is_non_mock;
@@ -207,16 +211,16 @@ let showFileLinks = (url, realpath)=>{
             }else{              
               appendFileLink('mock', true);
             }
-            // $('#filelist li').each(()=>{
-
-            // })
+            $('#filelist li').each((i, li)=>{
+                li=$(li)
+                if(li.find('[type="checkbox"]').prop('checked')) li.click();
+            })
         }
     });
 }
 var currentNickUrl;
 let showActionContent = function(nickurl, is404){
   $('#actioncontent').val('loading...');  
-  currentNickUrl  = nickurl;
   if(typeof is404 === 'undefined') is404 = false;
   $.ajax({
       url: '/offlinedev/action/content/',
