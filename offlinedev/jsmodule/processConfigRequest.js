@@ -7,7 +7,8 @@ var _ = require('lodash')
 var getConfig = require('./getConfig')
 
 var configJson = require('./getConfig').get()
-
+var getMockingData = require('./getMockingData')
+var saveMockingData = require('./saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
         if(/^\/offlinedev\/getWebProjectInfo/.test(req.url)){
@@ -26,27 +27,32 @@ module.exports = {
 
         }
         if(/^\/offlinedev\/action\/list\//.test(req.originalUrl)){
-            var list = require('./getMockingData').listActions()
+            var list = getMockingData.listActions()
             callback(list)
             return 'done'
         }
         if(/^\/offlinedev\/action\/content\//.test(req.originalUrl)){
-            var list = require('./getMockingData').getActionContent(req.body.url, req.body.prettify)
+            var list = getMockingData.getActionContent(req.body.url, req.body.prettify)
             callback(list)
             return 'done'
         }
         if(/^\/offlinedev\/action\/save\//.test(req.originalUrl)){
-            var result = require('./saveMockingData').saveAction(req.body.url, req.body.content)
+            var result = saveMockingData.saveAction(req.body.url, req.body.content)
             callback({
                 result: result
             })
             return 'done'
         }
         if(/^\/offlinedev\/action\/savefilelink\//.test(req.originalUrl)){
-            var result = require('./saveMockingData').saveFileLinkAction(req.body.url, req.body.flist)
+            var result = saveMockingData.saveFileLinkAction(req.body.url, req.body.flist)
             callback({
                 result: result
             })
+            return 'done'
+        }
+        if(/^\/offlinedev\/action\/getfilelink\//.test(req.originalUrl)){
+            var result = saveMockingData.getFileLinkAction(req.body.url, req.body.flist)
+            callback(result)
             return 'done'
         }
         if(/^\/offlinedev\/syncCases/.test(req.url)){

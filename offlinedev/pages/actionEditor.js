@@ -33,7 +33,7 @@ let initEvents = function(){
     })
     $('#file').on('change', function(){
         var filepath = $(this).val()
-        $('#filelist').append(`<li class="file_item" filepath="${filepath}"><input type="checkbox">${filepath}</li>`)
+        appendFileLink(filepath)
         saveFileList();
     })
     $('#actionfiles').on('click', '.file_item', function(){
@@ -62,6 +62,10 @@ let initEvents = function(){
         li.addClass('mouseover');
         li.siblings().removeClass('mouseover')
     });
+}
+let appendFileLink = (filepath, checked)=>{
+    if(typeof checked === 'undefined') checked =  false;
+    $('#filelist').append(`<li class="file_item" filepath="${filepath}"><input type="checkbox" checked="${checked}">${filepath}</li>`)
 }
 let saveFileList = ()=>{
     var url = $('#pathInput').val()
@@ -136,7 +140,26 @@ let updateTotal = function(pathcount, path404count){
   $('#pathcount').html(`Total: <span class="totalcount totalcount404">${path404count}</span><span class="totalcount">${pathcount}</span>`)
 }
 let showActionContent = function(url, realpath, is404){
-  $('#actioncontent').val('loading...')
+  $('#actioncontent').val('loading...');  
+  $.ajax({
+      url: '/offlinedev/action/getfilelink/',
+      cache: false,
+      method: 'POST',
+      data: {
+          url: url
+      },
+      success: function( response ) {
+        $('#filelist').html('')
+          appendFileLink('mock');
+          console.log(response)
+          if(response.result && $.isArray(response.result)){
+              response.result.forEach((o)=>{
+                if(o.filepath !== 'mock')
+                appendFileLink(o.filepath, o.selected==='true'?true:false);
+              })
+          }
+      }
+  });
   $.ajax({
       url: '/offlinedev/action/content/',
       cache: false,
