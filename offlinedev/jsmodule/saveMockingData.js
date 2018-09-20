@@ -4,7 +4,7 @@ var _ = require('lodash')
 var rootpath = pathutil.resolve(__dirname, '../');
 var saveutil = require('./utils/url')
 
-module.exports = {
+var thisUtil = {
     saveAction: function(url, content){
 		var saveName = saveutil.getSaveName(url);
 
@@ -49,6 +49,19 @@ module.exports = {
         }
         return [];
     },
+    getCurrentFileLink: (nickname)=>{
+        var result = thisUtil.getFileLinkAction(nickname)
+        var final;
+        console.log('getCurrentFileLink', nickname, result)
+        result.forEach((re)=>{
+            if(re.selected==='true' || re.selected===true) final = re.filepath;
+        });
+        return final;
+    },
+    getCurrentFileLinkContent: (nickname)=>{
+        let filelinkPath = thisUtil.getCurrentFileLink(nickname)
+        return thisUtil.getFileLinkContent(filelinkPath)
+    },
     getFileLinkContent:(fpath)=>{
         console.log('fpath', fpath,)
         var abspath = pathutil.resolve(__dirname, '../mocking/debug-action-data/'+fpath);
@@ -62,3 +75,4 @@ module.exports = {
         }
     },
 }
+module.exports = thisUtil;

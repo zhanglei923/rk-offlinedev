@@ -5,6 +5,7 @@ var requester = require('sync-request');
 var jsonformatter = require('format-json');
 var localStatus = require('./localStatus')
 var saveutil = require('./utils/url')
+var saveMockingData = require('./saveMockingData')
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -24,6 +25,10 @@ var readFile = function(fpath){
     var data = fs.readFileSync(fpath, 'utf8');
 
     return data;
+}
+var readFileLink = function(nickname){
+    let filelink = saveMockingData.getCurrentFileLinkContent(nickname)
+    return filelink;
 }
 var readRelativeFile = function(relativepath, fpath){
     var fullfilepath = pathutil.resolve(__dirname, relativepath);
@@ -66,6 +71,10 @@ module.exports = {
         let content;
         //
         let fname = saveutil.getSaveName(oactionname)
+        //
+        console.log('readFileLink:>', readFileLink(fname))
+        if(!content) content = readFileLink(fname)
+
         if(!content) content = readRelativeFile('../mocking/actions-local/', fname)
         if(!content) content = readRelativeFile('../mocking-default/actions/', fname)
         if(!content) content = readRelativeFile('../mocking/actions/', fname)
