@@ -47,10 +47,9 @@ let initEvents = function(){
         var item = $(this);
         $('#actionfiles').find('.file_item input[type="checkbox"]').prop('checked','');
         item.find('input[type="checkbox"]').prop('checked','true');
+        updateToolbarStatus(item.attr('filepath'))
         if(item.attr('filepath')==="mock"){
-            $('#actioncontent').attr('readonly','').removeClass('readonly');
-        }else{
-            $('#actioncontent').attr('readonly','readonly').addClass('readonly');
+            showActionContent(currentNickUrl)
         }
         saveFileList();
         let filepath = item.attr('filepath')
@@ -63,7 +62,8 @@ let initEvents = function(){
         var nicknamepath = li.attr('nicknamepath')
         var realpath = li.attr('realpath')
         showFileLinks(nicknamepath, realpath)
-        showActionContent(nicknamepath, realpath, li.hasClass('action404'))
+        $('#pathInput').val(realpath)
+        showActionContent(nicknamepath, li.hasClass('action404'))
         //console.log(nicknamepath)
     });
     $(document).on( "mouseover", "li[nicknamepath]", function() {
@@ -71,6 +71,15 @@ let initEvents = function(){
         li.addClass('mouseover');
         li.siblings().removeClass('mouseover')
     });
+}
+let updateToolbarStatus = (filepath)=>{
+    if(filepath==="mock"){
+        $('#actioncontent').attr('readonly','').removeClass('readonly');
+        $('#btnsave').prop('disabled', false)
+    }else{
+        $('#actioncontent').attr('readonly','readonly').addClass('readonly');
+        $('#btnsave').prop('disabled', true)
+    }
 }
 let appendFileLink = (filepath, checked)=>{
     if(typeof checked === 'undefined') checked =  false;
@@ -202,18 +211,21 @@ let showFileLinks = (url, realpath)=>{
         }
     });
 }
-let showActionContent = function(url, realpath, is404){
+var currentNickUrl;
+let showActionContent = function(nickurl, is404){
   $('#actioncontent').val('loading...');  
+  currentNickUrl  = nickurl;
+  if(typeof is404 === 'undefined') is404 = false;
   $.ajax({
       url: '/offlinedev/action/content/',
       cache: false,
       method: 'POST',
       is404: is404,
       data: {
-          url: url
+          url: nickurl
       },
       success: function( response ) {
-          $('#pathInput').val(realpath)
+          
           $('#actioncontent').val(
             $('#prettify').prop('checked') ? response.result.prettifycontent : response.result.content
           )
@@ -221,7 +233,6 @@ let showActionContent = function(url, realpath, is404){
       error: function(){
           var opt = $(this)[0]
           if(opt.is404){
-              $('#pathInput').val(realpath)
               $('#actioncontent').val(
                 ' >This data does not exist!\n'+
                 ' >You can:\n'+
