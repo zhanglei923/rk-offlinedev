@@ -7,6 +7,18 @@ var localStatus = require('./localStatus')
 var saveutil = require('./utils/url')
 var saveMockingData = require('./saveMockingData')
 
+let arr = [
+    pathutil.resolve(__dirname,'../mocking/actions-local/'),
+    pathutil.resolve(__dirname,'../mocking-default/actions/'),
+    pathutil.resolve(__dirname,'../mocking/actions/'),
+    pathutil.resolve(__dirname,'../mocking/fileslink-local/')
+];
+arr.forEach((folderpath)=>{
+    if (!fs.existsSync(folderpath)){
+        fs.mkdirSync(folderpath)
+    }
+})
+
 var data_cache = {};
 //必须与io里同名函数保持同步
 var getParamAsSurfix = function(query){
