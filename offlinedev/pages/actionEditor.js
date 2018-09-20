@@ -157,13 +157,15 @@ let showActionContent = function(url, realpath, is404){
       },
       success: function( response ) {
         $('#filelist').html('')
-          appendFileLink('mock');
           console.log(response)
           if(response.result && $.isArray(response.result)){
+              appendFileLink('mock');
               response.result.forEach((o)=>{
                 if(o.filepath !== 'mock')
                 appendFileLink(o.filepath, o.selected==='true'?true:false);
               })
+          }else{              
+            appendFileLink('mock', true);
           }
       }
   });
