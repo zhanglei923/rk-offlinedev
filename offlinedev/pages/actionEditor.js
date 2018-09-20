@@ -76,10 +76,10 @@ let initEvents = function(){
 }
 let updateToolbarStatus = (filepath)=>{
     if(filepath==="mock"){
-        $('#actioncontent').attr('readonly','').removeClass('readonly');
+        $('#actioncontent').prop('readonly',false).removeClass('readonly');
         $('#btnsave').prop('disabled', false)
     }else{
-        $('#actioncontent').attr('readonly','readonly').addClass('readonly');
+        $('#actioncontent').prop('readonly',true).addClass('readonly');
         $('#btnsave').prop('disabled', true)
     }
 }
