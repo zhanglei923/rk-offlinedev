@@ -27,6 +27,19 @@ if(!fs.existsSync(webPath)){
     return;
 } 
 
+let arr = [
+    pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking-default/actions/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking/fileslink-local/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking/debug-action-data')    
+];
+arr.forEach((folderpath)=>{
+    if (!fs.existsSync(folderpath)){
+        fs.mkdirSync(folderpath)
+    }
+})
+
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
