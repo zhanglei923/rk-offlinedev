@@ -192,16 +192,18 @@ let showFileLinks = (url, realpath)=>{
         },
         success: function( response ) {
           $('#filelist').html('')
-          var notmock_path;
-            console.log(response)
             if(response.result && $.isArray(response.result)){
                 appendFileLink('mock');
+                var is_non_mock;
                 response.result.forEach((o)=>{
                   if(o.filepath !== 'mock'){
                     appendFileLink(o.filepath, o.selected);
-                    notmock_path=o.filepath;
+                    if(o.selected) is_non_mock = true;
                   }
                 })
+                if(!is_non_mock){
+                    $('li[filepath="mock"] input').prop('checked', true)
+                }
             }else{              
               appendFileLink('mock', true);
             }
