@@ -109,9 +109,10 @@ module.exports = {
         }
         return JSON.stringify(result)
     },
-    listActions: function(){
-        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions');
+    listActions: function(){        
         var results = []
+        //
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions-local');
         var list = fs.readdirSync(fullfilepath)
         list.forEach(function(file) {
             var shortpath = file;
@@ -119,6 +120,16 @@ module.exports = {
             var stat = fs.statSync(file)
             if (stat && !stat.isDirectory()) results.push(shortpath)
         })
+        //
+        var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions');
+        var list = fs.readdirSync(fullfilepath)
+        list.forEach(function(file) {
+            var shortpath = file;
+            file = fullfilepath + '/' + file
+            var stat = fs.statSync(file)
+            if (stat && !stat.isDirectory()) results.push(shortpath)
+        })
+        //
         var fullfilepath = pathutil.resolve(__dirname, '../mocking/actions/platform_widgets');
         var resultsComp = []
         if (fs.existsSync(fullfilepath)) {
