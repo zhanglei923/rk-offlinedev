@@ -46,8 +46,7 @@ let initEvents = function(){
             $('#actioncontent').attr('readonly','readonly').addClass('readonly');
         }
         saveFileList();
-    })
-    
+    });    
     $(document).on( "click", "li[nicknamepath]", function() {
         var li = $(this)
         li.addClass('selected');
@@ -65,7 +64,15 @@ let initEvents = function(){
 }
 let appendFileLink = (filepath, checked)=>{
     if(typeof checked === 'undefined') checked =  false;
-    $('#filelist').append(`<li class="file_item" filepath="${filepath}"><input type="checkbox" checked="${checked}">${filepath}</li>`)
+    if(checked){
+        $('#filelist li input[type="checkbox"]').each(function(){
+            var ipt = $(this)
+            ipt.prop('checked', false)//先reset
+        })
+    }
+    let ipt = checked ? `<input type="checkbox" checked="checked">`:`<input type="checkbox">`;
+    let li = `<li class="file_item" filepath="${filepath}">${ipt}${filepath}</li>`
+    $('#filelist').append(li)
 }
 let saveFileList = ()=>{
     var url = $('#pathInput').val()
@@ -87,7 +94,7 @@ let saveFileList = ()=>{
             flist: flist
         },
         success: function( response ) {
-            console.log('sucess!')            
+            console.log('saved!')            
         }
     });
 };
