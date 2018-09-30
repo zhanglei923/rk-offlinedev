@@ -8,7 +8,7 @@ How to:
     1. Example: if your web folder is `D:\workspaces\apps-ingage-web`, then it should be `D:\workspaces\`
  - Stay in this folder and run `git clone https://github.com/zhanglei923/rk-offlinedev.git`
  - Run `cd rk-offlinedev`
- - Run `npm install`
+ - Run `yarn install` or `npm install`
  - If windows Run `node server.js`
  - If max/linux Run `sudo node server.js`
  - Visit `http://localhost:666/`
