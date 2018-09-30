@@ -11,5 +11,5 @@ How to:
  - Run `yarn install` or `npm install`
  - If windows Run `node server.js`
  - If max/linux Run `sudo node server.js`
- - Visit `http://localhost:666/`
+ - Visit `http://localhost:666/` or `https://localhost`
 
