@@ -63,10 +63,10 @@ var thisUtil = {
         return thisUtil.getFileLinkContent(filelinkPath)
     },
     getFileLinkContent:(fpath)=>{
-        console.log('fpath', fpath,)
+        //console.log('fpath', fpath,)
         var abspath = pathutil.resolve(__dirname, '../mocking/debug-action-data/'+fpath);
         if(fs.existsSync(abspath)){
-            console.log('existsSync', abspath,)
+            //console.log('existsSync', abspath,)
             var data = fs.readFileSync(abspath, 'utf8');
             console.log('data', data)
             if(data){
