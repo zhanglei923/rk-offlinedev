@@ -1,17 +1,27 @@
-.main_keys{
-    float: left;
-    min-width: 300px;
+*{
+    border: 0;
+    font-size: 10px;
+    margin: 0;
+    padding: 0;
 }
-.lang_keys{
-    float: left;
-    min-width: 300px;
+* {
+    font-family: Arial, 'Hiragino Sans GB', '微软雅黑', '黑体-简', Helvetica, sans-serif;
 }
+
 .cellkey{
-    color:blue;
+    /* float: right; */
 }
-.cellmainlang .word{
-    background-color: gold;
+.cellkey .word{
+    color: blue;
 }
-.cellsublang .word{
-    background-color: lime;
+.cellmainlang.word{
+    background-color: #fcff4d;
+}
+.cellsublang.word{
+    background-color: #a2ffa2;
+}
+.row_a{
+    background-color: #eee;
+}
+.row_b{
 }
