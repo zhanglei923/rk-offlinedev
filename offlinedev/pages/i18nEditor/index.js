@@ -15,11 +15,11 @@ var textEscape = (s)=>{
     if(!s) return s;   
     return s.replace(/\n/g, '\\n');
 };
+let SuperJson = {};
 $(()=>{
     let html = ''
     let count = 0;
 
-    let SuperJson = {};
     for(var key in cnjson){
         SuperJson[key] = {};
         SuperJson[key].cn = cnjson[key];
@@ -45,9 +45,9 @@ $(()=>{
     for(var i = 0, len=allKeys.length;i<len;i++){
         var key = allKeys[i];
         count = i;
-        let value = cnjson[key]
-        let envalue = enjson[key]
-        if(typeof value === 'undefined') value = '';
+        let cnvalue = SuperJson[key].cn;
+        let envalue = SuperJson[key].en;
+        if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
         html = html + `<tr class="${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
                             <td>${count}</td>
@@ -55,9 +55,9 @@ $(()=>{
                                 <span class="word">${key}</span
                             </td>
                             <td class="cellval">
-                                "<span class="cellmainlang word">${htmlEscape(value)}</span>"
-                                    <br>
-                                "<span class="cellsublang word">${htmlEscape(envalue)}</span>"
+                                <span class="cellmainlang word">${getDisplayText(cnvalue)}</span>
+                                <br>
+                                <span class="cellsublang word">${getDisplayText(envalue)}</span>
                             </td>
                             <td class="validate_info"></td>
                         </tr>`
@@ -90,6 +90,10 @@ var handleTrSelect = function(t){
     })
     do_select(t);
 }
+var getDisplayText = (val)=>{
+    if(!val) return '<span class="null_val">&quot;&quot;</span>'
+    return `${htmlEscape(val)}`
+};
 var selectedTr = [];
 var do_select = (t) =>{
     selectedTr = []
@@ -97,8 +101,8 @@ var do_select = (t) =>{
     selectedTr.push(t)
 
     var key = t.attr('data-key');
-    var val0 = cnjson[key];
-    var val1 = enjson[key];
+    var val0 = SuperJson[key].cn;
+    var val1 = SuperJson[key].en;
 
     t.find('.cellmainlang').html(`<input class="valinput" value="${textEscape(val0)}">`)
     t.find('.cellsublang').html(`<input class="valinput" value="${textEscape(val1)}">`)
@@ -108,9 +112,9 @@ var do_unselect = (t) =>{
     t.removeClass('selected_tr')
     var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
-    cnjson[key] = val0;
-    enjson[key] = val1;
+    SuperJson[key].cn = val0;
+    SuperJson[key].en = val1;
     //console.log(val0, val1)
-    t.find('.cellmainlang').html(`${htmlEscape(val0)}`)
-    t.find('.cellsublang').html(`${htmlEscape(val1)}`)
+    t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
+    t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 }
