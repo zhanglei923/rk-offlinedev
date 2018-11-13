@@ -7,7 +7,15 @@
 * {
     font-family: Courier, Monaco, monospace;
 }
-
+.hovering_tr{
+    background-color: cornsilk !important;
+}
+.selected_tr{
+    background-color: yellow !important;
+}
+.langtable{
+    border:0;
+}
 .cellkey{
     /* float: right; */
 }
@@ -24,4 +32,7 @@
     background-color: #eee;
 }
 .row_b{
+}
+.valinput{
+    width: 94%;
 }
