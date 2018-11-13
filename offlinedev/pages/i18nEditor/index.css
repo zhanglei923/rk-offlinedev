@@ -8,10 +8,10 @@
     font-family: Courier, Monaco, monospace;
 }
 .hovering_tr{
-    background-color: cornsilk !important;
+    background-color: rgb(220, 253, 219) !important;
 }
 .selected_tr{
-    background-color: yellow !important;
+    background-color: #f568f0 !important;
 }
 .langtable{
     border:0;
@@ -23,10 +23,10 @@
     color: blue;
 }
 .cellmainlang.word{
-    background-color: #fcff4d;
+    background-color: #feffd7;
 }
 .cellsublang.word{
-    background-color: #a2ffa2;
+    background-color: #e2ffe2;
 }
 .row_a{
     background-color: #eee;
@@ -35,4 +35,6 @@
 }
 .valinput{
     width: 94%;
+    border: 2px solid #ddd;
+    background-color: yellow !important;
 }

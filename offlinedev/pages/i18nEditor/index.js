@@ -72,9 +72,12 @@ var do_select = (t) =>{
     t.find('.cellsublang').html(`<input class="valinput" value="${val1}">`)
 }
 var do_unselect = (t) =>{
+    var key = t.attr('data-key');
     t.removeClass('selected_tr')
     var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
+    cnjson[key] = val0;
+    enjson[key] = val1;
     t.find('.cellmainlang').html(`${htmlEscape(val0)}`)
     t.find('.cellsublang').html(`${htmlEscape(val1)}`)
 }
