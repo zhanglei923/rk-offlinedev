@@ -18,7 +18,7 @@
     background-color: #fdbafb !important;
 }
 td.validate_info{
-    width: 100px;
+    width: 30px;
 }
 td .null_val{
     color: red;
@@ -52,6 +52,7 @@ td .null_val{
 }
 .cellkey{
     /* float: right; */
+    max-width: 360px;
 }
 .cellkey .word{
     color: blue;
