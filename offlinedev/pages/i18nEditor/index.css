@@ -1,0 +1,17 @@
+.main_keys{
+    float: left;
+    min-width: 300px;
+}
+.lang_keys{
+    float: left;
+    min-width: 300px;
+}
+.cellkey{
+    color:blue;
+}
+.cellmainlang .word{
+    background-color: gold;
+}
+.cellsublang .word{
+    background-color: lime;
+}
