@@ -13,6 +13,9 @@
 .selected_tr{
     background-color: #f568f0 !important;
 }
+td.validate_info{
+    width: 100px;
+}
 .langtable{
     border:0;
 }

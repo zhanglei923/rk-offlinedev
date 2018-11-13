@@ -29,9 +29,11 @@ $(()=>{
                                     <br>
                                 "<span class="cellsublang word">${htmlEscape(envalue)}</span>"
                             </td>
+                            <td class="validate_info"></td>
                         </tr>`
     }
     $('#table >tbody').append(html);
+    //do_validate()
     //---
     $('#table').on('mouseover', 'tr', function(e){
         handleTrHover(e.currentTarget)
