@@ -8,7 +8,10 @@ var htmlEscape = (s) => {
         .replace(/>/g, '&gt;')
         .replace(/'/g, '&#039;')
         .replace(/"/g, '&quot;')
-        .replace(/\n/g, '<br />');
+        .replace(/\n/g, '\\n');
+};
+var textEscape = (s)=>{    
+    return s.replace(/\n/g, '\\n');
 };
 $(()=>{
     let html = ''
@@ -70,8 +73,8 @@ var do_select = (t) =>{
     var val0 = cnjson[key];
     var val1 = enjson[key];
 
-    t.find('.cellmainlang').html(`<input class="valinput" value="${val0}">`)
-    t.find('.cellsublang').html(`<input class="valinput" value="${val1}">`)
+    t.find('.cellmainlang').html(`<input class="valinput" value="${textEscape(val0)}">`)
+    t.find('.cellsublang').html(`<input class="valinput" value="${textEscape(val1)}">`)
 }
 var do_unselect = (t) =>{
     var key = t.attr('data-key');
@@ -80,6 +83,7 @@ var do_unselect = (t) =>{
     var val1 = t.find('.cellsublang input').val()
     cnjson[key] = val0;
     enjson[key] = val1;
+    //console.log(val0, val1)
     t.find('.cellmainlang').html(`${htmlEscape(val0)}`)
     t.find('.cellsublang').html(`${htmlEscape(val1)}`)
 }
