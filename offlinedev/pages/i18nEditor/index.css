@@ -10,9 +10,9 @@
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
-    border: 1px solid #aaa !important;
     font-weight: bolder !important;
     color:#000;
+    text-decoration: underline;
 }
 .selected_tr{
     background-color: #fdbafb !important;
@@ -21,6 +21,11 @@ td.validate_info{
     width: 100px;
 }
 td .null_val{
+    color: red;
+    font-size: 6px;
+    background: #ecabab;
+}
+/* td .null_val{
     color: red;
     font-size: 6px;
     -webkit-animation: blink 0.86s steps(1) infinite;
@@ -41,7 +46,7 @@ td .null_val{
   0% { background: #ecabab; }
   50% { background: none; }
   100% { background: #ecabab; }
-}
+} */
 .langtable{
     border:0;
 }
