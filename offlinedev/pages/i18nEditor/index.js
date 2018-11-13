@@ -62,7 +62,8 @@ $(()=>{
                             <td class="validate_info"></td>
                         </tr>`
     }
-    $('#table >tbody').append(html);
+    $('#table >tbody').html(html);
+    $('#loading').remove();
     //do_validate()
     //---
     $('#table').on('mouseover', 'tr', function(e){
@@ -104,8 +105,11 @@ var do_select = (t) =>{
     var val0 = SuperJson[key].cn;
     var val1 = SuperJson[key].en;
 
-    t.find('.cellmainlang').html(`<input class="valinput" value="${textEscape(val0)}">`)
-    t.find('.cellsublang').html(`<input class="valinput" value="${textEscape(val1)}">`)
+    t.find('.cellmainlang').html(`<input class="valinput">`)
+    t.find('.cellsublang').html(`<input class="valinput">`)
+
+    t.find('.cellmainlang input').val(textEscape(val0));
+    t.find('.cellsublang input').val(textEscape(val1));
 }
 var do_unselect = (t) =>{
     var key = t.attr('data-key');
