@@ -10,14 +10,41 @@ var htmlEscape = (s) => {
         .replace(/"/g, '&quot;')
         .replace(/\n/g, '\\n');
 };
-var textEscape = (s)=>{    
+var textEscape = (s)=>{
+    if(typeof s === 'undefined') s = '';
+    if(!s) return s;   
     return s.replace(/\n/g, '\\n');
 };
 $(()=>{
     let html = ''
     let count = 0;
+
+    let SuperJson = {};
     for(var key in cnjson){
-        count++;
+        SuperJson[key] = {};
+        SuperJson[key].cn = cnjson[key];
+    }
+    for(var key in enjson){
+        if(typeof SuperJson[key] === 'undefined') SuperJson[key] = {};
+        SuperJson[key].en = enjson[key];
+    }
+    let allNullValueKeys = [];
+    let allWithValueKeys = [];
+    
+    for(var key in SuperJson){
+        var item = SuperJson[key];
+        if(typeof item.cn === 'undefined' || typeof item.en === 'undefined'){
+            allNullValueKeys.push(key);
+        }else{
+            allWithValueKeys.push(key);
+        }
+    }
+    let allKeys = [];
+    allKeys = allKeys.concat(allNullValueKeys);
+    allKeys = allKeys.concat(allWithValueKeys);
+    for(var i = 0, len=allKeys.length;i<len;i++){
+        var key = allKeys[i];
+        count = i;
         let value = cnjson[key]
         let envalue = enjson[key]
         if(typeof value === 'undefined') value = '';

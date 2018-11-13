@@ -1,5 +1,6 @@
 var enjson = {
     "TEST1": "aaa\nbbb ccc",
+    "test2_null": "",
     "WAIT_FOR_SUBMIT": "Wait for Submit",
     "STAGE_APPROVAL": "Stage approval:",
     "ORDINAL": "The",
@@ -4583,6 +4584,7 @@ var enjson = {
     "APPS_FEED_REPAIRTEMPLATE": "Repair Template"
 };
 var cnjson = {
+    "test3_null": "aaa",
     "TEST1": "aaa\nbbb ccc",
     "WAIT_FOR_SUBMIT": "待提交",
     "STAGE_APPROVAL": "阶段审批：",
