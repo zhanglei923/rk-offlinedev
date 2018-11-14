@@ -9,7 +9,7 @@ How to:
  - Stay in this folder and run `git clone https://github.com/zhanglei923/rk-offlinedev.git`
  - Run `cd rk-offlinedev`
  - Run `yarn install` or `npm install`
- - If windows Run `node server.js`
- - If max/linux Run `sudo node server.js`
+ - If windows, Run `node server.js`
+ - Or, if max/linux, Run `sudo node server.js`
  - Visit `http://localhost:666/` or `https://localhost`
 
