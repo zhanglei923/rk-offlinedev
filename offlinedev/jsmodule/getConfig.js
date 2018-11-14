@@ -14,16 +14,16 @@ if(fs.existsSync(fpath)){
     console.log('Can not find:', fpath)
 }
 
-var webProjectFolder = pathutil.resolve(__dirname, '../../../apps-ingage-web/src/main/webapp/');
+var webappFolder = pathutil.resolve(__dirname, '../../../apps-ingage-web/src/main/webapp/');
 module.exports = {
     get: function (){
         return configJson;
     },
-    getWebProjectFolder: function(){
-        return webProjectFolder;
+    getWebAppFolder: function(){
+        return webappFolder;
     },
     initFiles: function(){
-        var webpath = webProjectFolder;
+        var webpath = webappFolder;
         var rootpath = pathutil.resolve(__dirname, '../');
         if(!fs.existsSync(rootpath + '/.config')){
             
