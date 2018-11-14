@@ -8,9 +8,10 @@ var do_validate = () =>{
     // })
     unselect();
     let reportHtml = '<ul class="validatereport">'
+    let coun=0;
     for(var key in SuperJson){
         if(SuperJson[key].enIsDirty){
-            console.warn(key)
+            count++;
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>
                                 <div class="dirtycn">[CN]:${htmlEscape(OriginValues[key].cn)}</div>
@@ -20,6 +21,10 @@ var do_validate = () =>{
         }
     }
     reportHtml += '</ul>';
+    if(coun===0){
+        alert('Nothing changed.')
+        return;
+    }
     do_popupWindow((popup)=>{
         popup.html(reportHtml)
     })

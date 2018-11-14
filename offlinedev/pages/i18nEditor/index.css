@@ -11,6 +11,10 @@
 #loading{
     color:red;
 }
+#saveBtn{
+    background-color: #97f997;
+    border:1px solid #aaa;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     font-weight: bolder !important;
