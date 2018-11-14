@@ -48,7 +48,7 @@ let init = (all_trans, all_untrans)=>{
     
     for(var key in SuperJson){
         var item = SuperJson[key];
-        if(typeof item.cn === 'undefined' || typeof item.en === 'undefined'){
+        if(!item.cn || !item.en || typeof item.cn === 'undefined' || typeof item.en === 'undefined'){
             allNullValueKeys.push(key);
         }else{
             allWithValueKeys.push(key);
