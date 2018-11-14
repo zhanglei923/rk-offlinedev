@@ -60,7 +60,8 @@ td .null_val{
     color: blue;
 }
 .cellmainlang.word{
-    background-color: #feffd7;
+    /* background-color: #feffd7; */
+    background-color: #e3f0fd;
 }
 .cellsublang.word{
     background-color: #97f997;

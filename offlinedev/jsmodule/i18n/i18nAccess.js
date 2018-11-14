@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var moment = require("moment");
+var jsonformatter = require('format-json');
 var getConfig = require('../getConfig')
 
 var cache = {}
@@ -73,7 +74,7 @@ module.exports = {
             if(allJson[alias]){
                 let json = allJson[alias]
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
-                let content = 'define(' + JSON.stringify(json) + ');\n//'+moment().format('YYYY-MM-DD HH:mm')
+                let content = 'define(\n' + jsonformatter.diffy(json) + ');\n//'+moment().format('YYYY-MM-DD HH:mm')
                 fs.writeFileSync(fullfilename, content)
                 console.log('saved: ',alias, fullfilename)
             }
