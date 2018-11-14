@@ -10,7 +10,10 @@ var htmlEscape = (s) => {
         .replace(/"/g, '&quot;')
         .replace(/\n/g, '\\n');
 };
-var textEscape = (s)=>{
+var unescapeValue = (s)=>{
+    return s.replace(/\\n/,'\n')
+};
+var escapeValue = (s)=>{
     if(typeof s === 'undefined') s = '';
     if(!s) return s;   
     return s.replace(/\n/g, '\\n');
@@ -128,8 +131,8 @@ var do_select = (t) =>{
     t.find('.cellmainlang').html(`<input class="valinput">`)
     t.find('.cellsublang').html(`<input class="valinput">`)
 
-    t.find('.cellmainlang input').val(textEscape(val0));
-    t.find('.cellsublang input').val(textEscape(val1));
+    t.find('.cellmainlang input').val(escapeValue(val0));
+    t.find('.cellsublang input').val(escapeValue(val1));
 }
 var unselect = () =>{
     selectedTr.forEach((o)=>{
@@ -143,8 +146,8 @@ var do_unselect = (t) =>{
     t.removeClass('selected_tr')
     var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
-    SuperJson[key].cn = val0;
-    SuperJson[key].en = val1;
+    SuperJson[key].cn = unescapeValue(val0);
+    SuperJson[key].en = unescapeValue(val1);
     ////console.log(val0, val1)
     t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
