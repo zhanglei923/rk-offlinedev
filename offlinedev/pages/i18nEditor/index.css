@@ -92,3 +92,39 @@ td .null_val{
     border-bottom: 1px solid #fdbafb;
     /* background-color: yellow !important; */
 }
+.popup{
+    position: fixed;
+    left: 30px;
+    top: 30px;
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    border: 2px solid orange;
+}
+.popup .toolbar{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 80%;
+    height: 20px;
+    background-color: #dad8d3;
+}
+.popup .content{
+    margin-top: 20px;
+    height: calc(100%-20px);
+    overflow-y: auto;
+}
+.validatereport{
+
+}
+.validatereport .dirtykey{
+    color: blue;
+}
+.validatereport .dirtybefore{
+    margin-left:20px;
+    background-color: #f77676;
+}
+.validatereport .dirtyafter{
+    margin-left:20px;
+    background-color: greenyellow;
+}
