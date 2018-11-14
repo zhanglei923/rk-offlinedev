@@ -19,6 +19,7 @@ var escapeValue = (s)=>{
     return s.replace(/\n/g, '\\n');
 };
 let SuperJson = {};
+let OriginValues = {};//存放修改前的值
 let init = (all_trans, all_untrans)=>{
     let html = ''
     let count = 0;
@@ -128,6 +129,10 @@ var do_select = (t) =>{
     var val0 = SuperJson[key].cn;
     var val1 = SuperJson[key].en;
 
+    if(typeof OriginValues[key]==='undefined') OriginValues[key]={  
+                                                                    cn: val0, 
+                                                                    en: val1
+                                                                };
     t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
     t.find('.cellsublang').html(`<input class="valinput">`)
 
@@ -150,15 +155,15 @@ var do_unselect = (t) =>{
     var newVal0 = unescapeValue(val0);
     var newVal1 = unescapeValue(val1);
     
-    var enIsDirty = false;
-    if(SuperJson[key].en !== newVal1) enIsDirty = true;
-
     SuperJson[key].cn = newVal0;
     SuperJson[key].en = newVal1;
+
+    var enIsDirty = false;
+    if(SuperJson[key].en !== OriginValues[key].en) enIsDirty = true;
     SuperJson[key].enIsDirty = enIsDirty;
     ////console.log(val0, val1)
     t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 
-    if(enIsDirty) t.find('.cellsublang').addClass('isdirty')
+    enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
 }
