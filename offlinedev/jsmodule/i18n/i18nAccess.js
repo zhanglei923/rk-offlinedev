@@ -69,12 +69,11 @@ module.exports = {
         let i18nFolder = this.getI18nFolder();
         let all = {}
         allLangList.forEach((o)=>{
-            var langCode = o.fname;
             var alias = o.alias;
             if(allJson[alias]){
                 let json = allJson[alias]
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
-                let content = 'define(\n' + jsonformatter.diffy(json) + ');\n//'+moment().format('YYYY-MM-DD HH:mm')
+                let content = 'define(\n' + jsonformatter.diffy(json) + ');'
                 fs.writeFileSync(fullfilename, content)
                 console.log('saved: ',alias, fullfilename)
             }
