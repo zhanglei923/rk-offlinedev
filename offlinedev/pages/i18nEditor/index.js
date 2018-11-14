@@ -84,6 +84,12 @@ let init = (all_trans, all_untrans)=>{
     $('#table').on('mouseout', 'tr', function(e){
         handleTrOut(e.currentTarget)
     });
+    $('#table').on('dblclick', 'tr', function(e){
+        handleTrSelect(e.currentTarget)
+        if(!$(e.currentTarget).hasClass('selected_tr')){            
+            unselect()
+        }
+    });
     $('#table').on('click', 'tr', function(e){
         if(e.ctrlKey){
             handleTrSelect(e.currentTarget)
