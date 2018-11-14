@@ -16,18 +16,14 @@ var textEscape = (s)=>{
     return s.replace(/\n/g, '\\n');
 };
 let SuperJson = {};
-$.ajax({
-    url: '/offlinedev/action/loadLangFromAll',
-    cache: false,
-    method: 'POST',
-    data: {},
-    success: function( response ) {
-        console.log('response!', response)            
-    }
-});
-$(()=>{
+let init = (all_trans, all_untrans)=>{
     let html = ''
     let count = 0;
+    console.log(all_trans, all_untrans)
+
+    cnjson = all_trans['all_zh-cn'];
+    enjson = all_trans['all_en'];
+    console.log(cnjson, enjson)
 
     for(var key in cnjson){
         SuperJson[key] = {};
@@ -37,6 +33,13 @@ $(()=>{
         if(typeof SuperJson[key] === 'undefined') SuperJson[key] = {};
         SuperJson[key].en = enjson[key];
     }
+    for(var path in all_untrans){
+        var json = all_untrans[path].json;
+        for(var key in json){
+            if(!SuperJson[key]) SuperJson[key] = {cn: json[key]}
+        }
+    }
+
     let allNullValueKeys = [];
     let allWithValueKeys = [];
     
@@ -88,7 +91,7 @@ $(()=>{
             unselect()
         }
     });
-})
+};
 var hoveringList = []
 var handleTrHover = function(t){
     $(t).addClass('hovering_tr')

@@ -105,6 +105,11 @@ module.exports = {
             callback(result)
             return 'done'
         }
+        else if(/^\/offlinedev\/action\/loadLanguagesFromUntranslated/.test(req.originalUrl)){
+            var result = i18nAccess.loadLanguagesFromUntranslated()
+            callback(result)
+            return 'done'
+        }
     }
 }
 var getUrlContent = function(url){    
