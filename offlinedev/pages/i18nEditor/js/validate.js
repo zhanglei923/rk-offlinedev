@@ -6,14 +6,16 @@ var do_validate = () =>{
     //     //console.log(len1, len2)
     //     tr.find('.validate_info').html(`${len1-len2}`)
     // })
+    unselect();
     let reportHtml = '<ul class="validatereport">'
     for(var key in SuperJson){
         if(SuperJson[key].enIsDirty){
             console.warn(key)
             reportHtml += `<li>
-                                <div class="dirtykey">${key}</div>
-                                <div class="dirtybefore">${htmlEscape(OriginValues[key].en)}</div>
-                                <div class="dirtyafter">${htmlEscape(SuperJson[key].en)}</div>
+                                <div class="dirtykey">[KEY]:${key}</div>
+                                <div class="dirtycn">[CN]:${htmlEscape(OriginValues[key].cn)}</div>
+                                <div class="dirtybefore">[BF]:${htmlEscape(OriginValues[key].en?OriginValues[key].en:'')}</div>
+                                <div class="dirtyafter">[AF]:${htmlEscape(SuperJson[key].en)}</div>
                             </li>`;
         }
     }

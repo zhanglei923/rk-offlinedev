@@ -114,11 +114,14 @@ td .null_val{
     height: calc(100%-20px);
     overflow-y: auto;
 }
-.validatereport{
-
+.validatereport li div{
+    height: 15px;
 }
 .validatereport .dirtykey{
     color: blue;
+}
+.validatereport .dirtycn{
+    color: #555;
 }
 .validatereport .dirtybefore{
     margin-left:20px;
