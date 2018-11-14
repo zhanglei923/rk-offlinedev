@@ -45,6 +45,7 @@ var do_save = () => {
         data: {all: JSON.stringify(savejson)},
         success: function( response ) {
             console.log('response!', response)
+            alert('SAVED!')
         }
     });
 
