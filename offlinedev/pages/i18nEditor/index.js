@@ -16,6 +16,15 @@ var textEscape = (s)=>{
     return s.replace(/\n/g, '\\n');
 };
 let SuperJson = {};
+$.ajax({
+    url: '/offlinedev/action/loadLangFromAll',
+    cache: false,
+    method: 'POST',
+    data: {},
+    success: function( response ) {
+        console.log('response!', response)            
+    }
+});
 $(()=>{
     let html = ''
     let count = 0;

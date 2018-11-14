@@ -22,6 +22,12 @@ module.exports = {
     getWebAppFolder: function(){
         return webappFolder;
     },
+    getStaticFolder: function(){
+        return this.getWebAppFolder() + '/static';
+    },
+    getSourceFolder: function(){
+        return this.getStaticFolder() + '/source';
+    },
     initFiles: function(){
         var webpath = webappFolder;
         var rootpath = pathutil.resolve(__dirname, '../');

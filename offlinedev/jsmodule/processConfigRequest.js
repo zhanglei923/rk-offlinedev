@@ -6,11 +6,12 @@ var http = require('http');
 var _ = require('lodash')
 var getConfig = require('./getConfig')
 
-var configJson = require('./getConfig').get()
+var i18nAccess = require('./i18n/i18nAccess')
 var getMockingData = require('./getMockingData')
 var saveMockingData = require('./saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
+        console.log('req.originalUrl:', req.originalUrl)
         if(/^\/offlinedev\/getWebProjectInfo/.test(req.url)){
             var webpath = pathutil.resolve(__dirname, "../../../apps-ingage-web/")
             var branchName = getBranchName(webpath)
@@ -20,37 +21,37 @@ module.exports = {
                 webpath: webpath
             })
         }
-        if(/^\/offlinedev\/saveUserConfig/.test(req.url)){
+        else if(/^\/offlinedev\/saveUserConfig/.test(req.url)){
             var caseName = req.body.caseName
             console.log(caseName)
             return 'done'
 
         }
-        if(/^\/offlinedev\/action\/list\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/list\//.test(req.originalUrl)){
             var list = getMockingData.listActions()
             callback(list)
             return 'done'
         }
-        if(/^\/offlinedev\/action\/content\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/content\//.test(req.originalUrl)){
             var list = getMockingData.getActionContent(req.body.url, req.body.prettify)
             callback(list)
             return 'done'
         }
-        if(/^\/offlinedev\/action\/save\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/save\//.test(req.originalUrl)){
             var result = saveMockingData.saveAction(req.body.url, req.body.content)
             callback({
                 result: result
             })
             return 'done'
         }
-        if(/^\/offlinedev\/action\/savefilelink\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/savefilelink\//.test(req.originalUrl)){
             var result = saveMockingData.saveFileLinkAction(req.body.url, req.body.flist)
             callback({
                 result: result
             })
             return 'done'
         }
-        if(/^\/offlinedev\/action\/getfilelink\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/getfilelink\//.test(req.originalUrl)){
             var allfiles = saveMockingData.getAllFileLinks()
             var result = saveMockingData.getFileLinkAction(req.body.url, req.body.flist)
             var final = [];
@@ -68,13 +69,13 @@ module.exports = {
             callback(final)
             return 'done'
         }
-        if(/^\/offlinedev\/action\/loadfilelinkContent\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/action\/loadfilelinkContent\//.test(req.originalUrl)){
             var filepath = decodeURIComponent(req.body.filepath)
             var result = saveMockingData.getFileLinkContent(filepath)
             callback(result)
             return 'done'
         }
-        if(/^\/offlinedev\/syncCases/.test(req.url)){
+        else if(/^\/offlinedev\/syncCases/.test(req.url)){
             var caseName = req.body.caseName
             console.log(caseName)
             var url = 'http://10.10.0.115:3004/offlinedev/allfiles?casename=' + caseName
@@ -98,6 +99,11 @@ module.exports = {
                     callback()
                 }, 4000)
             });
+        }
+        else if(/^\/offlinedev\/action\/loadLangFromAll/.test(req.originalUrl)){
+            var result = i18nAccess.loadLanguagesFromAll()
+            callback(result)
+            return 'done'
         }
     }
 }
