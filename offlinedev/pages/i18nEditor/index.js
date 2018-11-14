@@ -87,7 +87,7 @@ let init = (all_trans, all_untrans)=>{
     $('#table').on('click', 'tr', function(e){
         if(e.ctrlKey){
             handleTrSelect(e.currentTarget)
-        }else{            
+        }else if(!$(e.currentTarget).hasClass('selected_tr')){            
             unselect()
         }
     });

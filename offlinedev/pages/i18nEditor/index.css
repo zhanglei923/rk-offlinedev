@@ -8,6 +8,9 @@
 * {
     font-family: Courier, Monaco, monospace;
 }
+#loading{
+    color:red;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     font-weight: bolder !important;
