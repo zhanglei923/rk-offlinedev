@@ -8,7 +8,7 @@ var do_validate = () =>{
     // })
     unselect();
     let reportHtml = '<ul class="validatereport">'
-    let coun=0;
+    let count=0;
     for(var key in SuperJson){
         if(SuperJson[key].enIsDirty){
             count++;
@@ -21,7 +21,7 @@ var do_validate = () =>{
         }
     }
     reportHtml += '</ul>';
-    if(coun===0){
+    if(count===0){
         alert('Nothing changed.')
         return;
     }

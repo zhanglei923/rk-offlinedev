@@ -55,7 +55,7 @@ td .null_val{
 } */
 .toolbar{
     height: 20px;
-    background-color: yellow;
+    background-color: #fbfbb9;
     position: fixed;
     left:0;top:0;
     width:100%;
