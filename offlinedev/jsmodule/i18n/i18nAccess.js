@@ -73,7 +73,14 @@ module.exports = {
             if(allJson[alias]){
                 let json = allJson[alias]
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
-                let content = 'define(\n' + jsonformatter.diffy(json) + ');'
+                let content = 'define('+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
+                                jsonformatter.diffy(json) + ');'
                 fs.writeFileSync(fullfilename, content)
                 console.log('saved: ',alias, fullfilename)
             }
