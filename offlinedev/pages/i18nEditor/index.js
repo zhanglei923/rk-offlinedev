@@ -128,7 +128,7 @@ var do_select = (t) =>{
     var val0 = SuperJson[key].cn;
     var val1 = SuperJson[key].en;
 
-    t.find('.cellmainlang').html(`<input class="valinput">`)
+    t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
     t.find('.cellsublang').html(`<input class="valinput">`)
 
     t.find('.cellmainlang input').val(escapeValue(val0));

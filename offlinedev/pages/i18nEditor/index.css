@@ -49,7 +49,15 @@ td .null_val{
   50% { background: none; }
   100% { background: #ecabab; }
 } */
+.toolbar{
+    height: 20px;
+    background-color: yellow;
+    position: fixed;
+    left:0;top:0;
+    width:100%;
+}
 .langtable{
+    margin-top: 20px;
     border:0;
 }
 .cellkey{
@@ -58,6 +66,10 @@ td .null_val{
 }
 .cellkey .word{
     color: blue;
+}
+.cellmainlang input{
+    background-color: #fdbafb !important;
+    color: #444;
 }
 .cellmainlang.word{
     /* background-color: #feffd7; */

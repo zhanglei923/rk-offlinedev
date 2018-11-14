@@ -35,8 +35,8 @@ var do_save = () => {
     }
     for(var key in SuperJson){
         var o = SuperJson[key];
-        savejson.cn[key] = o.cn ? o.cn : '';
-        savejson.en[key] = o.en ? o.en : '';
+        savejson.cn[key] = o.cn;// ? o.cn : '';
+        savejson.en[key] = o.en ? o.en : undefined;
     }
     let promise = $.ajax({
         url: '/offlinedev/action/saveAllLanguages',
