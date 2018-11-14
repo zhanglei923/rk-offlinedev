@@ -73,7 +73,11 @@ $(()=>{
         handleTrOut(e.currentTarget)
     });
     $('#table').on('click', 'tr', function(e){
-        handleTrSelect(e.currentTarget)
+        if(e.ctrlKey){
+            handleTrSelect(e.currentTarget)
+        }else{            
+            unselect()
+        }
     });
 })
 var hoveringList = []
@@ -86,9 +90,7 @@ var handleTrOut = function(t){
 var handleTrSelect = function(t){
     t = $(t);
     if(t.hasClass('selected_tr')) return;
-    selectedTr.forEach((o)=>{
-        do_unselect($(o));
-    })
+    unselect()
     do_select(t);
 }
 var getDisplayText = (val)=>{
@@ -111,7 +113,14 @@ var do_select = (t) =>{
     t.find('.cellmainlang input').val(textEscape(val0));
     t.find('.cellsublang input').val(textEscape(val1));
 }
+var unselect = () =>{
+    selectedTr.forEach((o)=>{
+        do_unselect($(o));
+    })
+    selectedTr = []
+}
 var do_unselect = (t) =>{
+    if(!t.hasClass('selected_tr')) return;
     var key = t.attr('data-key');
     t.removeClass('selected_tr')
     var val0 = t.find('.cellmainlang input').val()

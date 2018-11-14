@@ -1,6 +1,6 @@
 *{
     border: 0;
-    font-size: 10px;
+    font-size: 14px;
     margin: 0;
     padding: 0;
     color: #333;
@@ -22,7 +22,6 @@ td.validate_info{
 }
 td .null_val{
     color: red;
-    font-size: 6px;
     background: #ecabab;
 }
 /* td .null_val{
@@ -61,8 +60,7 @@ td .null_val{
     background-color: #feffd7;
 }
 .cellsublang.word{
-    background-color: #e2ffe2;
-    margin-left: 6px;
+    background-color: #97f997;
 }
 .row_a{
     background-color: #eee;
@@ -73,6 +71,5 @@ td .null_val{
     width: 94%;
     border-top: 1px solid #fdbafb;
     border-bottom: 1px solid #fdbafb;
-    font-size: 13px;
     /* background-color: yellow !important; */
 }
