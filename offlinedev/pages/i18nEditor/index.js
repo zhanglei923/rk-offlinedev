@@ -19,11 +19,11 @@ let SuperJson = {};
 let init = (all_trans, all_untrans)=>{
     let html = ''
     let count = 0;
-    console.log(all_trans, all_untrans)
+    //console.log(all_trans, all_untrans)
 
     cnjson = all_trans['all_zh-cn'];
     enjson = all_trans['all_en'];
-    console.log(cnjson, enjson)
+    //console.log(cnjson, enjson)
 
     for(var key in cnjson){
         SuperJson[key] = {};
@@ -145,7 +145,7 @@ var do_unselect = (t) =>{
     var val1 = t.find('.cellsublang input').val()
     SuperJson[key].cn = val0;
     SuperJson[key].en = val1;
-    //console.log(val0, val1)
+    ////console.log(val0, val1)
     t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 }

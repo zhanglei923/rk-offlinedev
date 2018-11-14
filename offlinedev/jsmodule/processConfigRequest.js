@@ -110,6 +110,14 @@ module.exports = {
             callback(result)
             return 'done'
         }
+        else if(/^\/offlinedev\/action\/saveAllLanguages/.test(req.originalUrl)){
+            let all = req.body.all;
+            //fs.writeFileSync('./o.json', all)
+            let allJson = JSON.parse(all);
+            var result = i18nAccess.saveAllLanguages(allJson)
+            callback(result)
+            return 'done'
+        }
     }
 }
 var getUrlContent = function(url){    
