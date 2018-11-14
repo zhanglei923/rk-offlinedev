@@ -9,8 +9,15 @@ var htmlEscape = (s) => {
         .replace(/'/g, '&#039;')
         .replace(/"/g, '&quot;')
         .replace(/\n/g, '\\n');
-    w = w.replace(/\{\d{1,}\}/g,(w)=>{return '<span class="unknown_mark">'+w+'</span>';})
-        .replace(/\{\w{1,}\}/g,(w)=>{return '<span class="warn_mark">'+w+'</span>';})
+    w = w//.replace(/\{\d{1,}\}/g,(w)=>{return '<span class="unknown_mark">'+w+'</span>';})
+        .replace(/\{\w{1,}\}/g,(w)=>{
+            var s=w.replace(/\{/g,'').replace(/\}/,'');
+            if(isNaN(parseInt(s))){
+                return '<span class="warn_mark">'+w+'</span>';
+            }else{
+                return '<span class="unknown_mark">'+w+'</span>';
+            }
+        })
         .replace(/\$\d{1,}/g,(w)=>{if(w==='$0'){return '<span class="unknown_mark">'+w+'</span>';}else{return '<span class="keyword_mark">'+w+'</span>';}})
         .replace(/\#[\w\_]{1,}\#/g,(w)=>{return '<span class="keyword_mark">'+w+'</span>';})
     return w;

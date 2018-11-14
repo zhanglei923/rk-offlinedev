@@ -61,7 +61,8 @@ td .null_val{
     width:100%;
 }
 .unknown_mark{
-    background-color: red;
+    color: red;
+    background-color: #ecabab;
 }
 .warn_mark{
     background-color: #f9e662;
