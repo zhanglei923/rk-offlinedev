@@ -146,9 +146,19 @@ var do_unselect = (t) =>{
     t.removeClass('selected_tr')
     var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
-    SuperJson[key].cn = unescapeValue(val0);
-    SuperJson[key].en = unescapeValue(val1);
+
+    var newVal0 = unescapeValue(val0);
+    var newVal1 = unescapeValue(val1);
+    
+    var enIsDirty = false;
+    if(SuperJson[key].en !== newVal1) enIsDirty = true;
+
+    SuperJson[key].cn = newVal0;
+    SuperJson[key].en = newVal1;
+    SuperJson[key].enIsDirty = enIsDirty;
     ////console.log(val0, val1)
     t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
+
+    if(enIsDirty) t.find('.cellsublang').addClass('isdirty')
 }

@@ -83,6 +83,9 @@ td .null_val{
 }
 .row_b{
 }
+.isdirty{
+    color: red;
+}
 .valinput{
     width: 94%;
     border-top: 1px solid #fdbafb;
