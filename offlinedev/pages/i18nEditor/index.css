@@ -60,6 +60,16 @@ td .null_val{
     left:0;top:0;
     width:100%;
 }
+.unknown_mark{
+    background-color: red;
+}
+.warn_mark{
+    background-color: #f9e662;
+}
+.keyword_mark{
+    background-color: #bdbde6;
+    margin: 2px;
+}
 .langtable{
     margin-top: 20px;
     border:0;

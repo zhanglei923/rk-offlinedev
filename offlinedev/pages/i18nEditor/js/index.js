@@ -2,13 +2,18 @@ var htmlEscape = (s) => {
     var type = typeof s;
     if (!s || type != 'string') return s;
     s = (s + '').replace('&lt;script', '<script');//跟xssUtil中呼应，避免重复&转码
-    return (s + '')
+    let w = (s + '')
         .replace(/&/g, '&amp;')
         .replace(/</g, '&lt;')
         .replace(/>/g, '&gt;')
         .replace(/'/g, '&#039;')
         .replace(/"/g, '&quot;')
         .replace(/\n/g, '\\n');
+    w = w.replace(/\{\d{1,}\}/g,(w)=>{return '<span class="unknown_mark">'+w+'</span>';})
+        .replace(/\{\w{1,}\}/g,(w)=>{return '<span class="warn_mark">'+w+'</span>';})
+        .replace(/\$\d{1,}/g,(w)=>{if(w==='$0'){return '<span class="unknown_mark">'+w+'</span>';}else{return '<span class="keyword_mark">'+w+'</span>';}})
+        .replace(/\#[\w\_]{1,}\#/g,(w)=>{return '<span class="keyword_mark">'+w+'</span>';})
+    return w;
 };
 var unescapeValue = (s)=>{
     return s.replace(/\\n/,'\n')
