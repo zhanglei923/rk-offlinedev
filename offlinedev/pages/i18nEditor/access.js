@@ -4,7 +4,7 @@ let promise1 = $.ajax({
     method: 'POST',
     data: {},
     success: function( response ) {
-        console.log('response!', response)            
+        console.log('response!')            
     }
 });
 let promise2 = $.ajax({
@@ -13,7 +13,7 @@ let promise2 = $.ajax({
     method: 'POST',
     data: {},
     success: function( response ) {
-        console.log('response!', response)            
+        console.log('response!')            
     }
 });
 Promise.all([promise1, promise2]).then(function(values) {
@@ -22,7 +22,8 @@ Promise.all([promise1, promise2]).then(function(values) {
 
 $(()=>{
     $('#saveBtn').click(()=>{
-        do_save()
+        unselect();
+        do_save();
     })
 })
 var do_validate = ()=>{
