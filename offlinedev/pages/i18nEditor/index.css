@@ -65,7 +65,7 @@ td .null_val{
     background-color: #ecabab;
 }
 .warn_mark{
-    background-color: #f9e662;
+    background-color: yellow;
 }
 .keyword_mark{
     background-color: #cdcdf7;
