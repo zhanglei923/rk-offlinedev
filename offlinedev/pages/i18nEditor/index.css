@@ -3,10 +3,20 @@
     font-size: 14px;
     margin: 0;
     padding: 0;
-    color: #333;
 }
 * {
     font-family: Courier, Monaco, monospace;
+}
+.toolbar{
+    height: 20px;
+    background-color: #000;
+    position: fixed;
+    left:0;top:0;
+    width:100%;
+    color:white;
+}
+.toolbar a{
+    color:white;
 }
 #loading{
     color:red;
@@ -54,13 +64,6 @@ td .null_val{
   50% { background: none; }
   100% { background: #ecabab; }
 } */
-.toolbar{
-    height: 20px;
-    background-color: #fbfbb9;
-    position: fixed;
-    left:0;top:0;
-    width:100%;
-}
 .unknown_mark{
     color: red;
     background-color: #ecabab;
