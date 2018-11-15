@@ -70,7 +70,7 @@ module.exports = {
         let all = {}
         allLangList.forEach((o)=>{
             var alias = o.alias;
-            if(allJson[alias]){
+            if(alias !=='cn' && allJson[alias]){
                 let json = allJson[alias]
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
                 let content = 'define('+
@@ -82,7 +82,7 @@ module.exports = {
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
                                 jsonformatter.diffy(json) + ');'
                 let localBackupFolder = pathutil.resolve(__dirname, './.save');
-                fs.writeFileSync(localBackupFolder+'/'+alias+'_'+moment().format('YYYY-MM-DD_HHmmss')+'.js', content)
+                fs.writeFileSync(localBackupFolder+'/'+alias+'_'+moment().format('YYYY-MM-DD_HHmmss')+'.json', JSON.stringify(json))
                 fs.writeFileSync(fullfilename, content)
                 console.log('saved: ',alias, fullfilename, localBackupFolder)
             }

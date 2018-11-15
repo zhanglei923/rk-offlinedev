@@ -137,6 +137,7 @@ td .null_val{
     color: blue;
 }
 .validatereport .dirtycn{
+    margin-left:20px;
     color: #555;
 }
 .validatereport .dirtybefore{

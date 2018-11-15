@@ -145,10 +145,10 @@ var do_select = (t) =>{
                                                                     cn: val0, 
                                                                     en: val1
                                                                 };
-    t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
+    //t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
     t.find('.cellsublang').html(`<input class="valinput">`)
 
-    t.find('.cellmainlang input').val(escapeValue(val0));
+    //t.find('.cellmainlang input').val(escapeValue(val0));
     t.find('.cellsublang input').val(escapeValue(val1));
 }
 var unselect = () =>{
@@ -161,20 +161,20 @@ var do_unselect = (t) =>{
     if(!t.hasClass('selected_tr')) return;
     var key = t.attr('data-key');
     t.removeClass('selected_tr')
-    var val0 = t.find('.cellmainlang input').val()
+    //var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
 
-    var newVal0 = unescapeValue(val0);
+    //var newVal0 = unescapeValue(val0);
     var newVal1 = unescapeValue(val1);
     
-    SuperJson[key].cn = newVal0;
+    //SuperJson[key].cn = newVal0;
     SuperJson[key].en = newVal1;
 
     var enIsDirty = false;
     if(SuperJson[key].en !== OriginValues[key].en) enIsDirty = true;
     SuperJson[key].enIsDirty = enIsDirty;
     ////console.log(val0, val1)
-    t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
+    //t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 
     enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
