@@ -66,10 +66,10 @@ td .null_val{
     background-color: #ecabab;
 }
 .warn_mark{
-    background-color: yellow;
+    background-color: #f5f54a;
 }
 .keyword_mark{
-    background-color: #cdcdf7;
+    background-color: #4ebb3a;
     margin: 2px;
 }
 .langtable{
