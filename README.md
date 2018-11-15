@@ -7,9 +7,9 @@ How to use:
  - First, make sure you have installed `git` and `nodejs`.
  - Then go to parent folder of your local `apps-ingage-web` project.
     1. Example: if your web folder is `D:\workspaces\apps-ingage-web`, then it should be `D:\workspaces\`
- - Stay in this folder and run `git clone https://github.com/zhanglei923/rk-offlinedev.git`
+ - Stay in this folder and run command `git clone https://github.com/zhanglei923/rk-offlinedev.git`
  - Run `cd rk-offlinedev`
- - Run `yarn install` or `npm install`
+ - Run `npm install` or `yarn install`
  - If windows, Run `node server.js`
  - Or, if max/linux, Run `sudo node server.js`
  - Visit `http://localhost:666/` or `https://localhost`
