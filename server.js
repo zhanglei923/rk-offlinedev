@@ -108,12 +108,12 @@ app.use(function (req, res, next) {
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
-var processConfigRequest = require('./offlinedev/jsmodule/processConfigRequest')
+var actionsRouter = require('./offlinedev/jsmodule/actionsRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;
     if(/^\/offlinedev\//.test(req.url)){
-        var result = processConfigRequest.processPost(req, res, function(data){
+        var result = actionsRouter.processPost(req, res, function(data){
             res.json({
                 status: 0,
                 result: data
