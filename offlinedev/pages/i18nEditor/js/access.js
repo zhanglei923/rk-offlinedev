@@ -18,6 +18,7 @@ let promise2 = $.ajax({
 });
 Promise.all([promise1, promise2]).then(function(values) {
     init(values[0].result, values[1].result);
+    $('#saveBtn').show();
 });
 
 $(()=>{

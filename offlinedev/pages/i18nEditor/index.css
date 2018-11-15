@@ -14,6 +14,7 @@
 #saveBtn{
     background-color: #97f997;
     border:1px solid #aaa;
+    display: none;
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
