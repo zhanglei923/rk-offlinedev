@@ -72,6 +72,9 @@ td .null_val{
     background-color: #4ebb3a;
     margin: 2px;
 }
+.keyofenter_mark{
+    background-color: #dcba90;
+}
 .langtable{
     margin-top: 20px;
     border:0;

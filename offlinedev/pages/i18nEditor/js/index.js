@@ -8,7 +8,7 @@ var htmlEscape = (s) => {
         .replace(/>/g, '&gt;')
         .replace(/'/g, '&#039;')
         .replace(/"/g, '&quot;')
-        .replace(/\n/g, '<span class="warn_mark">\\n</span>');
+        .replace(/\n/g, '<span class="keyofenter_mark">\\n</span>');
     w = w//.replace(/\{\d{1,}\}/g,(w)=>{return '<span class="unknown_mark">'+w+'</span>';})
         .replace(/\{\w{1,}\}/g,(w)=>{
             var s=w.replace(/\{/g,'').replace(/\}/,'');
