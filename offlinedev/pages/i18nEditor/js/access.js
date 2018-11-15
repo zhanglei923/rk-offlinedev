@@ -30,6 +30,7 @@ $(()=>{
 var do_validate = ()=>{
 };
 var do_save = () => {    
+    if(!confirm('Sync to i18n files?')) return;
     var savejson = {
         cn:{}, 
         en:{}
@@ -46,7 +47,7 @@ var do_save = () => {
         data: {all: JSON.stringify(savejson)},
         success: function( response ) {
             console.log('response!', response)
-            alert('SAVED!')
+            alert('Save successfully! \nPlease return to the project directory and push to Gerrit repo!')
         }
     });
 
