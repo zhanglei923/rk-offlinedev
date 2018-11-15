@@ -23,7 +23,7 @@ module.exports = {
         let all = {}
         allLangList.forEach((o)=>{     
             var langCode = o.fname;       
-            let content = fs.readFileSync(i18nFolder+`/${langCode}.js`, 'utf8');
+            let content = fs.readFileSync(i18nFolder+`/${langCode}.properties.js`, 'utf8');
             content = content.replace(/^\s?define/, 'my_define')
             let json = {}
             eval(`json = ${content}`)
@@ -72,7 +72,7 @@ module.exports = {
             var alias = o.alias;
             if(alias !=='cn' && allJson[alias]){
                 let json = allJson[alias]
-                let fullfilename = i18nFolder + '/' + o.fname + '.js';
+                let fullfilename = i18nFolder + '/' + o.fname + '.properties.js';
                 let content = 'define('+
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+

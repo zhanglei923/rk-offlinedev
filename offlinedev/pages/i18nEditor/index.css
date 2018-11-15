@@ -93,9 +93,11 @@ td .null_val{
 .cellmainlang.word{
     /* background-color: #feffd7; */
     background-color: #e3f0fd;
+    border: 1px solid #a3a3d4;
 }
 .cellsublang.word{
     background-color: #97f997;
+    border: 1px solid #42c73a;
 }
 .row_a{
     background-color: #eee;
