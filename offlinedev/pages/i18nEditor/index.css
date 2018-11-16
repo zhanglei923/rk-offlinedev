@@ -120,7 +120,7 @@ td .null_val{
     position: fixed;
     left: 30px;
     top: 30px;
-    width: 80%;
+    width: 90%;
     height: 80%;
     background-color: white;
     border: 2px solid orange;
@@ -149,19 +149,19 @@ td .null_val{
     height: 15px;
 }
 .validatereport .dirtykey{
-    margin-left:20px;
+    margin-left:6px;
     color: blue;
 }
 .validatereport .dirtycn{
-    margin-left:20px;
+    margin-left:6px;
     color: #555;
 }
 .validatereport .dirtybefore{
-    margin-left:20px;
+    margin-left:6px;
     background-color: #f7b9d3;
 }
 .validatereport .dirtyafter{
-    margin-left:20px;
+    margin-left:6px;
     background-color: greenyellow;
 }
 .helptip{
