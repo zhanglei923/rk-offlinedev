@@ -1,7 +1,8 @@
-let do_popupWindow = (callback)=>{
+let do_popupWindow = (title, callback)=>{
     if(!document.getElementById('popup'))$('body').append(`<div id="popup" class="popup">
                                                     <div class="toolbar">
-                                                        <button onclick="close_popupWindow()">close</button>
+                                                        <span class="title">${title}</span>
+                                                        <button class="closeBtn" onclick="close_popupWindow()">[X]</button>
                                                     </div>
                                                     <div class="content"></div>
                                                 </div>`)

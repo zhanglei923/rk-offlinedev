@@ -129,19 +129,27 @@ td .null_val{
     position: absolute;
     left: 0;
     top: 0;
-    width: 90%;
+    width: 99%;
     height: 20px;
     background-color: #dad8d3;
+}
+.popup .toolbar .title{
+    color: black;
+}
+.popup .toolbar .closeBtn{
+    float:right;
 }
 .popup .content{
     margin-top: 20px;
     height: calc(100%-20px);
+    width: 98%;
     overflow-y: auto;
 }
 .validatereport li div{
     height: 15px;
 }
 .validatereport .dirtykey{
+    margin-left:20px;
     color: blue;
 }
 .validatereport .dirtycn{

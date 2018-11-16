@@ -29,7 +29,7 @@ var do_validate = () =>{
         alert('Nothing changed.')
         return;
     }
-    do_popupWindow((popup)=>{
+    do_popupWindow('Summary', (popup)=>{
         popup.html(reportHtml)
     })
 }
