@@ -32,7 +32,7 @@ var escapeValue = (s)=>{
     return s.replace(/\n/g, '\\n');
 };
 let SuperJson = {};
-let OriginJson = {};
+let OriginSuperJson = {};
 let init = (all_trans, all_untrans)=>{
     let html = ''
     let count = 0;
@@ -60,7 +60,7 @@ let init = (all_trans, all_untrans)=>{
     let allNullValueKeys = [];
     let allWithValueKeys = [];
 
-    OriginJson = JSON.parse(JSON.stringify(SuperJson));
+    OriginSuperJson = JSON.parse(JSON.stringify(SuperJson));
     
     for(var key in SuperJson){
         var item = SuperJson[key];
@@ -175,7 +175,7 @@ var do_unselect = (t) =>{
     SuperJson[key].en = newVal1;
 
     var enIsDirty = false;
-    if(SuperJson[key].en !== OriginJson[key].en) enIsDirty = true;
+    if(SuperJson[key].en !== OriginSuperJson[key].en) enIsDirty = true;
     ////console.log(val0, val1)
     //t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
