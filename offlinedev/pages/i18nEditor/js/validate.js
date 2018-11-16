@@ -10,12 +10,16 @@ var do_validate = () =>{
     let reportHtml = '<ul class="validatereport">'
     let count=0;
     for(var key in SuperJson){
-        if(SuperJson[key].enIsDirty){
+        let enval0 = OriginJson[key].en?OriginJson[key].en:'';
+        let enval1 = SuperJson[key].en?SuperJson[key].en:'';
+        
+        if(enval0 !== enval1){
+            console.log(OriginJson[key].en , SuperJson[key].en)
             count++;
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>
-                                <div class="dirtycn">[CN]:${htmlEscape(OriginValues[key].cn)}</div>
-                                <div class="dirtybefore">[BF]:${htmlEscape(OriginValues[key].en?OriginValues[key].en:'')}</div>
+                                <div class="dirtycn">[CN]:${htmlEscape(OriginJson[key].cn)}</div>
+                                <div class="dirtybefore">[BF]:${htmlEscape(OriginJson[key].en?OriginJson[key].en:'')}</div>
                                 <div class="dirtyafter">[AF]:${htmlEscape(SuperJson[key].en)}</div>
                             </li>`;
         }
