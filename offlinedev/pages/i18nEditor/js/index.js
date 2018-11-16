@@ -93,6 +93,8 @@ let init = (all_trans, all_untrans)=>{
     }
     $('#table >tbody').html(html);
     $('#loading').remove();
+    updateSummary()
+
     //do_validate()
     //---
     $('#table').on('mouseover', 'tr', function(e){
@@ -136,6 +138,7 @@ var selectedTr = [];
 var do_select = (t) =>{
     selectedTr = []
     t.addClass('selected_tr')
+    showHelpTip(t);
     selectedTr.push(t)
 
     var key = t.attr('data-key');
@@ -157,6 +160,8 @@ var unselect = () =>{
         do_unselect($(o));
     })
     selectedTr = []
+    hideHelpTip();
+    updateSummary();
 }
 var do_unselect = (t) =>{
     if(!t.hasClass('selected_tr')) return;

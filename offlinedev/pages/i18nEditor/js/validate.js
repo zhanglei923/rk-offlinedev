@@ -29,6 +29,21 @@ var do_validate = () =>{
         popup.html(reportHtml)
     })
 }
+var updateSummary = function(){
+    let nullcn = 0;
+    let nullen = 0;
+    let total = 0;
+    for(var key in SuperJson){
+        let cnvalue = SuperJson[key].cn;
+        let envalue = SuperJson[key].en;
+        if(!cnvalue) nullcn ++;
+        if(!envalue) nullen ++;
+        total++;
+    };
+    $('#summary').html(`
+    Remains: ${nullen}/${total}
+    `)
+};
 
 $(()=>{
     $('#validateBtn').click(()=>{

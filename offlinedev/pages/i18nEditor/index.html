@@ -16,7 +16,8 @@
         <b>Translation Workbench</b>
         <button href="javascript:;">Choose-Language</button>
         <button id="validateBtn" href="javascript:;">Summary</button>
-        <button id="saveBtn" href="javascript:;">Sync</button>
+        <span id="summary" class="summary"></span>
+        <button id="saveBtn" href="javascript:;">Save</button>
         <span id="loading">Loading...</span>
         <a href="./" style="color:#77e46b;float:right;margin-right:10px;">Help</a>
     </div>
@@ -24,5 +25,15 @@
         <tbody>
         </tbody>
     </table>
+    <div id="helptip" class="helptip">
+        <b>[NOTICE]:</b><br>
+        <span style="display:none;">
+            -A single character <span class="highlight">\</span> is ILLEGAL.<br>
+            -Type <span class="highlight">\\</span> to display <span class="highlight">\</span>.<br>
+        </span>
+        &nbsp;-Type &quot;<span class="highlight">\n</span>&quot; to break line.<br>
+        &nbsp;-Empty Line is ILLEGAL, pls fill with <span class="highlight">space-character</span> or &quot;<span class="highlight">&amp;nbsp;</span>&quot;.<br>
+        &nbsp;-Use $+Num to receive params, i.e &quot;From <span class="highlight">$1</span> to <span class="highlight">$2</span>&quot;.<br>
+    </div>
 </body>
 </html>

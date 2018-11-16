@@ -156,3 +156,17 @@ td .null_val{
     margin-left:20px;
     background-color: greenyellow;
 }
+.helptip{
+    display: none;
+    position: absolute;
+    padding-right: 80px;    
+    right: 0;
+    background-color:yellow;
+    border-top: 2px solid #cac3c3;
+    border-bottom: 2px solid #cac3c3;
+    border-right: 2px solid #cac3c3;
+}
+.helptip .highlight{
+    color: red;
+    font-weight: bold;
+}

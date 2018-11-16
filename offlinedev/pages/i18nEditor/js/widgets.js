@@ -11,3 +11,10 @@ let do_popupWindow = (callback)=>{
 let close_popupWindow = ()=>{
     $('#popup').hide();
 }
+let showHelpTip = (tr)=>{
+    let pos = tr.position();
+    $('#helptip').show().css({top:pos.top+57})
+}
+let hideHelpTip = ()=>{
+    $('#helptip').hide()
+}
