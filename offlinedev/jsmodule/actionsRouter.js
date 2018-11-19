@@ -7,6 +7,7 @@ var _ = require('lodash')
 var getConfig = require('./getConfig')
 
 var i18nAccess = require('./i18n/i18nAccess')
+var i18nValidator = require('./i18n/i18nValidator')
 var getMockingData = require('./getMockingData')
 var saveMockingData = require('./saveMockingData')
 module.exports = {
@@ -116,6 +117,11 @@ module.exports = {
             let allJson = JSON.parse(all);
             var result = i18nAccess.saveAllLanguages(allJson)
             callback(result)
+            return 'done'
+        }
+        else if(/^\/offlinedev\/action\/i18nReports/.test(req.originalUrl)){
+            var reports = i18nValidator.getReports()
+            callback(reports)
             return 'done'
         }
     }
