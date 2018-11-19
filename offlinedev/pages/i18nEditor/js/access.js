@@ -44,7 +44,7 @@ var do_save = () => {
         savejson.cn[key] = o.cn;// ? o.cn : '';
         savejson.en[key] = o.en ? o.en : undefined;
     }
-    delete savejson[cn];//暂时不保存中文
+    delete savejson['cn'];//暂时不保存中文
     let promise = $.ajax({
         url: '/offlinedev/action/saveAllLanguages',
         cache: false,
