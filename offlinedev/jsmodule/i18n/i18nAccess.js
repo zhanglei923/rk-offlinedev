@@ -3,6 +3,7 @@ var pathutil = require('path');
 var moment = require("moment");
 var jsonformatter = require('format-json');
 var getConfig = require('../getConfig')
+var i18nUtil = require('../../../../apps-ingage-web/.cicd/i18n/i18nUtil')
 
 var cache = {}
 let my_define = (json)=>{
@@ -32,6 +33,15 @@ module.exports = {
         return all;
     },
     loadLanguagesFromUntranslated: function (){
+        let untranslatedList = i18nUtil.loadUntranslateds();
+        fs.writeFileSync('./u.json', JSON.stringify(untranslatedList))
+        let all = {}
+        untranslatedList.forEach((item)=>{
+            all[item.path] = item.json;
+        })
+        return all;
+    },
+    loadLanguagesFromUntranslated2: function (){
         let i18nFolder = this.getI18nFolder();
         let all = {}
         var list = fs.readdirSync(i18nFolder)
