@@ -55,7 +55,7 @@ let init = (all_trans, all_untrans)=>{
         SuperJson[key].en = enjson[key];
     }
     for(var path in all_untrans){
-        var json = all_untrans[path].json;
+        var json = all_untrans[path];
         for(var key in json){
             if(!SuperJson[key]) SuperJson[key] = {cn: json[key]}
         }
