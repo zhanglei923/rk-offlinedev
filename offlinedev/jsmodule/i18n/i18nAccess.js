@@ -34,7 +34,7 @@ module.exports = {
     },
     loadLanguagesFromUntranslated: function (){
         let untranslatedList = i18nUtil.loadUntranslateds();
-        fs.writeFileSync('./u.json', JSON.stringify(untranslatedList))
+        //fs.writeFileSync('./u.json', JSON.stringify(untranslatedList))
         let all = {}
         untranslatedList.forEach((item)=>{
             all[item.path] = item.json;

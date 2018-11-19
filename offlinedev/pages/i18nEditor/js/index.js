@@ -33,6 +33,10 @@ var escapeValue = (s)=>{
 };
 let SuperJson = {};
 let OriginSuperJson = {};
+loadData((all_trans, all_untrans)=>{
+    init(all_trans, all_untrans);
+    $('#saveBtn').show();
+})
 let init = (all_trans, all_untrans)=>{
     let html = ''
     let count = 0;

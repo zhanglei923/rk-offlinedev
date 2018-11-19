@@ -49,8 +49,18 @@ var updateSummary = function(){
     `)
 };
 
+do_fileDetails = ()=>{
+    close_popupWindow();
+    let reportHtml = '234'
+    do_popupWindow('File Details', (popup)=>{
+        popup.html(reportHtml)
+    })
+}
 $(()=>{
     $('#validateBtn').click(()=>{
         do_validate();
+    })
+    $('#fileDetailsBtn').click(()=>{
+        do_fileDetails();
     })
 })

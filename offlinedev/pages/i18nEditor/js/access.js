@@ -1,25 +1,29 @@
-let promise1 = $.ajax({
-    url: '/offlinedev/action/loadLangFromAll',
-    cache: false,
-    method: 'POST',
-    data: {},
-    success: function( response ) {
-        console.log('response!')            
-    }
-});
-let promise2 = $.ajax({
-    url: '/offlinedev/action/loadLanguagesFromUntranslated',
-    cache: false,
-    method: 'POST',
-    data: {},
-    success: function( response ) {
-        console.log('response!')            
-    }
-});
-Promise.all([promise1, promise2]).then(function(values) {
-    init(values[0].result, values[1].result);
-    $('#saveBtn').show();
-});
+
+let loadData = (success) =>{
+    let promise1 = $.ajax({
+        url: '/offlinedev/action/loadLangFromAll',
+        cache: false,
+        method: 'POST',
+        data: {},
+        success: function( response ) {
+            console.log('response!')            
+        }
+    });
+    let promise2 = $.ajax({
+        url: '/offlinedev/action/loadLanguagesFromUntranslated',
+        cache: false,
+        method: 'POST',
+        data: {},
+        success: function( response ) {
+            console.log('response!')            
+        }
+    });
+    Promise.all([promise1, promise2]).then(function(values) {
+        let all_trans = values[0].result
+        let all_untrans = values[1].result
+        success(all_trans, all_untrans)
+    });
+}
 
 $(()=>{
     $('#saveBtn').click(()=>{
