@@ -80,7 +80,7 @@ module.exports = {
         let all = {}
         allLangList.forEach((o)=>{
             var alias = o.alias;
-            if(alias !=='cn' && allJson[alias]){
+            if(allJson[alias]){
                 let json = allJson[alias]
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
                 let content = 'define('+
