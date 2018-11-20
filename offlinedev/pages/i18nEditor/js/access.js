@@ -47,6 +47,7 @@ var do_save = () => {
     delete savejson['cn'];//暂时不保存中文
     do_save_req(savejson, (response)=>{
         console.log('response!', response)
+        clean_localstorage()
         alert('Save successfully! \nPlease return to the project directory and push to Gerrit repo!')
 
     })
