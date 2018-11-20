@@ -50,6 +50,6 @@ var do_reportCaches = () =>{
     reportHtml += '</ul>';
     do_popupWindow('Cached', (popup)=>{
         popup.html(reportHtml)
-        $('#popup >.foot').html(`<button onclick="clean_localstorage();close_popupWindow();">Clean All Caches</button>`)
+        $('#popup >.footer').html(`<button onclick="if(confirm('Sure?')){clean_localstorage();close_popupWindow();$('#cacheBtn').hide();}">Clean All Caches</button>`)
     })
 }

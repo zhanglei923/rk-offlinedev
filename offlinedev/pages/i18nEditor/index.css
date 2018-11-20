@@ -189,12 +189,10 @@ td .null_val{
 .helptip{
     display: none;
     position: absolute;
-    padding-right: 80px;    
-    right: 0;
+    padding-right: 6px;    
+    right: 12px;
     background-color:yellow;
-    border-top: 2px solid #cac3c3;
-    border-bottom: 2px solid #cac3c3;
-    border-right: 2px solid #cac3c3;
+    box-shadow: 6px 6px 3px #888888;
 }
 .helptip .highlight{
     color: red;
