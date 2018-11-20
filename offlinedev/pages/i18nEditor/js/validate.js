@@ -62,7 +62,7 @@ do_selfTest = () =>{
 
     let errors = []
     let count = 0;
-    let _test = (val0, val)=>{
+    let _test = (key, val0, val)=>{
         ipt.val(escapeValue(val));
         val = unescapeValue(ipt.val());
         if(typeof val0 !== 'undefined' && val0 !== val) {
@@ -73,15 +73,15 @@ do_selfTest = () =>{
     for(let key in osuperJson){
         let val = osuperJson[key].en;
         let val0 = val;
-        _test(val0, val)
+        _test(key, val0, val)
     }
     for(let key in osuperJson){
         let val = osuperJson[key].cn;
         let val0 = val;
-        _test(val0, val)
+        _test(key, val0, val)
     }
     $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
-    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length}errors!`:`${count}Passed!`)
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} errors!`:`${count} Passed!`)
     console.warn(`ERRORS: ${errors.length}`, errors)
 }
 $(()=>{
