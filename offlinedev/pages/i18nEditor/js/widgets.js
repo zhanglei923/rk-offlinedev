@@ -1,4 +1,5 @@
 let do_popupWindow = (title, callback)=>{
+    close_popupWindow()
     if(!document.getElementById('popup'))$('body').append(`<div id="popup" class="popup">
                                                     <div class="toolbar">
                                                         <span class="title">${title}</span>

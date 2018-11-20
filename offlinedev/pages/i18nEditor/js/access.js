@@ -45,15 +45,20 @@ var do_save = () => {
         savejson.en[key] = o.en ? o.en : undefined;
     }
     delete savejson['cn'];//暂时不保存中文
+    do_save_req(savejson, (response)=>{
+        console.log('response!', response)
+        alert('Save successfully! \nPlease return to the project directory and push to Gerrit repo!')
+
+    })
+};
+var do_save_req = (savejson, callback) => {    
     let promise = $.ajax({
         url: '/offlinedev/action/saveAllLanguages',
         cache: false,
         method: 'POST',
         data: {all: JSON.stringify(savejson)},
         success: function( response ) {
-            console.log('response!', response)
-            alert('Save successfully! \nPlease return to the project directory and push to Gerrit repo!')
+            callback(response)
         }
     });
-
-};
+}

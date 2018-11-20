@@ -56,11 +56,30 @@ do_fileDetails = ()=>{
         popup.html(reportHtml)
     })
 }
+do_selfTest = () =>{
+    let ipt = $('#selftestInput')//document.getElementById('selftestInput')
+    let count=0;
+    let osuperJson = JSON.parse(JSON.stringify(OriginSuperJson));
+    for(let key in osuperJson){
+        let val = osuperJson[key].en;
+        let val0 = val;
+        ipt.val(escapeValue(val));
+        val = unescapeValue(ipt.val());
+        if(typeof val0 !== 'undefined' && val0 !== val) {
+            console.log(key)
+            console.log(val0, val)
+        }
+        count++
+    }
+}
 $(()=>{
     $('#validateBtn').click(()=>{
         do_validate();
     })
     $('#fileDetailsBtn').click(()=>{
         do_fileDetails();
+    })
+    $('#selfTestBtn').click(()=>{
+        do_selfTest();
     })
 })
