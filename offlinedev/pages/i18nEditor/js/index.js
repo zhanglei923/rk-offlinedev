@@ -99,6 +99,8 @@ let init = (all_trans, all_untrans)=>{
             allWithValueKeys.push(key);
         }
     }
+    allNullValueKeys.sort();
+    allWithValueKeys.sort();
     let allKeys = [];
     allKeys = allKeys.concat(allNullValueKeys);
     allKeys = allKeys.concat(allWithValueKeys);
