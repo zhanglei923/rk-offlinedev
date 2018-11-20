@@ -58,19 +58,31 @@ do_fileDetails = ()=>{
 }
 do_selfTest = () =>{
     let ipt = $('#selftestInput')//document.getElementById('selftestInput')
-    let count=0;
     let osuperJson = JSON.parse(JSON.stringify(OriginSuperJson));
-    for(let key in osuperJson){
-        let val = osuperJson[key].en;
-        let val0 = val;
+
+    let errors = []
+    let count = 0;
+    let _test = (val0, val)=>{
         ipt.val(escapeValue(val));
         val = unescapeValue(ipt.val());
         if(typeof val0 !== 'undefined' && val0 !== val) {
-            console.log(key)
-            console.log(val0, val)
+            errors.push({key, val0, val1: val})
         }
-        count++
+        count++;
     }
+    for(let key in osuperJson){
+        let val = osuperJson[key].en;
+        let val0 = val;
+        _test(val0, val)
+    }
+    for(let key in osuperJson){
+        let val = osuperJson[key].cn;
+        let val0 = val;
+        _test(val0, val)
+    }
+    $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length}errors!`:`${count}Passed!`)
+    console.warn(`ERRORS: ${errors.length}`, errors)
 }
 $(()=>{
     $('#validateBtn').click(()=>{

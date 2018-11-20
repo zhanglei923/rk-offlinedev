@@ -24,7 +24,7 @@ var htmlEscape = (s) => {
     return w;
 };
 var unescapeValue = (s)=>{
-    return s.replace(/\\n/,'\n')
+    return s.replace(/\\n/g,'\n')
 };
 var escapeValue = (s)=>{
     if(typeof s === 'undefined') s = '';

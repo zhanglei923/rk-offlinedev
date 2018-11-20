@@ -26,6 +26,12 @@
     border:1px solid #aaa;
     display: none;
 }
+.selfTestBtn.wrong{
+    background-color: red;
+}
+.selfTestBtn.correct{
+    background-color: #97f997;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     font-weight: bolder !important;
