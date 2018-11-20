@@ -70,6 +70,7 @@ do_fileDetails = ()=>{
     })
 }
 do_selfTest = () =>{
+    $('#selfTestBtn').removeClass('wrong').removeClass('correct').html('testing...')
     let ipt = $('#selftestInput')//document.getElementById('selftestInput')
     let osuperJson = JSON.parse(JSON.stringify(OriginSuperJson));
 
