@@ -62,17 +62,17 @@ td .null_val{
     animation: blink 0.86s steps(1) infinite;
 }
 @-moz-keyframes blink {
-  0% { background: #222; }
+  0% { background: #222; color:white; }
   50% { background: red; }
   100% { background: red; }
 }
 @-webkit-keyframes blink {
-  0% { background: #222; }
+  0% { background: #222; color:white; }
   50% { background: red; }
   100% { background: red; }
 }
 @keyframes blink {
-  0% { background: #222; }
+  0% { background: #222; color:white; }
   50% { background: red; }
   100% { background: red; }
 }
@@ -84,7 +84,7 @@ td .null_val{
     background-color: #f5f54a;
 }
 .keyword_mark{
-    background-color: #a9ea9d;
+    background-color: #c2efba;
 }
 .keyofenter_mark{
     background-color: #dcba90;

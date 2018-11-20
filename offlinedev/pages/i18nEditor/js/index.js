@@ -161,9 +161,11 @@ var do_select = (t) =>{
     t.find('.cellsublang input').val(escapeValue(val1)).focus();;
 }
 var unselect = () =>{
+    let succ=true;
     selectedTr.forEach((o)=>{
-        do_unselect($(o));
+        succ = succ && do_unselect($(o));
     })
+    if(!succ) return;
     selectedTr = []
     hideHelpTip();
     updateSummary();
@@ -171,9 +173,11 @@ var unselect = () =>{
 var do_unselect = (t) =>{
     if(!t.hasClass('selected_tr')) return;
     var key = t.attr('data-key');
-    t.removeClass('selected_tr')
     //var val0 = t.find('.cellmainlang input').val()
     var val1 = t.find('.cellsublang input').val()
+
+    if(!do_validateValue(key, val1)) return;
+    t.removeClass('selected_tr')
 
     //var newVal0 = unescapeValue(val0);
     var newVal1 = unescapeValue(val1);
@@ -189,4 +193,5 @@ var do_unselect = (t) =>{
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 
     enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
+    return true;
 }
