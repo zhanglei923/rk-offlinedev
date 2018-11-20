@@ -8,13 +8,26 @@ var do_validate = () =>{
     // })
     unselect();
     let reportHtml = '<ul class="validatereport">'
+    let localcache = get_localstorage();
     let count=0;
+    reportHtml += `<li><input type="checkbox"><b>Cached:</b></li>`
+    for(var key in localcache){
+        count++;
+        reportHtml += `<li>
+                            <div class="dirtykey">[KEY]:${key}</div>
+                            <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
+                            <div class="dirtybefore">[CURRENT]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
+                            <div class="dirtyafter"><input type="checkbox">[CACHED]:${htmlEscape(localcache[key])}</div>
+                        </li>`;
+
+    }
+    reportHtml += `<li><b>Mondified:</b></li>`
     for(var key in SuperJson){
         let enval0 = OriginSuperJson[key].en?OriginSuperJson[key].en:'';
         let enval1 = SuperJson[key].en?SuperJson[key].en:'';
         
         if(enval0 !== enval1){
-            console.log(OriginSuperJson[key].en , SuperJson[key].en)
+            //console.log(OriginSuperJson[key].en , SuperJson[key].en)
             count++;
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>

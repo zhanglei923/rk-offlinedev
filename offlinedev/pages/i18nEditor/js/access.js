@@ -72,7 +72,11 @@ check_localstorage = ()=>{
         count ++;
     }
     if(count > 0){
-        alert(`You have ${count} un-saved key-values! Pls check your browser console output.`)
+        alert(`You have ${count} un-saved key-values! 
+You can:
+    1) Open your browser console and check the outputs.
+    2) Click 'Status' button to see details.
+    `)
         console.warn('Un-Saved:', cache)
     }
 }
