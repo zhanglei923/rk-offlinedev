@@ -86,7 +86,7 @@ let init = (all_trans, all_untrans)=>{
         let envalue = SuperJson[key].en;
         if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
-        html = html + `<tr class="${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
+        html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
                             <td>${count}</td>
                             <td class="cellkey">
                                 <span class="word">${key}</span
