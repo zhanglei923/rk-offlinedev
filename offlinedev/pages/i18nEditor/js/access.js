@@ -27,12 +27,15 @@ let loadData = (success) =>{
 
 $(()=>{
     $('#saveBtn').click(()=>{
-        unselect();
-        do_save();
+        do_reportStatus(false);
+        window.setTimeout(()=>{
+            $('#popup > .footer').append(`
+                                        <button  onclick="do_save();">Save!</button>
+                                        <button  onclick="close_popupWindow();">Cancel</button>
+                                        `)
+        }, 300)
     })
 })
-var do_reportStatus = ()=>{
-};
 var do_save = () => {    
     if(!confirm('Sync to i18n files?')) return;
     var savejson = {
@@ -48,8 +51,17 @@ var do_save = () => {
     do_save_req(savejson, (response)=>{
         console.log('response!', response)
         clean_localstorage()
-        alert('Save successfully! \nPlease return to the project directory and push to Gerrit repo!')
-
+        $('#popup').html(`
+        <b>Save successfully! </b>
+        <p>
+        Please return to the project directory and push to Gerrit repo!
+        <p>
+        <hr>
+        <b>Page will be reload....</b>
+        `);
+        window.setTimeout(()=>{
+            window.location = window.location;
+        }, 500)
     })
 };
 var do_save_req = (savejson, callback) => {    

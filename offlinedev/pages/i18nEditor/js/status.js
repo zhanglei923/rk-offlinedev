@@ -1,4 +1,5 @@
-var do_reportStatus = () =>{
+var do_reportStatus = (showCached) =>{
+    if(typeof showCached === 'undefined') showCached = true;
     // $('#table >tbody>tr').each(function(i, tr){
     //     tr=$(tr)
     //     var len1 = tr.find('.cellmainlang').innerWidth()        
@@ -10,16 +11,18 @@ var do_reportStatus = () =>{
     let reportHtml = '<ul class="validatereport">'
     let localcache = get_localstorage();
     let count=0;
-    reportHtml += `<li><input type="checkbox"><b>Cached:</b></li>`
-    for(var key in localcache){
-        count++;
-        reportHtml += `<li>
-                            <div class="dirtykey">[KEY]:${key}</div>
-                            <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
-                            <div class="dirtybefore">[CURRENT]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
-                            <div class="dirtyafter"><input type="checkbox">[CACHED]:${htmlEscape(localcache[key])}</div>
-                        </li>`;
-
+    if(showCached){
+        reportHtml += `<li><input type="checkbox"><b>Cached:</b></li>`
+        for(var key in localcache){
+            count++;
+            reportHtml += `<li>
+                                <div class="dirtykey">[KEY]:${key}</div>
+                                <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
+                                <div class="dirtybefore">[CURRENT]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
+                                <div class="dirtyafter"><input type="checkbox">[CACHED]:${htmlEscape(localcache[key])}</div>
+                            </li>`;
+    
+        }
     }
     reportHtml += `<li><b>Mondified:</b></li>`
     for(var key in SuperJson){
