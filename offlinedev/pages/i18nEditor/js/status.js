@@ -20,7 +20,7 @@ var do_reportStatus = () =>{
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>
                                 <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
-                                <div class="dirtybefore">[BF]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
+                                <div class="dirtybefore" ${!OriginSuperJson[key].en?'style="display:none;"':""}>[BF]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
                                 <div class="dirtyafter">[AF]:${htmlEscape(SuperJson[key].en)}</div>
                             </li>`;
         }

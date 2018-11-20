@@ -1,6 +1,7 @@
 let do_popupWindow = (title, callback)=>{
     close_popupWindow()
     if(!document.getElementById('popup'))$('body').append(`<div id="popup" class="popup"></div>`)
+    if(!document.getElementById('model_background'))$('body').append(`<div id="model_background" class="model_background"></div>`)
     $('#popup').html(`<div class="toolbar">
                             <span class="title">${title}</span>
                             <button class="closeBtn" onclick="close_popupWindow()">[X]</button>
@@ -8,10 +9,12 @@ let do_popupWindow = (title, callback)=>{
                         <div class="content"></div>
                         <div class="footer"></div>`);
     $('#popup').show();
+    $('#model_background').show();
     callback($('#popup > .content'));
 }
 let close_popupWindow = ()=>{
     $('#popup').hide();
+    $('#model_background').hide();
 }
 let showHelpTip = (tr)=>{
     let pos = tr.position();
