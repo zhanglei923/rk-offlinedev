@@ -53,6 +53,9 @@ var do_save = () => {
     })
 };
 var do_save_req = (savejson, callback) => {    
+    if(!do_validate(savejson)){
+        return;
+    }
     let promise = $.ajax({
         url: '/offlinedev/action/saveAllLanguages',
         cache: false,
