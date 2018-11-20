@@ -204,7 +204,6 @@ var do_unselect = (t) =>{
 
     //var newVal0 = unescapeValue(val0);
     var newVal1 = unescapeValue(val1);
-    saveto_localstorage(key, newVal1)
     
     //SuperJson[key].cn = newVal0;
     SuperJson[key].en = newVal1;
@@ -215,6 +214,7 @@ var do_unselect = (t) =>{
     //t.find('.cellmainlang').html(`${getDisplayText(val0)}`)
     t.find('.cellsublang').html(`${getDisplayText(val1)}`)
 
+    if(enIsDirty) saveto_localstorage(key, newVal1)
     enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
     return true;
 }

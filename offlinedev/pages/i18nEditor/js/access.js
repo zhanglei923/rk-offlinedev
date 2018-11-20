@@ -66,30 +66,3 @@ var do_save_req = (savejson, callback) => {
         }
     });
 }
-//--------------
-const LS_CACHE_KEY = 'i18n_translator_cache';
-var sizeof_localstorage = ()=>{
-    let cache = get_localstorage()
-    let count = 0;
-    for(let key in cache){
-        count ++;
-    }
-    return count > 0 ? count : false;
-}
-var clean_localstorage = () =>{
-    window.localStorage.removeItem(LS_CACHE_KEY)
-}
-var get_localstorage = (key, val) =>{
-    let cache = window.localStorage.getItem(LS_CACHE_KEY)
-    if(!cache) {
-        cache = {};
-    }else{
-        cache = JSON.parse(cache)
-    }
-    return cache;
-}
-var saveto_localstorage = (key, val) =>{
-    let cache = get_localstorage();
-    cache[key] = val;
-    window.localStorage.setItem(LS_CACHE_KEY, JSON.stringify(cache))
-}
