@@ -31,7 +31,6 @@
 }
 .selfTestBtn.correct{
     background-color: black;
-    border-bottom:1px solid #97f997;
     color:#97f997;
 }
 .hovering_tr td{
