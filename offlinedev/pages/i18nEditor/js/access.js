@@ -62,3 +62,18 @@ var do_save_req = (savejson, callback) => {
         }
     });
 }
+//--------------
+const LS_CACHE_KEY = 'i18n_translator_cache';
+var clean_localstorage = () =>{
+    let cache = window.localStorage.removeItem(LS_CACHE_KEY)
+}
+var saveto_localstorage = (key, val) =>{
+    let cache = window.localStorage.getItem(LS_CACHE_KEY)
+    if(!cache) {
+        cache = {};
+    }else{
+        cache = JSON.parse(cache)
+    }
+    cache[key] = val;
+    window.localStorage.setItem(LS_CACHE_KEY, JSON.stringify(cache))
+}

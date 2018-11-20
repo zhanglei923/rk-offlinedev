@@ -176,6 +176,7 @@ var do_unselect = (t) =>{
 
     //var newVal0 = unescapeValue(val0);
     var newVal1 = unescapeValue(val1);
+    saveto_localstorage(key, newVal1)
     
     //SuperJson[key].cn = newVal0;
     SuperJson[key].en = newVal1;
