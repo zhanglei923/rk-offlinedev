@@ -18,7 +18,7 @@ $(()=>{
         do_selfTest();
     })
     $('#cacheBtn').click(()=>{
-        do_popupCache();
+        do_reportCaches();
     })
 })
 var htmlEscape = (s) => {

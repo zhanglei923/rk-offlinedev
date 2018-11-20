@@ -2,14 +2,6 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="/offlinedev/pages/i18nEditor/index.css"/>
-    <script src="/offlinedev/pages/js/jquery.min.js"></script>
-    <script src="/offlinedev/pages/js/clipboard.js"></script>
-    <script src="/offlinedev/pages/i18nEditor/js/access.js"></script>
-    <script src="/offlinedev/pages/i18nEditor/js/index.js"></script>
-    <script src="/offlinedev/pages/i18nEditor/js/status.js"></script>
-    <script src="/offlinedev/pages/i18nEditor/js/validate.js"></script>
-    <script src="/offlinedev/pages/i18nEditor/js/widgets.js"></script>
-    <!-- <script src="/offlinedev/pages/i18nEditor/js/mock.js"></script> -->
     <title>Translation Workbench</title>
 </head>
 <body>
@@ -18,7 +10,7 @@
         <button href="javascript:;">Choose-Language</button>
         <button id="fileDetailsBtn" href="javascript:;" style="display:none;">FileDetails</button>
         <button id="validateBtn" href="javascript:;">Status</button>
-        <button id="cacheBtn" class="cacheBtn" href="javascript:;">Caches</button>
+        <button id="cacheBtn" class="cacheBtn" href="javascript:;" style="display:none;">Caches</button>
         <button id="selfTestBtn" class="selfTestBtn" href="javascript:;">SelfTest</button>
         <input id="selftestInput" class="selftestInput" style="display:none;">
         <span id="summary" class="summary"></span>
@@ -45,5 +37,14 @@
         &nbsp;-Use $num to receive params, i.e &quot;From <span class="highlight">$1</span> to <span class="highlight">$2</span>&quot;.<br>
         &nbsp;-Empty String is ILLEGAL, use <span class="highlight">space-character</span> or &quot;<span class="highlight">&amp;nbsp;</span>&quot; instead.<br>
     </div>
+    <script src="/offlinedev/pages/js/jquery.min.js"></script>
+    <script src="/offlinedev/pages/js/clipboard.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/access.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/index.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/status.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/cache.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/validate.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/widgets.js"></script>
+    <!-- <script src="/offlinedev/pages/i18nEditor/js/mock.js"></script> -->
 </body>
 </html>

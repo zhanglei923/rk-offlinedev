@@ -39,7 +39,6 @@ var do_save = () => {
     delete savejson['cn'];//暂时不保存中文
     do_save_req(savejson, (response)=>{
         console.log('response!', response)
-        clean_localstorage()
         $('#popup').html(`
         <b>Save successfully! </b>
         <p>
@@ -69,20 +68,13 @@ var do_save_req = (savejson, callback) => {
 }
 //--------------
 const LS_CACHE_KEY = 'i18n_translator_cache';
-check_localstorage = ()=>{
+var sizeof_localstorage = ()=>{
     let cache = get_localstorage()
     let count = 0;
     for(let key in cache){
         count ++;
     }
-    if(count > 0){
-        alert(`You have ${count} un-saved key-values! 
-You can:
-    1) Open your browser console and check the outputs.
-    2) Click 'Status' button to see details.
-    `)
-        console.warn('Un-Saved:', cache)
-    }
+    return count > 0 ? count : false;
 }
 var clean_localstorage = () =>{
     window.localStorage.removeItem(LS_CACHE_KEY)
