@@ -122,6 +122,7 @@ td .null_val{
     border-top: 1px solid #fdbafb;
     border-bottom: 1px solid #fdbafb;
     /* background-color: yellow !important; */
+    font-size: 16px;
 }
 .popup{
     position: fixed;
