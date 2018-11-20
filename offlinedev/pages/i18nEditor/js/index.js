@@ -35,6 +35,7 @@ let SuperJson = {};
 let OriginSuperJson = {};
 loadData((all_trans, all_untrans)=>{
     init(all_trans, all_untrans);
+    check_localstorage()
     $('#saveBtn').show();
 })
 let init = (all_trans, all_untrans)=>{
