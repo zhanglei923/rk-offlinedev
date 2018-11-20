@@ -3,6 +3,7 @@ var check_localstorage = ()=>{
     let count = sizeof_localstorage();
     if(count > 0){
         $('#cacheBtn').html(`(${count})Caches`).show()
+        //do_reportCaches()
     }
 }
 //--------------
@@ -47,11 +48,8 @@ var do_reportCaches = () =>{
 
     }
     reportHtml += '</ul>';
-    if(count===0){
-        alert('Nothing changed.')
-        return;
-    }
     do_popupWindow('Cached', (popup)=>{
         popup.html(reportHtml)
+        $('#popup >.foot').html(`<button onclick="clean_localstorage();close_popupWindow();">Clean All Caches</button>`)
     })
 }
