@@ -139,7 +139,7 @@ var handleTrSelect = function(t){
     do_select(t);
 }
 var getDisplayText = (val)=>{
-    if(!val) return '<span class="null_val">&quot;&quot;</span>'
+    if(!val) return '<span class="null_val">-untranslated-</span>'//'<span class="null_val">&quot;&quot;</span>'
     return `${htmlEscape(val)}`
 };
 var selectedTr = [];
