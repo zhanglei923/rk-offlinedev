@@ -1,4 +1,4 @@
-var do_validate = () =>{
+var do_reportStatus = () =>{
     // $('#table >tbody>tr').each(function(i, tr){
     //     tr=$(tr)
     //     var len1 = tr.find('.cellmainlang').innerWidth()        
@@ -104,7 +104,7 @@ do_selfTest = () =>{
 }
 $(()=>{
     $('#validateBtn').click(()=>{
-        do_validate();
+        do_reportStatus();
     })
     $('#fileDetailsBtn').click(()=>{
         do_fileDetails();

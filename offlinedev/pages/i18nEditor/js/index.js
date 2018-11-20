@@ -104,7 +104,7 @@ let init = (all_trans, all_untrans)=>{
     updateSummary();
     do_selfTest();
 
-    //do_validate()
+    //do_reportStatus()
     //---
     $('#table').on('mouseover', 'tr', function(e){
         handleTrHover(e.currentTarget)

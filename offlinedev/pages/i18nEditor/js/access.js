@@ -31,7 +31,7 @@ $(()=>{
         do_save();
     })
 })
-var do_validate = ()=>{
+var do_reportStatus = ()=>{
 };
 var do_save = () => {    
     if(!confirm('Sync to i18n files?')) return;
