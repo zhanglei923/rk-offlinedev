@@ -45,7 +45,7 @@ var updateSummary = function(){
         total++;
     };
     $('#summary').html(`
-    Remains: ${nullen}/${total}
+    Remains:${nullen}/${total}
     `)
 };
 
