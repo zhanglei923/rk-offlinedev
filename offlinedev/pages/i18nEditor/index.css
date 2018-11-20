@@ -30,7 +30,9 @@
     background-color: red;
 }
 .selfTestBtn.correct{
-    background-color: #97f997;
+    background-color: black;
+    border-bottom:1px solid #97f997;
+    color:#97f997;
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */

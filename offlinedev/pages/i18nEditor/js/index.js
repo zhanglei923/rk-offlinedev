@@ -100,7 +100,8 @@ let init = (all_trans, all_untrans)=>{
     }
     $('#table >tbody').html(html);
     $('#loading').remove();
-    updateSummary()
+    updateSummary();
+    do_selfTest();
 
     //do_validate()
     //---

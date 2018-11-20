@@ -81,8 +81,9 @@ do_selfTest = () =>{
         _test(key, val0, val)
     }
     $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
-    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} errors!`:`${count} Passed!`)
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} errors!`:`${count} OK!`)
     console.warn(`ERRORS: ${errors.length}`, errors)
+    delete osuperJson;
 }
 $(()=>{
     $('#validateBtn').click(()=>{
