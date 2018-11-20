@@ -9,7 +9,12 @@ var do_validate = (savejson)=>{
 }
 var do_validateValue = (key, value)=>{
     if(/\\r/g.test(value)) {
-        alert(`"${key}", Can NOT Containing "\\r"`)
+        alert(`不可以含有"\\r"`)
+        return;
+    }
+    let regex = /\$\s{1,}[0-9]/g
+    if(regex.test(value)) {
+        alert(`取参占位符不能有空格：${value.match(regex).join(', ')}`)
         return;
     }
     return true;
