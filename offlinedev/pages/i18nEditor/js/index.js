@@ -19,7 +19,7 @@ var htmlEscape = (s) => {
                 return '<span class="unknown_mark">'+w+'</span>';
             }
         })
-        .replace(/\$\d{1,}/g,(w)=>{if(w==='$0'){return '<span class="unknown_mark">'+w+'</span>';}else{return '<span class="keyword_mark">'+w+'</span>';}})
+        .replace(/\$[0-9]{1,2}/,(w)=>{if(w==='$0'){return '<span class="unknown_mark">'+w+'</span>';}else{return '<span class="keyword_mark">'+w+'</span>';}})
         .replace(/\#[\w\_]{1,}\#/g,(w)=>{return '<span class="keyword_mark">'+w+'</span>';})
     return w;
 };
