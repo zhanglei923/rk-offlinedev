@@ -149,7 +149,7 @@ td .null_val{
     height: 80%;
     background-color: white;
     border-left: 1px solid #aaa;
-    box-shadow: 6px 6px 3px #aaa;
+    box-shadow: 3px 3px 2px #aaa;
 }
 .popup .toolbar{
     position: absolute;
@@ -203,8 +203,8 @@ td .null_val{
     position: absolute;
     padding-right: 6px;    
     right: 12px;
-    background-color:yellow;
-    box-shadow: 6px 6px 3px #aaa;
+    background-color:#f7f7b4;
+    box-shadow: 3px 3px 2px #aaa;
 }
 .helptip .highlight{
     color: red;
