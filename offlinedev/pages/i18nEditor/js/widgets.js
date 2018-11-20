@@ -18,7 +18,7 @@ let close_popupWindow = ()=>{
 }
 let showHelpTip = (tr)=>{
     let pos = tr.position();
-    $('#helptip').show().css({top:pos.top+57})
+    $('#helptip').show()//.css({top:pos.top + 80})
 }
 let hideHelpTip = ()=>{
     $('#helptip').hide()

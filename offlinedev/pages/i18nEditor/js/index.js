@@ -183,6 +183,7 @@ var do_select = (t) =>{
     t.find('.cellsublang').html(`<input class="valinput">`)
 
     //t.find('.cellmainlang input').val(escapeValue(val0));
+    t.find('.cellsublang input').css({'min-width': val1.length * 10})
     t.find('.cellsublang input').val(escapeValue(val1)).focus();;
 }
 var unselect = () =>{
