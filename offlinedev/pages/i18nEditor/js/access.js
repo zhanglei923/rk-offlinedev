@@ -25,17 +25,6 @@ let loadData = (success) =>{
     });
 }
 
-$(()=>{
-    $('#saveBtn').click(()=>{
-        do_reportStatus(false);
-        window.setTimeout(()=>{
-            $('#popup > .footer').append(`
-                                        <button  onclick="do_save();">Save!</button>
-                                        <button  onclick="close_popupWindow();">Cancel</button>
-                                        `)
-        }, 300)
-    })
-})
 var do_save = () => {    
     if(!confirm('Sync to i18n files?')) return;
     var savejson = {

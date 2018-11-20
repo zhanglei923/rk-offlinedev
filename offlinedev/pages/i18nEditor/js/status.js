@@ -72,14 +72,3 @@ do_fileDetails = ()=>{
         popup.html(reportHtml)
     })
 }
-$(()=>{
-    $('#validateBtn').click(()=>{
-        do_reportStatus();
-    })
-    $('#fileDetailsBtn').click(()=>{
-        do_fileDetails();
-    })
-    $('#selfTestBtn').click(()=>{
-        do_selfTest();
-    })
-})

@@ -1,3 +1,26 @@
+$(()=>{
+    $('#saveBtn').click(()=>{
+        do_reportStatus(false);
+        window.setTimeout(()=>{
+            $('#popup > .footer').append(`
+                                        <button  onclick="do_save();">Save!</button>
+                                        <button  onclick="close_popupWindow();">Cancel</button>
+                                        `)
+        }, 300)
+    })
+    $('#validateBtn').click(()=>{
+        do_reportStatus();
+    })
+    $('#fileDetailsBtn').click(()=>{
+        do_fileDetails();
+    })
+    $('#selfTestBtn').click(()=>{
+        do_selfTest();
+    })
+    $('#cacheBtn').click(()=>{
+        do_popupCache();
+    })
+})
 var htmlEscape = (s) => {
     var type = typeof s;
     if (!s || type != 'string') return s;
