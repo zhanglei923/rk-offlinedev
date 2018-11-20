@@ -50,7 +50,7 @@ do_selfTest = () =>{
         _test(key, val0, val)
     }
     $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
-    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`${count} safe`)
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`${count}safe`)
     if(errors.length > 0){
         console.warn(`ERRORS: ${errors.length}`, errors)
         $('#saveBtn').remove();
