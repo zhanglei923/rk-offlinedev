@@ -1,6 +1,9 @@
 var fs = require('fs');
 let access = require('./i18nAccess')
 
+
+access.saveAsUntranslated({a:10})
+
 let all = access.loadLanguagesFromAll()
 fs.writeFileSync('./all.json', JSON.stringify(all))
 

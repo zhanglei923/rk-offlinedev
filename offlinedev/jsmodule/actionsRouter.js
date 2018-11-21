@@ -124,6 +124,14 @@ module.exports = {
             callback(reports)
             return 'done'
         }
+        else if(/^\/offlinedev\/action\/i18nSaveAsUntrans/.test(req.originalUrl)){
+            let all = req.body.all;
+            //fs.writeFileSync('./o.json', all)
+            let allJson = JSON.parse(all);
+            var result = i18nAccess.saveAsUntranslated(allJson)
+            callback(result)
+            return 'done'
+        }
     }
 }
 var getUrlContent = function(url){    

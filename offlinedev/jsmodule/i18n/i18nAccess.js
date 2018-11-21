@@ -98,5 +98,17 @@ module.exports = {
             }
         })
         return all;
+    },
+    saveAsUntranslated: function (json){
+        let i18nFolder = this.getI18nFolder();
+        let fullfilename = i18nFolder + '/untrans' + moment().format('YYYY-MM-DD_MM_ss') + '.js';
+        let content = `define(function (require, exports, module) {
+                        'use strict';
+                        module.exports = `+jsonformatter.diffy(json)+`
+                    });  `;
+        fs.writeFileSync(fullfilename, content)
+        console.log('saveAsUntranslated. ')
+
+        return {};
     }
 }

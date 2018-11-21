@@ -16,7 +16,7 @@ import_popupImport = ()=>{
                         <button id="do_importExcel" class="do_importExcel">Ok&gt;</button>
                         <a href="javascript:;" id="do_importExcel_step0" style="display:none;">&lt;back</a>
                         &nbsp;
-                        <button id="do_importExcel_save" style="display:none;">Save!</button>
+                        <button id="do_importExcel_save" style="display:none;">Apply!</button>
                         
                         `)
         $('#do_importExcel').click(()=>{
@@ -130,7 +130,17 @@ do_saveImportExcel = () =>{
     console.log(`共${count}个`)
     updateSummary();
     close_popupWindow();
-    do_save()
+    
+    $.ajax({//保存系统不存在的中文
+        url: '/offlinedev/action/i18nSaveAsUntrans',
+        cache: false,
+        method: 'POST',
+        data: {all: JSON.stringify(newMainJson)},
+        success: function( response ) {
+            console.log('response!')  
+            do_save();//保存英文          
+        }
+    })    
 }
 do_verifyExcelEn = () =>{
 
