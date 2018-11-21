@@ -139,6 +139,9 @@ td .null_val{
     /* word-break: break-all; */
     /* border: 1px dotted #42c73a; */
 }
+.cellsublang textarea{
+    font-family: Verdana;
+}
 .row{
 }
 .row_a{
