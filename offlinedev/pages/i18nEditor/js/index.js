@@ -138,9 +138,10 @@ let init = (all_trans, all_untrans)=>{
     $('#table').on('mouseout', 'tr', function(e){
         handleTrOut(e.currentTarget)
     });
-    $('#table').on('dblclick', 'tr', function(e){
-        handleTrSelect(e.currentTarget)
-        if(!$(e.currentTarget).hasClass('selected_tr')){            
+    $('#table').on('dblclick', 'td.cellval', function(e){
+        let tr = $(e.currentTarget).closest('tr');
+        handleTrSelect(tr)
+        if(!$(tr).hasClass('selected_tr')){            
             unselect()
         }
     });
