@@ -27,9 +27,6 @@ import_popupImport = ()=>{
                         
                         `)
         $('#do_importExcel').click(()=>{
-            $('#do_importExcel').hide()
-            $('#do_importExcel_step0').show()
-            $('#do_importExcel_save').show()
             do_importExcel()
         })        
         $('#do_importExcel_step0').click(()=>{
@@ -62,6 +59,11 @@ do_importExcel = ()=>{
     let texts_main_vals = $('#texts_main_vals').val();
     let texts_sub_vals = $('#texts_sub_vals').val();
 
+    keys = $.trim(keys)
+    if(!keys){
+        alert('key是空的，闹哪样呀！')
+        return;
+    }
     let keysArr = keys.split(/\n/)
     let mainArr = texts_main_vals.split(/\n/)
     let subArr = texts_sub_vals.split(/\n/)
@@ -88,6 +90,11 @@ do_importExcel = ()=>{
             <td>${getDisplayText(subArr[i])}</td>
         </tr>`
     })
+    
+    $('#do_importExcel').hide()
+    $('#do_importExcel_step0').show()
+    $('#do_importExcel_save').show()
+    
     $('#import_confirm_table').show()
     $('#import_confirm_table').html(trs)
 }
