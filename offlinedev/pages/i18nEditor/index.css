@@ -191,6 +191,10 @@ td .null_val{
 }
 .popup .toolbar .closeBtn{
     float:right;
+    background-color: #a70a0a;
+    color: white;
+    box-shadow: 2px 2px 1px #aaa;
+    padding: 1px 5px 1px 5px;
 }
 .popup .content{
     margin-top: 20px;

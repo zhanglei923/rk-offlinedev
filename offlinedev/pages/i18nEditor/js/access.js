@@ -26,7 +26,7 @@ let loadData = (success) =>{
 }
 
 var do_save = () => {    
-    if(!confirm('Sync to i18n files?')) return;
+    if(!confirm('Sync back to code files?')) return;
     var savejson = {
         cn:{}, 
         en:{}

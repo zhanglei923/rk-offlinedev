@@ -3,8 +3,8 @@ let do_popupWindow = (title, callback)=>{
     if(!document.getElementById('popup'))$('body').append(`<div id="popup" class="popup"></div>`)
     if(!document.getElementById('model_background'))$('body').append(`<div id="model_background" class="model_background"></div>`)
     $('#popup').html(`<div class="toolbar">
-                            <span class="title">${title}</span>
-                            <button class="closeBtn" onclick="close_popupWindow()">[X]</button>
+                            <span class="title">&gt;${title}</span>
+                            <button class="closeBtn" onclick="close_popupWindow()">X</button>
                         </div>
                         <div class="content"></div>
                         <div class="footer"></div>`);
