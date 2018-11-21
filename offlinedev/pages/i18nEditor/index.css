@@ -108,6 +108,9 @@ td .null_val{
     margin-top: 20px;
     border:0;
 }
+.cellval{
+    min-width: 600px;
+}
 .cellkey{
     /* float: right; */
     max-width: 360px;

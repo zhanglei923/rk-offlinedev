@@ -29,8 +29,12 @@ let init_untransFileSelector = ()=>{
         html += `<option value="${fpath}">${shortfpath}</option>`;
     }
     $('#untransFiles').append(html);
+    $('#untransFiles').on('change', ()=>{
+        do_filterByUntransFile()
+    })
 }
 let do_filterByUntransFile = ()=>{
+    unselect()
     let fpath = $('#untransFiles').val()
     if(!fpath){
         eachTr((i, tr)=>{
