@@ -1,9 +1,16 @@
+import_help_text = `
+---------------------
+使用说明：
+1) 将excel梳理成“key”，“中文”，“英文”三列，最好不含任何头部
+2) 将这三列分别粘贴进这三个文本框，如果没有中文，可以忽略。
+3) 点击ok，进入确认列表
+`
 import_popupImport = ()=>{
     do_popupWindow('Import Excels', (content, footer)=>{
         let contentHtml = `
             <table id="import_excel_table" class="import_excel_table">
                 <tr>
-                    <td class="td_keys"><textarea id="texts_keys" class="texts_keys" placeholder="Keys"/></td>
+                    <td class="td_keys"><textarea id="texts_keys" class="texts_keys" placeholder="KEY ${import_help_text}"></textarea></td>
                     <td class="td_main_vals"><textarea id="texts_main_vals" class="texts_main_vals"  placeholder="CN"/></td>
                     <td class="td_sub_vals"><textarea id="texts_sub_vals" class="texts_sub_vals"  placeholder="EN"/></td>
                 </tr>
