@@ -19,9 +19,9 @@ var do_reportStatus = () =>{
             count++;
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>
-                                <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
-                                <div class="dirtybefore" ${!OriginSuperJson[key].en?'style="display:none;"':""}>[BF]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
-                                <div class="dirtyafter">[AF]:${htmlEscape(SuperJson[key].en)}</div>
+                                <div class="dirtycn">[CN]:&quot;${htmlEscape(OriginSuperJson[key].cn)}&quot;</div>
+                                <div class="dirtybefore" ${!OriginSuperJson[key].en?'style="display:none;"':""}>[BF]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
+                                <div class="dirtyafter">[AF]:&quot;${htmlEscape(SuperJson[key].en)}&quot;</div>
                             </li>`;
         }
     }

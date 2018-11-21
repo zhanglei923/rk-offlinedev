@@ -38,14 +38,15 @@ var do_reportCaches = () =>{
     let count=0;
     reportHtml += `<li><input type="checkbox"><b>Cached:</b></li>`
     for(var key in localcache){
-        count++;
-        reportHtml += `<li>
-                            <div class="dirtykey">[KEY]:${key}</div>
-                            <div class="dirtycn">[CN]:${htmlEscape(OriginSuperJson[key].cn)}</div>
-                            <div class="dirtybefore">[CURRENT]:${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}</div>
-                            <div class="dirtyafter"><input type="checkbox">[CACHED]:${htmlEscape(localcache[key])}</div>
-                        </li>`;
-
+        if(OriginSuperJson[key].en !== localcache[key]){
+            count++;
+            reportHtml += `<li>
+                                <div class="dirtykey"><input type="checkbox">[KEY]:${key}</div>
+                                <div class="dirtycn">[CN]:&quot;${htmlEscape(OriginSuperJson[key].cn)}&quot;</div>
+                                <div class="dirtybefore">[CURRENT]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
+                                <div class="dirtyafter">[CACHED ]:&quot;${htmlEscape(localcache[key])}&quot;</div>
+                            </li>`;
+        }
     }
     reportHtml += '</ul>';
     do_popupWindow('Cached', (popup)=>{
