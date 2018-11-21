@@ -50,11 +50,11 @@ var do_reportCaches = () =>{
                                 <div class="dirtycn">[CN]:&quot;${htmlEscape(OriginSuperJson[key].cn)}&quot;</div>
                                 <div class="dirtybefore">[CURRENT]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
                                 <div class="dirtyafter">[CACHED ]:&quot;${htmlEscape(localcache[key])}&quot;
-                                                        <button onclick="apply_fromcache(this);" style="background-color: green;color:white;">
-                                                            Apply to Current Data
+                                                        <button class="btn" title="Apply into Editing Data" onclick="apply_fromcache(this);">
+                                                            Apply
                                                         </button>
-                                                        <button onclick="remove_fromcache(this);" style="background-color: #940808;color:white;">
-                                                            Remove from cache
+                                                        <button class="btn danger" title="Remove from cache" onclick="remove_fromcache(this);">
+                                                            Del
                                                         </button>
                                 </div>
                             </li>`;

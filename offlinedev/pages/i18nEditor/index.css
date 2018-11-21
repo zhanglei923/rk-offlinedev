@@ -11,6 +11,14 @@ body.fatal_error *{
     color: white; 
     background-color: dodgerblue;
 }
+.btn{
+    background-color: green;
+    color: white;
+}
+.btn.danger{
+    background-color: #940808;
+    color:white;
+}
 .toolbar{
     height: 20px;
     background-color: #000;

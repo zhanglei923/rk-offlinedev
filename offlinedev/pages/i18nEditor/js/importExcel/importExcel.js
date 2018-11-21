@@ -20,10 +20,10 @@ import_popupImport = ()=>{
         `
         content.html(contentHtml)
         footer.html(`
-                        <button id="do_importExcel" class="do_importExcel">Ok&gt;</button>
+                        <button id="do_importExcel" class="btn do_importExcel">Ok -&gt;</button>
                         <a href="javascript:;" id="do_importExcel_step0" style="display:none;">&lt;back</a>
                         &nbsp;
-                        <button id="do_importExcel_save" style="display:none;">Apply!</button>
+                        <button id="do_importExcel_save" class="btn" style="display:none;">Apply!</button>
                         
                         `)
         $('#do_importExcel').click(()=>{
@@ -60,6 +60,8 @@ do_importExcel = ()=>{
     let texts_sub_vals = $('#texts_sub_vals').val();
 
     keys = $.trim(keys)
+    texts_main_vals = $.trim(texts_main_vals)
+    texts_sub_vals = $.trim(texts_sub_vals)
     if(!keys){
         alert('key是空的，闹哪样呀！')
         return;
@@ -76,8 +78,8 @@ do_importExcel = ()=>{
     // console.log(mainArr)
     // console.log(subArr)
     if(keysArr.length !== subArr.length){
-        alert('key和英文的数量不一致！')
-        return;
+        alert('key和英文的数量不一致！'+keysArr.length+':'+subArr.length)
+        //return;
     }
     
     $('#import_excel_table').hide()
@@ -85,8 +87,9 @@ do_importExcel = ()=>{
     keysArr.forEach((key, i)=>{
         if(key)
         trs += `<tr class="${i%2===0?'one':'two'}">
-        <td style="color: gray;">${i}</td>
+        <td style="color: gray;">${i+1}</td>
             <td style="color: blue;">${getDisplayText(key)}</td>
+            <td>${getDisplayText(mainArr[i])}</td>
             <td>${getDisplayText(subArr[i])}</td>
         </tr>`
     })
@@ -94,7 +97,7 @@ do_importExcel = ()=>{
     $('#do_importExcel').hide()
     $('#do_importExcel_step0').show()
     $('#do_importExcel_save').show()
-    
+
     $('#import_confirm_table').show()
     $('#import_confirm_table').html(trs)
 }
@@ -104,7 +107,7 @@ do_saveImportExcel = () =>{
     let subArr = window.impinfo.subArr;
 
     if(keysArr.length !== subArr.length){
-        alert('key和en的数量不一致')
+        alert('key和en的数量不一致'+keysArr.length+':'+subArr.length)
         return;
     }
     let newMainJson = {}
