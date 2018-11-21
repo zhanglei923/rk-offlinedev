@@ -47,3 +47,7 @@ let hideHelpTip = ()=>{
         return queryJson[name];
     };
 })()
+notice_error = function(msg){
+    $('#error_info').css({'display':'inline-block'})
+    $('#error_info').append(`<span>${msg}</span>&nbsp;`)
+}

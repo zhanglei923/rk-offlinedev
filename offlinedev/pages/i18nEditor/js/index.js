@@ -122,7 +122,7 @@ let init = (all_trans, all_untrans)=>{
                                 <span class="word">${key}</span
                             </td>
                             <td class="cellval">
-                                <span class="cellmainlang word">${getDisplayText(cnvalue)}</span>
+                                <span class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</span>
                                 <br>
                                 <span class="cellsublang word">${getDisplayText(envalue)}</span>
                             </td>
@@ -170,8 +170,12 @@ var handleTrSelect = function(t){
     unselect()
     do_select(t);
 }
-var getDisplayText = (val)=>{
-    if(!val) return '<span class="null_val">-untranslated-</span>'//'<span class="null_val">&quot;&quot;</span>'
+var getDisplayText = (val, lang)=>{
+    if(typeof lang === 'undefined') lang = 'en';
+    if(!val) {
+        if(lang === 'cn')  return '<span class="null_val">-LOST-CHINESE-VALUE!!-</span>'//'<span class="null_val">&quot;&quot;</span>'
+        return '<span class="null_val">-untranslated-</span>'//'<span class="null_val">&quot;&quot;</span>'
+    }
     return `${htmlEscape(val)}`
 };
 var selectedTr = [];

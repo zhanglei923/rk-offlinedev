@@ -106,7 +106,8 @@ do_saveImportExcel = () =>{
                 let newSubVal = subArr[i];
     
                 if(oldMainVal !== newMainVal) {
-                    newMainJson[key] = newMainVal;
+                    //丢弃，只收英文
+                    //newMainJson[key] = newMainVal;
                 }
                 if(oldSubVal !== newSubVal) {
                     newSubJson[key] = newSubVal;
@@ -127,7 +128,9 @@ do_saveImportExcel = () =>{
     console.log(JSON.stringify(newSubJson))
     console.log(JSON.stringify(newMainJson))
     console.log(`共${count}个`)
+    updateSummary();
     close_popupWindow();
+    do_save()
 }
 do_verifyExcelEn = () =>{
 

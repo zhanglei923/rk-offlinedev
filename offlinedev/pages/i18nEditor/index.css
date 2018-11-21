@@ -22,6 +22,12 @@ body.fatal_error *{
 .toolbar a{
     color:white;
 }
+#error_info{
+    background-color: red;
+    color: white;
+    display:none;
+    margin-top: 20px;
+}
 #loading{
     color:red;
 }

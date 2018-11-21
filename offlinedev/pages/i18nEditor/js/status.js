@@ -12,8 +12,8 @@ var do_reportStatus = () =>{
     reportHtml += `<li><b>Mondified:</b></li>`
     for(var key in SuperJson){
         if(!OriginSuperJson[key]) OriginSuperJson[key]={}
-        let enval0 = OriginSuperJson[key].en?OriginSuperJson[key].en:'';
-        let enval1 = SuperJson[key].en?SuperJson[key].en:'';
+        let enval0 = OriginSuperJson[key].en//?OriginSuperJson[key].en:'';
+        let enval1 = SuperJson[key].en//?SuperJson[key].en:'';
         
         if(enval0 !== enval1){
             //console.log(OriginSuperJson[key].en , SuperJson[key].en)
@@ -39,16 +39,20 @@ var updateSummary = function(){
     let nullcn = 0;
     let nullen = 0;
     let total = 0;
+    let nullCnKeys = [];
     for(var key in SuperJson){
         let cnvalue = SuperJson[key].cn;
         let envalue = SuperJson[key].en;
         if(!cnvalue) nullcn ++;
+        if(!cnvalue) nullCnKeys.push(key)
         if(!envalue) nullen ++;
         total++;
     };
     $('#summary').html(`
     Remains:${nullen}/${total}
     `)
+    
+    if(nullCnKeys.length > 0) notice_error(`有英文但无中文：${nullCnKeys.join(', ')}`)
 };
 
 do_fileDetails = ()=>{
