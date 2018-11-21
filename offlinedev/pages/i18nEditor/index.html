@@ -6,7 +6,8 @@
 </head>
 <body>
     <div id="toolbar" class="toolbar">
-        <b>Translation Workbench</b>
+        <b>&nbsp;Translation Workbench</b>
+        |
         <button href="javascript:;" style="display:none;">Choose-Language</button>
         <button id="fileDetailsBtn" href="javascript:;" style="display:none;">FileDetails</button>
         <button id="validateBtn" href="javascript:;" style="display:none;">Status</button>
@@ -14,20 +15,20 @@
         <input id="selftestInput" class="selftestInput" style="display:none;">
         <textarea id="selftestInput2" class="selftestInput" style="display:none;"></textarea>
         <span id="summary" class="summary"></span>
-        &emsp;
+        |
         <select id="untransFiles" style="background-color: #eee;" title="Choose untranslated files">
             <option selected="selected" value="">-Select files-</option>
         </select>
-        <button id="untransFilesBtn" href="javascript:;" class="btn" style="display:none;">?</button>
+        <button id="untransFilesBtn" href="javascript:;" class="btn">?</button>
 
-        <input id="filterIpt" placeholder="'Key' Filter" value="/./g" style="background-color: #eee;" title="Accept regular-expression only">
         <select id="filterTypes" style="background-color: #eee;" title="Choose untranslated files">
-            <option selected="selected" value="key">KEYs</option>
-            <option value="cn">CN</option>
-            <option value="en">EN</option>
+            <option selected="selected" value="key">Find Keys:</option>
+            <option value="cn">Find CN:</option>
+            <option value="en">Find EN:</option>
         </select>
+        <input id="filterIpt" placeholder="'Key' Filter" value="/./g" style="background-color: #eee;" title="Accept regular-expression only">
         <button id="filterBtn" href="javascript:;" class="btn" title="Query by regular-expression">.*</button>
-
+        |
         <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">Import</button>
         <button id="cacheBtn" class="btn cacheBtn" href="javascript:;" style="display:none;" title="Check local browser caches">Caches</button>
 
@@ -35,10 +36,11 @@
 
         <div style="color:#77e46b;float:right;margin-right:10px;">
             <button id="saveBtn" href="javascript:;" title="Save key-values back to code">Save</button>
+            <span style="color:white">|</span>
             <a target="_blank" href="http://10.10.0.115/doc/website/codereview/index.html#develop" 
             style="color:#77e46b;" title="Check i18n reports on server-115">115rpt</a>
             <a target="_blank" href="/index.action" 
-            style="color:#77e46b;" title="Open an example page to verify basic syntax errors">IndexPage</a>
+            style="color:#77e46b;" title="Open an example page to verify basic syntax errors">Crm</a>
             <a target="_blank" href="https://wiki.ingageapp.com/pages/viewpage.action?pageId=13260116" 
             style="color:#77e46b;" title="Read user-manual">Help</a>
 
