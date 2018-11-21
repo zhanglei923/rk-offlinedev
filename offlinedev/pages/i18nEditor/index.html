@@ -17,8 +17,10 @@
         <textarea id="selftestInput2" class="selftestInput" style="display:none;"></textarea>
         <span id="summary" class="summary"></span>
         &emsp;
-        <input id="filterIpt" placeholder="'Key' Filter" value="//ig">
-        <button id="filterBtn" href="javascript:;" class="btn">?</button>
+        <select id="untransFiles" style="background-color: #eee;"><option selected="selected" value="">-all-</option></select>
+        <button id="untransFilesBtn" href="javascript:;" class="btn">?</button>
+        <input id="filterIpt" placeholder="'Key' Filter" value="//ig" style="background-color: #eee;">
+        <button id="filterBtn" href="javascript:;" class="btn">.*</button>
 
 
         <span id="loading">Loading...</span>
@@ -53,6 +55,7 @@
     <script src="/offlinedev/pages/js/clipboard.js"></script>
     <script src="/offlinedev/pages/i18nEditor/js/access.js"></script>
     <script src="/offlinedev/pages/i18nEditor/js/index.js"></script>
+    <script src="/offlinedev/pages/i18nEditor/js/filter.js"></script>
     <script src="/offlinedev/pages/i18nEditor/js/status.js"></script>
     <script src="/offlinedev/pages/i18nEditor/js/cache.js"></script>
     <script src="/offlinedev/pages/i18nEditor/js/validate.js"></script>

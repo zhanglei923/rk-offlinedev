@@ -19,7 +19,22 @@ var do_validateValue = (key, value)=>{
     }
     return true;
 }
-
+var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
+    trans = trans['all_zh-cn'];
+    var duplist = [];
+    for(var fpath in untrans){
+        for(var key in untrans[fpath]){
+            if(typeof trans[key] !== 'undefined') {
+                duplist.push(key)
+            }
+        }
+    }
+    if(duplist.length > 0){
+        notice_error('untranslated.js里和all_zh-cn里有重复的key：'+duplist.join(', '))
+        notice_error('致命错误，加载终止')
+    }
+    return duplist.length > 0 ? false : true;
+}
 do_selfTest = () =>{
     $('#selfTestBtn').removeClass('wrong').removeClass('correct').html('testing...')
     let errors = []

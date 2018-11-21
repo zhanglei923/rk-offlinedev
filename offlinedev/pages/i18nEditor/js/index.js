@@ -23,23 +23,11 @@ $(()=>{
     $('#importExcelBtn').click(()=>{
         import_popupImport();
     })
+    $('#untransFilesBtn').click(()=>{
+        do_filterByUntransFile()
+    })
     $('#filterBtn').click(()=>{
-        let reg = $('#filterIpt').val();
-        if(reg){
-            try{
-                eval(`
-                    $('#table > tbody > tr').each(function (i, r){
-                        if(${reg}.test(r.getAttribute('data-key'))){
-                            r.style.display='';
-                        }else{
-                            r.style.display='none';
-                        }
-                    })
-                `)
-            }catch(e){
-                alert('执行错误')
-            }
-        }
+        do_filterByRegex();
     })
     
 })
@@ -79,7 +67,11 @@ var escapeValue = (s)=>{
 };
 let SuperJson = {};
 let OriginSuperJson = {};
+let OriginUntrans = {}
 loadData((all_trans, all_untrans)=>{
+    if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
+    OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
+    init_untransFileSelector()
     init(all_trans, all_untrans);
     check_localstorage()
     $('#saveBtn').show();
@@ -148,6 +140,9 @@ let init = (all_trans, all_untrans)=>{
                         </tr>`
     }
     $('#table >tbody').html(html);
+    afterInit()
+};
+let afterInit = ()=>{
     $('#loading').remove();
     updateSummary();
     do_selfTest();
@@ -174,7 +169,8 @@ let init = (all_trans, all_untrans)=>{
             unselect()
         }
     });
-};
+
+}
 var hoveringList = []
 var handleTrHover = function(t){
     $(t).addClass('hovering_tr')
