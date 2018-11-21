@@ -127,7 +127,7 @@ let init = (all_trans, all_untrans)=>{
         if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
         html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
-                            <td>${count}</td>
+                            <td>${count+1}</td>
                             <td class="cellkey">
                                 <span class="word">${key}</span
                             </td>

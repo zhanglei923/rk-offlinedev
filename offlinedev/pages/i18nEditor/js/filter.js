@@ -23,7 +23,7 @@ let eachTr = (callback)=>{
 }
 let init_untransFileSelector = ()=>{
     let untrans = OriginUntrans;
-    let html = ``
+    let html = `<option value="all_untrans">All Untranslated.js</option>`
     for(var fpath in untrans){
         var shortfpath = fpath.split('webapp')[1]
         html += `<option value="${fpath}">${shortfpath}</option>`;
@@ -42,13 +42,33 @@ let do_filterByUntransFile = ()=>{
         })
         return;
     }
-    let json = OriginUntrans[fpath];
-    eachTr((i, tr)=>{
-        let key = tr.getAttribute('data-key');
-        if(typeof json[key] !== 'undefined'){
-            tr.style.display='';
-        }else{
-            tr.style.display='none';
+    let _filt = (fpath)=>{
+        let json = OriginUntrans[fpath];
+        eachTr((i, tr)=>{
+            let key = tr.getAttribute('data-key');
+            if(typeof json[key] !== 'undefined'){
+                tr.style.display='';
+            }else{
+                tr.style.display='none';
+            }
+        })
+    }
+    if(fpath === 'all_untrans'){
+        let arr = {}
+        for(var pt in OriginUntrans){
+            for(let key in OriginUntrans[pt]){
+                arr[key]=true;
+            } 
         }
-    })
+        eachTr((i, tr)=>{
+            let key = tr.getAttribute('data-key');
+            if(typeof arr[key] !== 'undefined'){
+                tr.style.display='';
+            }else{
+                tr.style.display='none';
+            }
+        })
+    }else{
+        _filt(fpath)
+    }
 }
