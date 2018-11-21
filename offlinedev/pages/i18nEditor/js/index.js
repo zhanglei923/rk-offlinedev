@@ -222,3 +222,11 @@ var do_unselect = (t) =>{
     enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
     return true;
 }
+var updateValue = (key, lang, val) =>{
+    unselect()
+    let tr = $(`#table>tbody>tr[data-key="${key}"]:first`);
+    if(lang === 'en'){
+        SuperJson[key].en = val;
+        tr.find('span.cellsublang').html(`${getDisplayText(val)}`)
+    }
+}

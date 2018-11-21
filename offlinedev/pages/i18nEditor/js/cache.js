@@ -32,6 +32,11 @@ var saveto_localstorage = (key, val) =>{
     cache[key] = val;
     window.localStorage.setItem(LS_CACHE_KEY, JSON.stringify(cache))
 }
+var delkey_localstorage = (key) =>{
+    let cache = get_localstorage();
+    delete cache[key];
+    window.localStorage.setItem(LS_CACHE_KEY, JSON.stringify(cache))
+}
 var do_reportCaches = () =>{
     let reportHtml = '<ul class="validatereport">'
     let localcache = get_localstorage();
@@ -40,11 +45,18 @@ var do_reportCaches = () =>{
     for(var key in localcache){
         if(OriginSuperJson[key].en !== localcache[key]){
             count++;
-            reportHtml += `<li>
+            reportHtml += `<li data-key="${key}">
                                 <div class="dirtykey"><input type="checkbox">[KEY]:${key}</div>
                                 <div class="dirtycn">[CN]:&quot;${htmlEscape(OriginSuperJson[key].cn)}&quot;</div>
                                 <div class="dirtybefore">[CURRENT]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
-                                <div class="dirtyafter">[CACHED ]:&quot;${htmlEscape(localcache[key])}&quot;</div>
+                                <div class="dirtyafter">[CACHED ]:&quot;${htmlEscape(localcache[key])}&quot;
+                                                        <button onclick="apply_fromcache(this);" style="background-color: green;color:white;">
+                                                            Apply to Current Data
+                                                        </button>
+                                                        <button onclick="remove_fromcache(this);" style="background-color: #940808;color:white;">
+                                                            Remove from cache
+                                                        </button>
+                                </div>
                             </li>`;
         }
     }
@@ -56,4 +68,20 @@ var do_reportCaches = () =>{
         <button onclick="close_popupWindow();">Close</button>
         `)
     })
+}
+var apply_fromcache = function(btn){
+    btn = $(btn)
+    let localcache = get_localstorage();
+    let li =  btn.closest('li');
+    let key = li.data('key');
+    let val = localcache[key];
+    updateValue(key, 'en', val)
+    btn.off().replaceWith('<span>used.</span>');
+}
+var remove_fromcache = function(btn){
+    btn = $(btn)
+    let li =  btn.closest('li');
+    let key = li.data('key');
+    delkey_localstorage(key);
+    li.off().html('<span>removed.</span>');
 }

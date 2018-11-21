@@ -183,7 +183,7 @@ td .null_val{
     border-top: 1px solid #666;
 }
 .validatereport li div{
-    height: 15px;
+    /* height: 15px; */
 }
 .validatereport .dirtykey{
     margin-left:6px;
