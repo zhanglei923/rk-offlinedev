@@ -7,7 +7,12 @@ var do_validate = (savejson)=>{
     }
     return true;
 }
-var do_validateValue = (key, cnValue, value)=>{
+var do_validateValue = (key, cnValue, value)=>{    
+    var chineseReg = /[\u4e00-\u9fa5]+/ig;
+    if(value && chineseReg.test(value)){
+        alert('非中文文案不可以含中文');
+        return;
+    }
     if(/\\r/g.test(value)) {
         alert(`不可以含有"\\r"`)
         return;
