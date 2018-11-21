@@ -1,3 +1,8 @@
+$('#filterIpt').on('keydown', (e)=>{
+    if(e.keyCode === 13){
+        do_filterByRegex()
+    }
+})
 let do_filterByRegex = ()=>{    
     $('#untransFiles').val('').change();//不要混合查了
     let reg = $('#filterIpt').val();
