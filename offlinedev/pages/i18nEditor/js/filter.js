@@ -1,4 +1,5 @@
 let do_filterByRegex = ()=>{    
+    $('#untransFiles').val('').change();//不要混合查了
     let reg = $('#filterIpt').val();
     if(reg){
         try{
