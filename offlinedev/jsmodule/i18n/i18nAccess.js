@@ -23,11 +23,14 @@ module.exports = {
         let i18nFolder = this.getI18nFolder();
         let all = {}
         allLangList.forEach((o)=>{     
-            var langCode = o.fname;       
-            let content = fs.readFileSync(i18nFolder+`/${langCode}.js`, 'utf8');
-            content = content.replace(/^\s?define/, 'my_define')
+            var langCode = o.fname;  
+            let fpath = i18nFolder+`/${langCode}.js`
             let json = {}
-            eval(`json = ${content}`)
+            if(fs.existsSync(fpath)) {
+                let content = fs.readFileSync(fpath, 'utf8');
+                content = content.replace(/^\s?define/, 'my_define')
+                eval(`json = ${content}`)
+            }
             all[langCode] = json;
         })
         return all;
