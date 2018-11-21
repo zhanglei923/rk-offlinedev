@@ -1,5 +1,4 @@
 import_help_text = `
----------------------
 使用说明：
 1) 准备好“key”，“中文”，“英文”三列，最好不含任何头部
 2) 将这三列分别粘贴进这三个文本框，如果没有中文，可以忽略。
@@ -11,9 +10,9 @@ import_popupImport = ()=>{
         let contentHtml = `
             <table id="import_excel_table" class="import_excel_table">
                 <tr>
-                    <td class="td_keys"><textarea id="texts_keys" class="texts_keys" placeholder="KEY ${import_help_text}"></textarea></td>
-                    <td class="td_main_vals"><textarea id="texts_main_vals" class="texts_main_vals"  placeholder="CN"/></td>
-                    <td class="td_sub_vals"><textarea id="texts_sub_vals" class="texts_sub_vals"  placeholder="EN"/></td>
+                    <td class="td_keys"><textarea id="texts_keys" class="texts_keys" placeholder="KEY\n---------------------${import_help_text}"></textarea></td>
+                    <td class="td_main_vals"><textarea id="texts_main_vals" class="texts_main_vals"  placeholder="CN\n---------------------"/></td>
+                    <td class="td_sub_vals"><textarea id="texts_sub_vals" class="texts_sub_vals"  placeholder="EN\n---------------------"/></td>
                 </tr>
             </table>
             <table id="import_confirm_table" class="import_confirm_table">
