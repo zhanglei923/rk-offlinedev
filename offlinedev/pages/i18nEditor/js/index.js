@@ -181,10 +181,10 @@ var do_select = (t) =>{
     var val1 = SuperJson[key].en;
 
     //t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
-    t.find('.cellsublang').html(`<input class="valinput">`)
+    t.find('.cellsublang').html(`<textarea class="valinput"></textarea>`)
 
-    //t.find('.cellmainlang input').val(escapeValue(val0));
-    t.find('.cellsublang input').val(escapeValue(val1)).focus();;
+    //t.find('.cellmainlang textarea').val(escapeValue(val0));
+    t.find('.cellsublang textarea').val(escapeValue(val1)).focus();;
 }
 var unselect = () =>{
     let succ=true;
@@ -199,8 +199,8 @@ var unselect = () =>{
 var do_unselect = (t) =>{
     if(!t.hasClass('selected_tr')) return;
     var key = t.attr('data-key');
-    //var val0 = t.find('.cellmainlang input').val()
-    var val1 = t.find('.cellsublang input').val()
+    //var val0 = t.find('.cellmainlang textarea').val()
+    var val1 = t.find('.cellsublang textarea').val()
 
     if(!do_validateValue(key, val1)) return;
     t.removeClass('selected_tr')
