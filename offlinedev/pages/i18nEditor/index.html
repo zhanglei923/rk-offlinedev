@@ -10,14 +10,16 @@
         <button href="javascript:;" style="display:none;">Choose-Language</button>
         <button id="fileDetailsBtn" href="javascript:;" style="display:none;">FileDetails</button>
         <button id="validateBtn" href="javascript:;" style="display:none;">Status</button>
-        <button id="selfTestBtn" class="selfTestBtn" href="javascript:;" title="Run self-test of this kit">SelfTest</button>
+        <button id="selfTestBtn" class="selfTestBtn" href="javascript:;" title="Run self-test">SelfTest</button>
         <input id="selftestInput" class="selftestInput" style="display:none;">
         <textarea id="selftestInput2" class="selftestInput" style="display:none;"></textarea>
         <span id="summary" class="summary"></span>
         &emsp;
-        <select id="untransFiles" style="background-color: #eee;"><option selected="selected" value="">-all-</option></select>
+        <select id="untransFiles" style="background-color: #eee;" title="Choose untranslated files">
+            <option selected="selected" value="">-all-</option>
+        </select>
         <button id="untransFilesBtn" href="javascript:;" class="btn" style="display:none;">?</button>
-        <input id="filterIpt" placeholder="'Key' Filter" value="//g" style="background-color: #eee;">
+        <input id="filterIpt" placeholder="'Key' Filter" value="//g" style="background-color: #eee;" title="Accept regular-expression only">
         <button id="filterBtn" href="javascript:;" class="btn" title="Query by regular-expression">.*</button>
 
         <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">ImportExcel</button>
@@ -26,11 +28,11 @@
         <span id="loading">Loading...</span>
 
         <div style="color:#77e46b;float:right;margin-right:10px;">
-            <button id="saveBtn" href="javascript:;">Save</button>
+            <button id="saveBtn" href="javascript:;" title="Save key-values back to code">Save</button>
             <a target="_blank" href="http://10.10.0.115/doc/website/codereview/index.html#develop" 
             style="color:#77e46b;" title="Check i18n reports on server-115">115rpt</a>
             <a target="_blank" href="/index.action" 
-            style="color:#77e46b;" title="Open an example index page to verify basic syntax errors">IndexPage</a>
+            style="color:#77e46b;" title="Open an example page to verify basic syntax errors">IndexPage</a>
             <a target="_blank" href="https://wiki.ingageapp.com/pages/viewpage.action?pageId=13260116" 
             style="color:#77e46b;" title="Read user-manual">Help</a>
 

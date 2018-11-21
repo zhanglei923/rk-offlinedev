@@ -41,9 +41,12 @@ body.fatal_error *{
     color:red;
 }
 #saveBtn{
-    background-color: #97f997;
-    border:1px solid #aaa;
+    color: white;
+    background-color: #a70a0a;
     display: none;
+    font-size: 16px;
+    padding: 1px 6px 1px 6px;
+    box-shadow: 2px 2px 1px #aaa;
 }
 .selfTestBtn.wrong{
     background-color: red;
