@@ -69,6 +69,12 @@ let SuperJson = {};
 let OriginSuperJson = {};
 let OriginUntrans = {}
 loadData((all_trans, all_untrans)=>{
+    do_popupWindow('Please install assistant plugins', (content)=>{
+        content.html(`
+            <b>为了更好的翻译效果，建议安装类似Grammary的辅助浏览器插件：</b>
+            <a href="https://app.grammarly.com/" target="_blank">https://app.grammarly.com/</a>
+        `)
+    })
     if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
     OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
     init_untransFileSelector()
