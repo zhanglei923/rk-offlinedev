@@ -23,6 +23,24 @@ $(()=>{
     $('#importExcelBtn').click(()=>{
         import_popupImport();
     })
+    $('#filterBtn').click(()=>{
+        let reg = $('#filterIpt').val();
+        if(reg){
+            try{
+                eval(`
+                    $('#table > tbody > tr').each(function (i, r){
+                        if(${reg}.test(r.getAttribute('data-key'))){
+                            r.style.display='';
+                        }else{
+                            r.style.display='none';
+                        }
+                    })
+                `)
+            }catch(e){
+                alert('执行错误')
+            }
+        }
+    })
     
 })
 var htmlEscape = (s) => {
