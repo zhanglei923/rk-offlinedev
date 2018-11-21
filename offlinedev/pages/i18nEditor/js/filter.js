@@ -3,14 +3,20 @@ $('#filterIpt').on('keydown', (e)=>{
         do_filterByRegex()
     }
 })
-let do_filterByRegex = ()=>{    
+let do_filterByRegex = ()=>{   
     $('#untransFiles').val('').change();//不要混合查了
+    let type = $('#filterTypes').val() 
     let reg = $('#filterIpt').val();
     if(reg){
         try{
             eval(`
                 $('#table > tbody > tr').each(function (i, r){
-                    if(${reg}.test(r.getAttribute('data-key'))){
+                    let targetStr;
+                    let key = r.getAttribute('data-key')
+                    if(type === "key") targetStr = r.getAttribute('data-key')
+                    if(type === "cn") targetStr = SuperJson[key].cn;
+                    if(type === "en") targetStr = SuperJson[key].en;
+                    if(${reg}.test(targetStr)){
                         r.style.display='';
                     }else{
                         r.style.display='none';
@@ -32,8 +38,8 @@ let init_untransFileSelector = ()=>{
     let untrans = OriginUntrans;
     let html = `<option value="all_untrans">All Untranslated.js</option>`
     for(var fpath in untrans){
-        var shortfpath = fpath.split('webapp')[1]
-        html += `<option value="${fpath}">${shortfpath}</option>`;
+        var shortfpath = fpath.split('source\\core\\i18n\\')[1]
+        html += `<option value="${fpath}">${shortfpath.replace(/\.js$/, '')}</option>`;
     }
     $('#untransFiles').append(html);
     $('#untransFiles').on('change', ()=>{
