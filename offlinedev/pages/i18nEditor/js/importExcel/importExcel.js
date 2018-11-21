@@ -93,28 +93,39 @@ do_saveImportExcel = () =>{
         alert('key和en的数量不一致')
         return;
     }
-    let newJson = {}
+    let newMainJson = {}
+    let newSubJson = {}
     keysArr.forEach((key, i)=>{
-        let o = OriginSuperJson[key];
-        if(o){
-            let oldSubVal = o.en;
-            let newSubVal = subArr[i];
-            if(oldSubVal !== newSubVal) {
-                newJson[key] = newSubVal;
+        if(key){
+            let o = OriginSuperJson[key];
+            if(o){
+                let oldMainVal = o.cn;
+                let newMainVal = mainArr[i];
+    
+                let oldSubVal = o.en;
+                let newSubVal = subArr[i];
+    
+                if(oldMainVal !== newMainVal) {
+                    newMainJson[key] = newMainVal;
+                }
+                if(oldSubVal !== newSubVal) {
+                    newSubJson[key] = newSubVal;
+                }
             }else{
-                console.warn(key)
+                newMainJson[key] = mainArr[i];
+                newSubJson[key] = subArr[i];
             }
-        }else{
-            newJson[key] = subArr[i];
         }
     })
     let count = 0;
-    for(let key in newJson) {
+    for(let key in newSubJson) {
         if(!SuperJson[key]) SuperJson[key] = {}
-        SuperJson[key].en = newJson[key];
+        SuperJson[key].cn = newMainJson[key];
+        SuperJson[key].en = newSubJson[key];
         count++;
     }
-    console.log(JSON.stringify(newJson))
+    console.log(JSON.stringify(newSubJson))
+    console.log(JSON.stringify(newMainJson))
     console.log(`共${count}个`)
     close_popupWindow();
 }
