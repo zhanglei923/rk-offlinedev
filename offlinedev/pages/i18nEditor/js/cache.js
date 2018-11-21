@@ -2,7 +2,7 @@ const LS_CACHE_KEY = 'i18n_translator_cache';
 var check_localstorage = ()=>{
     let count = sizeof_localstorage();
     if(count > 0){
-        $('#cacheBtn').html(`(${count})Caches`).show()
+        $('#cacheBtn').html(`(${count})Cached`).show()
         //do_reportCaches()
     }
 }
@@ -64,7 +64,7 @@ var do_reportCaches = () =>{
     do_popupWindow('Cached', (popup)=>{
         popup.html(reportHtml)
         $('#popup >.footer').html(`
-        <button class="btn danger" onclick="if(confirm('Sure?')){clean_localstorage();close_popupWindow();$('#cacheBtn').hide();}">Clean All Caches</button>
+        <button class="btn danger" onclick="if(confirm('Sure?')){clean_localstorage();close_popupWindow();$('#cacheBtn').hide();}">Clean All Cache</button>
         <button class="btn" onclick="close_popupWindow();">Close</button>
         `)
     })

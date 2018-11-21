@@ -9,9 +9,7 @@
         <b>Translation Workbench</b>
         <button href="javascript:;" style="display:none;">Choose-Language</button>
         <button id="fileDetailsBtn" href="javascript:;" style="display:none;">FileDetails</button>
-        <button id="importExcelBtn" href="javascript:;">ImportExcel</button>
         <button id="validateBtn" href="javascript:;" style="display:none;">Status</button>
-        <button id="cacheBtn" class="cacheBtn" href="javascript:;" style="display:none;" title="Check local browser caches">Caches</button>
         <button id="selfTestBtn" class="selfTestBtn" href="javascript:;" title="Run self-test of this kit">SelfTest</button>
         <input id="selftestInput" class="selftestInput" style="display:none;">
         <textarea id="selftestInput2" class="selftestInput" style="display:none;"></textarea>
@@ -20,8 +18,10 @@
         <select id="untransFiles" style="background-color: #eee;"><option selected="selected" value="">-all-</option></select>
         <button id="untransFilesBtn" href="javascript:;" class="btn" style="display:none;">?</button>
         <input id="filterIpt" placeholder="'Key' Filter" value="//g" style="background-color: #eee;">
-        <button id="filterBtn" href="javascript:;" class="btn">.*</button>
+        <button id="filterBtn" href="javascript:;" class="btn" title="Query by regular-expression">.*</button>
 
+        <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">ImportExcel</button>
+        <button id="cacheBtn" class="btn cacheBtn" href="javascript:;" style="display:none;" title="Check local browser caches">Caches</button>
 
         <span id="loading">Loading...</span>
 
