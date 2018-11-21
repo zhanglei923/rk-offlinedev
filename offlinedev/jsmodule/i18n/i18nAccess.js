@@ -3,7 +3,10 @@ var pathutil = require('path');
 var moment = require("moment");
 var jsonformatter = require('format-json');
 var getConfig = require('../getConfig')
-var i18nUtil = require('../../../../apps-ingage-web/.cicd/i18n/i18nUtil')
+var i18nUtil;
+if(fs.existsSync(pathutil.resolve(__dirname, '../../../../apps-ingage-web/.cicd/i18n/i18nUtil.js'))){
+    i18nUtil = require('../../../../apps-ingage-web/.cicd/i18n/i18nUtil')
+}
 
 var cache = {}
 let my_define = (json)=>{
@@ -36,6 +39,7 @@ module.exports = {
         return all;
     },
     loadLanguagesFromUntranslated: function (){
+        if(!i18nUtil) return {}
         let untranslatedList = i18nUtil.loadUntranslateds();
         //fs.writeFileSync('./u.json', JSON.stringify(untranslatedList))
         let all = {}
