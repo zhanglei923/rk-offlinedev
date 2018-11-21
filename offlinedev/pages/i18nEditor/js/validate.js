@@ -7,7 +7,7 @@ var do_validate = (savejson)=>{
     }
     return true;
 }
-var do_validateValue = (key, value)=>{
+var do_validateValue = (key, cnValue, value)=>{
     if(/\\r/g.test(value)) {
         alert(`不可以含有"\\r"`)
         return;
@@ -16,6 +16,22 @@ var do_validateValue = (key, value)=>{
     if(regex.test(value)) {
         alert(`取参占位符不能有空格：${value.match(regex).join(', ')}`)
         return;
+    }
+    //console.log(key, cnValue, value)
+    let regex2 = /\$[0-9]{1,2}/g;
+    if(cnValue && cnValue.match(regex2) && value){
+        let cnarr = cnValue.match(regex2);
+        let enarr = value.match(regex2);
+        if(!enarr || (enarr.length !== cnarr.length)){
+            alert('两种语言的取值占位符不匹配，中文里有'+cnarr.join(', '))
+            return;
+        }
+        cnarr.sort();
+        enarr.sort();
+        if(cnarr.join('')!==enarr.join('')){
+            alert('两种语言的取值占位符不匹配，中文里有'+cnarr.join(', '))
+            return;
+        }
     }
     return true;
 }
