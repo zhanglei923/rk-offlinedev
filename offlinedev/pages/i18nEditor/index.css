@@ -48,6 +48,9 @@ body.fatal_error *{
     padding: 1px 6px 1px 6px;
     box-shadow: 2px 2px 1px #aaa;
 }
+#filterIpt{
+    width: 130px;
+}
 .selfTestBtn.wrong{
     background-color: red;
 }
