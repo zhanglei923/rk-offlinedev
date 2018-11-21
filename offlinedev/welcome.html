@@ -155,7 +155,7 @@
             }
         });
     $.ajax({
-            url: '/offlinedev/getWebProjectInfo/',
+            url: '/offlinedev/api/getWebProjectInfo/',
             cache: false,
             method: 'POST',
             data: {},
@@ -169,7 +169,7 @@
         });
     var save = function(){
       $.ajax({
-            url: '/offlinedev/saveUserConfig/',
+            url: '/offlinedev/api/saveUserConfig/',
             cache: false,
             method: 'POST',
             data: {
@@ -191,7 +191,7 @@
       $('#download-btn').addClass('busy')
       $('#download-btn').text('Downloading...')
        $.ajax({
-            url: '/offlinedev/syncCases/',
+            url: '/offlinedev/api/syncCases/',
             cache: false,
             method: 'POST',
             data: {

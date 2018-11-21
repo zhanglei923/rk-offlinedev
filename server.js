@@ -112,7 +112,7 @@ var actionsRouter = require('./offlinedev/jsmodule/actionsRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;
-    if(/^\/offlinedev\//.test(req.url)){
+    if(/^\/offlinedev\/api\//.test(req.url)){
         var result = actionsRouter.processPost(req, res, function(data){
             res.json({
                 status: 0,
@@ -151,6 +151,13 @@ app.get('*', function(req, res) {
    var url = req.url;
    var p = URL.parse(url, true);
    var isdeploy = p.query.isdeploy;
+   if(/^\/offlinedev\/api\//.test(req.url)){
+        res.json({
+            status: 0,
+            result: data
+        }) 
+       return;
+   }
     if(/^\/designer\.action/ig.test(originalUrl)){
         html = getPageHtml(isdeploy, 'frame30_designer.html');
     }else if(/^\/appdesigner\.action/ig.test(originalUrl)){

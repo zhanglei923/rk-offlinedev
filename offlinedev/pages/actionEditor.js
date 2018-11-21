@@ -1,6 +1,6 @@
 let init = function(){
   $.ajax({
-      url: '/offlinedev/action/list/',
+      url: '/offlinedev/api/action/list/',
       cache: false,
       method: 'POST',
       data: {},
@@ -107,7 +107,7 @@ let saveFileList = ()=>{
         })
     });
     $.ajax({
-        url: '/offlinedev/action/savefilelink/',
+        url: '/offlinedev/api/action/savefilelink/',
         cache: false,
         method: 'POST',
         data: {
@@ -170,7 +170,7 @@ let updateTotal = function(pathcount, path404count){
 let loadLinkFileContent = function(filepath){
     console.log('load:', filepath)
     $.ajax({
-        url: '/offlinedev/action/loadfilelinkContent/',
+        url: '/offlinedev/api/action/loadfilelinkContent/',
         cache: false,
         method: 'POST',
         data: {
@@ -188,7 +188,7 @@ let loadLinkFileContent = function(filepath){
 }
 let showFileLinks = (url, realpath)=>{
     $.ajax({
-        url: '/offlinedev/action/getfilelink/',
+        url: '/offlinedev/api/action/getfilelink/',
         cache: false,
         method: 'POST',
         data: {
@@ -223,7 +223,7 @@ let showActionContent = function(nickurl, is404){
   $('#actioncontent').val('loading...');  
   if(typeof is404 === 'undefined') is404 = false;
   $.ajax({
-      url: '/offlinedev/action/content/',
+      url: '/offlinedev/api/action/content/',
       cache: false,
       method: 'POST',
       is404: is404,

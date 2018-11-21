@@ -149,7 +149,7 @@ do_saveImportExcel = () =>{
     close_popupWindow();
     
     $.ajax({//保存系统不存在的中文
-        url: '/offlinedev/action/i18nSaveAsUntrans',
+        url: '/offlinedev/api/action/i18nSaveAsUntrans',
         cache: false,
         method: 'POST',
         data: {all: JSON.stringify(newMainJson)},

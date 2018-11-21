@@ -1,7 +1,7 @@
 
 let loadData = (success) =>{
     let promise1 = $.ajax({
-        url: '/offlinedev/action/loadLangFromAll',
+        url: '/offlinedev/api/action/loadLangFromAll',
         cache: false,
         method: 'POST',
         data: {},
@@ -10,7 +10,7 @@ let loadData = (success) =>{
         }
     });
     let promise2 = $.ajax({
-        url: '/offlinedev/action/loadLanguagesFromUntranslated',
+        url: '/offlinedev/api/action/loadLanguagesFromUntranslated',
         cache: false,
         method: 'POST',
         data: {},
@@ -57,7 +57,7 @@ var do_save_req = (savejson, callback) => {
         return;
     }
     let promise = $.ajax({
-        url: '/offlinedev/action/saveAllLanguages',
+        url: '/offlinedev/api/action/saveAllLanguages',
         cache: false,
         method: 'POST',
         data: {all: JSON.stringify(savejson)},

@@ -29,7 +29,7 @@ let handleSaveClick = function(){
       return;
     }
     $.ajax({
-        url: '/offlinedev/action/save/',
+        url: '/offlinedev/api/action/save/',
         cache: false,
         method: 'POST',
         data: {
