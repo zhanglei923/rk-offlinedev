@@ -11,6 +11,7 @@ var do_reportStatus = () =>{
     let reportHtml = '<ul class="validatereport">'
     reportHtml += `<li><b>Mondified:</b></li>`
     for(var key in SuperJson){
+        if(!OriginSuperJson[key]) OriginSuperJson[key]={}
         let enval0 = OriginSuperJson[key].en?OriginSuperJson[key].en:'';
         let enval1 = SuperJson[key].en?SuperJson[key].en:'';
         

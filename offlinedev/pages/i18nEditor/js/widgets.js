@@ -10,7 +10,7 @@ let do_popupWindow = (title, callback)=>{
                         <div class="footer"></div>`);
     $('#popup').show();
     $('#model_background').show();
-    callback($('#popup > .content'));
+    callback($('#popup > .content'), $('#popup > .footer'));
 }
 let close_popupWindow = ()=>{
     $('#popup').hide();

@@ -20,6 +20,10 @@ $(()=>{
     $('#cacheBtn').click(()=>{
         do_reportCaches();
     })
+    $('#importExcelBtn').click(()=>{
+        import_popupImport();
+    })
+    
 })
 var htmlEscape = (s) => {
     var type = typeof s;
