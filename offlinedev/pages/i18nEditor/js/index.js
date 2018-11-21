@@ -71,6 +71,8 @@ let OriginUntrans = {}
 loadData((all_trans, all_untrans)=>{
     do_popupWindow('Please install assistant plugins', (content)=>{
         content.html(`
+        <img src="https://static.grammarly.com/assets/files/3a89d404f9db7ffd42e5fa9b8cd7d93e/grammarly_logo.svg">
+            <p>
             <b>为了更好的翻译效果，建议安装类似Grammary的辅助浏览器插件：</b>
             <a href="https://app.grammarly.com/" target="_blank">https://app.grammarly.com/</a>
         `)
