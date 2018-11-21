@@ -107,12 +107,12 @@ td .null_val{
 .cellmainlang.word{
     /* background-color: #feffd7; */
     background-color: #e3f0fd;
-    word-break: break-all;
+    /* word-break: break-all; */
     /* border: 1px dotted #a3a3d4; */
 }
 .cellsublang.word{
     background-color: #e1f9d2;
-    word-break: break-all;
+    /* word-break: break-all; */
     /* border: 1px dotted #42c73a; */
 }
 .row{

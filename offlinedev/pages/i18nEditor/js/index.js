@@ -31,7 +31,8 @@ var htmlEscape = (s) => {
         .replace(/>/g, '&gt;')
         .replace(/'/g, '&#039;')
         .replace(/"/g, '&quot;')
-        .replace(/[ ]/g, '&nbsp;')
+        .replace(/^[ ]{1,}/, (w)=>{let s='';for(var i=0;i<w.length;i++)s+='&nbsp;';return s;})
+        .replace(/[ ]{1,}$/, (w)=>{let s='';for(var i=0;i<w.length;i++)s+='&nbsp;';return s;})
         .replace(/\n/g, '<span class="keyofenter_mark">\\n</span>');
     w = w//.replace(/\{\d{1,}\}/g,(w)=>{return '<span class="unknown_mark">'+w+'</span>';})
         .replace(/\{\w{1,}\}/g,(w)=>{
@@ -183,7 +184,6 @@ var do_select = (t) =>{
     t.find('.cellsublang').html(`<input class="valinput">`)
 
     //t.find('.cellmainlang input').val(escapeValue(val0));
-    t.find('.cellsublang input').css({'min-width': val1.length * 10})
     t.find('.cellsublang input').val(escapeValue(val1)).focus();;
 }
 var unselect = () =>{
