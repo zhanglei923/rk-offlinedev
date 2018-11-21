@@ -13,6 +13,7 @@ let do_filterByRegex = ()=>{
             `)
         }catch(e){
             alert('执行错误')
+            throw e;
         }
     }
 }
