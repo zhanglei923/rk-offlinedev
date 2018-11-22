@@ -50,8 +50,9 @@ var updateSummary = function(){
         total++;
     };
     $('#summary').html(`
-    Remains:${nullen}/${total}
-    `)
+                        Remains:<span class="remains">${nullen}</span>/${total}
+                        `)
+    if(nullen > 0) $('#summary .remains').css('color', '#f96b6b')
     
     if(nullCnKeys.length > 0) notice_error(`有英文但无中文：${nullCnKeys.join(', ')}`)
 };
