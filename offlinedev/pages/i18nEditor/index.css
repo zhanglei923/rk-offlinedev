@@ -21,7 +21,7 @@ body.fatal_error *{
     color:white;
 }
 .toolbar{
-    height: 20px;
+    height: 21px;
     background-color: #000;
     position: fixed;
     left:0;top:0;
@@ -44,9 +44,9 @@ body.fatal_error *{
     color: white;
     background-color: #a70a0a;
     display: none;
-    font-size: 16px;
+    /* font-size: 16px; */
     padding: 1px 6px 1px 6px;
-    box-shadow: 2px 2px 1px #aaa;
+    /* box-shadow: 2px 2px 1px #aaa; */
 }
 #filterIpt{
     width: 130px;
