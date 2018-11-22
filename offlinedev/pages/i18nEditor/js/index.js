@@ -29,19 +29,20 @@ $(()=>{
     $('#filterBtn').click(()=>{
         do_filterByRegex();
     })
-    $('#compactViewBtn').text($('#table').hasClass('compactview')?'Parallel-View':'Compact-View')
-    $('#compactViewBtn').click(()=>{
-        let btn = $('#compactViewBtn');
-        let stat = btn.attr('compact')
-        if(!stat){
+    $('#compactViewSwitch').on('change', (e)=>{
+        let val = $('#compactViewSwitch').val()
+        if(val === 'mod_compact'){
             $('#table').addClass('compactview')
-            btn.attr('compact','true')
-            btn.text('Parallel-View')
         }else{
             $('#table').removeClass('compactview')
-            btn.attr('compact','')
-            btn.text('Compact-View')
         }
+    })
+    $('#typeViewSwitch').on('change', (e)=>{
+        let val = $('#typeViewSwitch').val()
+        $('#table').removeClass('mod_mix');
+        $('#table').removeClass('mod_cn');
+        $('#table').removeClass('mod_en');
+        $('#table').addClass(val);
     })
     $('#table').on('keydown', '.cellsublang textarea', (e)=>{
         if(e.keyCode === 13) {

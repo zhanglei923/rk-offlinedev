@@ -88,6 +88,12 @@ body.fatal_error *{
 .compactview .untrans_path{
     display: none;
 }
+.mod_en .cellmainlang{
+    display: none !important;
+}
+.mod_cn .cellsublang{
+    display: none !important;
+}
 td.validate_info{
     width: 30px;
 }

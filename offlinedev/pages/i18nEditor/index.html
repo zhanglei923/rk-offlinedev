@@ -30,7 +30,15 @@
         <input id="filterIpt" placeholder="'Key' Filter" value="/./g" style="background-color: #eee;" title="Accept regular-expression only">
         <button id="filterBtn" href="javascript:;" class="btn" title="Query by regular-expression">.*</button>
         |
-        <button id="compactViewBtn" href="javascript:;" class="btn" title="Compact view."></button>
+        <select id="compactViewSwitch" style="background-color: #eee;" title="">
+            <option selected="selected" value="mod_compact">Compact</option>
+            <option value="mod_parallel">Parallel</option>
+        </select>
+        <select id="typeViewSwitch" style="background-color: #eee;" title="">
+            <option selected="selected" value="mod_mix">MIX</option>
+            <option value="mod_cn">CN</option>
+            <option value="mod_en">EN</option>
+        </select>
         <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">Import</button>
         <button id="cacheBtn" class="btn cacheBtn" href="javascript:;" style="display:none;" title="Check local browser caches">Caches</button>
 
