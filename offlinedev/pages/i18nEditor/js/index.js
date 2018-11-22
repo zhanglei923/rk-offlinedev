@@ -29,6 +29,16 @@ $(()=>{
     $('#filterBtn').click(()=>{
         do_filterByRegex();
     })
+    $('#table').on('keydown', '.cellsublang textarea', (e)=>{
+        if(e.keyCode === 13) {
+            let textarea = $(e.currentTarget);
+            e.preventDefault();
+            textarea.css({'background-color':'pink'});
+            window.setTimeout(()=>{
+                textarea.css({'background-color':''});
+            }, 100)
+        }
+    })
     
 })
 var htmlEscape = (s) => {
