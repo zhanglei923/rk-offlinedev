@@ -76,10 +76,10 @@ body.fatal_error *{
     background-color: #fdbafb !important;
 }
 .compactview .cellmainlang{
-    display: inline-block;
+    display: inline;
 }
 .compactview .cellsublang{
-    display: inline-block;
+    display: inline;
 }
 .compactview .untrans_path{
     display: none;
