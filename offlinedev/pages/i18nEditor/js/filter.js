@@ -34,11 +34,15 @@ let eachTr = (callback)=>{
         callback(i, r);
     })
 }
+let getShortDrivePath = (fpath)=>{
+    if(!fpath) return fpath;
+    return fpath.split('source\\core\\i18n\\')[1]
+}
 let init_untransFileSelector = ()=>{
     let untrans = OriginUntrans;
     let html = `<option value="all_untrans">All Untranslated.js</option>`
     for(var fpath in untrans){
-        var shortfpath = fpath.split('source\\core\\i18n\\')[1]
+        var shortfpath = getShortDrivePath(fpath)
         html += `<option value="${fpath}">${shortfpath.replace(/\.js$/, '')}</option>`;
     }
     $('#untransFiles').append(html);

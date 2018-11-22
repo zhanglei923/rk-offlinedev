@@ -68,6 +68,7 @@ var escapeValue = (s)=>{
 let SuperJson = {};
 let OriginSuperJson = {};
 let OriginUntrans = {}
+let UntransMap = {}
 loadData((all_trans, all_untrans)=>{
     if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
     OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
@@ -126,7 +127,7 @@ let init = (all_trans, all_untrans)=>{
         let envalue = SuperJson[key].en;
         if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
-        html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
+        html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title="${UntransMap[key]?getShortDrivePath(UntransMap[key]):''}"> 
                             <td>#${count+1}</td>
                             <td class="cellkey">
                                 ${key}

@@ -43,18 +43,30 @@ var do_validateValue = (key, cnValue, value)=>{
 var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
     trans = trans['all_zh-cn'];
     var duplist = [];
+    var uniqkeys = {};
+    var nonUniqkeys = [];
     for(var fpath in untrans){
         for(var key in untrans[fpath]){
+            UntransMap[key] = fpath;//缓存路径信息
+            if(uniqkeys[key]) nonUniqkeys.push(key);
+            uniqkeys[key] = true;
             if(typeof trans[key] !== 'undefined') {
                 duplist.push(key)
             }
         }
     }
+    var fatalerror = false;
+    if(nonUniqkeys.length > 0){
+        notice_error('untranslated.js里的各文件中有重复的key：'+nonUniqkeys.join(', '))
+        notice_error('致命错误，加载终止');
+        fatalerror = true;
+    }
     if(duplist.length > 0){
         notice_error('untranslated.js里和all_zh-cn里有重复的key：'+duplist.join(', '))
-        notice_error('致命错误，加载终止')
+        notice_error('致命错误，加载终止');
+        fatalerror = true;
     }
-    return duplist.length > 0 ? false : true;
+    return !fatalerror;
 }
 do_selfTest = () =>{
     $('#selfTestBtn').removeClass('wrong').removeClass('correct').html('testing...')
