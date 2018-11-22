@@ -21,8 +21,8 @@ var do_reportStatus = () =>{
             reportHtml += `<li>
                                 <div class="dirtykey">[KEY]:${key}</div>
                                 <div class="dirtycn">[CN]:&quot;${htmlEscape(OriginSuperJson[key].cn)}&quot;</div>
-                                <div class="dirtybefore" ${!OriginSuperJson[key].en?'style="display:none;"':""}>[BF]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
-                                <div class="dirtyafter">[AF]:&quot;${htmlEscape(SuperJson[key].en)}&quot;</div>
+                                <div class="dirtybefore" style="display:none;">[BF]:&quot;${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}&quot;</div>
+                                <div class="dirtyafter" title="${htmlEscape(OriginSuperJson[key].en?OriginSuperJson[key].en:'')}">[AF]:&quot;${htmlEscape(SuperJson[key].en)}&quot;</div>
                             </li>`;
         }
     }
