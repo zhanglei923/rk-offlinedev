@@ -110,7 +110,8 @@ do_selfTest = () =>{
         }
     })
     $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
-    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`${count}&checkmark;`)
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`Self-Test&checkmark;`)
+    $('#selfTestBtn').attr('title', errors.length > 0 ? '':`Passed ${count} self-test cases.`)
     if(errors.length > 0){
         console.warn(`ERRORS: ${errors.length}`, errors)
         $('#saveBtn').remove();
