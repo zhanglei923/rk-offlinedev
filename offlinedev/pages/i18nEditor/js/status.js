@@ -14,7 +14,8 @@ var do_reportStatus = () =>{
         if(!OriginSuperJson[key]) OriginSuperJson[key]={}
         let enval0 = OriginSuperJson[key].en//?OriginSuperJson[key].en:'';
         let enval1 = SuperJson[key].en//?SuperJson[key].en:'';
-        
+        if(!enval0) enval0='';
+        if(!enval1) enval1='';
         if(enval0 !== enval1){
             //console.log(OriginSuperJson[key].en , SuperJson[key].en)
             count++;
