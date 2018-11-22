@@ -1,3 +1,14 @@
+var checkKeyIsDirty = (key)=>{
+    if(!OriginSuperJson[key]) OriginSuperJson[key]={}
+    let enval0 = OriginSuperJson[key].en//?OriginSuperJson[key].en:'';
+    let enval1 = SuperJson[key].en//?SuperJson[key].en:'';
+    if(!enval0) enval0='';
+    if(!enval1) enval1='';
+    if(enval0 !== enval1){
+        return true;
+    }
+    return false;
+};
 var do_reportStatus = () =>{
     // $('#table >tbody>tr').each(function(i, tr){
     //     tr=$(tr)
@@ -11,12 +22,8 @@ var do_reportStatus = () =>{
     let reportHtml = '<ul class="validatereport">'
     reportHtml += `<li><b>Mondified:</b></li>`
     for(var key in SuperJson){
-        if(!OriginSuperJson[key]) OriginSuperJson[key]={}
-        let enval0 = OriginSuperJson[key].en//?OriginSuperJson[key].en:'';
-        let enval1 = SuperJson[key].en//?SuperJson[key].en:'';
-        if(!enval0) enval0='';
-        if(!enval1) enval1='';
-        if(enval0 !== enval1){
+        let dirty = checkKeyIsDirty(key)
+        if(dirty){
             //console.log(OriginSuperJson[key].en , SuperJson[key].en)
             count++;
             reportHtml += `<li>

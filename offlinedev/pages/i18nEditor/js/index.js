@@ -263,7 +263,9 @@ var do_unselect = (t) =>{
     //var val0 = t.find('.cellmainlang textarea').val()
     var val1 = t.find('.cellsublang textarea').val()
 
+    if(self_test_completed)//不要影响初始自检
     if(!do_validateValue(key, SuperJson[key].cn, val1)) return;
+
     t.removeClass('selected_tr')
 
     //var newVal0 = unescapeValue(val0);

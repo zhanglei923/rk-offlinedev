@@ -75,8 +75,10 @@ var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
         $('#content_loading').css({'color': 'yellow', 'font-size':'23px'}).html('Fatal Error!')
         $('body').css({'background-color':'blue'})
     }
+    if(!fatalerror) $('#selfTestBtn').after(`<span style="color:#97f997;" title="Data test OK!">&squarf;<span>`)
     return !fatalerror;
 }
+let self_test_completed = false;
 do_selfTest = () =>{
     $('#selfTestBtn').removeClass('wrong').removeClass('correct').html('testing...')
     let errors = []
@@ -109,13 +111,41 @@ do_selfTest = () =>{
             _test(key, val0, val)
         }
     })
+    //测试选中关闭，是否会污染value
+    {
+        let len = $('#table>tbody>tr').length;
+        let list = [0, len-1, , len-3, , len-5]
+        let max = 30;
+        for(let i=1;i<len;i++){
+            if(i%3===0) list.push(i);
+            if(list.length>max)break;
+        }
+        let keys = []
+        for(let i=1;i<list.length;i++){
+            let tr = $(`#table>tbody>tr:eq(${i})`);
+            if(tr){
+                keys.push(tr.attr('data-key'))
+                handleTrSelect(tr)
+                unselect()
+            }
+        }
+        let key = keys.pop();
+        let notdirty = true;
+        while(key){
+            if(checkKeyIsDirty(key)) notdirty = false;
+            key = keys.pop();
+        }
+        if(!notdirty){
+            errors.push('unselect后会污染数据')
+        }
+    }
     $('#selfTestBtn').addClass(errors.length > 0 ? 'wrong':'correct')
-    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`Self-Test&checkmark;`)
-    $('#selfTestBtn').attr('title', errors.length > 0 ? '':`Passed ${count} self-test cases.`)
+    $('#selfTestBtn').html(errors.length > 0 ? `${errors.length} Errors, Self-Test Failed!!`:`&squarf;`).attr('title', errors.length > 0 ? '':`Passed ${count} self-test cases.`)
     if(errors.length > 0){
         console.warn(`ERRORS: ${errors.length}`, errors)
         $('#saveBtn').remove();
         $('body').addClass('fatal_error')
     }
     delete osuperJson;
+    self_test_completed = true;
 }
