@@ -29,7 +29,8 @@ $(()=>{
     $('#filterBtn').click(()=>{
         do_filterByRegex();
     })
-    $('#compactViewBtn').text('Compact-View').click(()=>{
+    $('#compactViewBtn').text($('#table').hasClass('compactview')?'Parallel-View':'Compact-View')
+    $('#compactViewBtn').click(()=>{
         let btn = $('#compactViewBtn');
         let stat = btn.attr('compact')
         if(!stat){
