@@ -120,9 +120,9 @@ td .null_val{
 .cellkey{
     /* float: right; */
     max-width: 360px;
+    color: blue;
 }
 .cellkey .word{
-    color: blue;
 }
 .cellmainlang input{
     background-color: #fdbafb !important;

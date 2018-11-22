@@ -129,12 +129,11 @@ let init = (all_trans, all_untrans)=>{
         html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}"> 
                             <td>#${count+1}</td>
                             <td class="cellkey">
-                                <span class="word">${key}</span
+                                ${key}
                             </td>
                             <td class="cellval">
-                                <span class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</span>
-                                <br>
-                                <span class="cellsublang word">${getDisplayText(envalue)}</span>
+                                <div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</div>
+                                <div class="cellsublang word">${getDisplayText(envalue)}</div>
                             </td>
                             <td class="validate_info"></td>
                         </tr>`
@@ -260,6 +259,6 @@ var updateValue = (key, lang, val) =>{
     let tr = $(`#table>tbody>tr[data-key="${key}"]:first`);
     if(lang === 'en'){
         SuperJson[key].en = val;
-        tr.find('span.cellsublang').html(`${getDisplayText(val)}`)
+        tr.find('.cellsublang').html(`${getDisplayText(val)}`)
     }
 }
