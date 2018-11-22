@@ -122,7 +122,8 @@ td .null_val{
     max-width: 360px;
     color: blue;
 }
-.cellkey .word{
+.untrans_path{
+    color:#ccb6b6;
 }
 .cellmainlang input{
     background-color: #fdbafb !important;
