@@ -68,10 +68,21 @@ body.fatal_error *{
     background-color: #fdbafb !important;
 }
 .selected_tr .cellmainlang{
+    display: block !important;
     background-color: #fdbafb !important;
 }
 .selected_tr .cellsublang{
+    display: block !important;
     background-color: #fdbafb !important;
+}
+.compactview .cellmainlang{
+    display: inline-block;
+}
+.compactview .cellsublang{
+    display: inline-block;
+}
+.compactview .untrans_path{
+    display: none;
 }
 td.validate_info{
     width: 30px;
