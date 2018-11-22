@@ -36,7 +36,7 @@ let eachTr = (callback)=>{
 }
 let getShortDrivePath = (fpath)=>{
     if(!fpath) return '';
-    return fpath.split('source\\core\\i18n\\')[1]
+    return fpath.split('source\\core\\i18n')[1]
 }
 let init_untransFileSelector = ()=>{
     let untrans = OriginUntrans;
