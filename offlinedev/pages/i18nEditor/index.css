@@ -67,6 +67,12 @@ body.fatal_error *{
 .selected_tr{
     background-color: #fdbafb !important;
 }
+.selected_tr .cellmainlang{
+    background-color: #fdbafb !important;
+}
+.selected_tr .cellsublang{
+    background-color: #fdbafb !important;
+}
 td.validate_info{
     width: 30px;
 }
