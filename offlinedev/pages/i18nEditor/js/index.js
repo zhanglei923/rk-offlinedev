@@ -211,10 +211,10 @@ var do_select = (t) =>{
     //t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
     t.find('.cellsublang').html(`<textarea class="valinput"></textarea>
     <hr>
-                                 <button class="resetEnRowBtn btn">Reset</button>
                                  <a href="https://app.grammarly.com/" target="_blank">
                                     <img src="https://static.grammarly.com/assets/files/3a89d404f9db7ffd42e5fa9b8cd7d93e/grammarly_logo.svg" />
                                  </a>
+                                 &nbsp;<button class="resetEnRowBtn btn">Reset</button>
                                 `);
 
     //t.find('.cellmainlang textarea').val(escapeValue(val0));
