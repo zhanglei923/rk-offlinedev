@@ -37,6 +37,10 @@ body.fatal_error *{
     display:none;
     margin-top: 20px;
 }
+#content_loading{
+    color:red;
+    font-size: 20px;
+}
 #loading{
     color:red;
 }
