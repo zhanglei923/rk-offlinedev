@@ -72,7 +72,7 @@ var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
         fatalerror = true;
     }
     if(fatalerror){
-        $('#content_loading').css({'color': 'red', 'font-size':'23px'}).html('致命错误，加载终止！')
+        $('#content_loading').css({'color': 'yellow', 'font-size':'23px'}).html('Fatal Error!')
         $('body').css({'background-color':'blue'})
     }
     return !fatalerror;
