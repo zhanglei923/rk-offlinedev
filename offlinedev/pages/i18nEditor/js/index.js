@@ -69,14 +69,6 @@ let SuperJson = {};
 let OriginSuperJson = {};
 let OriginUntrans = {}
 loadData((all_trans, all_untrans)=>{
-    do_popupWindow('Please install assistant plugins', (content)=>{
-        content.html(`
-        <img src="https://static.grammarly.com/assets/files/3a89d404f9db7ffd42e5fa9b8cd7d93e/grammarly_logo.svg">
-            <p>
-            <b>为了更好的翻译效果，建议安装类似Grammary的辅助浏览器插件：</b>
-            <a href="https://app.grammarly.com/" target="_blank">https://app.grammarly.com/</a>
-        `)
-    })
     if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
     OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
     init_untransFileSelector()
@@ -177,7 +169,12 @@ let afterInit = ()=>{
             unselect()
         }
     });
-
+    $('#table').on('click', 'button.resetEnRowBtn', function(e){
+        let btn = e.currentTarget;
+        let tr = $(btn).closest('tr[data-key]')
+        let key = tr.attr('data-key')
+        tr.find('.valinput').val(OriginSuperJson[key].en?OriginSuperJson[key].en:'')
+    });
 }
 var hoveringList = []
 var handleTrHover = function(t){
@@ -212,7 +209,13 @@ var do_select = (t) =>{
     var val1 = SuperJson[key].en;
 
     //t.find('.cellmainlang').html(`<input class="valinput" readonly>`)
-    t.find('.cellsublang').html(`<textarea class="valinput"></textarea>`)
+    t.find('.cellsublang').html(`<textarea class="valinput"></textarea>
+    <hr>
+                                 <button class="resetEnRowBtn btn">Reset</button>
+                                 <a href="https://app.grammarly.com/" target="_blank">
+                                    <img src="https://static.grammarly.com/assets/files/3a89d404f9db7ffd42e5fa9b8cd7d93e/grammarly_logo.svg" />
+                                 </a>
+                                `);
 
     //t.find('.cellmainlang textarea').val(escapeValue(val0));
     t.find('.cellsublang textarea').val(escapeValue(val1)).focus();;
