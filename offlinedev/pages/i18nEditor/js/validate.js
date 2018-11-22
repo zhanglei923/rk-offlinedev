@@ -57,14 +57,16 @@ var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
     }
     var fatalerror = false;
     if(nonUniqkeys.length > 0){
-        notice_error('untranslated.js里的各文件中有重复的key：'+nonUniqkeys.join(', '))
-        notice_error('致命错误，加载终止');
+        notice_error('发现致命错误：untranslated.js里的各文件中有重复的key：'+nonUniqkeys.join(', '))
         fatalerror = true;
     }
     if(duplist.length > 0){
-        notice_error('untranslated.js里和all_zh-cn里有重复的key：'+duplist.join(', '))
-        notice_error('致命错误，加载终止');
+        notice_error('发现致命错误：untranslated.js里和all_zh-cn里有重复的key：'+duplist.join(', '))
         fatalerror = true;
+    }
+    if(fatalerror){
+        $('#content_loading').css({'color': 'red', 'font-size':'23px'}).html('致命错误，加载终止！')
+        $('body').css({'background-color':'blue'})
     }
     return !fatalerror;
 }

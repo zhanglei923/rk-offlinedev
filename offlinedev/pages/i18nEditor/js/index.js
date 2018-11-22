@@ -3,8 +3,8 @@ $(()=>{
         do_reportStatus(false);
         window.setTimeout(()=>{
             $('#popup > .footer').append(`
-                                        <button  onclick="do_save();">Save!</button>
-                                        <button  onclick="close_popupWindow();">Cancel</button>
+                                        <button class="btn" onclick="do_save();">Save!</button>
+                                        <button  class="btn danger" onclick="close_popupWindow();">Cancel</button>
                                         `)
         }, 300)
     })
