@@ -135,7 +135,6 @@ let init = (all_trans, all_untrans)=>{
                                 <div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</div>
                                 <div class="cellsublang word">${getDisplayText(envalue)}</div>
                             </td>
-                            <td class="validate_info"></td>
                         </tr>`
     }
     $('#table >tbody').html(html);
