@@ -82,6 +82,19 @@ module.exports = {
         })
         return all;
     },
+    _sortJson: (json)=>{
+        let arr = []
+        for(let key in json){
+            arr.push(key);
+        }
+        arr.sort();
+        let new_json = {}
+        for(let i=0;i<arr.length;i++){
+            let key = arr[i]
+            new_json[key] = json[key]
+        }
+        return new_json;
+    },
     saveAllLanguages: function (allJson){
         let i18nFolder = this.getI18nFolder();
         let all = {}
@@ -89,6 +102,7 @@ module.exports = {
             var alias = o.alias;
             if(allJson[alias]){
                 let json = allJson[alias]
+                json = this._sortJson(json);
                 let fullfilename = i18nFolder + '/' + o.fname + '.js';
                 let content = 'define('+
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
@@ -99,7 +113,9 @@ module.exports = {
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
                                 jsonformatter.diffy(json) + ');'
                 let localBackupFolder = pathutil.resolve(__dirname, './.save');
+                //backup
                 fs.writeFileSync(localBackupFolder+'/'+alias+'_'+moment().format('YYYY-MM-DD_HHmmss')+'.json', JSON.stringify(json))
+                //real env
                 fs.writeFileSync(fullfilename, content)
                 console.log('saved: ',alias, fullfilename, localBackupFolder)
             }
