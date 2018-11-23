@@ -36,8 +36,7 @@ var do_reportStatus = () =>{
     }
     reportHtml += '</ul>';
     if(count===0){
-        alert('Nothing changed.')
-        return;
+        reportHtml = ('Nothing changed.')
     }
     do_popupWindow('Summary', (popup)=>{
         popup.html(reportHtml)
