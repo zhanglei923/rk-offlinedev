@@ -57,7 +57,7 @@ var updateSummary = function(){
         total++;
     };
     $('#summary').html(`
-                        Remains:<span class="remains">${nullen}</span>/${total}
+                        <span class="remains">${nullen}</span>/${total}
                         `)
     if(nullen > 0) $('#summary .remains').css('color', '#f96b6b')
     
@@ -69,5 +69,19 @@ do_fileDetails = ()=>{
     let reportHtml = '234'
     do_popupWindow('File Details', (popup)=>{
         popup.html(reportHtml)
+    })
+}
+init_branchInfo = ()=>{
+    $.ajax({
+        url: '/offlinedev/api/getWebProjectInfo/',
+        cache: false,
+        method: 'POST',
+        success:(data)=>{
+            let branchName = data.result.branchName
+            $('#branchInfo').html(`
+                <span>${branchName}</span>
+            `)
+            console.log(branchName)
+        }
     })
 }

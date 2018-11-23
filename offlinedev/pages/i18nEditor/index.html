@@ -2,11 +2,12 @@
 <html>
 <head>
     <link rel="stylesheet" type="text/css" href="/offlinedev/pages/i18nEditor/index.css"/>
-    <title>Translation Workbench</title>
+    <title>i18n Editor</title>
 </head>
 <body>
     <div id="toolbar" class="toolbar">
-        <b>&bull;Translation Workbench</b>        
+        <b style="display:none;">&bull;Translation Workbench</b>        
+        <span id="branchInfo" class="branchInfo" title="Brach name"></span>
         |
         <button id="saveBtn" href="javascript:;" title="Save key-values back to code">Save</button>
         <button href="javascript:;" style="display:none;">Choose-Language</button>
@@ -17,7 +18,7 @@
         <button id="selfTestBtn" class="selfTestBtn" href="javascript:;" title="Self-testing">Self-Test</button>
         <input id="selftestInput" class="selftestInput" style="display:none;">
         |
-        <select id="untransFiles" style="background-color: #eee;" title="Choose untranslated files">
+        <select id="untransFiles" style="background-color: #eee;    max-width: 100px;" title="Choose untranslated files">
             <option selected="selected" value="">All Files</option>
         </select>
         <button id="untransFilesBtn" href="javascript:;" class="btn">?</button>
@@ -47,7 +48,7 @@
         <div style="color:#77e46b;float:right;margin-right:10px;">
             <span style="color:white;display: none;">|</span>
             <a target="_blank" href="http://10.10.0.115/doc/website/codereview/index.html#develop" 
-            style="color:#77e46b;" title="Check i18n reports on server-115">115rpt</a>
+            style="color:#77e46b;" title="Check i18n reports on server-115">115</a>
             <a target="_blank" href="/index.action" 
             style="color:#77e46b;" title="Open an example page to verify basic syntax errors">Crm</a>
             <a target="_blank" href="https://wiki.ingageapp.com/pages/viewpage.action?pageId=14194942" 
