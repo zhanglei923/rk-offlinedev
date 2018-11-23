@@ -2,7 +2,7 @@ const LS_CACHE_KEY = 'i18n_translator_cache';
 var check_localstorage = ()=>{
     let count = sizeof_localstorage();
     if(count > 0){
-        $('#cacheBtn').html(`(${count})Cached`).show()
+        $('#cacheBtn').html(`${count}Cached`).show()
         //do_reportCaches()
     }
 }

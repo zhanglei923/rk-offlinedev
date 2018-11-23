@@ -6,9 +6,9 @@
 </head>
 <body>
     <div id="toolbar" class="toolbar">
-        <b style="display:none;">&bull;Translation Workbench</b>        
-        <span id="branchInfo" class="branchInfo" title="Brach name"></span>
-        |
+        <b style="display:none;">&bull;Translation Workbench</b>     
+        <span id="branchInfo" class="branchInfo" title="Current editing branch name"></span>
+
         <button id="saveBtn" href="javascript:;" title="Save key-values back to code">Save</button>
         <button href="javascript:;" style="display:none;">Choose-Language</button>
         <button id="fileDetailsBtn" href="javascript:;" style="display:none;">FileDetails</button>
@@ -17,11 +17,12 @@
         <span id="summary" class="summary"></span>
         <button id="selfTestBtn" class="selfTestBtn" href="javascript:;" title="Self-testing">Self-Test</button>
         <input id="selftestInput" class="selftestInput" style="display:none;">
-        |
+        
         <select id="untransFiles" style="background-color: #eee;    max-width: 100px;" title="Choose untranslated files">
             <option selected="selected" value="">All Files</option>
         </select>
-        <button id="untransFilesBtn" href="javascript:;" class="btn">?</button>
+        <button id="untransFilesBtn" href="javascript:;" class="btn" style="display:none;">?</button>
+        |
 
         <select id="filterTypes" style="background-color: #eee;" title="Choose query target, such as 'keys', 'cn' or 'en'.">
             <option value="cn" selected="selected">中文</option>
@@ -30,17 +31,17 @@
         </select>
         <input id="filterIpt" placeholder="'Key' Filter" value="/./g" style="background-color: #eee;" title="Accept regular-expression only">
         <button id="filterBtn" href="javascript:;" class="btn" title="Query by regular-expression">.*</button>
-        |
-        <select id="compactViewSwitch" style="background-color: #eee;" title="">
-            <option selected="selected" value="mod_compact">Compact</option>
-            <option value="mod_parallel">Parallel</option>
+
+        <select id="compactViewSwitch" style="background-color: #eee;" title="View mode">
+            <option selected="selected" value="mod_compact">紧凑</option>
+            <option value="mod_parallel">平行</option>
         </select>
         <select id="typeViewSwitch" style="background-color: #eee;" title="">
             <option selected="selected" value="mod_mix">MIX</option>
             <option value="mod_cn">CN</option>
             <option value="mod_en">EN</option>
         </select>
-        <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">Import</button>
+        <button id="importExcelBtn" href="javascript:;" class="btn" title="Import from excel.">Imp</button>
         <button id="cacheBtn" class="btn cacheBtn" href="javascript:;" style="display:none;" title="Check local browser caches">Caches</button>
 
         <span id="loading">Loading...</span>
