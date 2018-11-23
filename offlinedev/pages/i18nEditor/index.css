@@ -172,7 +172,8 @@ td .null_val{
 .cellsublang textarea{
     font-family: Verdana;
 }
-.row{
+.row td{
+    vertical-align: top;
 }
 .row_a{
     background-color: #eee;
