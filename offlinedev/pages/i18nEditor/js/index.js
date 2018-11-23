@@ -153,11 +153,12 @@ let init = (all_trans, all_untrans)=>{
         let envalue = SuperJson[key].en;
         if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
+        let belongpath = UntransMap[key]?(''+getShortDrivePath(UntransMap[key]))+'':'all_zh-cn';
         html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title=""> 
                             <td>#${count+1}</td>
                             <td class="cellkey">
                                 ${key}
-                                <div class="untrans_path">${UntransMap[key]?(''+getShortDrivePath(UntransMap[key]))+'':'all_zh-cn'}</div>
+                                <div class="untrans_path">${belongpath}</div>
                             </td>
                             <td class="cellval">
                                 <div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</div>
