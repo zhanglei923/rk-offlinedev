@@ -75,7 +75,7 @@ var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
         $('#content_loading').css({'color': 'yellow', 'font-size':'23px'}).html('Fatal Error!')
         $('body').css({'background-color':'blue'})
     }
-    if(!fatalerror) $('#selfTestBtn').after(`<span style="color:#97f997;" title="Data test OK!">&squarf;<span>`)
+    if(!fatalerror) $('#selfTestBtn').after(`<span style="color:#75cfea;" title="Data test OK!">&squarf;<span>`)
     return !fatalerror;
 }
 let self_test_completed = false;
