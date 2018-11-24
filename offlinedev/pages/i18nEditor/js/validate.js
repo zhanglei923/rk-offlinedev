@@ -27,6 +27,8 @@ var do_validateValue = (key, cnValue, value)=>{
     if(cnValue && value){
         let cnarr = cnValue.match(regex2);
         let enarr = value.match(regex2);
+        if(cnarr) cnarr = _.uniq(cnarr);
+        if(enarr) enarr = _.uniq(enarr);
         if((!enarr && cnarr) || (enarr && !cnarr)){
             alert('两种语言的取值占位符（也就是$1, $2）的数量不匹配')
             return;
