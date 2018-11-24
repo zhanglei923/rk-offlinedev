@@ -62,6 +62,9 @@ body.fatal_error *{
     background-color: black;
     color:#97f997;
 }
+.cellsublang{    
+    font-family: Verdana;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     font-weight: bolder !important;
