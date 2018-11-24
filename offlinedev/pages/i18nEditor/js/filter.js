@@ -12,7 +12,6 @@ let do_filterByRegex = ()=>{
             $('#table > tbody > tr').each(function (i, r){
                 let targetStr;
                 let key = r.getAttribute('data-key')
-                if(type === "key") targetStr = r.getAttribute('data-key')
                 //if(type === "cn") 
                 let found = false;
                 let _find = ()=>{
@@ -24,14 +23,20 @@ let do_filterByRegex = ()=>{
                                 r.style.display='none';
                             }                    
                     `);
-                }
-                if(!found){                    
-                    targetStr = SuperJson[key].cn;
+                };                
+                if(type === "key") {
+                    targetStr = r.getAttribute('data-key')
                     _find(targetStr)
-                }
-                if(!found){                    
-                    targetStr = SuperJson[key].en;
-                    _find(targetStr)
+                }else{
+                    if(!found){                    
+                        targetStr = SuperJson[key].cn;
+                        _find(targetStr)
+                    }
+                    if(!found){                    
+                        targetStr = SuperJson[key].en;
+                        _find(targetStr)
+                    }
+
                 }
                 
             });
