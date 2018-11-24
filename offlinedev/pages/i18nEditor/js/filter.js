@@ -9,20 +9,32 @@ let do_filterByRegex = ()=>{
     let reg = $('#filterIpt').val();
     if(reg){
         try{
-            eval(`
-                $('#table > tbody > tr').each(function (i, r){
-                    let targetStr;
-                    let key = r.getAttribute('data-key')
-                    if(type === "key") targetStr = r.getAttribute('data-key')
-                    if(type === "cn") targetStr = SuperJson[key].cn;
-                    if(type === "en") targetStr = SuperJson[key].en;
-                    if(${reg}.test(targetStr)){
-                        r.style.display='';
-                    }else{
-                        r.style.display='none';
-                    }
-                })
-            `)
+            $('#table > tbody > tr').each(function (i, r){
+                let targetStr;
+                let key = r.getAttribute('data-key')
+                if(type === "key") targetStr = r.getAttribute('data-key')
+                //if(type === "cn") 
+                let found = false;
+                let _find = ()=>{
+                    eval(`
+                            if(${reg}.test(targetStr)){
+                                r.style.display='';
+                                found = true;
+                            }else{
+                                r.style.display='none';
+                            }                    
+                    `);
+                }
+                if(!found){                    
+                    targetStr = SuperJson[key].cn;
+                    _find(targetStr)
+                }
+                if(!found){                    
+                    targetStr = SuperJson[key].en;
+                    _find(targetStr)
+                }
+                
+            });
         }catch(e){
             alert('执行错误')
             throw e;
