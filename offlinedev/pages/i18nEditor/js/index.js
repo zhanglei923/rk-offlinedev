@@ -1,3 +1,4 @@
+var isChrome = !!window.chrome && !!window.chrome.webstore;
 $(()=>{
     $('#saveBtn').click(()=>{
         do_reportStatus(false);
@@ -95,6 +96,7 @@ let OriginSuperJson = {};
 let OriginUntrans = {}
 let UntransMap = {}
 loadData((all_trans, all_untrans)=>{
+    if(!isChrome){ notice_error('必须用Chrome浏览器');return;}
     if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
     OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
     init_untransFileSelector()
