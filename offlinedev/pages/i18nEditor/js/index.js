@@ -158,7 +158,7 @@ let init = (all_trans, all_untrans)=>{
         let belongpath = UntransMap[key]?(''+getShortDrivePath(UntransMap[key]))+'':'all_zh-cn';
         html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title=""> 
                             <td>#${count+1}</td>
-                            <td class="cellkey">
+                            <td class="cellkey" title="${belongpath}">
                                 ${key}
                                 <div class="untrans_path">${belongpath}</div>
                             </td>
