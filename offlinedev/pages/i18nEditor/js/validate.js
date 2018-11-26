@@ -30,19 +30,19 @@ var do_validateValue = (key, cnValue, value)=>{
         if(cnarr) cnarr = _.uniq(cnarr);
         if(enarr) enarr = _.uniq(enarr);
         if((!enarr && cnarr) || (enarr && !cnarr)){
-            alert('两种语言的取值占位符（也就是$1, $2）的数量不匹配')
+            if(confirm('两种语言的取值占位符（也就是$1, $2）的数量不匹配'))
             return;
         }
         if(cnarr)
         if(!enarr || (enarr.length !== cnarr.length)){
-            alert('两种语言的取值占位符数量不匹配，中文里有'+cnarr.join(', ')+'，英文里有'+enarr.join(', '))
+            if(confirm('两种语言的取值占位符数量不匹配，中文里有'+cnarr.join(', ')+'，英文里有'+(enarr?enarr.join(', '):'')))
             return;
         }
         if(cnarr && enarr){
             cnarr.sort();
             enarr.sort();
             if(cnarr.join('')!==enarr.join('')){
-                alert('两种语言的取值占位符数量不匹配，中文里有'+cnarr.join(', ')+'，英文里有'+enarr.join(', '))
+                if(confirm('两种语言的取值占位符数量不匹配，中文里有'+cnarr.join(', ')+'，英文里有'+enarr.join(', ')))
                 return;
             }
         }
