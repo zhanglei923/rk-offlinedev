@@ -143,6 +143,7 @@ let init = (all_trans, all_untrans)=>{
             allWithValueKeys.push(key);
         }
     }
+    SuperJson = filterRemoteKeys(SuperJson)
     allNullValueKeys.sort();
     allWithValueKeys.sort();
     let allKeys = [];
@@ -153,10 +154,11 @@ let init = (all_trans, all_untrans)=>{
         count = i;
         let cnvalue = SuperJson[key].cn;
         let envalue = SuperJson[key].en;
+        let hidden = !!SuperJson[key]._hidden;
         if(typeof cnvalue === 'undefined') cnvalue = '';
         if(typeof envalue === 'undefined') envalue = '';
         let belongpath = UntransMap[key]?(''+getShortDrivePath(UntransMap[key]))+'':'all_zh-cn';
-        html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title=""> 
+        html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title="" style="${hidden?'display:none;':''}"> 
                             <td>#${count+1}</td>
                             <td class="cellkey" title="${belongpath}">
                                 ${key}

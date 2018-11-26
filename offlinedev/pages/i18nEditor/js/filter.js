@@ -106,3 +106,22 @@ let do_filterByUntransFile = ()=>{
         _filt(fpath)
     }
 }
+//
+let filterRemoteKeys = (json) =>{
+    let unknownKeys = []
+    let keys = $.query('keys')
+    if(!keys) return json;
+    keys = keys.split(/\+\,/g)
+    keys = _.compact(keys)
+    for(let key in json) json[key]._hidden = true;
+    for(let i=0;i<keys.length;i++){
+        let key = keys[i]
+        if(json[key]){
+            json[key]._hidden = false;
+        }else{
+            unknownKeys.push(key)
+        }
+    }
+    if(unknownKeys.length > 0) alert('这些key没有找到:\n'+unknownKeys.join(','))
+    return json;
+}
