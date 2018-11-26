@@ -26,7 +26,7 @@ if(!fs.existsSync(webPath)){
     console.error('FATAL ERROR: Folder not found:', pathutil.resolve(__dirname, '../apps-ingage-web'))
     return;
 } 
-
+//
 let arr = [
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking-default/'),
