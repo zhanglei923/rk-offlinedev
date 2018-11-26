@@ -107,9 +107,8 @@ let do_filterByUntransFile = ()=>{
     }
 }
 //
-let filterRemoteKeys = (json) =>{
+let filterRemoteKeys = (json, keys) =>{
     let unknownKeys = []
-    let keys = $.query('keys')
     if(!keys) return json;
     keys = keys.split(/\+\,/g)
     keys = _.compact(keys)
@@ -124,4 +123,9 @@ let filterRemoteKeys = (json) =>{
     }
     if(unknownKeys.length > 0) alert('这些key没有找到:\n'+unknownKeys.join(','))
     return json;
+}
+let do_openKeysFilter = ()=>{
+    do_popupWindow('Input Keys', (content)=>{
+        content.html('<textarea style="width:100%;height:80%;"></textarea>')
+    })
 }

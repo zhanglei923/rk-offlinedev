@@ -30,6 +30,9 @@ $(()=>{
     $('#filterBtn').click(()=>{
         do_filterByRegex();
     })
+    $('#openKeysFilter').click(()=>{
+        do_openKeysFilter()
+    })
     $('#compactViewSwitch').on('change', (e)=>{
         let val = $('#compactViewSwitch').val()
         if(val === 'mod_compact'){
@@ -143,7 +146,7 @@ let init = (all_trans, all_untrans)=>{
             allWithValueKeys.push(key);
         }
     }
-    SuperJson = filterRemoteKeys(SuperJson)
+    SuperJson = filterRemoteKeys(SuperJson, $.query('keys'))
     allNullValueKeys.sort();
     allWithValueKeys.sort();
     let allKeys = [];
