@@ -234,7 +234,13 @@ let afterInit = ()=>{
     $('body').on('keydown', (e)=>{
         let DOWN = 40;
         let UP = 38;
+        let KEY_I = 73;
         let tr;
+        if(e.keyCode === KEY_I && !_is_editing && mouseselected_tr){
+            handleTrSelect(mouseselected_tr)
+            e.preventDefault();
+            return;
+        }
         if(e.keyCode === DOWN){
             tr = $(mouseselected_tr).next()
         }else
