@@ -55,6 +55,9 @@ body.fatal_error *{
 #filterIpt{
     width: 112px;
 }
+#summary span{
+    cursor:pointer;
+}
 .selfTestBtn.wrong{
     background-color: red;
 }
