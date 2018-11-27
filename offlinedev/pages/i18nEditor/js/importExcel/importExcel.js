@@ -84,15 +84,22 @@ do_importExcel = ()=>{
     
     $('#import_excel_table').hide()
     let trs = ''
+    let main_json = {};
+    let sub_json = {};
     keysArr.forEach((key, i)=>{
-        if(key)
-        trs += `<tr class="${i%2===0?'one':'two'}">
-        <td style="color: gray;">${i+1}</td>
-            <td style="color: blue;">${getDisplayText(key)}</td>
-            <td>${getDisplayText(mainArr[i])}</td>
-            <td>${getDisplayText(subArr[i])}</td>
-        </tr>`
+        if(key){
+            key = _.trim(key);
+            main_json[key] = mainArr[i]
+            sub_json[key] = subArr[i]
+            trs += `<tr class="${i%2===0?'one':'two'}">
+            <td style="color: gray;">${i+1}</td>
+                <td style="color: blue;">${getDisplayText(key)}</td>
+                <td>${getDisplayText(mainArr[i])}</td>
+                <td>${getDisplayText(subArr[i])}</td>
+            </tr>`
+        }
     })
+    trs += `<tr><td colspan="99"><textarea id="textarea_import_excel" style="min-width:300px;width:100%;height:300px;"></textarea></td></tr>`
     
     $('#do_importExcel').hide()
     $('#do_importExcel_step0').show()
@@ -100,6 +107,7 @@ do_importExcel = ()=>{
 
     $('#import_confirm_table').show()
     $('#import_confirm_table').html(trs)
+    $('#textarea_import_excel').val('//main json:\n'+JSON.stringify(main_json)+'\n\n//sub json:\n'+JSON.stringify(sub_json));
 }
 do_saveImportExcel = () =>{
     let keysArr = window.impinfo.keysArr;
