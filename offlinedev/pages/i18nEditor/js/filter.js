@@ -9,6 +9,7 @@ let do_filterByRegex = ()=>{
     let reg = $('#filterIpt').val();
     if(reg){
         try{
+            reg = _.trim(reg);
             $('#table > tbody > tr').each(function (i, r){
                 let targetStr;
                 let key = r.getAttribute('data-key')
