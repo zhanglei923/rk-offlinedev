@@ -187,7 +187,9 @@ let init = (all_trans, all_untrans)=>{
 let afterInit = ()=>{
     $('#loading').remove();
     updateSummary();
-    do_selfTest();
+    window.setTimeout(()=>{
+        do_selfTest();
+    }, 200)
 
     //do_reportStatus()
     //---

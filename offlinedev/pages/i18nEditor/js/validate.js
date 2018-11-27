@@ -107,11 +107,11 @@ do_selfTest = () =>{
             let val0 = val;
             _test(key, val0, val)
         }
-        for(let key in osuperJson){
-            let val = osuperJson[key].cn;
-            let val0 = val;
-            _test(key, val0, val)
-        }
+        // for(let key in osuperJson){
+        //     let val = osuperJson[key].cn;
+        //     let val0 = val;
+        //     _test(key, val0, val)
+        // }
     })
     //测试选中关闭，是否会污染value
     {
