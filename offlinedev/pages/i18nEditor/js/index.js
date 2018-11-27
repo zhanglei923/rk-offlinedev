@@ -215,10 +215,8 @@ let afterInit = ()=>{
     });
     $('#table').on('click', 'tr', function(e){
         if(e.ctrlKey){ _is_editmode = true; }
-        let tr = e.currentTarget;
-        $(tr).addClass('mouseselected_tr')
-        $(mouseselected_tr).removeClass('mouseselected_tr')
-        mouseselected_tr = tr;
+        let tr = e.currentTarget;        
+        do_mouseselect(tr)
         if(_is_editmode){
             handleTrSelect(tr)
         }else{            
@@ -233,6 +231,30 @@ let afterInit = ()=>{
         let key = tr.attr('data-key')
         tr.find('.valinput').val(OriginSuperJson[key].en?OriginSuperJson[key].en:'')
     });
+    $('body').on('keydown', (e)=>{
+        let DOWN = 40;
+        let UP = 38;
+        let tr;
+        if(e.keyCode === DOWN){
+            tr = $(mouseselected_tr).next()
+        }else
+        if(e.keyCode === UP){
+            tr = $(mouseselected_tr).prev()
+        }
+        if(tr && !_is_editing){
+            do_mouseselect(tr)
+            e.preventDefault()
+        }
+    })
+}
+do_mouseselect = (tr)=>{
+    $(mouseselected_tr).removeClass('mouseselected_tr')    
+    if(_is_editing) {
+        mouseselected_tr = null;
+        return;
+    }
+    $(tr).addClass('mouseselected_tr')
+    mouseselected_tr = tr;
 }
 var mouseselected_tr;
 var hoveringList = []
@@ -257,6 +279,7 @@ var getDisplayText = (val, lang)=>{
     }
     return `${htmlEscape(val)}`
 };
+var _is_editing = false;
 var _is_editmode = false;
 var selectedTr = [];
 var do_select = (t) =>{
@@ -285,7 +308,8 @@ var do_select = (t) =>{
     <button class="resetEnRowBtn btn">Reset</button>`);
 
     //t.find('.cellmainlang textarea').val(escapeValue(val0));
-    t.find('.cellsublang textarea').val(escapeValue(val1)).focus();;
+    t.find('.cellsublang textarea').val(escapeValue(val1)).focus();
+    _is_editing = true;
 }
 var unselect = () =>{
     let succ=true;
@@ -322,6 +346,7 @@ var do_unselect = (t) =>{
 
     if(enIsDirty && newVal1) saveto_localstorage(key, newVal1)
     enIsDirty ? t.find('.cellsublang').addClass('isdirty') : t.find('.cellsublang').removeClass('isdirty')
+    _is_editing = false;
     return true;
 }
 var updateValue = (key, lang, val) =>{
