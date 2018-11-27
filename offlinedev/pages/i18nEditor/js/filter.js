@@ -14,30 +14,40 @@ let do_filterByRegex = ()=>{
                 let key = r.getAttribute('data-key')
                 //if(type === "cn") 
                 let found = false;
-                let _find = ()=>{
+                let _find = (str)=>{
+                    let ok = false;
                     eval(`
-                            if(${reg}.test(targetStr)){
-                                r.style.display='';
-                                found = true;
+                            if(${reg}.test(str)){
+                                ok = true;
                             }else{
-                                r.style.display='none';
+                                ok = false;
                             }                    
                     `);
-                };                
+                    return ok;
+                };          
                 if(type === "key") {
                     targetStr = r.getAttribute('data-key')
-                    _find(targetStr)
-                }else{
+                    found = _find(targetStr)
+                }else{                    
+                    if(!found){                    
+                        targetStr = r.getAttribute('data-key')
+                        found = _find(targetStr)
+                    }
                     if(!found){                    
                         targetStr = SuperJson[key].cn;
-                        _find(targetStr)
+                        found = _find(targetStr)
                     }
                     if(!found){                    
                         targetStr = SuperJson[key].en;
-                        _find(targetStr)
+                        found = _find(targetStr)
                     }
 
                 }
+                if(found){
+                    r.style.display='';
+                }else{
+                    r.style.display='none';
+                }  
                 
             });
         }catch(e){
