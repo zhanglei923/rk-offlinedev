@@ -33,6 +33,9 @@ var rk = {
             .replace(/"/g, '&quot;')
             .replace(/\n/g, '<br />');
     },
+    cleanComments: function(str){
+        return stripcomments(str);
+    },
     isJsonString: function(str){
             var yesitis = true;
             try{

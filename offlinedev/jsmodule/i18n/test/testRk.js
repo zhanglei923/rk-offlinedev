@@ -2,6 +2,10 @@ var getConfig = require('../../getConfig')
 let rk = require('../../utils/rk')
 
 var regex = [/.js$/ig]
+let a=false;
+let t0=new Date()
 rk.eachContent(getConfig.getSourceFolder(), regex, function(content, fpath, states){
-    console.log(fpath)
+    content = rk.cleanComments(content)
+    if(content.indexOf('ahaha'))a=true;
 });
+console.log(new Date()-t0)
