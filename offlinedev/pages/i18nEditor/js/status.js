@@ -55,13 +55,17 @@ var updateSummary = function(){
         if(!envalue) nullen ++;
         total++;
     };
-    $('#summary').html(`
-                        <span class="remains">${nullen}</span>/${total}
-                        `)
+    $('#summary').html(`<span class="remains">${nullen}</span>/<span class="total">${total}</span>`)
     if(nullen > 0) $('#summary .remains').css('color', '#f96b6b')
     
     if(nullCnKeys.length > 0) notice_error(`有英文但无中文：${nullCnKeys.join(', ')}`)
 };
+$('#summary').on('click', '.remains', ()=>{
+    $('#nullEnBtn').attr('state', '1').click();
+})
+$('#summary').on('click', '.total', ()=>{
+    $('#nullEnBtn').attr('state', '').click();
+})
 
 do_fileDetails = ()=>{
     close_popupWindow();
