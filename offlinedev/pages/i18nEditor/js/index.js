@@ -24,6 +24,7 @@ $(()=>{
     $('#importExcelBtn').click(()=>{
         import_popupImport();
     })
+    $('#exportExcelBtn')
     $('#untransFilesBtn').click(()=>{
         do_filterByUntransFile()
     })
@@ -169,6 +170,7 @@ let init = (all_trans, all_untrans)=>{
                             </td>
                             <td class="cellval">
                                 <div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</div>
+                                <div class="cellfilepath word">${belongpath}</div>
                                 <div class="cellsublang word">${getDisplayText(envalue)}</div>
                             </td>
                         </tr>`

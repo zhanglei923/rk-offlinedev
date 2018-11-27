@@ -74,6 +74,9 @@ body.fatal_error *{
 .selected_tr{
     background-color: #fdbafb !important;
 }
+.selected_tr .cellfilepath{
+    display: block !important;
+}
 .selected_tr .cellmainlang{
     display: block !important;
     background-color: #fdbafb !important;
@@ -156,6 +159,10 @@ td .null_val{
     font-size: 4px;
     color:#ccb6b6;
     font-style: italic;
+}
+.cellfilepath{
+    display: none;
+    color: #7aadd8;
 }
 .cellmainlang input{
     background-color: #fdbafb !important;
