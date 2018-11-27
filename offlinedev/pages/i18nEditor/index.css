@@ -70,7 +70,8 @@ body.fatal_error *{
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
-    font-weight: bolder !important;
+    /* font-weight: bolder !important; */
+    cursor:pointer;
     color:#000;
     text-decoration: underline;
 }
@@ -207,7 +208,7 @@ td .null_val{
     border-top: 1px solid #fdbafb;
     border-bottom: 1px solid #fdbafb;
     /* background-color: yellow !important; */
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 .model_background{
     z-index: 998;

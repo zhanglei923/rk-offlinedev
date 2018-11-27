@@ -53,6 +53,10 @@ $(()=>{
         $('#table').addClass(val);
     })
     $('#table').on('keydown', '.cellsublang textarea', (e)=>{
+        if(e.keyCode === 27) {
+            unselect()
+            _is_editmode = false;
+        }else
         if(e.keyCode === 13) {
             let textarea = $(e.currentTarget);
             e.preventDefault();
@@ -202,16 +206,21 @@ let afterInit = ()=>{
     });
     $('#table').on('dblclick', 'td.cellval', function(e){
         let tr = $(e.currentTarget).closest('tr');
-        handleTrSelect(tr)
-        if(!$(tr).hasClass('selected_tr')){            
-            unselect()
-        }
+        // handleTrSelect(tr)
+        // if(!$(tr).hasClass('selected_tr')){            
+        //     unselect()
+        // }
+        _is_editmode = true;
+        $(tr).click()
     });
     $('#table').on('click', 'tr', function(e){
-        if(e.ctrlKey){
+        if(e.ctrlKey){ _is_editmode = true; }
+        if(_is_editmode){
             handleTrSelect(e.currentTarget)
-        }else if(!$(e.currentTarget).hasClass('selected_tr')){            
-            unselect()
+        }else{            
+            if(!$(e.currentTarget).hasClass('selected_tr')){            
+                unselect()
+            }
         }
     });
     $('#table').on('click', 'button.resetEnRowBtn', function(e){
@@ -242,6 +251,7 @@ var getDisplayText = (val, lang)=>{
     }
     return `${htmlEscape(val)}`
 };
+var _is_editmode = false;
 var selectedTr = [];
 var do_select = (t) =>{
     selectedTr = []
