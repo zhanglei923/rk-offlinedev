@@ -168,12 +168,20 @@ let init = (all_trans, all_untrans)=>{
         let belongpath = UntransMap[key]?(''+getShortDrivePath(UntransMap[key]))+'':'all_zh-cn';
         html = html + `<tr class="row ${count%2===0?'row_a':'row_b'}" data-key="${key}" title="" style="${hidden?'display:none;':''}">`+
                             `<td>#${count+1}</td>`+
-                            `<td class="cellkey" title="${belongpath}">${key}<div class="untrans_path">${belongpath}</div></td>`+
+                            `<td class="cellkey" title="${belongpath}">`+
+                                `${key}`+
+                            `<div class="untrans_path">${belongpath}</div>`+
+                            `</td>`+
                             `<td class="cellval">`+
-                            `<div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}<div class="cellfilepath word">${belongpath}</div></div>`+
-                             `<div class="cellsublang word">${getDisplayText(envalue)}</div>`+
-                            `</td></tr>`
+                            `<div class="cellmainlang word">`+
+                                `${getDisplayText(cnvalue, 'cn')}`+
+                                `<div class="cellfilepath word">${belongpath}</div>`+
+                            `</div>`+
+                            `<div class="cellsublang word">${getDisplayText(envalue)}</div>`+
+                            `</td>`+
+                        `</tr>`
     }
+    //console.log(html)
     $('#table >tbody').html(html);
     afterInit()
 };
