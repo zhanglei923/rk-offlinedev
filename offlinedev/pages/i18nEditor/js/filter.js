@@ -29,6 +29,15 @@ let do_filterByRegex = ()=>{
                 if(type === "key") {
                     targetStr = r.getAttribute('data-key')
                     found = _find(targetStr)
+                }else if(type === 'cn+en'){
+                    if(!found){                    
+                        targetStr = SuperJson[key].cn;
+                        found = _find(targetStr)
+                    }
+                    if(!found){                    
+                        targetStr = SuperJson[key].en;
+                        found = _find(targetStr)
+                    }
                 }else{                    
                     if(!found){                    
                         targetStr = r.getAttribute('data-key')
@@ -42,7 +51,6 @@ let do_filterByRegex = ()=>{
                         targetStr = SuperJson[key].en;
                         found = _find(targetStr)
                     }
-
                 }
                 if(found){
                     r.style.display='';
