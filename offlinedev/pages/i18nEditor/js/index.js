@@ -173,8 +173,10 @@ let init = (all_trans, all_untrans)=>{
                                 <div class="untrans_path">${belongpath}</div>
                             </td>
                             <td class="cellval">
-                                <div class="cellmainlang word">${getDisplayText(cnvalue, 'cn')}</div>
-                                <div class="cellfilepath word">${belongpath}</div>
+                                <div class="cellmainlang word">
+                                    ${getDisplayText(cnvalue, 'cn')}
+                                    <div class="cellfilepath word">${belongpath}</div>
+                                </div>
                                 <div class="cellsublang word">${getDisplayText(envalue)}</div>
                             </td>
                         </tr>`

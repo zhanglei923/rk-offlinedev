@@ -168,8 +168,9 @@ td .null_val{
     font-style: italic;
 }
 .cellfilepath{
+    float: right;
     display: none;
-    color: #7aadd8;
+    color: #333;
 }
 .cellmainlang input{
     background-color: #fdbafb !important;
