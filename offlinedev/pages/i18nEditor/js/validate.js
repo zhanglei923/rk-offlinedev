@@ -85,7 +85,7 @@ do_selfTest = () =>{
     $('#selfTestBtn').removeClass('wrong').removeClass('correct').html('testing...')
     let errors = []
     let count = 0;
-    let ids = ['selftestInput','selftestInput2'];
+    let ids = ['selftestInput2'];//['selftestInput','selftestInput2'];
     ids.forEach((id)=>{
         let ipt = $('#'+id)//document.getElementById('selftestInput')
         let osuperJson = JSON.parse(JSON.stringify(OriginSuperJson));
@@ -117,7 +117,7 @@ do_selfTest = () =>{
     {
         let len = $('#table>tbody>tr').length;
         let list = [0, len-1, , len-3, , len-5]
-        let max = 30;
+        let max = 7;
         for(let i=1;i<len;i++){
             if(i%3===0) list.push(i);
             if(list.length>max)break;
