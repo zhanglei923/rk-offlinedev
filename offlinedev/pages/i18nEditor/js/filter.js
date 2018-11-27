@@ -148,3 +148,34 @@ let do_openKeysFilter = ()=>{
         content.html('<textarea style="width:100%;height:80%;"></textarea>')
     })
 }
+
+let do_showNullEnglishOnly = ()=>{
+    let state = $('#nullEnBtn').attr('state');
+    $('#table > tbody > tr').each(function (i, r){
+        let targetStr;
+        let key = r.getAttribute('data-key')
+        let isnull = false;
+        if(!SuperJson[key]) isnull = true;
+        if(!SuperJson[key].en) isnull = true;
+        if(state === '1'){
+            if(isnull){    
+                r.style.display = '';
+            }else{
+                r.style.display = 'none';            
+            }            
+        }else{
+            if(isnull){    
+                r.style.display = '';
+            }else{
+                r.style.display = '';            
+            }   
+        }
+    });
+    if(state === '1'){
+        $('#nullEnBtn').attr('state', '');
+        $('#nullEnBtn').addClass('red_btn')
+    }else{
+        $('#nullEnBtn').attr('state', '1');
+        $('#nullEnBtn').removeClass('red_btn')         
+    }
+}

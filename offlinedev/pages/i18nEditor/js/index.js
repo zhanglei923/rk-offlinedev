@@ -34,6 +34,9 @@ $(()=>{
     $('#openKeysFilter').click(()=>{
         do_openKeysFilter()
     })
+    $('#nullEnBtn').click(()=>{
+        do_showNullEnglishOnly()
+    })    
     $('#compactViewSwitch').on('change', (e)=>{
         let val = $('#compactViewSwitch').val()
         if(val === 'mod_compact'){
@@ -153,6 +156,7 @@ let init = (all_trans, all_untrans)=>{
     let allKeys = [];
     allKeys = allKeys.concat(allNullValueKeys);
     allKeys = allKeys.concat(allWithValueKeys);
+    allKeys.sort();
     for(var i = 0, len=allKeys.length;i<len;i++){
         var key = allKeys[i];
         count = i;
