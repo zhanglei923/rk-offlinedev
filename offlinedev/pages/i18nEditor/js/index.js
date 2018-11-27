@@ -53,7 +53,8 @@ $(()=>{
         $('#table').addClass(val);
     })
     $('#table').on('keydown', '.cellsublang textarea', (e)=>{
-        if(e.keyCode === 27) {
+        let KEY_ESC = 27;
+        if(e.keyCode === KEY_ESC) {
             unselect()
             _is_editmode = false;
         }else
