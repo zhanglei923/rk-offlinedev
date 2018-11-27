@@ -68,6 +68,12 @@ body.fatal_error *{
 .cellsublang{    
     font-family: Verdana;
 }
+.mouseselected_tr{
+    background-color: yellowgreen;
+}
+.mouseselected_tr *{
+    background-color: yellowgreen !important;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     /* font-weight: bolder !important; */

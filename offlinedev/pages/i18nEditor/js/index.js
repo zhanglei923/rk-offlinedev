@@ -215,10 +215,14 @@ let afterInit = ()=>{
     });
     $('#table').on('click', 'tr', function(e){
         if(e.ctrlKey){ _is_editmode = true; }
+        let tr = e.currentTarget;
+        $(tr).addClass('mouseselected_tr')
+        $(mouseselected_tr).removeClass('mouseselected_tr')
+        mouseselected_tr = tr;
         if(_is_editmode){
-            handleTrSelect(e.currentTarget)
+            handleTrSelect(tr)
         }else{            
-            if(!$(e.currentTarget).hasClass('selected_tr')){            
+            if(!$(tr).hasClass('selected_tr')){            
                 unselect()
             }
         }
@@ -230,6 +234,7 @@ let afterInit = ()=>{
         tr.find('.valinput').val(OriginSuperJson[key].en?OriginSuperJson[key].en:'')
     });
 }
+var mouseselected_tr;
 var hoveringList = []
 var handleTrHover = function(t){
     $(t).addClass('hovering_tr')
@@ -240,6 +245,7 @@ var handleTrOut = function(t){
 var handleTrSelect = function(t){
     t = $(t);
     if(t.hasClass('selected_tr')) return;
+    t.removeClass('mouseselected_tr')
     unselect()
     do_select(t);
 }
