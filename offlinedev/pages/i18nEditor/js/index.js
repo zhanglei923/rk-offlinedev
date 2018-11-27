@@ -190,7 +190,7 @@ let afterInit = ()=>{
     updateSummary();
     window.setTimeout(()=>{
         do_selfTest();
-    }, 200)
+    }, 20)
 
     //do_reportStatus()
     //---
