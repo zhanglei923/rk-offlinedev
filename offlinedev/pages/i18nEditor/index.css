@@ -94,16 +94,19 @@ body.fatal_error *{
 .selected_tr .cellmainlang{
     display: block !important;
     background-color: #fdbafb !important;
+    width:auto;
 }
 .selected_tr .cellsublang{
     display: block !important;
     background-color: #fdbafb !important;
+    width:auto;
 }
 .compactview .cellmainlang{
     display: inline;
 }
 .compactview .cellsublang{
     display: inline;
+    margin-left:8px;
 }
 .compactview .untrans_path{
     display: none;
@@ -167,7 +170,7 @@ td .null_val{
 .cellkey{
     /* float: right; */
     max-width: 360px;
-    color: blue;
+    color: #0b0b94;
 }
 .untrans_path{
     font-size: 4px;
@@ -183,6 +186,9 @@ td .null_val{
     background-color: #fdbafb !important;
     color: #444;
 }
+.word{
+    width: fit-content;
+}
 .cellmainlang.word{
     /* background-color: #feffd7; */
     background-color: #e3f0fd;
@@ -192,7 +198,7 @@ td .null_val{
 .cellsublang.word{
     background-color: #e1f9d2;
     /* word-break: break-all; */
-    /* border: 1px dotted #42c73a; */
+    border: 1px solid #42c73a;
 }
 .cellsublang textarea{
     font-family: Verdana;
