@@ -10,10 +10,12 @@ let do_filterByRegex = ()=>{
     $('#untransFiles').val('').change();//不要混合查了
     let type = $('#filterTypes').val() 
     let reg = $('#filterIpt').val();
+    $('#filterResult').hide()
     if(reg){
         try{
             reg = _.trim(reg);
             let count = 0;
+            let count2 = 0;
             $('#table > tbody > tr').each(function (i, r){
                 let targetStr;
                 let key = r.getAttribute('data-key')
@@ -68,13 +70,14 @@ let do_filterByRegex = ()=>{
                 }
                 if(found){
                     r.style.display='';
-                    count++
+                    count++;
                 }else{
                     r.style.display='none';
+                    count2++;
                 }  
                 
             });
-            $('#filterResult').text(`find:${count}`)
+            $('#filterResult').show().text(`find:${count}`)
         }catch(e){
             alert('执行错误')
             throw e;

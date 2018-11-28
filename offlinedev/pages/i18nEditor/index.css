@@ -55,6 +55,9 @@ body.fatal_error *{
 #filterIpt{
     width: 112px;
 }
+#filterResult{
+    display:none;
+}
 #summary span{
     cursor:pointer;
 }
