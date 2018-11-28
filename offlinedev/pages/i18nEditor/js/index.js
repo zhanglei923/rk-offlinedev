@@ -109,10 +109,10 @@ let OriginUntrans = {}
 let UntransMap = {}
 loadData((all_trans, all_untrans)=>{
     if(!isChrome){ notice_error('必须用Chrome浏览器');return;}
+    init_branchInfo()
     if(!do_validateDupBetweenTransUntrans(all_trans, all_untrans)) return;
     OriginUntrans = JSON.parse(JSON.stringify(all_untrans))
     init_untransFileSelector()
-    init_branchInfo()
     init(all_trans, all_untrans);
     check_localstorage()
     $('#saveBtn').show();
