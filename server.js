@@ -189,7 +189,12 @@ app.get('*', function(req, res) {
             }
         }
     }else{
-        res.send(html);
+        var data = getMockingData.getData(originalUrl, req)
+        if(data){
+            res.json(data)
+        }else{
+            res.send(html);
+        }
     }
 });
 let getPageHtml = function(isdeploy, filename){
