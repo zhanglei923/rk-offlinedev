@@ -13,6 +13,7 @@ let do_filterByRegex = ()=>{
     if(reg){
         try{
             reg = _.trim(reg);
+            let count = 0;
             $('#table > tbody > tr').each(function (i, r){
                 let targetStr;
                 let key = r.getAttribute('data-key')
@@ -67,11 +68,13 @@ let do_filterByRegex = ()=>{
                 }
                 if(found){
                     r.style.display='';
+                    count++
                 }else{
                     r.style.display='none';
                 }  
                 
             });
+            $('#filterResult').text(`find:${count}`)
         }catch(e){
             alert('执行错误')
             throw e;
