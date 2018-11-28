@@ -72,13 +72,14 @@ body.fatal_error *{
     font-family: Verdana;
 }
 .mouseselected_tr{
-    background-color: #d4f989;
+    background-color: #fdbafb !important;
 }
-.mouseselected_tr *{
-    background-color: #d4f989 !important;
+.mouseselected_tr .cellmainlang {
+    background-color: #fdbafb !important;
 }
 .mouseselected_tr .word{
-    border-color: #ef5c5c !important;
+    opacity:0.86;
+    /* border-color: blue !important; */
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
