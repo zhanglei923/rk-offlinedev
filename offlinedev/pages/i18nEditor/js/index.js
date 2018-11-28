@@ -31,8 +31,8 @@ $(()=>{
     $('#filterBtn').click(()=>{
         do_filterByRegex();
     })
-    $('#openKeysFilter').click(()=>{
-        do_openKeysFilter()
+    $('#advancedBtn').click(()=>{
+        do_popupAdvanced()
     })
     $('#nullEnBtn').click(()=>{
         do_showNullEnglishOnly()

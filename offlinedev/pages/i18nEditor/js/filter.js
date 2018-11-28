@@ -143,7 +143,7 @@ let filterRemoteKeys = (json, keys) =>{
     if(unknownKeys.length > 0) alert('这些key没有找到:\n'+unknownKeys.join(','))
     return json;
 }
-let do_openKeysFilter = ()=>{
+let do_popupAdvanced = ()=>{
     do_popupWindow('Input Keys', (content)=>{
         content.html('<textarea style="width:100%;height:80%;"></textarea>')
     })

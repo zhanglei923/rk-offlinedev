@@ -69,10 +69,10 @@ body.fatal_error *{
     font-family: Verdana;
 }
 .mouseselected_tr{
-    background-color: yellowgreen;
+    background-color: #d4f989;
 }
 .mouseselected_tr *{
-    background-color: yellowgreen !important;
+    background-color: #d4f989 !important;
 }
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
