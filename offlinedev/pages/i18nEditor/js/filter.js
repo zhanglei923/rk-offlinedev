@@ -1,3 +1,6 @@
+$('#filterTypes').change(()=>{
+    do_filterByRegex()
+})
 $('#filterIpt').on('keydown', (e)=>{
     if(e.keyCode === 13){
         do_filterByRegex()
@@ -29,6 +32,16 @@ let do_filterByRegex = ()=>{
                 if(type === "key") {
                     targetStr = r.getAttribute('data-key')
                     found = _find(targetStr)
+                }else if(type === 'cn'){
+                    if(!found){                    
+                        targetStr = SuperJson[key].cn;
+                        found = _find(targetStr)
+                    }
+                }else if(type === 'en'){
+                    if(!found){                    
+                        targetStr = SuperJson[key].en;
+                        found = _find(targetStr)
+                    }
                 }else if(type === 'cn+en'){
                     if(!found){                    
                         targetStr = SuperJson[key].cn;
