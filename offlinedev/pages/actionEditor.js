@@ -127,6 +127,7 @@ let renderList = function (result){
       var nicknamepath = path+'';
       path404count++
       path = path.replace(/\~\~/g, '/');
+      if(!/sockjs\-node\//g.test(path))//有些用不到的，不予记录
       html += `<li realpath="${path}" nicknamepath="${nicknamepath}" class="actionurl action404">
                   <input type="checkbox">
                   <span class="tag">404</span>
