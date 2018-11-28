@@ -77,6 +77,9 @@ body.fatal_error *{
 .mouseselected_tr *{
     background-color: #d4f989 !important;
 }
+.mouseselected_tr .word{
+    border-color: #ef5c5c !important;
+}
 .hovering_tr td{
     /* background-color: rgb(220, 253, 219) !important; */
     /* font-weight: bolder !important; */
