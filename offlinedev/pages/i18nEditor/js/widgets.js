@@ -48,6 +48,8 @@ let hideHelpTip = ()=>{
     };
 })()
 notice_error = function(msg){
+    let md5id = md5(msg)
+    if($('#'+md5id))$('#'+md5id).remove();
     $('#error_info').css({'display':'inline-block'})
-    $('#error_info').append(`<span>${msg}</span>&nbsp;`)
+    $('#error_info').append(`<span id="${md5id}">${msg}</span>`)
 }
