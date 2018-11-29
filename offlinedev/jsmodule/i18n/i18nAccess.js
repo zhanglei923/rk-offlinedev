@@ -5,10 +5,11 @@ var jsonformatter = require('format-json');
 var getConfig = require('../getConfig')
 var i18nUtil;
 if(fs.existsSync(pathutil.resolve(__dirname, '../../../../apps-ingage-web/.cicd/i18n/i18nUtil.js'))){
-    i18nUtil = require('../../../../apps-ingage-web/.cicd/i18n/i18nUtil')
+    //i18nUtil = require('../../../../apps-ingage-web/.cicd/i18n/i18nUtil')
 }else{
     console.log('Can not find .cicd/i18n/i18nUtil.js')
 }
+i18nUtil = require('./i18nUtil')
 
 var cache = {}
 let my_define = (json)=>{
