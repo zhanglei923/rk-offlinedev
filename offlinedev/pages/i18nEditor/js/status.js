@@ -42,6 +42,12 @@ var do_reportStatus = () =>{
         popup.html(reportHtml)
     })
 }
+let updateSummaryTimer;
+var updateSummary = function(){
+    updateSummaryTimer = window.setTimeout(()=>{
+        do_updateSummary()
+    }, 800)
+}
 var updateSummary = function(){
     let nullcn = 0;
     let nullen = 0;

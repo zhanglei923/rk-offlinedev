@@ -290,6 +290,7 @@ var _is_editing = false;
 var _is_editmode = false;
 var selectedTr = [];
 var do_select = (t) =>{
+    if(_is_editing) return;
     selectedTr = []
     t.addClass('selected_tr')
     showHelpTip(t);
