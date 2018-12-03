@@ -91,11 +91,19 @@ do_importExcel = ()=>{
             key = _.trim(key);
             main_json[key] = mainArr[i]
             sub_json[key] = subArr[i]
+            let key_exist = false;
+            let mainVal_isSame = false;
+            let subVal_isSame = false;
+            if(SuperJson[key]) {
+                key_exist = true;
+                if(SuperJson[key].cn === main_json[key]) mainVal_isSame = true;
+                if(SuperJson[key].en === sub_json[key]) subVal_isSame = true;
+            }
             trs += `<tr class="${i%2===0?'one':'two'}">
             <td style="color: gray;">${i+1}</td>
-                <td style="color: blue;">${getDisplayText(key)}</td>
-                <td>${getDisplayText(mainArr[i])}</td>
-                <td>${getDisplayText(subArr[i])}</td>
+                <td class="${key_exist?'key_exist':''}" style="color: blue;">${getDisplayText(key)}</td>
+                <td class="${mainVal_isSame?'mainVal_isSame':''}">${getDisplayText(mainArr[i])}</td>
+                <td class="${subVal_isSame?'subVal_isSame':''}">${getDisplayText(subArr[i])}</td>
             </tr>`
         }
     })

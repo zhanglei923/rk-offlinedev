@@ -346,3 +346,12 @@ td .null_val{
 .import_confirm_table .two{
     background-color: #eee;
 }
+.import_confirm_table .key_exist{
+    background-color: #f75353;
+}
+.import_confirm_table .mainVal_isSame{
+    background-color: #f75353;
+}
+.import_confirm_table .subVal_isSame{
+    background-color: #f75353;
+}
