@@ -115,7 +115,7 @@ do_importExcel = ()=>{
 
     $('#import_confirm_table').show()
     $('#import_confirm_table').html(trs)
-    $('#textarea_import_excel').val('//main json:\n'+JSON.stringify(main_json)+'\n\n//sub json:\n'+JSON.stringify(sub_json));
+    $('#textarea_import_excel').val('let main_json='+JSON.stringify(main_json)+';\n\nlet sub_json='+JSON.stringify(sub_json));
 }
 do_saveImportExcel = () =>{
     let keysArr = window.impinfo.keysArr;
