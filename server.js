@@ -221,10 +221,9 @@ var isJsonAccept = function(accept, req){
     return returnJson;
 }
 var record404Actions = function(originalUrl){
-    var me = localStatus;
-    var nofileUrls = me.get('nofileUrls') ? me.get('nofileUrls') : [];
+    var nofileUrls = localStatus.getData('nofileUrls') ? localStatus.getData('nofileUrls') : [];
     nofileUrls.push(originalUrl)
-    me.set('nofileUrls', _.uniq(nofileUrls))
+    localStatus.setData('nofileUrls', _.uniq(nofileUrls))
     console.log('no-file', originalUrl)
 }
 // console.log('Updating...')

@@ -16,12 +16,12 @@ module.exports = {
             config = JSON.parse(config)
         } 
     },
-    set: function(name, value){
+    setData: function(name, value){
         config[name] = value;
         //console.log(name, value)
         fs.writeFileSync(configpath, JSON.stringify(config));
     },
-    get: function(name){
+    getData: function(name){
         return config[name];
     }
 }

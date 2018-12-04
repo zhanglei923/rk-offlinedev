@@ -153,7 +153,7 @@ module.exports = {
                 if (stat && !stat.isDirectory()) resultsComp.push(shortpath)
             })
         }
-        var listof404 = localStatus.get('nofileUrls')
+        var listof404 = localStatus.getData('nofileUrls')
         listof404 = listof404 ? listof404 : [];
 
         return {
