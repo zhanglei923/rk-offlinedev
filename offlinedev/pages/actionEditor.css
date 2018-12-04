@@ -97,7 +97,8 @@ body{
 	width: 508px;
 }
 .actionfiles-panel{
-	height:326px;
+	max-height: 310px;
+    overflow-y: auto;
 }
 .actioncontent-panel{
 	height: calc(100% - 338px);

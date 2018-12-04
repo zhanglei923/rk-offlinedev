@@ -162,10 +162,12 @@ app.get('*', function(req, res) {
         html = getPageHtml(isdeploy, 'frame30_designer.html');
     }else if(/^\/appdesigner\.action/ig.test(originalUrl)){
         html = getPageHtml(isdeploy, 'frame30_appdesigner.html');
-    }else if(/^\/[\w]{1,}_detail\.action/ig.test(originalUrl) && originalUrl.indexOf('canvas=1') >=0){//预览
-            html = getPageHtml(isdeploy, 'frame30_pc_canvas.html');
-    }else if(/^\/mobilepreview\_/ig.test(originalUrl) && originalUrl.indexOf('canvas=1') >=0){//预览
+    }else if(originalUrl.indexOf('canvas=1') >=0){//预览
+        if(/^\/mobilepreview\_/ig.test(originalUrl)){//预览
             html = getPageHtml(isdeploy, 'frame30_app_canvas.html');
+        }else{
+            html = getPageHtml(isdeploy, 'frame30_pc_canvas.html');
+        }
     }else{
         html = getPageHtml(isdeploy, 'frame30_index.html');
         var data = getMockingData.getData(originalUrl, req)
