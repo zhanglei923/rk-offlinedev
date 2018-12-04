@@ -179,14 +179,18 @@ app.get('*', function(req, res) {
         }
     }
     if(isJsonAccept(accept, req)){
-        if(typeof html === 'string') {
+        var data = getMockingData.getData(originalUrl, req)
+        if(data) {
             try{
-                html = JSON.parse(html)
-                res.json(html)
+                data = JSON.parse(data)
+                res.json(data)
             }catch(e){
                 console.log('notjson:', req.url)
-                res.send(html)
+                res.html(data)
             }
+        }else{
+            record404Actions(originalUrl)
+            res.sendStatus(404)
         }
     }else{
         var data = getMockingData.getData(originalUrl, req)
