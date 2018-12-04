@@ -29,20 +29,10 @@ if(!fs.existsSync(webPath)){
 //
 let arr = [
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking-default/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking-default/actions/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/fileslink-local/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/debug-action-data'),
-    
-    // pathutil.resolve(__dirname,'../offlinedev-data/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/actions-local/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking-default/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking-default/actions/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/actions/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/fileslink-local/'),
-    // pathutil.resolve(__dirname,'../offlinedev-data/mocking/debug-action-data')   
+     
 ];
 arr.forEach((folderpath)=>{
     if (!fs.existsSync(folderpath)){
@@ -205,15 +195,12 @@ app.get('*', function(req, res) {
 });
 let getPageHtml = function(isdeploy, filename){
     if(isdeploy) filename = 'deploy.'+filename
-    var fpath = pathutil.resolve(__dirname, './offlinedev/mocking-default/pages/'+ filename);
+    var fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
     if(!fs.existsSync(fpath)){
-        fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
-        if(!fs.existsSync(fpath)){
-            var page404 = fs.readFileSync(pathutil.resolve(__dirname, './offlinedev/pages/file-not-exist.tmpl'), 'utf8')
-            var template = Handlebars.compile(page404);
-            var html404 = template({fpath: fpath});
-            return html404
-        }
+        var page404 = fs.readFileSync(pathutil.resolve(__dirname, './offlinedev/pages/file-not-exist.tmpl'), 'utf8')
+        var template = Handlebars.compile(page404);
+        var html404 = template({fpath: fpath});
+        return html404
     }
     var html = fs.readFileSync(fpath, 'utf8');
     html = updateStaticsUrl.updateHtml(html);
