@@ -116,6 +116,7 @@ module.exports = {
                                 '\n//注意！请不要再手工编辑这里的文字，中文文案请自行在untranslated.js文件中维护。\n'+
                                 jsonformatter.diffy(json) + ');'
                 let localBackupFolder = pathutil.resolve(__dirname, './.save');
+                fs.mkdirSync(localBackupFolder)
                 //backup
                 fs.writeFileSync(localBackupFolder+'/'+alias+'_'+moment().format('YYYY-MM-DD_HHmmss')+'.json', JSON.stringify(json))
                 //real env
