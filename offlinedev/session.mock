@@ -1,0 +1,129 @@
+<style>
+
+.theme-default .nav-menu {
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
+}
+
+/*一级菜单鼠标滑过*/
+
+.theme-default .page-link.selected {
+    background: #2f0505 !important;
+    box-shadow:inset 2px 0px 0px #00aaef; 
+}
+.theme-default .page-link.selected a{
+    color: #orange; 
+}
+.theme-default .page-link:hover {
+    background: #2f0505 !important;
+}
+
+.theme-default .page-link a {
+    color: #a3b1cc;
+}
+.theme-default .page-link.active {
+    background: #2f0505 !important;
+}
+/*常用菜单鼠标滑过*/
+
+.theme-default .menu-common-use li:hover {
+    background: #2f0505 !important;
+}
+
+/*头部logo*/
+
+.theme-default .logo {
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
+}
+.theme-default .logo-img span.logo-pic{
+    background: url(/img/fet.jpg) left center no-repeat;
+    display: inline-block;
+    background-size: 25px 25px;
+}
+#pageleft *{
+    color:orange !important;
+    font-family: ‘Arial Black’, Gadget, sans-serif;
+}
+.xsy_platform_header{
+  background: -webkit-linear-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-linear-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-linear-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: linear-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
+}
+.theme-default .page-link.selected{
+  background: -webkit-radial-gradient(#83f983, #4242a0) !important; /* Safari 5.1 - 6.0 */
+  background: -o-radial-gradient(#83f983, #4242a0) !important; /* Opera 11.1 - 12.0 */
+  background: -moz-radial-gradient(#83f983, #4242a0) !important; /* Firefox 3.6 - 15 */
+  background: radial-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
+}
+</style>
+<script>
+        var tzdata = {
+            '+9': {
+                offset: (3600*1000*9),
+                id: 'Asia/Tokyo'
+            },
+            '+8': {
+                offset: (3600*1000*8),
+                id: 'Asia/Beijing'
+            },
+            '-4': {
+                offset: (3600*1000*-4),
+                id: 'America/New_York'
+            }
+        }
+    var atzdata = tzdata['+9']
+
+    var attachSESSION = {
+        user: {"id":84006,"icon":"/img/default_face.png","name":"管理员","notify":1,"language-code":"pl","language":"zh-cn","type":0},
+        userConfig:{
+            isMobileFixUser:"false",
+        },
+        serviceConfig: {
+            workBench: ("0" === '1'),
+            userType: "sales"
+        },
+        fieldServiceConfig: {
+            dispatchPlatform: ("0" === '1')
+        },
+        company: '',
+        depart: {"id":106690,"groupId":332642,"specialType":0,"name":"全公司","hasChild":false,"type":2},
+        isXsyCrmAdmin: true,
+        pcCode: 0,
+        tenantId: 100313,
+        tenantName: '多语言测试-1011',
+        tenantIcon: '/static/img/v3.0/logo.png', 
+        cometClientId: '1508828970407',
+        usingWebSocket: true,
+        currencyUnit: '元',
+        unitSetCurrencyMap: '',
+        totalOaViewAuth: 'true',
+        hasCrmAccess: true,
+        privateMsgUnRead: 0,
+        tenantType: '0',
+        partnerAccess: {"knowledgemanagement":false,"addressbook":false,"prmLic":false},
+        documentAllAccess:true,
+        partVisible:false,
+        financeStartMonth: '1',
+        logoUrl: '',
+        navValue: '',
+        callCenterObj: '{"phone":0,"record":0,"report":0,"monitor":0}',
+        pageStartTime: new Date(),
+        currentTime: '1262271600000',
+        serverTimeOffset: (new Date()) * 1 - 1262271600000,
+        currentVersion: '4.6',
+        languageUrl:'https://devrs.s3.cn-north-1.amazonaws.com.cn/%2F-101/FRONT_WEB/pl/%2F2017/10/24/0759620c-04e1-4831-bb66-ef8f166af186.js',
+        userTimezoneCfg: '{"resourceKey":"TZ.asiaShanghai","displayName_resourceKey":"中国标准时间","offset":'+atzdata.offset+',"timezoneId":"'+atzdata.id+'","apiKey":"'+atzdata.id+'","effectiveStartTime":0}'
+    };
+    for(var k in attachSESSION){
+        window.SESSION[k] = attachSESSION[k]
+    }
+</script>
+<script>window.isOfflineDev=true;</script>
+<script src="/offlinedev/notice.js"></script>
+<!-- script src="/offlinedev/polyfill.min.js"></script -->

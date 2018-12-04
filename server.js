@@ -204,7 +204,7 @@ let getPageHtml = function(isdeploy, filename){
     }
     var html = fs.readFileSync(fpath, 'utf8');
     html = updateStaticsUrl.updateHtml(html);
-    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/mocking/session.mock', 'utf8');
+    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/session.mock', 'utf8');
     //注入标志和辅助性的js文件
     html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
 
