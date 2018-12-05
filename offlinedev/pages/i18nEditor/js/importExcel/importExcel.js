@@ -66,9 +66,10 @@ do_importExcel = ()=>{
         alert('key是空的，闹哪样呀！')
         return;
     }
-    let keysArr = keys.split(/\n/)
-    let mainArr = texts_main_vals.split(/\n/)
-    let subArr = texts_sub_vals.split(/\n/)
+    let midreg = /\n/
+    let keysArr = keys.split(midreg)
+    let mainArr = texts_main_vals.split(midreg)
+    let subArr = texts_sub_vals.split(midreg)
     window.impinfo = {
         keysArr,
         mainArr,
