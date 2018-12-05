@@ -139,8 +139,11 @@ app.get('*', function(req, res) {
    var accept = req.headers.accept;
    var originalUrl = req.originalUrl;
    var url = req.url;
-   var p = URL.parse(url, true);
-   var isdeploy = p.query.isdeploy;
+   var urlInfo = URL.parse(url, true);
+   let pathname = urlInfo.pathname;
+   var isdeploy = urlInfo.query.isdeploy;
+   var isCanvas = urlInfo.query.canvas === '1';
+   //console.log('pathname', pathname, isCanvas,urlInfo.query.canvas)
    if(/^\/offlinedev\/api\//.test(req.url)){
         res.json({
             status: 0,
@@ -148,12 +151,12 @@ app.get('*', function(req, res) {
         }) 
        return;
    }
-    if(/^\/designer\.action/ig.test(originalUrl)){
+    if(/^\/designer\.action/ig.test(pathname)){
         html = getPageHtml(isdeploy, 'frame30_designer.html');
-    }else if(/^\/appdesigner\.action/ig.test(originalUrl)){
+    }else if(/^\/appdesigner\.action/ig.test(pathname)){
         html = getPageHtml(isdeploy, 'frame30_appdesigner.html');
-    }else if(originalUrl.indexOf('canvas=1') >=0){//预览
-        if(/^\/mobilepreview\_/ig.test(originalUrl)){//预览
+    }else if(isCanvas){//预览
+        if(/^\/mobilepreview\_/ig.test(pathname)){//预览
             html = getPageHtml(isdeploy, 'frame30_app_canvas.html');
         }else{
             html = getPageHtml(isdeploy, 'frame30_pc_canvas.html');
