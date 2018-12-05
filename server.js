@@ -30,8 +30,8 @@ if(!fs.existsSync(webPath)){
 let arr = [
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/fileslink-local/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/debug-action-data'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking/files/'),
+    pathutil.resolve(__dirname,'./offlinedev/mocking/files-refinfo/'),
      
 ];
 arr.forEach((folderpath)=>{

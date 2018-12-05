@@ -18,7 +18,7 @@ var thisUtil = {
     },
     saveFileLinkAction:(url, flist)=>{
 		var saveName = saveutil.getSaveName(url);
-    	var savepath = rootpath + '/mocking/fileslink-local/'
+    	var savepath = rootpath + '/mocking/files-refinfo/'
         if(!fs.existsSync(savepath)){
             fs.mkdirSync(savepath);
         }
@@ -26,7 +26,7 @@ var thisUtil = {
     	fs.writeFileSync(savepath + '/' + saveName, JSON.stringify(flist));
     },
     getAllFileLinks:()=>{
-        var fullfilepath = pathutil.resolve(rootpath, './mocking/debug-action-data');
+        var fullfilepath = pathutil.resolve(rootpath, './mocking/files/');
         var list = fs.readdirSync(fullfilepath)
         let results = []
         list.forEach(function(file) {
@@ -39,7 +39,7 @@ var thisUtil = {
     },
     getFileLinkAction:(url)=>{
 		var saveName = saveutil.getSaveName(url);
-    	var savepath = rootpath + '/mocking/fileslink-local/'
+    	var savepath = rootpath + '/mocking/files-refinfo/'
         if(fs.existsSync(savepath + '/' + saveName)){
             var data = fs.readFileSync(savepath + '/' + saveName, 'utf8');
             if(data){
@@ -65,7 +65,7 @@ var thisUtil = {
     },
     getFileLinkContent:(fpath)=>{
         //console.log('fpath', fpath,)
-        var abspath = pathutil.resolve(rootpath, './mocking/debug-action-data/'+fpath);
+        var abspath = pathutil.resolve(rootpath, './mocking/files/'+fpath);
         if(fs.existsSync(abspath)){
             //console.log('existsSync', abspath,)
             var data = fs.readFileSync(abspath, 'utf8');
