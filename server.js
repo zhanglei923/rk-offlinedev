@@ -64,7 +64,7 @@ app.all('*', function(req, res, next) {
 });
 
 var webProject = 'apps-ingage-web'
-var getMockingData = require('./offlinedev/jsmodule/getMockingData')
+var getMockingData = require('./offlinedev/jsmodule/mocking/getMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {

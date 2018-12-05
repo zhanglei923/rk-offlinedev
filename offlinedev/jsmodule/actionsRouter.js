@@ -8,8 +8,8 @@ var getConfig = require('./getConfig')
 
 var i18nAccess = require('./i18n/i18nAccess')
 var i18nValidator = require('./i18n/i18nValidator')
-var getMockingData = require('./getMockingData')
-var saveMockingData = require('./saveMockingData')
+var getMockingData = require('./mocking/getMockingData')
+var saveMockingData = require('./mocking/saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
         console.log('req.originalUrl:', req.originalUrl)
