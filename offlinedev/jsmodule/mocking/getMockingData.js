@@ -6,7 +6,7 @@ var jsonformatter = require('format-json');
 var localStatus = require('../localStatus')
 var saveutil = require('../utils/url')
 var saveMockingData = require('./saveMockingData')
-
+let dataFolder = '../../mocking/';
 
 var data_cache = {};
 //必须与io里同名函数保持同步
@@ -80,11 +80,11 @@ module.exports = {
             return content;
         }
 
-        if(!content) content = readRelativeFile('../../mocking/actions-local/', fname)
-        if(!content) content = readRelativeFile('../../mocking/actions/', fname)
+        if(!content) content = readRelativeFile(dataFolder+'/actions-local/', fname)
+        if(!content) content = readRelativeFile(dataFolder+'/actions/', fname)
         //
-        if(!content) content = readRelativeFile('../../mocking/actions-local/', f_path)
-        if(!content) content = readRelativeFile('../../mocking/actions/', f_path)
+        if(!content) content = readRelativeFile(dataFolder+'/actions-local/', f_path)
+        if(!content) content = readRelativeFile(dataFolder+'/actions/', f_path)
 
 
         if(!content) {
@@ -124,7 +124,7 @@ module.exports = {
     listActions: function(){        
         var results = []
         //
-        var fullfilepath = pathutil.resolve(__dirname, '../../mocking/actions-local');
+        var fullfilepath = pathutil.resolve(__dirname, dataFolder+'/actions-local');
         var list = fs.readdirSync(fullfilepath)
         list.forEach(function(file) {
             var shortpath = file;
@@ -133,7 +133,7 @@ module.exports = {
             if (stat && !stat.isDirectory()) results.push(shortpath)
         })
         //
-        var fullfilepath = pathutil.resolve(__dirname, '../../mocking/actions');
+        var fullfilepath = pathutil.resolve(__dirname, dataFolder+'/actions');
         var list = fs.readdirSync(fullfilepath)
         list.forEach(function(file) {
             var shortpath = file;
@@ -142,7 +142,7 @@ module.exports = {
             if (stat && !stat.isDirectory()) results.push(shortpath)
         })
         //
-        var fullfilepath = pathutil.resolve(__dirname, '../../mocking/actions/platform_widgets');
+        var fullfilepath = pathutil.resolve(__dirname, dataFolder+'/actions/platform_widgets');
         var resultsComp = []
         if (fs.existsSync(fullfilepath)) {
             var list = fs.readdirSync(fullfilepath)
@@ -164,7 +164,7 @@ module.exports = {
     },
     getActionContent: function(url){
         if(/\.compdata$/.test(url)) url = '/platform_widgets/' + url;
-        var fullfilepath = pathutil.resolve(__dirname, '../../mocking/actions/' + url);
+        var fullfilepath = pathutil.resolve(__dirname, dataFolder+'/actions/' + url);
         var fullsavepath = fullfilepath.replace(/(\/|\\)mocking(\/|\\)actions(\/|\\)/, '/mocking/actions-local/')
         var content;
         var prettifycontent;

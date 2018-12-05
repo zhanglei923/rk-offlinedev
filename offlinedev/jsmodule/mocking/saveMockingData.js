@@ -3,6 +3,7 @@ var pathutil = require('path');
 var _ = require('lodash')
 var rootpath = pathutil.resolve(__dirname, '../../');
 var saveutil = require('../utils/url')
+let dataFolder = '../../mocking/';
 
 var thisUtil = {
     saveAction: function(url, content){
@@ -25,7 +26,7 @@ var thisUtil = {
     	fs.writeFileSync(savepath + '/' + saveName, JSON.stringify(flist));
     },
     getAllFileLinks:()=>{
-        var fullfilepath = pathutil.resolve(__dirname, '../../mocking/debug-action-data');
+        var fullfilepath = pathutil.resolve(rootpath, './mocking/debug-action-data');
         var list = fs.readdirSync(fullfilepath)
         let results = []
         list.forEach(function(file) {
@@ -64,7 +65,7 @@ var thisUtil = {
     },
     getFileLinkContent:(fpath)=>{
         //console.log('fpath', fpath,)
-        var abspath = pathutil.resolve(__dirname, '../../mocking/debug-action-data/'+fpath);
+        var abspath = pathutil.resolve(rootpath, './mocking/debug-action-data/'+fpath);
         if(fs.existsSync(abspath)){
             //console.log('existsSync', abspath,)
             var data = fs.readFileSync(abspath, 'utf8');
