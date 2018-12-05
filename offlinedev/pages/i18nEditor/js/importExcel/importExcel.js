@@ -80,16 +80,27 @@ do_importExcel = ()=>{
     // console.log(subArr)
     if(keysArr.length !== subArr.length){
         alert('key和英文的数量不一致！'+keysArr.length+':'+subArr.length)
-        //return;
+    }
+    if(texts_main_vals)
+    if(keysArr.length !== mainArr.length || mainArr.length !== subArr.length){
+        alert('key和中/英文的数量不一致！'+keysArr.length+':'+mainArr.length+':'+subArr.length)
     }
     
     $('#import_excel_table').hide()
     let trs = ''
+    let hasdup = false;
+    let dupkeys = {}
     let main_json = {};
     let sub_json = {};
     keysArr.forEach((key, i)=>{
         if(key){
             key = _.trim(key);
+            if(dupkeys[key]){ 
+                hasdup=true;
+                dupkeys[key].push(subArr[i]); 
+            }else{
+                dupkeys[key]=[subArr[i]];
+            }
             main_json[key] = mainArr[i]
             sub_json[key] = subArr[i]
             let key_exist = false;
@@ -109,7 +120,23 @@ do_importExcel = ()=>{
         }
     })
     trs += `<tr><td colspan="99"><textarea id="textarea_import_excel" style="min-width:300px;width:100%;height:300px;"></textarea></td></tr>`
-    
+    if(hasdup){
+        alert('发现重复的key，请在console中查看')
+        for(let key in dupkeys){
+            if(dupkeys[key].length>1)
+            console.warn(key, dupkeys[key])
+        }
+        let hasconflict = false;
+        for(let key in dupkeys){
+            let arr = dupkeys[key];
+            arr = _.uniq(arr);
+            if(arr.length > 1) {
+                hasconflict = true
+                console.error('重复的key有多个文案：', key, arr)
+            }
+        }
+        if(hasconflict) alert('发现重复的key，且英文值不一样，请在console中查看')
+    }
     $('#do_importExcel').hide()
     $('#do_importExcel_step0').show()
     $('#do_importExcel_save').show()
