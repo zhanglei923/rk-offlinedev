@@ -64,6 +64,7 @@ var getMockingData = require('./offlinedev/jsmodule/mocking/getMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {
+    res.set('Cache-Control', 'no-cache')
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
         var fpath = pathutil.resolve(__dirname, '.'+req.path)
         var jscontent = fs.readFileSync(fpath, 'utf8'); 
@@ -81,6 +82,7 @@ app.use(function (req, res, next) {
     if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
         if(/\.js$/.test(req.path)){
             var jscontent = scriptLoader.update(req.path)
+            res.set('Content-Type', 'text/javascript');
             jscontent ? res.send(jscontent) : res.sendStatus(404);; 
             return;           
         }else{
