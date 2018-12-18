@@ -161,15 +161,6 @@ app.get('*', function(req, res) {
         }
     }else{
         html = getPageHtml(isdeploy, 'frame30_index.html');
-        var data = getMockingData.getData(originalUrl, req)
-        if(data || /\/json\//g.test(originalUrl)){
-            html = data;
-            if(!data) {
-                record404Actions(originalUrl)
-                res.sendStatus(404)
-                return;
-            }
-        }
     }
     if(isJsonAccept(accept, req)){
         var data = getMockingData.getData(originalUrl, req)

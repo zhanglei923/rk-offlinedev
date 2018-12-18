@@ -1,4 +1,4 @@
-var isChrome = !!window.chrome && !!window.chrome.webstore;
+var isChrome = !!window.chrome;
 $(()=>{
     $('#saveBtn').click(()=>{
         do_reportStatus(false);
