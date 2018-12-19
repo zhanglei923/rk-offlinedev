@@ -1,7 +1,8 @@
 let fs = require('fs')
 let pathUtil = require('path')
+let getConfig = require('../getConfig')
 
-let webProjectPath = pathUtil.resolve(__dirname, '../../../../apps-ingage-web')
+let webProjectPath = getConfig.getWebRoot()
 let webappPath = pathUtil.resolve(webProjectPath, './src/main/webapp')
 let sourcePath = pathUtil.resolve(webappPath, './static/source')
 let i18nPath = pathUtil.resolve(sourcePath, './core/i18n')
