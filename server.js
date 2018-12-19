@@ -14,7 +14,7 @@ var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
 var scriptLoader = require('./offlinedev/jsmodule/scriptLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
-var getConfig = require('./offlinedev/jsmodule/getConfig')
+var getConfig = require('./offlinedev/jsmodule/configUtil')
 var localStatus = require('./offlinedev/jsmodule/localStatus')
 var credentials = {key: privateKey, cert: certificate};
 

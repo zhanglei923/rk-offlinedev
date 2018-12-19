@@ -1,6 +1,6 @@
 let fs = require('fs')
 let pathUtil = require('path')
-let getConfig = require('../getConfig')
+let getConfig = require('../configUtil')
 
 let webProjectPath = getConfig.getWebRoot()
 let webappPath = pathUtil.resolve(webProjectPath, './src/main/webapp')

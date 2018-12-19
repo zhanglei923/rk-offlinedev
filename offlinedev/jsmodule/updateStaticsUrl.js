@@ -1,7 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 
-var configJson = require('./getConfig').get()
+var configJson = require('./configUtil').get()
 
 module.exports = {
     updateHtml: function (html){

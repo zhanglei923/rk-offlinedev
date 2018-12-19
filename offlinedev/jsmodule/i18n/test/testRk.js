@@ -1,4 +1,4 @@
-var getConfig = require('../../getConfig')
+var getConfig = require('../../configUtil')
 let rk = require('../../utils/rk')
 
 var regex = [/.js$/ig]
