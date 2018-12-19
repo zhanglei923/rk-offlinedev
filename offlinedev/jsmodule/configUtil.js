@@ -34,6 +34,9 @@ let thisUtil = {
     getMyRoot: function(){
         return myroot;
     },
+    isCustomizedWebRoot: function(){
+        return !!config.webProjectPath;
+    },
     getWebRoot: function(){
         return webroot;
     },

@@ -26,7 +26,8 @@ module.exports = {
             console.log(webpath, branchName)
             callback({
                 branchName: branchName,
-                webpath: webpath
+                webpath: webpath,
+                isCustomizedWebRoot: getConfig.isCustomizedWebRoot()
             })
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){
