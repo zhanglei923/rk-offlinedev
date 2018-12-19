@@ -14,7 +14,7 @@ module.exports = {
     processPost: function (req, res, callback){
         console.log('req.originalUrl:', req.originalUrl)
         if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
-            var webpath = pathutil.resolve(__dirname, "../../../apps-ingage-web/")
+            var webpath = getConfig.getWebRoot()
             var branchName = getBranchName(webpath)
             console.log(webpath, branchName)
             callback({

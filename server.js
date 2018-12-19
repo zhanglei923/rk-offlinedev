@@ -21,9 +21,9 @@ var credentials = {key: privateKey, cert: certificate};
 getConfig.initFiles();//初始化配置
 localStatus.init();
 
-var webPath = pathutil.resolve(__dirname, '../apps-ingage-web/src/main/webapp/')
+var webPath = getConfig.getWebAppFolder();
 if(!fs.existsSync(webPath)){
-    console.error('FATAL ERROR: Folder not found:', pathutil.resolve(__dirname, '../apps-ingage-web'))
+    console.error('FATAL ERROR: Folder not found:', webPath)
     return;
 } 
 //
@@ -59,7 +59,6 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-var webProject = 'apps-ingage-web'
 var getMockingData = require('./offlinedev/jsmodule/mocking/getMockingData')
 
 //全局拦截器
