@@ -15,7 +15,7 @@ var scriptLoader = require('./offlinedev/jsmodule/scriptLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/configUtil')
-var localStatus = require('./offlinedev/jsmodule/localStatus')
+var localStatus = require('./offlinedev/jsmodule/statusUtil')
 var credentials = {key: privateKey, cert: certificate};
 
 getConfig.initFiles();//初始化配置

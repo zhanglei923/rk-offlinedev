@@ -7,7 +7,7 @@ var configpath;
 module.exports = {
     init: function(){
         var rootpath = pathutil.resolve(__dirname, '../');
-        var path = rootpath + '/' + '.localstatus'
+        var path = rootpath + '/' + '.statusUtil'
         configpath = path;
         if(!fs.existsSync(path)){
             fs.writeFileSync(path, JSON.stringify(config));
