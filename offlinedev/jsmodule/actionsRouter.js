@@ -5,7 +5,7 @@ var http = require('http');
 //var unzip = require("unzip");
 var _ = require('lodash')
 var getConfig = require('./configUtil')
-
+var webprojectUtil = require('./webprojectUtil')
 var i18nAccess = require('./i18n/i18nAccess')
 var i18nValidator = require('./i18n/i18nValidator')
 var getMockingData = require('./mocking/getMockingData')
@@ -13,7 +13,14 @@ var saveMockingData = require('./mocking/saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
         console.log('req.originalUrl:', req.originalUrl)
-        if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
+        if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
+            var prjpath = req.body.prjpath
+            let ok = webprojectUtil.updateWebProjectPath(prjpath)
+            callback({
+                ok
+            })
+        }
+        else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             var webpath = getConfig.getWebRoot()
             var branchName = getBranchName(webpath)
             console.log(webpath, branchName)

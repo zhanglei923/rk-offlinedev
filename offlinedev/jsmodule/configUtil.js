@@ -13,11 +13,15 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
-var webroot = pathutil.resolve(__dirname, '../../../apps-ingage-web/');
+var myroot = pathutil.resolve(__dirname, '../../../');
+var webroot = pathutil.resolve(myroot, './apps-ingage-web/');
 var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 let thisUtil = {
     get: function (){
         return configJson;
+    },
+    getMyRoot: function(){
+        return myroot;
     },
     getWebRoot: function(){
         return webroot;

@@ -80,7 +80,7 @@
   <div class="body">
     <span>
     分支：<span id="branchname" class="branchname">Scaning...</span>，
-    目录：<span id="webpath" class="branchname">Scaning...</span>，
+    目录：<input id="webpath" class="branchname" style="width:500px;"></input>，
   </span>
     <!-- 选择模拟数据： -->
     <span>
@@ -126,6 +126,11 @@
       var casename = $(this).val();
       localStorage.setItem(ls_key, casename);
     })
+    $('#webpath').on('change', function(){
+      var webprojectpath = $(this).val();
+      //console.log(webprojectpath)
+      saveWebProjectPath(webprojectpath)
+    })
     $.ajax({
             url: 'http://10.10.0.115:3004/offlinedev/folders',
             jsonp: "callback",
@@ -162,7 +167,7 @@
             success: function( response ) {
               console.log(response)
               $('#branchname').text(response.result.branchName)
-              $('#webpath').text(response.result.webpath)
+              $('#webpath').val(response.result.webpath)
             },
             error:function(ajaxObj,msg,err){
             }
@@ -205,6 +210,19 @@
             }
         });
     })
+    let saveWebProjectPath = (prjpath)=>{
+      $.ajax({
+            url: '/offlinedev/api/webpath/updateWebProjectPath/',
+            cache: false,
+            method: 'POST',
+            data: {prjpath},
+            success: function( response ) {
+              console.log(response)
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    }
     var visithistoryKey = 'offlinedev_visithistory'
     var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
     var visithistoryHtml = ''
