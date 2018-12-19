@@ -13,8 +13,19 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
+let configFilePath = pathutil.resolve(__dirname, '../../.user-config.json')
+let config = {
+    webProjectPath: '',//default
+};
+if(!fs.existsSync(configFilePath)){
+    fs.writeFileSync(configFilePath, JSON.stringify(config));
+}else{
+    config = fs.readFileSync(configFilePath, 'utf8');
+    config = JSON.parse(config)
+}
+console.log('user-config:', config)
 var myroot = pathutil.resolve(__dirname, '../../../');
-var webroot = pathutil.resolve(myroot, './apps-ingage-web/');
+var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(myroot, './apps-ingage-web/');
 var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 let thisUtil = {
     get: function (){
@@ -38,9 +49,6 @@ let thisUtil = {
     initFiles: function(){
         var webpath = webappFolder;
         var rootpath = pathutil.resolve(__dirname, '../');
-        if(!fs.existsSync(rootpath + '/.config')){
-            
-        }
         var path = rootpath + '/mocking/'
         if(!fs.existsSync(path)){
             fs.mkdirSync(path);
@@ -53,12 +61,6 @@ let thisUtil = {
         if(!fs.existsSync(path)){
             fs.mkdirSync(path);
         } 
-        path = pathutil.resolve(__dirname, '../../.config')
-        if(!fs.existsSync(path)){
-            fs.writeFileSync(path, JSON.stringify({
-                config:1
-            }));
-        }
     }
 }
 module.exports = thisUtil;

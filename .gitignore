@@ -4,3 +4,4 @@ offlinedev/mocking/actions/
 offlinedev/mocking/
 offlinedev/jsmodule/i18n/.save
 .config
+.user-config.json

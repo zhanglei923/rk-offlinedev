@@ -80,7 +80,7 @@
   <div class="body">
     <span>
     分支：<span id="branchname" class="branchname">Scaning...</span>，
-    目录：<input id="webpath" class="branchname" style="width:500px;"></input>，
+    目录：<span id="webpath" class="branchname">Scaning...</span>，
   </span>
     <!-- 选择模拟数据： -->
     <span>
@@ -167,7 +167,7 @@
             success: function( response ) {
               console.log(response)
               $('#branchname').text(response.result.branchName)
-              $('#webpath').val(response.result.webpath)
+              $('#webpath').text(response.result.webpath)
             },
             error:function(ajaxObj,msg,err){
             }
