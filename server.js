@@ -59,7 +59,7 @@ app.all('*', function(req, res, next) {
     next();
 });
 
-var getMockingData = require('./offlinedev/jsmodule/mocking/getMockingData')
+var loadMockingData = require('./offlinedev/jsmodule/mocking/loadMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {
@@ -108,7 +108,7 @@ app.post('*',function(req, res){
         })
         return;
     }
-    var data = getMockingData.getData(originalUrl, req)
+    var data = loadMockingData.getData(originalUrl, req)
     if(data){
         if(isJsonAccept(accept, req)){
             if(typeof data === 'string') {
@@ -163,7 +163,7 @@ app.get('*', function(req, res) {
         html = getPageHtml(isdeploy, 'frame30_index.html');
     }
     if(isJsonAccept(accept, req)){
-        var data = getMockingData.getData(originalUrl, req)
+        var data = loadMockingData.getData(originalUrl, req)
         if(data) {
             try{
                 data = JSON.parse(data)
@@ -177,7 +177,7 @@ app.get('*', function(req, res) {
             res.status(404).send(notice404)
         }
     }else{
-        var data = getMockingData.getData(originalUrl, req)
+        var data = loadMockingData.getData(originalUrl, req)
         if(data){
             res.json(data)
         }else{

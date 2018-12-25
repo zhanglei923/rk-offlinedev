@@ -8,7 +8,7 @@ var getConfig = require('./configUtil')
 var webprojectUtil = require('./webprojectUtil')
 var i18nAccess = require('./i18n/i18nAccess')
 var i18nValidator = require('./i18n/i18nValidator')
-var getMockingData = require('./mocking/getMockingData')
+var loadMockingData = require('./mocking/loadMockingData')
 var saveMockingData = require('./mocking/saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
@@ -37,12 +37,12 @@ module.exports = {
 
         }
         else if(/^\/offlinedev\/api\/action\/list\//.test(req.originalUrl)){
-            var list = getMockingData.listActions()
+            var list = loadMockingData.listActions()
             callback(list)
             return 'done'
         }
         else if(/^\/offlinedev\/api\/action\/content\//.test(req.originalUrl)){
-            var list = getMockingData.getActionContent(req.body.url, req.body.prettify)
+            var list = loadMockingData.getActionContent(req.body.url, req.body.prettify)
             callback(list)
             return 'done'
         }
