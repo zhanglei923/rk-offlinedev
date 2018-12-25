@@ -95,6 +95,7 @@ do_importExcel = ()=>{
     keysArr.forEach((key, i)=>{
         if(key){
             key = _.trim(key);
+            keysArr[i] = key;
             if(dupkeys[key]){ 
                 hasdup=true;
                 dupkeys[key].push(subArr[i]); 
