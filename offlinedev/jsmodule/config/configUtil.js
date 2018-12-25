@@ -3,7 +3,7 @@ var pathutil = require('path');
 
 var configJson;
 
-var rootFolder = pathutil.resolve(__dirname, '../');
+var rootFolder = pathutil.resolve(__dirname, '../../');
 var fpath = rootFolder + '/config.json'
 if(fs.existsSync(fpath)){
     var data = fs.readFileSync(fpath, 'utf8');
@@ -13,7 +13,7 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
-let configFilePath = pathutil.resolve(__dirname, '../../.user-config.json')
+let configFilePath = pathutil.resolve(__dirname, '../../../.user-config.json')
 let config = {
     webProjectPath: '',//default
 };
@@ -24,7 +24,7 @@ if(!fs.existsSync(configFilePath)){
     config = JSON.parse(config)
 }
 console.log('user-config:', config)
-var myroot = pathutil.resolve(__dirname, '../../../');
+var myroot = pathutil.resolve(__dirname, '../../../../');
 var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(myroot, './apps-ingage-web/');
 var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 let thisUtil = {
@@ -51,7 +51,7 @@ let thisUtil = {
     },
     initFiles: function(){
         var webpath = webappFolder;
-        var rootpath = pathutil.resolve(__dirname, '../');
+        var rootpath = pathutil.resolve(__dirname, '../../');
         var path = rootpath + '/mocking/'
         if(!fs.existsSync(path)){
             fs.mkdirSync(path);

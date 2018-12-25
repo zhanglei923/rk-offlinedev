@@ -2,7 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var moment = require("moment");
 var jsonformatter = require('format-json');
-var getConfig = require('../configUtil')
+var getConfig = require('../config/configUtil')
 var i18nUtil;
 
 i18nUtil = require('./i18nUtil')

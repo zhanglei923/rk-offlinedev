@@ -2,8 +2,8 @@ var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
-let configUtil = require('./configUtil')
-let statusUtil = require('./statusUtil')
+let configUtil = require('./config/configUtil')
+let statusUtil = require('./config/statusUtil')
 var rootpath = pathutil.resolve(__dirname, '../');
 var config = {};
 var configpath;
