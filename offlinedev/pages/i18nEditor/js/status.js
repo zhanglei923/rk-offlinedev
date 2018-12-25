@@ -61,7 +61,9 @@ var updateSummary = function(){
         if(!envalue) nullen ++;
         total++;
     };
-    $('#summary').html(`<span class="remains">${nullen}</span>/<span class="total">${total}</span>`)
+    let rate = nullen/total;
+    let strRate = Math.round(rate*1000)/10;
+    $('#summary').html(`<span class="remains">${nullen}</span>/<span class="total">${total}</span>=<span class="remains">${strRate}%</span>`)
     if(nullen > 0) $('#summary .remains').css('color', '#f96b6b')
     
     if(nullCnKeys.length > 0) notice_error(`有英文但无中文：${nullCnKeys.join(', ')}`)
