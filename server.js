@@ -141,6 +141,7 @@ app.get('*', function(req, res) {
    var isdeploy = urlInfo.query.isdeploy;
    var isCanvas = urlInfo.query.canvas === '1';
    //console.log('pathname', pathname, isCanvas,urlInfo.query.canvas)
+   //console.log(urlInfo)
    if(/^\/offlinedev\/api\//.test(req.url)){
         res.json({
             status: 0,
@@ -173,17 +174,22 @@ app.get('*', function(req, res) {
             }
         }else{
             record404Actions(originalUrl)
-            res.sendStatus(404)
+            res.status(404).send(notice404)
         }
     }else{
         var data = getMockingData.getData(originalUrl, req)
         if(data){
             res.json(data)
         }else{
-            res.send(html);
+            if(/\.action$/.test(pathname)){
+                res.send(html);                
+            }else{
+                res.status(404).send(notice404)
+            }
         }
     }
 });
+let notice404 = `404: page not found`
 let getPageHtml = function(isdeploy, filename){
     if(isdeploy) filename = 'deploy.'+filename
     var fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
