@@ -92,6 +92,8 @@ do_importExcel = ()=>{
     let dupkeys = {}
     let main_json = {};
     let sub_json = {};
+
+    let bad_mains = {}
     keysArr.forEach((key, i)=>{
         if(key){
             key = _.trim(key);
@@ -107,6 +109,8 @@ do_importExcel = ()=>{
             let key_exist = false;
             let mainVal_isSame = false;
             let subVal_isSame = false;
+            if(!bad_mains[key])bad_mains[key] = []
+            bad_mains[key].push(main_json[key])
             if(SuperJson[key]) {
                 key_exist = true;
                 if(SuperJson[key].cn === main_json[key]) mainVal_isSame = true;
@@ -121,6 +125,19 @@ do_importExcel = ()=>{
         }
     })
     trs += `<tr><td colspan="99"><textarea id="textarea_import_excel" style="min-width:300px;width:100%;height:300px;"></textarea></td></tr>`
+    let rpt_badmains = {}
+    let has_badmains = false;
+    for(let key in bad_mains){
+        bad_mains[key] = _.uniq(bad_mains[key])
+        if(bad_mains[key].length > 1) {
+            rpt_badmains[key] = bad_mains[key];
+            has_badmains = true;
+        }
+    }
+    if(has_badmains){
+        alert('同样的key，中文不一样！')
+        console.warn(JSON.stringify(rpt_badmains))
+    }
     if(hasdup){
         alert('发现重复的key，请在console中查看')
         for(let key in dupkeys){
