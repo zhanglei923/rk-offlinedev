@@ -11,7 +11,7 @@ var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
 var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
-var scriptLoader = require('./offlinedev/jsmodule/scriptLoader')
+var jsContentLoader = require('./offlinedev/jsmodule/jsContentLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/configUtil')
@@ -80,7 +80,7 @@ app.use(function (req, res, next) {
     }
     if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
         if(/\.js$/.test(req.path)){
-            var jscontent = scriptLoader.update(req.path)
+            var jscontent = jsContentLoader.update(req.path)
             res.set('Content-Type', 'text/javascript');
             jscontent ? res.send(jscontent) : res.sendStatus(404);; 
             return;           
