@@ -62,7 +62,7 @@
   background: radial-gradient(#83f983, #4242a0) !important; /* 标准的语法 */ 
 }
 </style>
-<script>
+<noscript>
         var tzdata = {
             '+9': {
                 offset: (3600*1000*9),
@@ -123,7 +123,7 @@
     for(var k in attachSESSION){
         window.SESSION[k] = attachSESSION[k]
     }
-</script>
+</noscript>
 <script>window.isOfflineDev=true;</script>
 <script src="/offlinedev/notice.js"></script>
 <!-- script src="/offlinedev/polyfill.min.js"></script -->

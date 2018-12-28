@@ -57,8 +57,8 @@ module.exports = {
         let usefulPathList = [];
         for(var i=0;i<fpathList.length;i++){
             let fpath = fpathList[i];
-            if(/\{locale\}/g.test(fpath)) continue;//ignore
-            if(/default\_cn$/g.test(fpath) || /default\_cn\.js$/g.test(fpath)) continue;//ignore
+            if(/\{/g.test(fpath)) continue;//ignore
+            if(/default\_/g.test(fpath)) continue;//ignore
             if(!/\.js$/.test(fpath)) fpath = fpath + '.js';
             fpath = pathUtil.resolve(sourcePath, fpath)
             let exist = fs.existsSync(fpath);

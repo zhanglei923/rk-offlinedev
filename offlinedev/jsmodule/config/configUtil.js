@@ -24,7 +24,7 @@ if(!fs.existsSync(configFilePath)){
     fs.writeFileSync(configFilePath, JSON.stringify(config));
 }else{
     config = fs.readFileSync(configFilePath, 'utf8');
-    config = JSON.parse(config)
+    eval('config='+config)
 }
 console.log('user-config:', config)
 //var parentFolder = pathutil.resolve(__dirname, '../../../../');
