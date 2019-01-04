@@ -4,6 +4,7 @@ var _ = require('lodash')
 var requester = require('sync-request');
 var jsonformatter = require('format-json');
 var localStatus = require('../config/statusUtil')
+var routerScript = require('./routerScript')
 var saveutil = require('../utils/url')
 var saveMockingData = require('./saveMockingData')
 let dataFolder = '../../mocking/';
@@ -44,6 +45,9 @@ module.exports = {
     getData: function(actionname, req){
         //console.log('actionname', actionname)
         //if(data_cache[actionname]) return data_cache[actionname]
+        let scriptdata = routerScript.getData(actionname, req);
+        if(scriptdata) return scriptdata;
+        //
         var oactionname = actionname;
         actionname = actionname.split('?')[0]
 
