@@ -1,7 +1,9 @@
 let urlUtil = require('./url');
 
-console.log(urlUtil.getSaveName('/json/save.action?name=zhang&age=30'))
-console.log(urlUtil.getSaveName('/json/save/'))
+let nick1 = urlUtil.getSaveName('/json/save.action?name=zhang&age=30');
+let nick2 = urlUtil.getSaveName('/json/save/')
+console.log(nick1)
+console.log(nick2)
 
 
 
