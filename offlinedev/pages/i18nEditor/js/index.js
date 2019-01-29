@@ -24,7 +24,9 @@ $(()=>{
     $('#importExcelBtn').click(()=>{
         import_popupImport();
     })
-    $('#exportExcelBtn')
+    $('#exportExcelBtn').click(()=>{
+        export_popupExport();
+    })
     $('#untransFilesBtn').click(()=>{
         do_filterByUntransFile()
     })
