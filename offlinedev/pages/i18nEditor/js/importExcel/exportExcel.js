@@ -20,12 +20,18 @@ export_popupExport = ()=>{
         content.html(contentHtml)
         footer.html(``)
         
+        let visiblerows = $('#table').find('tr.row[data-key]:visible')
+        let keys = {}
+        visiblerows.each((i,b)=>{
+            let k = b.getAttribute('data-key');
+            if(k)keys[k] = true;
+        })
         let nullEnItems = []
         for(let key in OriginSuperJson){
             let cn = OriginSuperJson[key].cn;
             let en = OriginSuperJson[key].en;
             if(!en || typeof en === 'undefined')
-            if(!/^designer\./.test(key) && !/^sc\./.test(key) && !/^XdMD/.test(key)) {
+            if(keys[key]) {
                 nullEnItems.push(key)
             }
         }
