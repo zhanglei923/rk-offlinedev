@@ -21,7 +21,7 @@ How to use:
 使用说明：
 1. 先确保你本机已经安装了最新的`node`和`git`。（如果已有请忽略）
 1. 先将`apps-ingage-web`工程clone到你本地的目录，并checkout到最新分支。（如果已有请忽略）
-1. 将offlinedev，也就是本工程clone到web工程所在的目录，也就是目录结构跟web工程必须是平行关系。
+1. 将offlinedev，也就是本工程clone到web工程所在的目录。也就是说rk-offlinedev工程和web工程必须是平行目录的关系。
 1. 打开命令行，进入新clone的`\rk-offlinedev`这个目录，执行这些命令：
  1. `npm install`，或者 `yarn install`
  1. 如果你是window系统，执行`node server.js`
