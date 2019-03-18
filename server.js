@@ -23,7 +23,8 @@ localStatus.init();
 
 var webPath = getConfig.getWebAppFolder();
 if(!fs.existsSync(webPath)){
-    console.error('FATAL ERROR: Folder not found:', webPath)
+    console.error('FATAL ERROR: default web project folder not found:', webPath)
+    console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
     return;
 } 
 //

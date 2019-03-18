@@ -16,7 +16,7 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
-let configFilePath = pathutil.resolve(projectFolder, './.user-config.json')
+let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let config = {
     webProjectPath: '',//default
 };
