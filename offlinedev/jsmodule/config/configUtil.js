@@ -26,10 +26,14 @@ if(!fs.existsSync(configFilePath)){
     config = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+config)
 }
-console.log('user-config:', config)
 //var parentFolder = pathutil.resolve(__dirname, '../../../../');
 var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
 var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+
+console.log('user-config=', config)
+console.log('web=', webroot)
+console.log('---')
+
 let thisUtil = {
     get: function (){
         return configJson;
