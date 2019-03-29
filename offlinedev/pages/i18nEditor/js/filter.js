@@ -11,6 +11,7 @@ let do_filterByRegex = ()=>{
     let type = $('#filterTypes').val() 
     let reg = $('#filterIpt').val();
     $('#filterResult').hide()
+    let reverse = $('#filterIpt_opposite').prop('checked');
     if(reg){
         try{
             reg = _.trim(reg);
@@ -30,6 +31,7 @@ let do_filterByRegex = ()=>{
                                 ok = false;
                             }                    
                     `);
+                    if(reverse) ok = !ok;
                     return ok;
                 };          
                 if(type === "key") {
