@@ -40,12 +40,8 @@ module.exports = {
             }
             cache[path] = jsContent;
             //console.log(fs.existsSync(fullfilepath), fullfilepath)
-            jsContent =   ''
-                        +   jsContent
-                        // + '\n/****'
-                        // + '\n Powered by rk-offlinedev:'
-                        // + '\n   https://github.com/zhanglei923/rk-offlinedev'
-                        // + '\n****/'
+            let injectScript = `;//Source: ${rootFolder}, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
+            jsContent =   injectScript + jsContent
             return jsContent;
         }else{
             return null;
