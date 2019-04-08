@@ -1,5 +1,6 @@
 let fs = require('fs')
 let pathUtil = require('path')
+let stripcomments = require('strip-comments')
 let getConfig = require('../config/configUtil')
 
 let webProjectPath = getConfig.getWebRoot()
@@ -38,8 +39,10 @@ module.exports = {
     },
     loadUntranslateds: ()=>{
         let untranslatedContent = fs.readFileSync(pathUtil.resolve(i18nPath, './untranslated.js'), 'utf8');
+        untranslatedContent = stripcomments(untranslatedContent);
         untranslatedContent = untranslatedContent.replace(/\bdefine\b/g, 'my_define');
         //console.log(untranslatedContent)
+        //fs.writeFileSync('./aha.js', untranslatedContent)
         
         let fpathList = []
         let my_define = (fun)=>{
