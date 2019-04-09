@@ -6,3 +6,4 @@ offlinedev/jsmodule/i18n/.save
 .config
 .user-config.json
 user-config.json
+package-lock.json
