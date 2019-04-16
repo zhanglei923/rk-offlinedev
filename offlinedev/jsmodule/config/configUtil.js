@@ -17,14 +17,18 @@ if(fs.existsSync(fpath)){
     console.log('Can not find:', fpath)
 }
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
-let config = {
+let defaultConfig = {
     webProjectPath: '',//default
+    i18nEditorVersion: 1
 };
+let config={};
 if(!fs.existsSync(configFilePath)){
+    config = defaultConfig;
     fs.writeFileSync(configFilePath, JSON.stringify(config));
 }else{
     config = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+config)
+    config = Object.assign(defaultConfig, config);
 }
 //var parentFolder = pathutil.resolve(__dirname, '../../../../');
 var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
