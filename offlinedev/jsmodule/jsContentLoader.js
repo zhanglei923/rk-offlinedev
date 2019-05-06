@@ -13,6 +13,7 @@ module.exports = {
         if(!fs.existsSync(fullfilepath)){
             console.log('nofile:', fullfilepath)
             callback(null);
+            return;
         }
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
