@@ -1,6 +1,7 @@
 //说明，这是离线开发的server
 var express = require('express');
 var exec = require('child_process');
+let compression = require('compression')
 var app = express();
 var fs = require('fs');
 var https = require('https');
@@ -48,8 +49,7 @@ var SSLPORT = 443;
 
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
-
-
+app.use(compression())//gzip
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

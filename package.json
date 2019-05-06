@@ -24,7 +24,8 @@
     "decomment": "^0.9.2",
     "strip-comments": "^1.0.2",
     "eachcontent-js":"^1.0.5",
-    "make-dir":"^3.0.0"
+    "make-dir":"^3.0.0",
+    "compression":"^1.7.4"
   },
   "devDependencies": {
     "babel-plugin-transform-runtime": "^6.23.0",
