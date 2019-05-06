@@ -53,7 +53,7 @@ var thisUtil = {
     getCurrentFileLink: (nickname)=>{
         var result = thisUtil.getFileLinkAction(nickname)
         var final;
-        console.log('getCurrentFileLink', nickname, result)
+        //console.log('getCurrentFileLink', nickname, result)
         result.forEach((re)=>{
             if(re.selected==='true' || re.selected===true) final = re.filepath;
         });

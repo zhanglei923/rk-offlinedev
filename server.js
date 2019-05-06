@@ -69,7 +69,7 @@ app.use(function (req, res, next) {
         var fpath = pathutil.resolve(__dirname, '.'+req.path)
         //var jscontent = fs.readFileSync(fpath, 'utf8'); 
         fs.readFile(fpath, {encoding:'utf8'}, (err, jscontent) => {
-            if (err) throw err;
+            if (err) res.sendStatus(402)
             if(/\.css$/.test(req.path))res.set('Content-Type', 'text/css; charset=UTF-8');
             if(/\.js$/.test(req.path))res.set('Content-Type', 'text/javascript; charset=UTF-8');
             res.send(jscontent);
