@@ -12,7 +12,7 @@ module.exports = {
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
             console.log('nofile:', fullfilepath)
-            return null;
+            callback(null);
         }
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
