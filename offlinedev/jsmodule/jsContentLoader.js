@@ -41,7 +41,7 @@ module.exports = {
                     console.log('  Warn: failed at transform es6:', e)
                     }
                 }
-                cache[path] = jsContent;
+                //cache[path] = jsContent;
                 //console.log(fs.existsSync(fullfilepath), fullfilepath)
                 let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 jsContent =   injectScript + jsContent
