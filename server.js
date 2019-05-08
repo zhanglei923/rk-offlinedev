@@ -22,6 +22,7 @@ var credentials = {key: privateKey, cert: certificate};
 getConfig.initFiles();//初始化配置
 localStatus.init();
 
+let userConfig = getConfig.getUserConfig();
 var webPath = getConfig.getWebAppFolder();
 if(!fs.existsSync(webPath)){
     console.error('FATAL ERROR: default web project folder not found:', webPath)
@@ -41,8 +42,8 @@ if(!fs.existsSync(webPath)){
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
-var PORT = 666;
-var SSLPORT = 443;
+var PORT = userConfig.http.port;
+var SSLPORT = userConfig.https.port;
 
 // app.use(bodyParser.urlencoded({ extended: false }))
 // app.use(bodyParser.json())

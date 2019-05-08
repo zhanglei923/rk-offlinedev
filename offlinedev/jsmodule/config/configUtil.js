@@ -19,7 +19,12 @@ if(fs.existsSync(fpath)){
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let defaultConfig = {
     webProjectPath: '',//default
-    i18nEditorVersion: 1
+    http:{
+        port: 666
+    },
+    https:{
+        port: 888
+    }
 };
 let config={};
 if(!fs.existsSync(configFilePath)){
@@ -39,6 +44,9 @@ console.log('web=', webroot)
 console.log('---')
 
 let thisUtil = {
+    getUserConfig: function(){
+        return config;
+    },
     get: function (){
         return configJson;
     },
