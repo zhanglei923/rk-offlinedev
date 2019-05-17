@@ -86,8 +86,8 @@ app.use(function (req, res, next) {
     if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
         if(/\.js$/.test(req.path)){
             res.set('Content-Type', 'text/javascript');
-            jsContentLoader.update(req.path, (jscontent)=>{
-                jscontent ? res.send(jscontent) : res.sendStatus(404);
+            jsContentLoader.loadJs(req.path, (jscontent)=>{
+                jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
             })
             return;           
         }else{
@@ -96,6 +96,12 @@ app.use(function (req, res, next) {
         //next();
         return;
         //res.send();
+    }else if(/\.tpl$/.test(req.path)) {
+        res.set('Content-Type', 'text/html');
+        jsContentLoader.loadTpl(req.path, (jscontent)=>{
+            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+        })
+        return;   
     }
     next();
 });
