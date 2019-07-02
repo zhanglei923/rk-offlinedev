@@ -7,7 +7,6 @@ let webProjectPath = getConfig.getWebRoot()
 let webappPath = pathUtil.resolve(webProjectPath, './src/main/webapp')
 let sourcePath = pathUtil.resolve(webappPath, './static/source')
 let i18nPath = pathUtil.resolve(sourcePath, './core/i18n')
-let i18nPath_CN = pathUtil.resolve(i18nPath, './all_zh-cn')
 
 let $ = {extend:()=>{}}
 
@@ -39,7 +38,7 @@ module.exports = {
         return alljson;
     },
     loadUntranslateds: ()=>{
-        let untranslatedContent = fs.readFileSync(pathUtil.resolve(i18nPath_CN, './loader.js'), 'utf8');
+        let untranslatedContent = fs.readFileSync(pathUtil.resolve(i18nPath, './untranslated.js'), 'utf8');
         untranslatedContent = stripcomments(untranslatedContent);
         untranslatedContent = untranslatedContent.replace(/\bdefine\b/g, 'my_define');
         //console.log(untranslatedContent)
@@ -62,10 +61,9 @@ module.exports = {
         for(var i=0;i<fpathList.length;i++){
             let fpath = fpathList[i];
             if(/\{/g.test(fpath)) continue;//ignore
-            //if(/default\_/g.test(fpath)) continue;//ignore
-            if(/\/sys\//g.test(fpath)) continue;//ignore
+            if(/default\_/g.test(fpath)) continue;//ignore
             if(!/\.js$/.test(fpath)) fpath = fpath + '.js';
-            fpath = pathUtil.resolve(i18nPath_CN, fpath)
+            fpath = pathUtil.resolve(sourcePath, fpath)
             let exist = fs.existsSync(fpath);
             if(!exist) console.log('[ERROR]File not exist: ', fpath)
             usefulPathList.push(fpath)

@@ -23,7 +23,7 @@ let defaultConfig = {
         port: 666
     },
     https:{
-        port: 888
+        port: 443
     }
 };
 let config={};

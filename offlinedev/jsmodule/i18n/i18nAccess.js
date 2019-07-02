@@ -26,7 +26,7 @@ module.exports = {
         let all = {}
         allLangList.forEach((o)=>{     
             var langCode = o.fname;  
-            let fpath = i18nFolder+`/${langCode}/base/base.js`
+            let fpath = i18nFolder+`/${langCode}.js`
             let json = {}
             if(fs.existsSync(fpath)) {
                 let content = fs.readFileSync(fpath, 'utf8');
