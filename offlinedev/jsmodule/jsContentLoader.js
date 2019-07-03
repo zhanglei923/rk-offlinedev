@@ -28,6 +28,7 @@ module.exports = {
         });
     },
     loadJs: function (path, callback){
+        //return require('./jsContentLoader2').loadJs(path, callback);
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path

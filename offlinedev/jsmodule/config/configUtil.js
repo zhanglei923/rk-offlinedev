@@ -1,5 +1,10 @@
 var fs = require('fs');
 var pathutil = require('path');
+var makeDir = require('make-dir');
+
+var rootpath = pathutil.resolve(__dirname, '../../');
+let tmp_folder = pathutil.resolve(rootpath, '../tmp');
+makeDir.sync(tmp_folder);
 
 var configJson;
 
@@ -67,6 +72,9 @@ let thisUtil = {
     },
     getSourceFolder: function(){
         return this.getStaticFolder() + '/source';
+    },
+    getMasterTmpFolder: ()=>{
+        return tmp_folder;
     },
     initFiles: function(){
         var webpath = webappFolder;
