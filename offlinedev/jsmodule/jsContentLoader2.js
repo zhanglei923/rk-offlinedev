@@ -69,7 +69,7 @@ let thisUtil = {
                         //fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));
                         }catch(e){
                             jsContent = script;
-                            console.log('  Warn: failed at transform es6:', e)
+                            console.log(`  Warn: ${fullfilepath} failed at transform es6:`, e)
                         }
                         fs.writeFileSync(tmp_filepath, jsContent);
                     }else{
