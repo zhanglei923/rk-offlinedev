@@ -52,6 +52,7 @@ let thisUtil = {
                     let isDirty = thisUtil.md5Map[fullfilepath] !== md5;
                     //console.log(isDirty, fullfilepathname)
                     let tmp_filepath = pathutil.resolve(my_tmp_folder, fullfilepathname);
+                    if(!fs.existsSync(tmp_filepath)) isDirty = true;//防止意外删除或丢失了
                     if(isDirty){
                         var script = jsContent.toString();
                         try{
