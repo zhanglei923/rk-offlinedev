@@ -49,10 +49,10 @@ let thisUtil = {
             if(jsContent){            
                 if(!fullfilepath.match(/sea\.js/g)&&!fullfilepath.match(/\/lib\//g)){
                     let md5 = blueimp_md5(jsContent)
-                    let isDirty = thisUtil.md5Map[fullfilepath] !== md5;
+                    let fullfilepathname2 = md5;
                     //console.log(isDirty, fullfilepathname)
-                    let tmp_filepath = pathutil.resolve(my_tmp_folder, fullfilepathname);
-                    if(!fs.existsSync(tmp_filepath)) isDirty = true;//防止意外删除或丢失了
+                    let tmp_filepath = pathutil.resolve(my_tmp_folder, fullfilepathname2);
+                    let isDirty = !fs.existsSync(tmp_filepath);
                     if(isDirty){
                         var script = jsContent.toString();
                         try{
