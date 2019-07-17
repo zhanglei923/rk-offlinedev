@@ -29,6 +29,9 @@ let defaultConfig = {
     },
     https:{
         port: 443
+    },
+    es6:{
+        autoTransformJs: false
     }
 };
 let config={};

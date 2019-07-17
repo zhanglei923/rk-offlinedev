@@ -3,6 +3,8 @@ var pathutil = require('path');
 var babel = require("babel-core");
 var getConfig = require('./config/configUtil')
 
+let userConfig = getConfig.getUserConfig();
+
 var cache = {}
 
 module.exports = {
@@ -28,7 +30,7 @@ module.exports = {
         });
     },
     loadJs: function (path, callback){
-        //return require('./jsContentLoader2').loadJs(path, callback);
+        if(userConfig.es6.autoTransformJs) return require('./jsContentLoader2').loadJs(path, callback);
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
