@@ -1,6 +1,5 @@
 //说明，这是离线开发的server
 var express = require('express');
-var exec = require('child_process');
 let compression = require('compression')
 var app = express();
 var fs = require('fs');
@@ -12,7 +11,6 @@ var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
 var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
-var jsContentLoader = require('./offlinedev/jsmodule/jsContentLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
@@ -78,33 +76,8 @@ app.use(function (req, res, next) {
           });
         return;
     }
-    res.set('About-rk-offlinedev', 'This Is Mocking Data!');
-    if(req.originalUrl === '/'){
-        var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
-        res.send(html);
-        return;
-    }
-    if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
-        if(/\.js$/.test(req.path)){
-            res.set('Content-Type', 'text/javascript');
-            jsContentLoader.loadJs(req.path, (jscontent)=>{
-                jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
-            })
-            return;           
-        }else{
-            next()
-        }
-        //next();
-        return;
-        //res.send();
-    }else if(/\.tpl$/.test(req.path)) {
-        res.set('Content-Type', 'text/html');
-        jsContentLoader.loadTpl(req.path, (jscontent)=>{
-            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
-        })
-        return;   
-    }
-    next();
+    const static_proxy = require('./static-proxy');
+    static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行

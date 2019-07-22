@@ -1,18 +1,12 @@
 //说明，这是离线开发的server
 var express = require('express');
-var exec = require('child_process');
 let compression = require('compression')
 var app = express();
 var fs = require('fs');
 var https = require('https');
 var http = require('http');
-var URL = require('url');
 var bodyParser = require('body-parser')
 var _ = require('lodash')
-var pathutil = require('path');
-var Handlebars = require('handlebars');
-var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
-var jsContentLoader = require('./offlinedev/jsmodule/jsContentLoader')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
@@ -28,16 +22,7 @@ if(!fs.existsSync(webPath)){
     console.error('FATAL ERROR: default web project folder not found:', webPath)
     console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
     return;
-} 
-//
-[
-    pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/files/'),
-    pathutil.resolve(__dirname,'./offlinedev/mocking/files-refinfo/'),     
-].forEach((folderpath)=>{
-    if (!fs.existsSync(folderpath)){fs.mkdirSync(folderpath)}
-})
+}
 
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
@@ -63,28 +48,8 @@ app.all('*', function(req, res, next) {
 
 //全局拦截器
 app.use(function (req, res, next) {
-    res.set('About-rk-offlinedev', 'This Is Mocking Data!');
-    if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
-        if(/\.js$/.test(req.path)){
-            res.set('Content-Type', 'text/javascript');
-            jsContentLoader.loadJs(req.path, (jscontent)=>{
-                jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
-            })
-            return;           
-        }else{
-            next()
-        }
-        //next();
-        return;
-        //res.send();
-    }else if(/\.tpl$/.test(req.path)) {
-        res.set('Content-Type', 'text/html');
-        jsContentLoader.loadTpl(req.path, (jscontent)=>{
-            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
-        })
-        return;   
-    }
-    next();
+    const static_proxy = require('./static-proxy');
+    static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
