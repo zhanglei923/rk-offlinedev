@@ -48,8 +48,11 @@ if(!fs.existsSync(configFilePath)){
 var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
 var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 
-console.log('user-config=', config)
-console.log('web=', webroot)
+var static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
+
+console.log('[user-config]=', JSON.stringify(config))
+console.log('[web-root]=', webroot)
+console.log('[static-root]=', static_project_root)
 console.log('---')
 
 let thisUtil = {
@@ -72,7 +75,7 @@ let thisUtil = {
         return webappFolder;
     },
     getStaticFolder: function(){
-        return this.getWebAppFolder() + '/static';
+        return static_project_root;
     },
     getSourceFolder: function(){
         return this.getStaticFolder() + '/source';

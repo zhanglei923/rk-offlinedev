@@ -228,13 +228,11 @@ module.exports = {
             var port = server.address().port;
             
             console.log('HTTP http://localhost:%s', port);
-            //exec.exec('start http://localhost:'+port);
         });
     }, 
     startHttps:()=>{
         httpsServer.listen(SSLPORT, function() {
             console.log('HTTPS: https://localhost:%s', SSLPORT);
-            console.log('----------')
         });
     }
 }

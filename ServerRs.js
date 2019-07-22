@@ -67,13 +67,12 @@ module.exports = {
             var host = server.address().address;
             var port = server.address().port;
             
-            console.log('HTTP http://localhost:%s', port);
-            //exec.exec('start http://localhost:'+port);
+            console.log('STATIC http://localhost:%s', port);
         });
     }, 
     startHttps:()=>{
         httpsServer.listen(SSLPORT, function() {
-            console.log('HTTPS: https://localhost:%s', SSLPORT);
+            console.log('STATICs: https://localhost:%s', SSLPORT);
             console.log('----------')
         });
     }
