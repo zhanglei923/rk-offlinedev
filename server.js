@@ -65,6 +65,7 @@ var loadMockingData = require('./offlinedev/jsmodule/mocking/loadMockingData')
 
 //全局拦截器
 app.use(function (req, res, next) {
+    if(req.method.toUpperCase() !== 'GET') next();//不处理非get请求
     res.set('Cache-Control', 'no-cache')
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
         var fpath = pathutil.resolve(__dirname, '.'+req.path)
