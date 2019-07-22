@@ -58,15 +58,23 @@ app.get('*', function(req, res, next) {
     next()
 });
 
-//启动
-var server = httpServer.listen(PORT, function() {
-    var host = server.address().address;
-    var port = server.address().port;
-    
-    console.log('HTTP http://localhost:%s', port);
-    //exec.exec('start http://localhost:'+port);
-});
-httpsServer.listen(SSLPORT, function() {
-    console.log('HTTPS: https://localhost:%s', SSLPORT);
-    console.log('----------')
-});
+// //启动
+
+
+module.exports = {
+    startHttp:()=>{
+        var server = httpServer.listen(PORT, function() {
+            var host = server.address().address;
+            var port = server.address().port;
+            
+            console.log('HTTP http://localhost:%s', port);
+            //exec.exec('start http://localhost:'+port);
+        });
+    }, 
+    startHttps:()=>{
+        httpsServer.listen(SSLPORT, function() {
+            console.log('HTTPS: https://localhost:%s', SSLPORT);
+            console.log('----------')
+        });
+    }
+}
