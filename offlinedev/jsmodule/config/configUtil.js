@@ -24,6 +24,7 @@ if(fs.existsSync(fpath)){
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let defaultConfig = {
     webProjectPath: '',//default
+    staticProjectPath: '',//default
     http:{
         port: 666
     },
