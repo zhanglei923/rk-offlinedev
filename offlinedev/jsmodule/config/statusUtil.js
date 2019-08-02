@@ -9,6 +9,7 @@ module.exports = {
         var rootpath = pathutil.resolve(__dirname, '../../');
         var path = rootpath + '/' + '.localStatus'
         configpath = path;
+        console.log('load: localStatus')
         if(!fs.existsSync(path)){
             fs.writeFileSync(path, JSON.stringify(config));
         }else{
