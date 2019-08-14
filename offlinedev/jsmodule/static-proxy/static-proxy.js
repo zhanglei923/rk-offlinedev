@@ -1,4 +1,6 @@
+var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
+var webappFolder = getConfig.getWebAppFolder()
 
 let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
@@ -11,7 +13,8 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path) || /\.css$/.test(req_path)) {
         if(/\.js$/.test(req_path)){
             res.set('Content-Type', 'text/javascript');
-            staticFileLoader.loadJs(req_path, (jscontent)=>{
+            let root = webappFolder;
+            staticFileLoader.loadJs(root, req_path, (jscontent)=>{
                 jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
             })
             return;           
@@ -23,7 +26,8 @@ let linkToStaticFile = (req, res, next) => {
         //res.send();
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
-        staticFileLoader.loadTpl(req_path, (jscontent)=>{
+        let root = webappFolder;
+        staticFileLoader.loadTpl(root, req_path, (jscontent)=>{
             jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
         })
         return;   

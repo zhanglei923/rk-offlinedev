@@ -9,9 +9,8 @@ let userConfig = getConfig.getUserConfig();
 var cache = {}
 
 module.exports = {
-    loadTpl: function(path, callback){
+    loadTpl: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
             console.log('no-tpl-file:', fullfilepath)
@@ -30,10 +29,9 @@ module.exports = {
             }
         });
     },
-    loadJs: function (path, callback){
-        if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(path, callback);
+    loadJs: function (rootFolder, path, callback){
+        if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(rootFolder, path, callback);
         //if(cache[path]) return cache[path];
-        var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file1:', fullfilepath)

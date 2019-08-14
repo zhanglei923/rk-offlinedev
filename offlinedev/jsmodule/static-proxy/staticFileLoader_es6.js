@@ -12,9 +12,8 @@ var cache = {}
 
 let thisUtil = {
     md5Map:{},
-    loadJs: function (path, callback){
+    loadJs: function (rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file2:', fullfilepath)
