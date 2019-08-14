@@ -17,9 +17,6 @@ var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
 var credentials = {key: privateKey, cert: certificate};
 
-getConfig.initFiles();//初始化配置
-localStatus.init();
-
 let userConfig = getConfig.getUserConfig();
 var webPath = getConfig.getWebAppFolder();
 if(!fs.existsSync(webPath)){
