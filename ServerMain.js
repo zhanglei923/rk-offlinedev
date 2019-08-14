@@ -80,7 +80,7 @@ app.use(function (req, res, next) {
           });
         return;
     }
-    const static_proxy = require('./static-proxy');
+    const static_proxy = require('./offlinedev/static-proxy/static-proxy');
     static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web

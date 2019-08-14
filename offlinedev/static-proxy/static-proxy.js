@@ -1,4 +1,4 @@
-var jsContentLoader = require('./offlinedev/jsmodule/jsContentLoader')
+var jsContentLoader = require('../jsmodule/jsContentLoader')
 
 let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
