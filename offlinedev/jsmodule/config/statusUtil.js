@@ -1,13 +1,12 @@
 var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
-var rootpath = pathutil.resolve(__dirname, '../../');
+var rootpath = pathutil.resolve(__dirname, '../../../tmp');
 var config = {};
 var configpath;
 module.exports = {
     init: function(){
-        var rootpath = pathutil.resolve(__dirname, '../../');
-        var path = rootpath + '/' + '.localStatus'
+        var path = pathutil.resolve(rootpath, './localStatus.data') //rootpath + '/' + '.localStatus'
         configpath = path;
         console.log('load: localStatus')
         if(!fs.existsSync(path)){

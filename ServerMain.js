@@ -28,12 +28,17 @@ if(!fs.existsSync(webPath)){
     return;
 } 
 //
-[
+let masterFolder = pathutil.resolve(__dirname, './');
+let httpConsoleFolder = pathutil.resolve(masterFolder, './http-console');
+
+let mockingPath = [];
+mockingPath = mockingPath.concat([
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions-local/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/actions/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/files/'),
     pathutil.resolve(__dirname,'./offlinedev/mocking/files-refinfo/'),     
-].forEach((folderpath)=>{
+]);
+mockingPath.forEach((folderpath)=>{
     if (!fs.existsSync(folderpath)){fs.mkdirSync(folderpath)}
 })
 
@@ -85,6 +90,7 @@ app.use(function (req, res, next) {
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
+app.use('/http-console', express.static(pathutil.resolve(httpConsoleFolder, './website')));
 var apiRouter = require('./offlinedev/jsmodule/apiRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;
