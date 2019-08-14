@@ -70,8 +70,9 @@ var loadMockingData = require('./offlinedev/jsmodule/mocking/loadMockingData')
 app.use(function (req, res, next) {
     res.set('Cache-Control', 'no-cache');
     if(req.originalUrl === '/'){
-        var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
-        res.send(html);
+        // var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
+        // res.send(html);
+        res.redirect('/http-console');
         return;
     }
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
