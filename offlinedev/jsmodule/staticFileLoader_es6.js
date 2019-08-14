@@ -6,7 +6,7 @@ var makeDir = require('make-dir');
 var getConfig = require('./config/configUtil')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
-let my_tmp_folder = pathutil.resolve(tmp_folder, './jsContentLoader')
+let my_tmp_folder = pathutil.resolve(tmp_folder, './staticFileLoader')
 makeDir.sync(my_tmp_folder);
 var cache = {}
 
@@ -44,6 +44,7 @@ let thisUtil = {
                         })
                         //console.log('map', result.map)
                         jsContent = result.code;
+                        jsContent = `//[offlinedev]Babel transformed es6->es5\n` + jsContent;
                         jsContent = jsContent.replace(/\"use\sstrict\"\;/,'')
                         jsContent = jsContent.replace(/^\s{1,}/,'')
                         //fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));

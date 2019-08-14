@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var babel = require("babel-core");
 var getConfig = require('./config/configUtil')
+let staticFileLoader_es6 = require('./staticFileLoader_es6')
 
 let userConfig = getConfig.getUserConfig();
 
@@ -30,7 +31,7 @@ module.exports = {
         });
     },
     loadJs: function (path, callback){
-        if(userConfig.es6.autoTransformJs) return require('./jsES6Loader').loadJs(path, callback);
+        if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(path, callback);
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
