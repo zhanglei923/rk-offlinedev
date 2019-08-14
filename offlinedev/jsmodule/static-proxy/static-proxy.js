@@ -10,24 +10,20 @@ let linkToStaticFile = (req, res, next) => {
         next();
         return;
     }
-    if(/\.js$/.test(req_path) || /\.css$/.test(req_path)) {
-        if(/\.js$/.test(req_path)){
-            res.set('Content-Type', 'text/javascript');
-            let root = webappFolder;
-            if(req_path.match(/^\/static\/source\/products\/creekflow\//)) {
-                console.log('req_path=',req_path)
-                root = 'E:/workspaceGerrit/_sub_sepration_test/xsy-static-product_creekflow'
-            }
-            staticFileLoader.loadJs(root, req_path, (jscontent)=>{
-                jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
-            })
-            return;           
-        }else{
-            next();//css
+    if(/\.js$/.test(req_path)){
+        res.set('Content-Type', 'text/javascript');
+        let root = webappFolder;
+        if(req_path.match(/^\/static\/source\/products\/creekflow\//)) {
+            console.log('req_path=',req_path)
+            root = 'E:/workspaceGerrit/_sub_sepration_test/xsy-static-product_creekflow'
         }
-        //next();
+        staticFileLoader.loadJs(root, req_path, (jscontent)=>{
+            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+        })
+        return;           
+    }else if(/\.css$/.test(req_path)){
+        next();//css
         return;
-        //res.send();
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
         let root = webappFolder;
