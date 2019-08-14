@@ -69,7 +69,7 @@ var thisUtil = {
         if(fs.existsSync(abspath)){
             //console.log('existsSync', abspath,)
             var data = fs.readFileSync(abspath, 'utf8');
-            console.log('data', data)
+            //console.log('data', data)
             if(data){
                 return data;
             }

@@ -12,7 +12,7 @@ var loadMockingData = require('./mocking/loadMockingData')
 var saveMockingData = require('./mocking/saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
-        console.log('req.originalUrl:', req.originalUrl)
+        console.log('[req]', req.originalUrl)
         if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
             var prjpath = req.body.prjpath
             let ok = webprojectUtil.updateWebProjectPath(prjpath)
