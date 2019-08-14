@@ -48,6 +48,7 @@ $.ajax({
           $('#branchname').text(result.branchName)
           $('#webpath').html(`${result.isCustomizedWebRoot?'自定义:':''} ${result.webpath}`)
           if(result.isCustomizedWebRoot)$('#webpath').addClass('user-config')
+          showInfomation(result);
         },
         error:function(ajaxObj,msg,err){
         }

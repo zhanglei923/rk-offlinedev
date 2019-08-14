@@ -6,19 +6,22 @@
 </head>
 <body>
 <div>
-  <b><img class="Rotation logo" alt="logo" style="" src="./pages/img/fet.jpg" />
-  欢迎！！Web端离线开发工具</b>
+  <b style="font-size: 14px;">
+      <img class="Rotation logo" alt="logo" src="./pages/img/fet.jpg" />
+      <span>欢迎！！Web端离线开发工具</span>
+  </b>
   <div class="about">
     说明： 
-    <br>-访问共享目录：\\10.10.0.115\share\，找到“离线开发模拟数据”目录
-    <br>-将mocking目录的内容拷贝到本地工程的./offlinedev/mocking目录下即可
-    <br>-然后选择页面入口里的页面点进去就可以看了
-    <br>-注意，所有交互都是假数据，因此业务操作是无任何效果或反馈的
+    <ul>
+      <li>访问共享目录：\\10.10.0.115\share\，找到“离线开发模拟数据”目录</li>
+      <li>将mocking目录的内容拷贝到本地工程的./offlinedev/mocking目录下即可</li>
+      <li>然后选择页面入口里的页面点进去就可以看了</li>
+      <li>注意，所有交互都是假数据，因此业务操作是无任何效果或反馈的</li>
+    </ul>
   </div>
   <div class="body">
     <span>
-      分支：<span id="branchname" class="branchname">Scaning...</span>，
-      目录：<span id="webpath" class="branchname" title="在rk-offline的根目录user-config.json里，加webProjectPath属性定义自己的web路径，重启生效">Scaning...</span>，
+      <div id="infomation" class="infomation">Scaning...</div>
     </span>
     <!-- 选择模拟数据： -->
     <span>
@@ -62,6 +65,7 @@
   <script src="./lib/js/jquery.min.js"></script>
   <script src="./lib/js/lodash.min.js"></script>
   <script src="./lib/js/moment.min.js"></script>
+  <script src="./index/infomation.js"></script>
   <script src="./index.js"></script>
 </body>
 </html>
