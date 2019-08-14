@@ -2,15 +2,16 @@ var staticFileLoader = require('./staticFileLoader')
 
 let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
+    let req_path = req.path;
     //console.log(req.path)
-    if(req.path.match(/^\/http\-console/)){
+    if(req_path.match(/^\/http\-console/)){
         next();
         return;
     }
-    if(/\.js$/.test(req.path) || /\.css$/.test(req.path)) {
-        if(/\.js$/.test(req.path)){
+    if(/\.js$/.test(req_path) || /\.css$/.test(req_path)) {
+        if(/\.js$/.test(req_path)){
             res.set('Content-Type', 'text/javascript');
-            staticFileLoader.loadJs(req.path, (jscontent)=>{
+            staticFileLoader.loadJs(req_path, (jscontent)=>{
                 jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
             })
             return;           
@@ -20,9 +21,9 @@ let linkToStaticFile = (req, res, next) => {
         //next();
         return;
         //res.send();
-    }else if(/\.tpl$/.test(req.path)) {
+    }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
-        staticFileLoader.loadTpl(req.path, (jscontent)=>{
+        staticFileLoader.loadTpl(req_path, (jscontent)=>{
             jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
         })
         return;   
