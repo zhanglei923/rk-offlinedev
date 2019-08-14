@@ -41,7 +41,9 @@ module.exports = {
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             if (err) jsContent=null;                
-            if(jsContent){            
+            if(jsContent === ''){
+                callback('');
+            }else if(jsContent){            
                 if(/\.es6\.js$/.test(path)){
                     var script = jsContent.toString();
                     try{

@@ -23,8 +23,10 @@ let thisUtil = {
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             let fullfilepathname = fullfilepath.replace(/[\\]{1,}/g,'~').replace(/\/{1,}/g,'~').replace(/\:{1,}/g,'~')
-            if (err) jsContent=null;                
-            if(jsContent){            
+            if (err) jsContent=null;
+            if(jsContent === ''){
+                callback('');
+            }else if(jsContent){            
                 if(!fullfilepath.match(/sea\.js/g)&&!fullfilepath.match(/\/lib\//g)){
                     let md5 = blueimp_md5(jsContent)
                     let fullfilepathname2 = md5;
