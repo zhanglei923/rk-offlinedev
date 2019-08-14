@@ -36,7 +36,7 @@ module.exports = {
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
-            console.log('no-js-file:', fullfilepath)
+            console.log('no-js-file1:', fullfilepath)
             callback(null);
             return;
         }

@@ -15,7 +15,7 @@ let linkToStaticFile = (req, res, next) => {
             })
             return;           
         }else{
-            next()
+            next();//css
         }
         //next();
         return;
