@@ -13,10 +13,10 @@
     position: fixed;
     right: 0;
     bottom: 0;
-    background: -webkit-linear-gradient(#83f983, #4242a0) !important;
-    background: -o-linear-gradient(#83f983, #4242a0) !important;
-    background: -moz-linear-gradient(#83f983, #4242a0) !important;
-    background: linear-gradient(#83f983, #4242a0) !important;
+    background: -webkit-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -o-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -moz-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: linear-gradient(#d5ffd5, #cacaff) !important;
     width: 450px;
     font-size: 11px;
     color: #f36f2d;
@@ -68,6 +68,9 @@
 }
 .infomation .user-config{
     color:red;
+}
+table td{
+    padding-left: 14px;
 }
 .infomation table {
     /* border: 1px solid #eee; */
