@@ -70,8 +70,6 @@ var loadMockingData = require('./offlinedev/jsmodule/mocking/loadMockingData')
 app.use(function (req, res, next) {
     res.set('Cache-Control', 'no-cache');
     if(req.originalUrl === '/'){
-        // var html = fs.readFileSync(__dirname +'/offlinedev/welcome.html', 'utf8');
-        // res.send(html);
         res.redirect('/http-console');
         return;
     }
@@ -79,17 +77,6 @@ app.use(function (req, res, next) {
         next();
         return;
     }
-    // if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
-    //     var fpath = pathutil.resolve(__dirname, '.'+req.path)
-    //     //var jscontent = fs.readFileSync(fpath, 'utf8'); 
-    //     fs.readFile(fpath, {encoding:'utf8'}, (err, jscontent) => {
-    //         if (err) res.sendStatus(402)
-    //         if(/\.css$/.test(req.path))res.set('Content-Type', 'text/css; charset=UTF-8');
-    //         if(/\.js$/.test(req.path))res.set('Content-Type', 'text/javascript; charset=UTF-8');
-    //         res.send(jscontent);
-    //       });
-    //     return;
-    // }
     const static_proxy = require('./offlinedev/static-proxy/static-proxy');
     static_proxy.linkToStaticFile(req, res, next)
 });
