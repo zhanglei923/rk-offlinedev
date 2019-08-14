@@ -45,7 +45,7 @@ app.all('*', function(req, res, next) {
 
 //全局拦截器
 app.use(function (req, res, next) {
-    const static_proxy = require('./offlinedev/static-proxy/static-proxy');
+    const static_proxy = require('./offlinedev/jsmodule/static-proxy/static-proxy');
     static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web

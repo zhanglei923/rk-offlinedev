@@ -3,7 +3,7 @@ var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
 var babel = require("babel-core");
 var makeDir = require('make-dir');
-var getConfig = require('./config/configUtil')
+var getConfig = require('../config/configUtil')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
 let my_tmp_folder = pathutil.resolve(tmp_folder, './staticFileLoader')

@@ -10,7 +10,7 @@ var bodyParser = require('body-parser')
 var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
-var updateStaticsUrl = require('./offlinedev/jsmodule/updateStaticsUrl')
+var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updateStaticsUrl')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
@@ -74,7 +74,7 @@ app.use(function (req, res, next) {
         next();
         return;
     }
-    const static_proxy = require('./offlinedev/static-proxy/static-proxy');
+    const static_proxy = require('./offlinedev/jsmodule/static-proxy/static-proxy');
     static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web

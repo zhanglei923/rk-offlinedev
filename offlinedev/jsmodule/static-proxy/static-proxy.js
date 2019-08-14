@@ -1,4 +1,4 @@
-var staticFileLoader = require('../jsmodule/staticFileLoader')
+var staticFileLoader = require('./staticFileLoader')
 
 let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
