@@ -1,3 +1,4 @@
+let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 var webappFolder = getConfig.getWebAppFolder()
@@ -13,9 +14,9 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
         let root = webappFolder;
-        if(req_path.match(/^\/static\/source\/products\/creekflow\//)) {
-            console.log('req_path=',req_path)
-            root = 'E:/workspaceGerrit/_sub_sepration_test/xsy-static-product_creekflow'
+        let localfolder = staticFilter.getLocalPath(req_path);
+        if(localfolder) {
+            root = localfolder;
         }
         staticFileLoader.loadJs(root, req_path, (jscontent)=>{
             jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
