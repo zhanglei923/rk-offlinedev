@@ -1,4 +1,62 @@
-body{
-    background-color: #131313;
-    color:#fff9e2;
-}
+*{
+    margin: 0; padding: 0;
+  }
+  hr{
+    margin:4px 0 4px 0;
+    height:1px;border:none;border-top:1px dashed #DDD;
+  }
+    .about{
+    background-color: #fbfb97;
+    width: 900px;
+    font-size: 11px;
+    color: #f36f2d;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    }
+    .download-btn{
+      background-color: #61bd61;
+      color:white;
+    }
+    .download-btn.busy{
+      background-color: red;
+      color:white;
+    }
+    @-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+    }
+
+    .Rotation{
+      -webkit-transform: rotate(360deg);
+      animation: rotation 1s linear infinite;
+      -moz-animation: rotation 1s linear infinite;
+      -webkit-animation: rotation 1s linear infinite;
+      -o-animation: rotation 1s linear infinite;
+      }
+
+  .logo{
+    border-radius: 250px;
+    width:32px;
+    margin-top: 7px;
+    margin-left: 7px;
+  }
+  .branchname{
+     color:blue;
+  }
+  .body{
+    margin-left: 20px;
+  }
+  .visithistory{
+    max-width: 500px;
+  }
+  .visithistory li{
+    display: block;
+     list-sytle:none;
+     padding-left: 20px;
+    font-size: 11px;
+  }
+  #webpath.user-config{
+    color:red;
+  }

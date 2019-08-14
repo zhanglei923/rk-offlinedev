@@ -2,70 +2,7 @@
 <html>
 <head>
     <title>离线开发- 首页</title>
-    <style>
-    *{
-      margin: 0; padding: 0;
-    }
-    hr{
-      margin:4px 0 4px 0;
-      height:1px;border:none;border-top:1px dashed #DDD;
-    }
-      .about{
-      background-color: #fbfb97;
-      width: 900px;
-      font-size: 11px;
-      color: #f36f2d;
-      font-weight: bold;
-      margin-left: 20px;
-      margin-top: 20px;
-      margin-bottom: 20px;
-      }
-      .download-btn{
-        background-color: #61bd61;
-        color:white;
-      }
-      .download-btn.busy{
-        background-color: red;
-        color:white;
-      }
-      @-webkit-keyframes rotation{
-      from {-webkit-transform: rotate(0deg);}
-      to {-webkit-transform: rotate(360deg);}
-      }
-
-      .Rotation{
-        -webkit-transform: rotate(360deg);
-        animation: rotation 1s linear infinite;
-        -moz-animation: rotation 1s linear infinite;
-        -webkit-animation: rotation 1s linear infinite;
-        -o-animation: rotation 1s linear infinite;
-        }
-
-    .logo{
-      border-radius: 250px;
-      width:32px;
-      margin-top: 7px;
-      margin-left: 7px;
-    }
-    .branchname{
-       color:blue;
-    }
-    .body{
-      margin-left: 20px;
-    }
-    .visithistory{
-      max-width: 500px;
-    }
-    .visithistory li{
-      display: block;
-       list-sytle:none;
-       padding-left: 20px;
-      font-size: 11px;
-    }
-    #webpath.user-config{
-      color:red;
-    }
-    </style>
+    <link rel="stylesheet" href="./index.css" />
 </head>
 <body>
     
@@ -121,121 +58,12 @@
       <span id="visithistory" class="visithistory"></span>
     </div>
   </div>
-  <script src="./offlinedev/pages/js/jquery.min.js"></script>
   <script type="text/javascript">
-    var ls_key = 'offlinedev_casename'
-
-    $('#caseselect').on('change', function(){
-      var casename = $(this).val();
-      localStorage.setItem(ls_key, casename);
-    })
-    $('#webpath').on('change', function(){
-      var webprojectpath = $(this).val();
-      //console.log(webprojectpath)
-      saveWebProjectPath(webprojectpath)
-    })
-    $.ajax({
-            url: 'http://10.10.0.115:3004/offlinedev/folders',
-            jsonp: "callback",
-            jsonpCallback:"Callback",
-            dataType: "jsonp",
-            cache: false,
-            timeout: 2500,
-            data: {},
-            success: function( response ) {
-                console.log(response)
-                var data = JSON.parse(response);
-                console.log(data)
-                var html = ''// '<option value="">LOCAL</option>'
-                data.forEach(function(name){
-                  name = name.replace(/\/{1,}/g,'');
-                  html += '<option value="'+name+'">[115]:' +name+ '</option>'
-                })
-                $('#caseselect').html(html)
-                $('#caseselect').val(localStorage.getItem(ls_key))
-            },
-            error:function(ajaxObj,msg,err){
-              $('#caseselect').replaceWith('<span style="color:red">115 is out-of-service.</span>')
-              $('#download-btn').remove();
-            },
-            complete: function(){
-              
-            }
-        });
-    $.ajax({
-            url: '/offlinedev/api/getWebProjectInfo/',
-            cache: false,
-            method: 'POST',
-            data: {},
-            success: function( response ) {
-              console.log(response)
-              let result = response.result;
-              $('#branchname').text(result.branchName)
-              $('#webpath').html(`${result.isCustomizedWebRoot?'自定义:':''} ${result.webpath}`)
-              if(result.isCustomizedWebRoot)$('#webpath').addClass('user-config')
-            },
-            error:function(ajaxObj,msg,err){
-            }
-        });
-    var save = function(){
-      $.ajax({
-            url: '/offlinedev/api/saveUserConfig/',
-            cache: false,
-            method: 'POST',
-            data: {
-              caseName: 2222
-            },
-            success: function( response ) {
-
-            },
-            error:function(ajaxObj,msg,err){
-            }
-        });
-    }
-    $('#download-btn').click(function(){
-      var caseName = $('#caseselect').val()
-      if(!caseName){
-         alert('本地开发，不需同步')
-         return;
-      }
-      $('#download-btn').addClass('busy')
-      $('#download-btn').text('Downloading...')
-       $.ajax({
-            url: '/offlinedev/api/syncCases/',
-            cache: false,
-            method: 'POST',
-            data: {
-              caseName: $('#caseselect').val()
-            },
-            success: function( response ) {
-              $('#download-btn').removeClass('busy')
-              $('#download-btn').text('Success, re-Use')
-            },
-            error:function(ajaxObj,msg,err){
-            }
-        });
-    })
-    let saveWebProjectPath = (prjpath)=>{
-      $.ajax({
-            url: '/offlinedev/api/webpath/updateWebProjectPath/',
-            cache: false,
-            method: 'POST',
-            data: {prjpath},
-            success: function( response ) {
-              console.log(response)
-            },
-            error:function(ajaxObj,msg,err){
-            }
-        });
-    }
-    var visithistoryKey = 'offlinedev_visithistory'
-    var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
-    var visithistoryHtml = ''
-    visithistory.reverse().forEach(function(his){
-      visithistoryHtml += `<li>- <a href="${his}" target="_blank">${his}</a></li>`
-    })
-    $('#visithistory').html('<ul>'+visithistoryHtml+'</ul>');
+ 
   </script>
-  <script src="./index.js"/>
+  <script src="./lib/jquery.min.js"></script>
+  <script src="./lib/lodash.min.js"></script>
+  <script src="./lib/moment.min.js"></script>
+  <script src="./index.js"></script>
 </body>
 </html>
