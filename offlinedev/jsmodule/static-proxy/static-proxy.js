@@ -11,29 +11,34 @@ let linkToStaticFile = (req, res, next) => {
         next();
         return;
     }
+    let root = webappFolder;
+    let localfolder = staticFilter.getLocalPath(req_path);
+    if(localfolder) {
+        root = localfolder;
+    }
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
-        let root = webappFolder;
-        let localfolder = staticFilter.getLocalPath(req_path);
-        if(localfolder) {
-            root = localfolder;
-        }
         staticFileLoader.loadJs(root, req_path, (jscontent)=>{
+            if(localfolder) jscontent = `//[static-filter]${localfolder}\n` + jscontent;
             jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
         })
         return;           
     }else if(/\.css$/.test(req_path)){
-        next();//css
+        res.set('Content-Type', 'text/css');
+        staticFileLoader.loadCss(root, req_path, (jscontent)=>{
+            if(localfolder) jscontent = `/** [static-filter]${localfolder} **/\n` + jscontent;
+            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+        })
         return;
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
-        let root = webappFolder;
         staticFileLoader.loadTpl(root, req_path, (jscontent)=>{
+            if(localfolder) jscontent = `<!-- [static-filter]${localfolder} -->\n` + jscontent;
             jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
         })
         return;   
     }
-    next();
+    next();//非静态文件，放行
 }
 module.exports = {
     linkToStaticFile

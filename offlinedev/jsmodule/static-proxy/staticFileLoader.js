@@ -9,6 +9,26 @@ let userConfig = getConfig.getUserConfig();
 var cache = {}
 
 module.exports = {
+    loadCss: function(rootFolder, path, callback){
+        //if(cache[path]) return cache[path];
+        var fullfilepath = rootFolder + '/' + path
+        if(!fs.existsSync(fullfilepath)){
+            console.log('no-css-file:', fullfilepath)
+            callback(null);
+            return;
+        }
+        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
+            if (err) {
+                console.log(err)
+                content=null;    
+            }            
+            if(typeof content === 'undefined' || content === null){ 
+                callback(null);
+            }else{
+                callback(content);
+            }
+        });
+    },
     loadTpl: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
         var fullfilepath = rootFolder + '/' + path
