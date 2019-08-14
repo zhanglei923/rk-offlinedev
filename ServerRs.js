@@ -64,12 +64,12 @@ module.exports = {
             var host = server.address().address;
             var port = server.address().port;
             
-            console.log('STATIC http://localhost:%s', port);
+            console.log('STATIC-RS http://localhost:%s', port);
         });
     }, 
     startHttps:()=>{
         httpsServer.listen(SSLPORT, function() {
-            console.log('STATICs: https://localhost:%s', SSLPORT);
+            console.log('STATIC-RS: https://localhost:%s', SSLPORT);
             console.log('----------')
         });
     }

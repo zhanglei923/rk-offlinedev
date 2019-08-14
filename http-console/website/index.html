@@ -6,10 +6,10 @@
 </head>
 <body>
 <div>
-  <b style="font-size: 14px;">
-      <img class="Rotation logo" alt="logo" src="./pages/img/fet.jpg" />
-      <span>欢迎！！Web端离线开发工具</span>
-  </b>
+  <div style="margin-bottom: 18px;font-size: 14px;font-weight: bolder;">
+        <img class="Rotation logo" alt="logo" src="./pages/img/fet.jpg" />
+        <span>欢迎！！Web端离线开发工具</span>
+  </div>
   <div class="about">
     说明： 
     <ul>
@@ -20,43 +20,50 @@
     </ul>
   </div>
   <div class="body">
+      <!-- 选择模拟数据： -->
+      <span>
+        <!-- <select id="caseselect" style="font-size: 17px;"></select>
+        <button id="download-btn" class="download-btn">Use</button> -->
+        
+      </span>
     <span>
       <div id="infomation" class="infomation">Scaning...</div>
     </span>
-    <!-- 选择模拟数据： -->
-    <span>
-      <!-- <select id="caseselect" style="font-size: 17px;"></select>
-      <button id="download-btn" class="download-btn">Use</button> -->
-      <a href="/http-console/pages/actionEditor.html" target="_blank">编辑模拟数据</a>
-    </span>
-    <hr/>
     <div>
-      <span><b>页面入口：</b></span>
-      <span><a target="_blank" href="/index.action">CRM系统</a></span>
-      <span><a target="_blank" href="/index.action?isdeploy=true">(线上)</a></span>、
-      <span><a target="_blank" href="/account.action">CRM客户页</a></span>
-      <span><a target="_blank" href="/account.action?isdeploy=true">(线上)</a></span>、
-      <span><a target="_blank" href="/designer.action?entityId=1&layoutId=58473">PC详情设计器</a></span>
-      <span><a target="_blank" href="/designer.action?entityId=1&layoutId=58473&isdeploy=true">(线上)</a></span>、
-      <span><a target="_blank" href="/designer.action?entityId=-101&layoutId=101242017">PC首页设计器</a></span>、
-      <span><a target="_blank" href="/appdesigner.action?entityId=1&layoutId=58473">APP设计器</a></span>
+      <table border=0>
+        <thead style="background-color: #eaeaea;">
+            <tr>
+                <th align="left">模拟页面</th>
+                <th align="left" colspan="999">地址</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td colspan="999">(测试线上打包状态，请手工在页面后面追加参数：&isdeploy=true)</td></tr>
+            <tr><td colspan="999"><a href="/http-console/pages/actionEditor.html" target="_blank">编辑模拟数据</a></td></tr>
+            <tr><td>CRM系统</td><td><a target="_blank" href="/index.action">/index.action</a></td></tr>
+            <tr><td>CRM客户页</td><td><a target="_blank" href="/account.action">/account.action</a></td></tr>
+            <tr><td>PC详情设计器</td><td><a target="_blank" href="/designer.action?entityId=1&layoutId=58473">/designer.action?entityId=1&layoutId=58473</a></td></tr>
+            <tr><td>PC首页设计器</td><td><a target="_blank" href="/designer.action?entityId=-101&layoutId=101242017">/designer.action?entityId=-101&layoutId=101242017</a></td></tr>
+            <tr><td>APP设计器</td><td><a target="_blank" href="/appdesigner.action?entityId=1&layoutId=58473">/appdesigner.action?entityId=1&layoutId=58473</a></td></tr>
+            <tr><td>单元测试</td><td><a target="_blank" href="/test.action">/test.action</a></td></tr>
+            <tr><td>i18n翻译工作台</td><td><a target="_blank" href="/http-console/pages/i18nEditor/index.html">/http-console/pages/i18nEditor/index.html</a></td></tr>
+        </tbody>
+      </table>
+      <span></span>
     </div>
     <div>
-      <span><b>单元测试入口：</b></span>
-      <span><a href="./test.action" target="_blank">Unit Tests</a></span>
-    </div>
-    <div>
-      <span><b>控件测试入口：</b></span>
-      <span><a href="./test.action?case=testCase_datetimepicker" target="_blank">datetimepicker</a></span>
-    </div>
-    <div>
-      <span><b>辅助工具：</b></span>
-      <span><a href="/http-console/pages/i18nEditor/index.html" target="_blank">i18n翻译工作台</a></span>
-    </div>
-    <hr/>
-    <div>
-      <span><b>历史：</b></span>
-      <span id="visithistory" class="visithistory"></span>
+        <table border=0>
+            <thead style="background-color: #eaeaea;">
+                <tr>
+                    <th align="left">历史：</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td colspan="999">
+                    <span id="visithistory" class="visithistory"></span>
+                </td></tr>
+            </tbody>
+          </table>
     </div>
   </div>
   <script type="text/javascript">

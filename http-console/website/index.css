@@ -10,7 +10,13 @@
     border-top:1px dashed #DDD;
   }
   .about{
-    background-color: #fbfb97;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background: -webkit-linear-gradient(#83f983, #4242a0) !important;
+    background: -o-linear-gradient(#83f983, #4242a0) !important;
+    background: -moz-linear-gradient(#83f983, #4242a0) !important;
+    background: linear-gradient(#83f983, #4242a0) !important;
     width: 450px;
     font-size: 11px;
     color: #f36f2d;
@@ -64,7 +70,7 @@
     color:red;
 }
 .infomation table {
-    border: 1px solid #eee;
+    /* border: 1px solid #eee; */
 }
 .status_positive{
     color:green;

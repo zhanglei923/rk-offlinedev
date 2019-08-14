@@ -21,12 +21,14 @@ module.exports = {
             })
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
+            let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             var webpath = getConfig.getWebRoot()
             var branchName = getBranchName(webpath)
             console.log(webpath, branchName)
             callback({
                 branchName: branchName,
                 webpath: webpath,
+                masterFolder,
                 isCustomizedWebRoot: getConfig.isCustomizedWebRoot(),
                 userConfig: getConfig.getUserConfig()
             })
