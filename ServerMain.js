@@ -29,7 +29,7 @@ if(!fs.existsSync(webPath)){
 } 
 //
 let masterFolder = pathutil.resolve(__dirname, './');
-let httpConsoleFolder = pathutil.resolve(masterFolder, './http-console');
+let httpConsoleFolder = pathutil.resolve(masterFolder, './http-console/website');
 
 let mockingPath = [];
 mockingPath = mockingPath.concat([
@@ -90,7 +90,7 @@ app.use(function (req, res, next) {
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
-app.use('/http-console', express.static(pathutil.resolve(httpConsoleFolder, './website')));
+app.use('/http-console', express.static(httpConsoleFolder));
 var apiRouter = require('./offlinedev/jsmodule/apiRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;

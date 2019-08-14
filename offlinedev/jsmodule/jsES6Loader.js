@@ -11,34 +11,13 @@ makeDir.sync(my_tmp_folder);
 var cache = {}
 
 let thisUtil = {
-    loadTpl: function(path, callback){
-        //if(cache[path]) return cache[path];
-        var rootFolder = getConfig.getWebAppFolder()
-        var fullfilepath = rootFolder + '/' + path
-        if(!fs.existsSync(fullfilepath)){
-            console.log('nofile:', fullfilepath)
-            callback(null);
-            return;
-        }
-        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
-            if (err) {
-                console.log(err)
-                content=null;    
-            }            
-            if(typeof content === 'undefined' || content === null){ 
-                callback('');
-            }else{
-                callback(content);
-            }
-        });
-    },
     md5Map:{},
     loadJs: function (path, callback){
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
-            console.log('nofile:', fullfilepath)
+            console.log('no-js-file:', fullfilepath)
             callback(null);
             return;
         }

@@ -1,0 +1,241 @@
+<!doctype html>
+<html>
+<head>
+    <title>离线开发- 首页</title>
+    <style>
+    *{
+      margin: 0; padding: 0;
+    }
+    hr{
+      margin:4px 0 4px 0;
+      height:1px;border:none;border-top:1px dashed #DDD;
+    }
+      .about{
+      background-color: #fbfb97;
+      width: 900px;
+      font-size: 11px;
+      color: #f36f2d;
+      font-weight: bold;
+      margin-left: 20px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      }
+      .download-btn{
+        background-color: #61bd61;
+        color:white;
+      }
+      .download-btn.busy{
+        background-color: red;
+        color:white;
+      }
+      @-webkit-keyframes rotation{
+      from {-webkit-transform: rotate(0deg);}
+      to {-webkit-transform: rotate(360deg);}
+      }
+
+      .Rotation{
+        -webkit-transform: rotate(360deg);
+        animation: rotation 1s linear infinite;
+        -moz-animation: rotation 1s linear infinite;
+        -webkit-animation: rotation 1s linear infinite;
+        -o-animation: rotation 1s linear infinite;
+        }
+
+    .logo{
+      border-radius: 250px;
+      width:32px;
+      margin-top: 7px;
+      margin-left: 7px;
+    }
+    .branchname{
+       color:blue;
+    }
+    .body{
+      margin-left: 20px;
+    }
+    .visithistory{
+      max-width: 500px;
+    }
+    .visithistory li{
+      display: block;
+       list-sytle:none;
+       padding-left: 20px;
+      font-size: 11px;
+    }
+    #webpath.user-config{
+      color:red;
+    }
+    </style>
+</head>
+<body>
+    
+    <div>
+  <b>
+<img class="Rotation logo" alt="logo" style="" src="data:image/jpeg;base64,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" />
+
+  欢迎！！Web端离线开发工具</b>
+  <div class="about">
+    说明： 
+    <br>-访问共享目录：\\10.10.0.115\share\，找到“离线开发模拟数据”目录，将mocking目录的内容拷贝到本地rk-offlinedev同名目录下即可
+    <br>-然后选择页面入口里的页面点进去就可以看了
+    <br>-注意，所有交互都是假数据，因此业务操作是无任何效果或反馈的
+  </div>
+  <div class="body">
+    <span>
+    分支：<span id="branchname" class="branchname">Scaning...</span>，
+    目录：<span id="webpath" class="branchname" title="在rk-offline的根目录user-config.json里，加webProjectPath属性定义自己的web路径，重启生效">Scaning...</span>，
+  </span>
+    <!-- 选择模拟数据： -->
+    <span>
+      <!-- <select id="caseselect" style="font-size: 17px;"></select>
+      <button id="download-btn" class="download-btn">Use</button> -->
+      <a href="/offlinedev/pages/actionEditor.html" target="_blank">编辑模拟数据</a>
+    </span>
+    <hr/>
+    <div>
+      <span><b>页面入口：</b></span>
+      <span><a target="_blank" href="./index.action">CRM系统</a></span>
+      <span><a target="_blank" href="./index.action?isdeploy=true">(线上)</a></span>、
+      <span><a target="_blank" href="./account.action">CRM客户页</a></span>
+      <span><a target="_blank" href="./account.action?isdeploy=true">(线上)</a></span>、
+      <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473">PC详情设计器</a></span>
+      <span><a target="_blank" href="./designer.action?entityId=1&layoutId=58473&isdeploy=true">(线上)</a></span>、
+      <span><a target="_blank" href="./designer.action?entityId=-101&layoutId=101242017">PC首页设计器</a></span>、
+      <span><a target="_blank" href="./appdesigner.action?entityId=1&layoutId=58473">APP设计器</a></span>
+    </div>
+    <div>
+      <span><b>单元测试入口：</b></span>
+      <span><a href="./test.action" target="_blank">Unit Tests</a></span>
+    </div>
+    <div>
+      <span><b>控件测试入口：</b></span>
+      <span><a href="./test.action?case=testCase_datetimepicker" target="_blank">datetimepicker</a></span>
+    </div>
+    <div>
+      <span><b>辅助工具：</b></span>
+      <span><a href="/offlinedev/pages/i18nEditor/index.html" target="_blank">i18n翻译工作台</a></span>
+    </div>
+    <hr/>
+    <div>
+      <span><b>历史：</b></span>
+      <span id="visithistory" class="visithistory"></span>
+    </div>
+  </div>
+  <script src="./offlinedev/pages/js/jquery.min.js"></script>
+  <script type="text/javascript">
+    var ls_key = 'offlinedev_casename'
+
+    $('#caseselect').on('change', function(){
+      var casename = $(this).val();
+      localStorage.setItem(ls_key, casename);
+    })
+    $('#webpath').on('change', function(){
+      var webprojectpath = $(this).val();
+      //console.log(webprojectpath)
+      saveWebProjectPath(webprojectpath)
+    })
+    $.ajax({
+            url: 'http://10.10.0.115:3004/offlinedev/folders',
+            jsonp: "callback",
+            jsonpCallback:"Callback",
+            dataType: "jsonp",
+            cache: false,
+            timeout: 2500,
+            data: {},
+            success: function( response ) {
+                console.log(response)
+                var data = JSON.parse(response);
+                console.log(data)
+                var html = ''// '<option value="">LOCAL</option>'
+                data.forEach(function(name){
+                  name = name.replace(/\/{1,}/g,'');
+                  html += '<option value="'+name+'">[115]:' +name+ '</option>'
+                })
+                $('#caseselect').html(html)
+                $('#caseselect').val(localStorage.getItem(ls_key))
+            },
+            error:function(ajaxObj,msg,err){
+              $('#caseselect').replaceWith('<span style="color:red">115 is out-of-service.</span>')
+              $('#download-btn').remove();
+            },
+            complete: function(){
+              
+            }
+        });
+    $.ajax({
+            url: '/offlinedev/api/getWebProjectInfo/',
+            cache: false,
+            method: 'POST',
+            data: {},
+            success: function( response ) {
+              console.log(response)
+              let result = response.result;
+              $('#branchname').text(result.branchName)
+              $('#webpath').html(`${result.isCustomizedWebRoot?'自定义:':''} ${result.webpath}`)
+              if(result.isCustomizedWebRoot)$('#webpath').addClass('user-config')
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    var save = function(){
+      $.ajax({
+            url: '/offlinedev/api/saveUserConfig/',
+            cache: false,
+            method: 'POST',
+            data: {
+              caseName: 2222
+            },
+            success: function( response ) {
+
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    }
+    $('#download-btn').click(function(){
+      var caseName = $('#caseselect').val()
+      if(!caseName){
+         alert('本地开发，不需同步')
+         return;
+      }
+      $('#download-btn').addClass('busy')
+      $('#download-btn').text('Downloading...')
+       $.ajax({
+            url: '/offlinedev/api/syncCases/',
+            cache: false,
+            method: 'POST',
+            data: {
+              caseName: $('#caseselect').val()
+            },
+            success: function( response ) {
+              $('#download-btn').removeClass('busy')
+              $('#download-btn').text('Success, re-Use')
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    })
+    let saveWebProjectPath = (prjpath)=>{
+      $.ajax({
+            url: '/offlinedev/api/webpath/updateWebProjectPath/',
+            cache: false,
+            method: 'POST',
+            data: {prjpath},
+            success: function( response ) {
+              console.log(response)
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    }
+    var visithistoryKey = 'offlinedev_visithistory'
+    var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []
+    var visithistoryHtml = ''
+    visithistory.reverse().forEach(function(his){
+      visithistoryHtml += `<li>- <a href="${his}" target="_blank">${his}</a></li>`
+    })
+    $('#visithistory').html('<ul>'+visithistoryHtml+'</ul>');
+  </script>
+  <script src="./index.js"/>
+</body>
+</html>

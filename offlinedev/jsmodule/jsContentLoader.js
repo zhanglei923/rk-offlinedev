@@ -13,7 +13,7 @@ module.exports = {
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
-            console.log('nofile:', fullfilepath)
+            console.log('no-tpl-file:', fullfilepath)
             callback(null);
             return;
         }
@@ -30,12 +30,12 @@ module.exports = {
         });
     },
     loadJs: function (path, callback){
-        if(userConfig.es6.autoTransformJs) return require('./jsContentLoader2').loadJs(path, callback);
+        if(userConfig.es6.autoTransformJs) return require('./jsES6Loader').loadJs(path, callback);
         //if(cache[path]) return cache[path];
         var rootFolder = getConfig.getWebAppFolder()
         var fullfilepath = rootFolder + '/' + path
         if(!fs.existsSync(fullfilepath)){
-            console.log('nofile:', fullfilepath)
+            console.log('no-js-file:', fullfilepath)
             callback(null);
             return;
         }
