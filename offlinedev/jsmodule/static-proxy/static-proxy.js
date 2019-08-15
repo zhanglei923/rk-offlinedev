@@ -25,7 +25,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `//[static-filter]${root}\n` + jscontent;
+                if(root) jscontent = `//[static-filter]${filterDef?'[proxy]':''}${root}\n` + jscontent;
                 res.send(jscontent);
             }
         })
@@ -37,7 +37,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `/** [static-filter]${root} **/\n` + jscontent;
+                if(root) jscontent = `/** [static-filter]${filterDef?'[proxy]':''}${root} **/\n` + jscontent;
                 res.send(jscontent);
             }
         })
@@ -49,7 +49,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `<!-- [static-filter]${root} -->\n` + jscontent;
+                if(root) jscontent = `<!-- [static-filter]${filterDef?'[proxy]':''}${root} -->\n` + jscontent;
                 res.send(jscontent);
             }
         })

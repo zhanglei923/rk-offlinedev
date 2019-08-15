@@ -1,5 +1,6 @@
 let fs = require('fs');
 let _ = require('lodash')
+let pathutil = require('path')
 
 let filterDefine = [];
 let loadFilterDef = (configfile)=>{
@@ -43,7 +44,7 @@ let getFilterDef = (req_path)=>{
         if(req_path.match(regex)){
             let req_path2 = req_path;
             let reg = new RegExp('^'+o.url);
-            req_path2 = req_path2.replace(reg, '')
+            req_path2 = pathutil.relative(o.url, req_path);//req_path2.replace(reg, '')
             def = {
                 url: o.url,
                 localpath: o.localpath,
