@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var makeDir = require('make-dir');
+var watcher = require('node-watch');
 
 var rootpath = pathutil.resolve(__dirname, '../../');
 let tmp_folder = pathutil.resolve(rootpath, '../tmp');
@@ -36,24 +37,39 @@ let defaultConfig = {
     }
 };
 let config={};
+//var parentFolder = pathutil.resolve(__dirname, '../../../../');
+var webroot;
+var webappFolder;
+var static_project_root;
+
+let reloadConfig = ()=>{
+    
+    let txtconfig = fs.readFileSync(configFilePath, 'utf8');
+    eval('config='+txtconfig)
+    config = Object.assign(defaultConfig, config);
+
+    webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
+    webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+
+    static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
+
+    console.log('[user-config]=', JSON.stringify(config))
+    console.log('[web-root]=', webroot)
+    console.log('[static-root]=', static_project_root)
+    console.log('---')
+}
 if(!fs.existsSync(configFilePath)){
     config = defaultConfig;
     fs.writeFileSync(configFilePath, JSON.stringify(config));
 }else{
-    config = fs.readFileSync(configFilePath, 'utf8');
-    eval('config='+config)
-    config = Object.assign(defaultConfig, config);
+    reloadConfig();
 }
-//var parentFolder = pathutil.resolve(__dirname, '../../../../');
-var webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
-var webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 
-var static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
 
-console.log('[user-config]=', JSON.stringify(config))
-console.log('[web-root]=', webroot)
-console.log('[static-root]=', static_project_root)
-console.log('---')
+watcher(configFilePath, { recursive: false }, function(evt, name) {
+    console.log('%s changed.', name, evt);
+    reloadConfig();
+});
 
 let thisUtil = {
     getUserConfig: function(){
