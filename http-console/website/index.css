@@ -6,6 +6,9 @@
   body{
       background-color: #FAD500;
   }
+  li{
+    list-style: none;
+  }
   .infotable{
       min-width: 500px;
   }
@@ -30,9 +33,12 @@
     font-size: 11px;
     color: #242f26;
     /* font-weight: bold; */
-    margin-left: 20px;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-right: 2px;
+    margin-bottom: 2px;
+    border-left: 2px solid #eee;
+    border-top: 2px solid #eee;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
   }
   .download-btn{
       background-color: #61bd61;
