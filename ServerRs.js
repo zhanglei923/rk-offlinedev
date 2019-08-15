@@ -67,10 +67,11 @@ module.exports = {
         //     console.log('STATIC-RS http://localhost:%s', port);
         // });
     }, 
-    startHttps:()=>{
+    startHttps:(succ)=>{
         httpsServer.listen(SSLPORT, function() {
             console.log('STATIC-RS: https://localhost:%s', SSLPORT);
             console.log('----------')
+            succ()
         });
     }
 }
