@@ -3,6 +3,8 @@ var pathutil = require('path');
 var makeDir = require('make-dir');
 var watcher = require('node-watch');
 
+let staticFilter = require('../static-filter/filter');
+
 var rootpath = pathutil.resolve(__dirname, '../../');
 let tmp_folder = pathutil.resolve(rootpath, '../tmp');
 makeDir.sync(tmp_folder);
@@ -52,6 +54,9 @@ let reloadConfig = ()=>{
     webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 
     static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
+    let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
+
+    staticFilter.loadFilterDef(staticConfigFilePath);
 
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
