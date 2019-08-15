@@ -60,12 +60,12 @@ app.get('*', function(req, res, next) {
 
 module.exports = {
     startHttp:()=>{
-        var server = httpServer.listen(PORT, function() {
-            var host = server.address().address;
-            var port = server.address().port;
+        // var server = httpServer.listen(PORT, function() {
+        //     var host = server.address().address;
+        //     var port = server.address().port;
             
-            console.log('STATIC-RS http://localhost:%s', port);
-        });
+        //     console.log('STATIC-RS http://localhost:%s', port);
+        // });
     }, 
     startHttps:()=>{
         httpsServer.listen(SSLPORT, function() {
