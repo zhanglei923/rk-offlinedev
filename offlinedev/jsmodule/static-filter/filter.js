@@ -42,7 +42,8 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                 let projectPath = pathutil.resolve(webparent, project);
                 let projectStaticPath = pathutil.resolve(projectPath, './static/source');
                 let item2 = {
-                    project: project,
+                    project,
+                    projectPath,
                     localpath: projectStaticPath
                 }
                 if(isok)arr2.push(item2);
@@ -59,10 +60,14 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
     })
     projectsDefine.forEach((item)=>{
         console.log('[p1]', item.project)
-        console.log('[p2]', item.localpath)
+        console.log('[p2]', item.projectPath)
+        console.log('[p3]', item.localpath)
     })
 }
-let getFilterDef = (req_path)=>{    
+let getProjectsDef = ()=>{
+    return projectsDefine;
+}
+let getFilterDef = (req_path)=>{
     let def;
     for(let i = 0;i<filterDefine.length;i++){
         let o = filterDefine[i];
@@ -85,5 +90,6 @@ let getFilterDef = (req_path)=>{
 }
 module.exports = {
     loadFilterDef,
-    getFilterDef
+    getFilterDef,
+    getProjectsDef
 };

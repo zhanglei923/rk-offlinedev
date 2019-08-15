@@ -3,6 +3,7 @@ var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
 var babel = require("babel-core");
 var makeDir = require('make-dir');
+let projectFileSearch = require('./projectFileSearch')
 var getConfig = require('../config/configUtil')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
@@ -14,7 +15,10 @@ let thisUtil = {
     md5Map:{},
     loadJs: function (rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        var fullfilepath = rootFolder + '/' + path
+        var fullfilepath = rootFolder + '/' + path;
+        if(!fs.existsSync(fullfilepath)){
+            fullfilepath = projectFileSearch.searchFile(path)
+        }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file2:', fullfilepath)
             callback(null);

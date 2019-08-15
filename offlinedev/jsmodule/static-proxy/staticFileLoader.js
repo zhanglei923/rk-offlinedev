@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var babel = require("babel-core");
 var getConfig = require('../config/configUtil')
+let projectFileSearch = require('./projectFileSearch')
 let staticFileLoader_es6 = require('./staticFileLoader_es6')
 
 let userConfig = getConfig.getUserConfig();
@@ -11,7 +12,10 @@ var cache = {}
 module.exports = {
     loadCss: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        var fullfilepath = rootFolder + '/' + path
+        var fullfilepath = rootFolder + '/' + path;
+        if(!fs.existsSync(fullfilepath)){
+            fullfilepath = projectFileSearch.searchFile(path)
+        }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-css-file:', fullfilepath)
             callback(null);
@@ -31,7 +35,10 @@ module.exports = {
     },
     loadTpl: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        var fullfilepath = rootFolder + '/' + path
+        var fullfilepath = rootFolder + '/' + path;
+        if(!fs.existsSync(fullfilepath)){
+            fullfilepath = projectFileSearch.searchFile(path)
+        }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-tpl-file:', fullfilepath)
             callback(null);
@@ -52,7 +59,10 @@ module.exports = {
     loadJs: function (rootFolder, path, callback){
         if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(rootFolder, path, callback);
         //if(cache[path]) return cache[path];
-        var fullfilepath = rootFolder + '/' + path
+        var fullfilepath = rootFolder + '/' + path;
+        if(!fs.existsSync(fullfilepath)){
+            fullfilepath = projectFileSearch.searchFile(path)
+        }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file1:', fullfilepath)
             callback(null);
