@@ -12,9 +12,11 @@ let linkToStaticFile = (req, res, next) => {
     }
     var webappFolder = getConfig.getWebAppFolder()
     let root = webappFolder;
-    let localfolder = staticFilter.getFilterDef(req_path);
-    if(localfolder) {
-        root = localfolder;
+    let filterDef = staticFilter.getFilterDef(req_path);
+    if(filterDef) {
+        root = filterDef.localpath;
+        req_path = filterDef.req_path;
+        console.log('root', root, filterDef.url, req_path)
     }
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
@@ -23,7 +25,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(localfolder) jscontent = `//[static-filter]${localfolder}\n` + jscontent;
+                if(root) jscontent = `//[static-filter]${root}\n` + jscontent;
                 res.send(jscontent);
             }
         })
@@ -35,7 +37,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(localfolder) jscontent = `/** [static-filter]${localfolder} **/\n` + jscontent;
+                if(root) jscontent = `/** [static-filter]${root} **/\n` + jscontent;
                 res.send(jscontent);
             }
         })
@@ -47,7 +49,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                if(localfolder) jscontent = `<!-- [static-filter]${localfolder} -->\n` + jscontent;
+                if(root) jscontent = `<!-- [static-filter]${root} -->\n` + jscontent;
                 res.send(jscontent);
             }
         })
