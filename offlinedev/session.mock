@@ -125,5 +125,5 @@
     }
 </noscript>
 <script>window.isOfflineDev=true;</script>
-<script src="/offlinedev/notice.js"></script>
+<script src="/offlinedev-inject-script/notice.js"></script>
 <!-- script src="/offlinedev/polyfill.min.js"></script -->
