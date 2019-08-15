@@ -14,10 +14,10 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td>offline目录：</td><td>${result.masterFolder}</td></tr>
-        <tr><td>web目录：</td><td style="color:red;">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</td></tr>
-        <tr><td>分支：</td><td style="color:red;">${result.branchName}</td></tr>
-        <tr><td>转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_positive">Yes</span>':'<span class="status_negative">No</span>'}</td></tr>
+        <tr><td>offline目录：</td><td><a href="#">${result.masterFolder}</a></td></tr>
+        <tr><td>web目录：</td><td style="color:red;"><a href="#">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</a></td></tr>
+        <tr><td>分支：</td><td style="color:green;">${result.branchName}</td></tr>
+        <tr><td>转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_positive">On</span>':'<span class="status_negative">Off</span>'}</td></tr>
         <tr><td>静态资源：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
         <tr><td>静态资源：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
     </tbody>
