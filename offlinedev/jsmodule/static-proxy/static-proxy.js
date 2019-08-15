@@ -1,7 +1,6 @@
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
-var webappFolder = getConfig.getWebAppFolder()
 
 let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
@@ -11,6 +10,7 @@ let linkToStaticFile = (req, res, next) => {
         next();
         return;
     }
+    var webappFolder = getConfig.getWebAppFolder()
     let root = webappFolder;
     let localfolder = staticFilter.getLocalPath(req_path);
     if(localfolder) {

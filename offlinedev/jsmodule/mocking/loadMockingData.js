@@ -78,7 +78,7 @@ module.exports = {
         let fname = saveutil.getSaveName(oactionname)
         //
         let linkname = saveMockingData.getCurrentFileLink(fname)
-        console.log('readFileLink:>>>>>', linkname, fname)
+        console.log('load:', linkname, fname)
         if(linkname && linkname !== 'mock') {
             content = saveMockingData.getFileLinkContent(linkname)
             return content;
