@@ -19,22 +19,37 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
         staticFileLoader.loadJs(root, req_path, (jscontent)=>{
-            if(localfolder) jscontent = `//[static-filter]${localfolder}\n` + jscontent;
-            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+            if(jscontent === null){
+                res.sendStatus(404);
+                return;
+            }else{
+                if(localfolder) jscontent = `//[static-filter]${localfolder}\n` + jscontent;
+                res.send(jscontent);
+            }
         })
         return;           
     }else if(/\.css$/.test(req_path)){
         res.set('Content-Type', 'text/css');
         staticFileLoader.loadCss(root, req_path, (jscontent)=>{
-            if(localfolder) jscontent = `/** [static-filter]${localfolder} **/\n` + jscontent;
-            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+            if(jscontent === null){
+                res.sendStatus(404);
+                return;
+            }else{
+                if(localfolder) jscontent = `/** [static-filter]${localfolder} **/\n` + jscontent;
+                res.send(jscontent);
+            }
         })
         return;
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
         staticFileLoader.loadTpl(root, req_path, (jscontent)=>{
-            if(localfolder) jscontent = `<!-- [static-filter]${localfolder} -->\n` + jscontent;
-            jscontent!==null ? res.send(jscontent) : res.sendStatus(404);
+            if(jscontent === null){
+                res.sendStatus(404);
+                return;
+            }else{
+                if(localfolder) jscontent = `<!-- [static-filter]${localfolder} -->\n` + jscontent;
+                res.send(jscontent);
+            }
         })
         return;   
     }
