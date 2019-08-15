@@ -16,7 +16,7 @@ let linkToStaticFile = (req, res, next) => {
     if(filterDef) {
         root = filterDef.localpath;
         req_path = filterDef.req_path;
-        console.log('root', root, filterDef.url, req_path)
+        //console.log('root', root, filterDef.urlpath, req_path)
     }
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
