@@ -3,6 +3,15 @@
     padding: 0;
     font-size: 12px;
   }
+  body{
+      background-color: #FAD500;
+  }
+  .infotable{
+      min-width: 500px;
+  }
+  .table_title th{
+    border-bottom: 2px dotted #7b7b7b;
+  }
   hr{
     margin:4px 0 4px 0;
     height:1px;

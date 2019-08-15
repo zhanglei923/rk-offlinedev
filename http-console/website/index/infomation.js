@@ -7,8 +7,8 @@ let showInfomation = (result)=>{
     console.log(userConfig)
     let httpurl = `http://localhost:${userConfig.http.port}/static/sea-config.js`;
     let httpsurl = `https://localhost:${userConfig.https.port}/static/sea-config.js`;
-    let html = `<table border=0>
-    <thead style="background-color: #eaeaea;">
+    let html = `<table border=0 class="infotable">
+    <thead class="table_title">
         <tr>
             <th align="left" colspan="999">状态</th>
         </tr>
