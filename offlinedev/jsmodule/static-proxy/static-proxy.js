@@ -6,7 +6,7 @@ let linkToStaticFile = (req, res, next) => {
     res.set('About-rk-offlinedev', 'This Is Mocking Data!');
     let req_path = req.path;
     //console.log(req.path)
-    if(req_path.match(/^\/http\-console/)){
+    if(req_path.match(/^\/offlinedev-http-console/)){
         next();
         return;
     }

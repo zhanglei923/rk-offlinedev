@@ -67,7 +67,7 @@ var loadMockingData = require('./offlinedev/jsmodule/mocking/loadMockingData')
 app.use(function (req, res, next) {
     res.set('Cache-Control', 'no-cache');
     if(req.originalUrl === '/'){
-        res.redirect('/http-console');
+        res.redirect('/offlinedev-http-console');
         return;
     }
     if(/^\/offlinedev\//.test(req.path) && /\.js$|\.css$|\.html/.test(req.path)){
@@ -79,7 +79,7 @@ app.use(function (req, res, next) {
 });
 //静态资源转接到web
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
-app.use('/http-console', express.static(httpConsoleFolder));
+app.use('/offlinedev-http-console', express.static(httpConsoleFolder));
 var apiRouter = require('./offlinedev/jsmodule/apiRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;
