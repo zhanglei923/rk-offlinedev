@@ -18,8 +18,11 @@ let showInfomation = (result)=>{
         <tr><td>web目录：</td><td style="color:red;"><a href="#">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</a></td></tr>
         <tr><td>分支：</td><td style="color:green;">${result.branchName}</td></tr>
         <tr><td>转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_positive">On</span>':'<span class="status_negative">Off</span>'}</td></tr>
-        <tr><td>静态资源：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
-        <tr><td>静态资源：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
+        <tr><td colspan="999" style="padding-left: 14px;">----</td></tr>
+        <tr><td>Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
+        <tr><td>Host转接用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
+        <tr><td>Java环境用：</td><td><a target="_blank" href="${"https://localhost:444/static/sea-config.js"}">${"https://localhost:444/static/sea-config.js"}</a></td></tr>
+        
     </tbody>
     </table>
     `
