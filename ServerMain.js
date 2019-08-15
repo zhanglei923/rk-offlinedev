@@ -187,9 +187,10 @@ let getPageHtml = function(isdeploy, filename){
     }
     var html = fs.readFileSync(fpath, 'utf8');
     html = updateStaticsUrl.updateHtml(html);
-    var sessionMock = fs.readFileSync(__dirname +'/offlinedev/session.mock', 'utf8');
-    //注入标志和辅助性的js文件
-    html = html.replace(/\<\/head\>/ig,''+sessionMock+'</head>')
+    var headMock = fs.readFileSync(__dirname +'/offlinedev/injectScript/html_head.mock', 'utf8');
+    html = html.replace(/\<\/head\>/ig,''+headMock+'</head>')
+    var bodyMock = fs.readFileSync(__dirname +'/offlinedev/injectScript/html_body.mock', 'utf8');
+    html = html.replace(/\<\/body\>/ig,''+bodyMock+'</body>')
 
     if(isdeploy) html = html.replace(/\.[\w\d]{5,}\.(js|css)/g, (str)=>{
         str = str.replace(/\.[\w\d]{5,}\./g, '.debug000.')
