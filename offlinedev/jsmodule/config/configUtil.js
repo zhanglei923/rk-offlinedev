@@ -40,6 +40,7 @@ let defaultConfig = {
 };
 let config={};
 //var parentFolder = pathutil.resolve(__dirname, '../../../../');
+var webparent;
 var webroot;
 var webappFolder;
 var static_project_root;
@@ -51,12 +52,14 @@ let reloadConfig = ()=>{
     config = Object.assign(defaultConfig, config);
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
+    webparent = pathutil.resolve(webroot, '../')
     webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
 
     static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
     let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
+    let staticDebugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
 
-    staticFilter.loadFilterDef(staticConfigFilePath);
+    staticFilter.loadFilterDef(webroot, staticConfigFilePath, staticDebugConfigFilePath);
 
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)

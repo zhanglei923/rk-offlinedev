@@ -3,35 +3,56 @@ let _ = require('lodash')
 let pathutil = require('path')
 
 let filterDefine = [];
-let loadFilterDef = (configfile)=>{
-    let arr = [{
-        // http://localhost:666/static/source/separation/demo/ya.js
-        // http://localhost:666/static/source/separation/demo/ya.css
-        // http://localhost:666/static/source/separation/demo/ya.tpl
-        // http://localhost:666/aaa/a.js
-        // http://localhost:666/bbb/222/b.js
-        urlpath: '/static/source/separation',
-        localpath: 'E:/workspaceGerrit/_sub_separation_test/xsy-static-product_separation/static/source/separation'
-    }]
-    console.log('[static-config]', configfile)
-    if(fs.existsSync(configfile)){
-        let config = fs.readFileSync(configfile, 'utf8');
+// http://localhost:666/static/source/separation/demo/ya.js
+// http://localhost:666/static/source/separation/demo/ya.css
+// http://localhost:666/static/source/separation/demo/ya.tpl
+// http://localhost:666/aaa/a.js
+// http://localhost:666/bbb/222/b.js
+let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
+    let webparent = pathutil.resolve(webroot, '../');
+    let arr = [];
+    //console.log('[static-config]', configfilePath, debugConfigFilePath)
+    if(fs.existsSync(debugConfigFilePath)){
+        let config = fs.readFileSync(debugConfigFilePath, 'utf8');
         config = JSON.parse(config);
         let isok = true;
-        if(_.isArray(config['static-proxy'])){
-            config['static-proxy'].forEach((item)=>{
-                item.urlpath = item.urlpath.replace(/\/{1,}/g, '/');
+        let url_proxy = config['url_proxy']
+        if(_.isArray(url_proxy)){
+            url_proxy.forEach((item)=>{
+                //兼容手写问题
+                item.url_pattern = item.url_pattern.replace(/\/{1,}/g, '/');
                 item.localpath = item.localpath.replace(/\\{1,}/g, '/');
                 item.localpath = item.localpath.replace(/\/$/, '');
-                console.log(item)
             })
         }
-        if(isok)arr = arr.concat(config['static-proxy'])
+        if(isok)arr = arr.concat(url_proxy)
+    }
+    if(fs.existsSync(configfilePath)){
+        let config = fs.readFileSync(configfilePath, 'utf8');
+        config = JSON.parse(config);
+        let isok = true;
+        let dependencies = config['dependencies']
+        if(_.isArray(dependencies)){
+            dependencies.forEach((item)=>{
+                //兼容手写问题
+                item.url_pattern = item.url_pattern.replace(/\/{1,}/g, '/');
+                let project = item.project;
+                let branch = item.branch;
+                let projectPath = pathutil.resolve(webparent, project);
+                let projectStaticPath = pathutil.resolve(projectPath, './static/source');
+                let item2 = {
+                    url_pattern: item.url_pattern,
+                    localpath: projectStaticPath
+                }
+                if(isok)arr.push(item2);
+            })
+        }
     }
     filterDefine = arr;
+    //console.log(filterDefine)
     //print
     filterDefine.forEach((item)=>{
-        console.log('[a]', item.urlpath)
+        console.log('[a]', item.url_pattern)
         console.log('[b]', item.localpath)
     })
 }
@@ -39,15 +60,15 @@ let getFilterDef = (req_path)=>{
     let def;
     for(let i = 0;i<filterDefine.length;i++){
         let o = filterDefine[i];
-        let urlpath = o.urlpath;
-        if(!urlpath.match(/^\^/)) urlpath = '^' + urlpath;
-        let regex = new RegExp(urlpath);
+        let url_pattern = o.url_pattern;
+        if(!url_pattern.match(/^\^/)) url_pattern = '^' + url_pattern;
+        let regex = new RegExp(url_pattern);
         if(req_path.match(regex)){
             let req_path2 = req_path;
-            let reg = new RegExp('^'+o.urlpath);
-            req_path2 = pathutil.relative(o.urlpath, req_path);//req_path2.replace(reg, '')
+            let reg = new RegExp('^'+o.url_pattern);
+            req_path2 = pathutil.relative(o.url_pattern, req_path);//req_path2.replace(reg, '')
             def = {
-                urlpath: o.urlpath,
+                url_pattern: o.url_pattern,
                 localpath: o.localpath,
                 req_path: req_path2
             }
