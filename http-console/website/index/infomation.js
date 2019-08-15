@@ -14,14 +14,14 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td>offline目录：</td><td><a href="#">${result.masterFolder}</a></td></tr>
-        <tr><td>web目录：</td><td style="color:red;"><a href="#">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</a></td></tr>
-        <tr><td>分支：</td><td style="color:green;">${result.branchName}</td></tr>
-        <tr><td>转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_negative">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
-        <tr><td colspan="999" style="padding-left: 14px;">----</td></tr>
-        <tr><td>Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
-        <tr><td>Host转接用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
-        <tr><td>Java环境用：</td><td><a target="_blank" href="${"https://localhost:444/static/sea-config.js"}">${"https://localhost:444/static/sea-config.js"}</a></td></tr>
+        <tr><td align="right">我的目录：</td><td><a href="#">${result.masterFolder}</a></td></tr>
+        <tr><td align="right">Web工程目录：</td><td style="color:red;"><a href="#">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</a></td></tr>
+        <tr><td align="right">Web工程分支：</td><td style="color:green;">${result.branchName}</td></tr>
+        <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_negative">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
+        <tr><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
+        <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
+        <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
+        <tr><td align="right">Java环境用：</td><td><a target="_blank" href="${"https://localhost:444/static/sea-config.js"}">${"https://localhost:444/static/sea-config.js"}</a></td></tr>
         
     </tbody>
     </table>
