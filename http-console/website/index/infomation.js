@@ -14,8 +14,8 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td align="right">我的目录：</td><td><a href="#">${result.masterFolder}</a></td></tr>
-        <tr><td align="right">Web工程目录：</td><td style="color:red;"><a href="#">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</a></td></tr>
+        <tr><td align="right">我的目录：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
+        <tr><td align="right">Web工程目录：</td><td style="color:red;"><span style="color:blue;">${result.webpath}&nbsp;${result.isCustomizedWebRoot?'(自定义)':''}</span></td></tr>
         <tr><td align="right">Web工程分支：</td><td style="color:green;">${result.branchName}</td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_negative">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
