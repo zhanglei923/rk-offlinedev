@@ -3,6 +3,7 @@ let _ = require('lodash')
 let pathutil = require('path')
 
 let filterDefine = [];
+let projectsDefine = [];
 // http://localhost:666/static/source/separation/demo/ya.js
 // http://localhost:666/static/source/separation/demo/ya.css
 // http://localhost:666/static/source/separation/demo/ya.tpl
@@ -10,7 +11,8 @@ let filterDefine = [];
 // http://localhost:666/bbb/222/b.js
 let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
     let webparent = pathutil.resolve(webroot, '../');
-    let arr = [];
+    let arr1 = [];
+    let arr2 = [];
     //console.log('[static-config]', configfilePath, debugConfigFilePath)
     if(fs.existsSync(debugConfigFilePath)){
         let config = fs.readFileSync(debugConfigFilePath, 'utf8');
@@ -25,7 +27,7 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                 item.localpath = item.localpath.replace(/\/$/, '');
             })
         }
-        if(isok)arr = arr.concat(url_proxy)
+        if(isok)arr1 = arr1.concat(url_proxy)
     }
     if(fs.existsSync(configfilePath)){
         let config = fs.readFileSync(configfilePath, 'utf8');
@@ -35,25 +37,29 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
         if(_.isArray(dependencies)){
             dependencies.forEach((item)=>{
                 //兼容手写问题
-                item.url_pattern = item.url_pattern.replace(/\/{1,}/g, '/');
                 let project = item.project;
                 let branch = item.branch;
                 let projectPath = pathutil.resolve(webparent, project);
                 let projectStaticPath = pathutil.resolve(projectPath, './static/source');
                 let item2 = {
-                    url_pattern: item.url_pattern,
+                    project: project,
                     localpath: projectStaticPath
                 }
-                if(isok)arr.push(item2);
+                if(isok)arr2.push(item2);
             })
         }
     }
-    filterDefine = arr;
+    filterDefine = arr1;
+    projectsDefine = arr2;
     //console.log(filterDefine)
     //print
     filterDefine.forEach((item)=>{
         console.log('[a]', item.url_pattern)
         console.log('[b]', item.localpath)
+    })
+    projectsDefine.forEach((item)=>{
+        console.log('[p1]', item.project)
+        console.log('[p2]', item.localpath)
     })
 }
 let getFilterDef = (req_path)=>{    
