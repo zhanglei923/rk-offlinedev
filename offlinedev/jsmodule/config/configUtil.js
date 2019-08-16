@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var makeDir = require('make-dir');
 var watcher = require('node-watch');
+let jsonformat = require('json-format')
 
 let staticFilter = require('../static-filter/filter');
 
@@ -68,10 +69,9 @@ let reloadConfig = ()=>{
 }
 if(!fs.existsSync(configFilePath)){
     config = defaultConfig;
-    fs.writeFileSync(configFilePath, JSON.stringify(config));
-}else{
-    reloadConfig();
+    fs.writeFileSync(configFilePath, jsonformat(config));
 }
+reloadConfig();
 
 
 watcher(configFilePath, { recursive: false }, function(evt, name) {
