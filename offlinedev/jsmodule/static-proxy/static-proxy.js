@@ -25,9 +25,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
+                res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 if(root) jscontent = `//[rk-offlinedev]${filterDef?'[proxy]':''}${root}\n`+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
@@ -42,9 +42,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
+                res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 if(root) jscontent = `/** [rk-offlinedev]${filterDef?'[proxy]':''}${root} **/\n`+
                                      //`/** [sub-project]${info.fromSubPrj} **/\n` + 
                                      jscontent;
@@ -59,9 +59,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
+                res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 if(root) jscontent = `<!-- [rk-offlinedev]${filterDef?'[proxy]':''}${root} -->\n` +
                                      //`<!-- [sub-project]${info.fromSubPrj} -->` +
                                      jscontent;
