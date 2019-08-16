@@ -1,5 +1,8 @@
 .offlinedev.tray{
-    background-color: red;
+    background: -webkit-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -o-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -moz-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: linear-gradient(#d5ffd5, #cacaff) !important;
     height: 34px;
     position: fixed;
     right: 0;
