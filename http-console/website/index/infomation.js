@@ -38,24 +38,24 @@ let showInfomation = (result)=>{
 let showSubProjects = (result)=>{
     let has = false;
     let html = ``
-    if(result.filters){     
+    if(result.filters && result.filters.length > 0){     
         has = true;   
         result.filters.forEach((item)=>{
             html += `<tr>
-                        <td align="right"><span class="url_pattern">${item.url_pattern}</span></td>
+                        <td align="left">路径<span class="url_pattern">${item.url_pattern}</span></td>
                         <td><span class="projectpath">${item.localpath}</span></td>
                     </tr>`
         })
     }
-    if(result.projects){   
+    if(result.projects && result.projects.length > 0){   
         has = true;   
         result.projects.forEach((item)=>{
             html += `<tr>
-                        <td align="right"><span class="projectname">${item.project}</span></td>
+                        <td align="left">工程名<span class="projectname">${item.project}</span></td>
                         <td><span class="projectpath">${item.projectPath}</span></td>
                     </tr>`
         })
     }
-    if(!has) html = `<tr><td align="right">无</td><td>&nbsp;</td></tr>`
+    if(!has) html = `<tr><td align="right">无</td></tr>`
     $('#subproject_list').html(html)
 }
