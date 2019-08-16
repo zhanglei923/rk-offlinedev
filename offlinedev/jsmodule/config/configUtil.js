@@ -46,8 +46,11 @@ var webroot;
 var webappFolder;
 var static_project_root;
 
-let reloadConfig = ()=>{
-    
+let reloadConfig = ()=>{    
+    if(!fs.existsSync(configFilePath)){
+        config = defaultConfig;
+        fs.writeFileSync(configFilePath, jsonformat(config));
+    }
     let txtconfig = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+txtconfig)
     config = Object.assign(defaultConfig, config);
@@ -66,10 +69,6 @@ let reloadConfig = ()=>{
     console.log('[web-root]=', webroot)
     console.log('[static-root]=', static_project_root)
     console.log('---')
-}
-if(!fs.existsSync(configFilePath)){
-    config = defaultConfig;
-    fs.writeFileSync(configFilePath, jsonformat(config));
 }
 reloadConfig();
 
