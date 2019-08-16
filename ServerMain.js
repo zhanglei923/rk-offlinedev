@@ -81,7 +81,7 @@ app.use(function (req, res, next) {
 app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
 app.use('/offlinedev-http-console', express.static(httpConsoleFolder));
 app.use('/offlinedev-inject-script', express.static(pathutil.resolve(masterFolder, './offlinedev/injectScript')));
-var apiRouter = require('./offlinedev/jsmodule/apiRouter')
+var apiRouter = require('./http-console/server/apiRouter')
 app.post('*',function(req, res){
    var accept = req.headers.accept;
     var originalUrl = req.originalUrl;

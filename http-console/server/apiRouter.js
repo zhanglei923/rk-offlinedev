@@ -4,12 +4,12 @@ var requester = require('sync-request');
 var http = require('http');
 //var unzip = require("unzip");
 var _ = require('lodash')
-var getConfig = require('./config/configUtil')
-var webprojectUtil = require('./config/webprojectUtil')
-var i18nAccess = require('./i18n/i18nAccess')
-var i18nValidator = require('./i18n/i18nValidator')
-var loadMockingData = require('./mocking/loadMockingData')
-var saveMockingData = require('./mocking/saveMockingData')
+var getConfig = require('../../offlinedev/jsmodule/config/configUtil')
+var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
+var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
+var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
+var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
+var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
 module.exports = {
     processPost: function (req, res, callback){
         console.log('[req]', req.originalUrl)
