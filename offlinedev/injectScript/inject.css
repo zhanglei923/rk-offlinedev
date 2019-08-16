@@ -1,4 +1,10 @@
 .offlinedev.tray{
+    margin-right: 2px;
+    margin-bottom: 2px;
+    border-left: 2px solid #eee;
+    border-top: 2px solid #eee;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
     background: -webkit-linear-gradient(#d5ffd5, #cacaff) !important;
     background: -o-linear-gradient(#d5ffd5, #cacaff) !important;
     background: -moz-linear-gradient(#d5ffd5, #cacaff) !important;
