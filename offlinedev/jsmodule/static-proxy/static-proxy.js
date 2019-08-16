@@ -3,7 +3,7 @@ var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 
 let linkToStaticFile = (req, res, next) => {
-    res.set('About-rk-offlinedev', 'This Is Mocking Data!');
+    res.set('rk-about', 'This is by rk-offlinedev!');
     let req_path = req.path;
     //console.log(req.path)
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
@@ -25,6 +25,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
+                res.set('rk-project', info.fromSubPrj ? info.fromSubPrj : 'master');
                 if(root) jscontent = `//[static-filter]${filterDef?'[proxy]':''}${root}\n`+
                                      `//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
@@ -39,6 +40,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
+                res.set('rk-project', info.fromSubPrj ? info.fromSubPrj : 'master');
                 if(root) jscontent = `/** [static-filter]${filterDef?'[proxy]':''}${root} **/\n`+
                                      `/** [sub-project]${info.fromSubPrj} **/\n` + 
                                      jscontent;
@@ -53,6 +55,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
+                res.set('rk-project', info.fromSubPrj ? info.fromSubPrj : 'master');
                 if(root) jscontent = `<!-- [static-filter]${filterDef?'[proxy]':''}${root} -->\n` +
                                      `<!-- [sub-project]${info.fromSubPrj} -->` +
                                      jscontent;
