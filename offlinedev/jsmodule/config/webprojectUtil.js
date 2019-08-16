@@ -2,9 +2,9 @@ var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
-let configUtil = require('./config/configUtil')
-let statusUtil = require('./config/statusUtil')
-var rootpath = pathutil.resolve(__dirname, '../');
+let configUtil = require('./configUtil')
+let statusUtil = require('./statusUtil')
+var rootpath = pathutil.resolve(__dirname, '../../../');
 var config = {};
 var configpath;
 module.exports = {
