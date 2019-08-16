@@ -10,6 +10,7 @@ var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
+let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
         console.log('[req]', req.originalUrl)
@@ -25,12 +26,16 @@ module.exports = {
             var webpath = getConfig.getWebRoot()
             var branchName = getBranchName(webpath)
             console.log(webpath, branchName)
+            let projects = filter.getProjectsDef();
+            let filters = filter.getFilterDef()
             callback({
                 branchName: branchName,
                 webpath: webpath,
                 masterFolder,
                 isCustomizedWebRoot: getConfig.isCustomizedWebRoot(),
-                userConfig: getConfig.getUserConfig()
+                userConfig: getConfig.getUserConfig(),
+                projects,
+                filters
             })
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){

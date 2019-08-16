@@ -67,7 +67,10 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
 let getProjectsDef = ()=>{
     return projectsDefine;
 }
-let getFilterDef = (req_path)=>{
+let getFilterDef = ()=>{
+    return filterDefine;
+}
+let getFilterResult = (req_path)=>{
     let def;
     for(let i = 0;i<filterDefine.length;i++){
         let o = filterDefine[i];
@@ -90,6 +93,7 @@ let getFilterDef = (req_path)=>{
 }
 module.exports = {
     loadFilterDef,
-    getFilterDef,
-    getProjectsDef
+    getFilterResult,
+    getProjectsDef,
+    getFilterDef
 };

@@ -99,3 +99,12 @@ table td{
 .status_negative{
     color: red;
 }
+.url_pattern{
+    background-color: #c8d82f;
+}
+.projectname{
+    background-color: #c8d82f;
+}
+.projectpath{
+    color:blue;
+}

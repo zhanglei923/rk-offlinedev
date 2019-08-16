@@ -23,20 +23,7 @@ let showInfomation = (result)=>{
                                                 </td>
         </tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_negative">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
-        <tr><td align="right"></td>
-        <td>
-            <table>
-                <thead class="table_title">
-                    <tr>
-                        <th align="left" colspan="999">子工程</th>
-                    </tr>
-                </thead>
-                <tbody id="subproject_list">
-                    
-                </tbody>
-            </table>
-        </td>
-        </tr>
+        <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
         <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
@@ -46,9 +33,29 @@ let showInfomation = (result)=>{
     </table>
     `
     $('#infomation').html(html)
-    showSubProjects()
+    showSubProjects(result)
 }
-let showSubProjects = ()=>{
-    let html = `<tr><td align="right">无</td><td>&nbsp;</td></tr>`
+let showSubProjects = (result)=>{
+    let has = false;
+    let html = ``
+    if(result.filters){     
+        has = true;   
+        result.filters.forEach((item)=>{
+            html += `<tr>
+                        <td align="right"><span class="url_pattern">${item.url_pattern}</span></td>
+                        <td><span class="projectpath">${item.localpath}</span></td>
+                    </tr>`
+        })
+    }
+    if(result.projects){   
+        has = true;   
+        result.projects.forEach((item)=>{
+            html += `<tr>
+                        <td align="right"><span class="projectname">${item.project}</span></td>
+                        <td><span class="projectpath">${item.projectPath}</span></td>
+                    </tr>`
+        })
+    }
+    if(!has) html = `<tr><td align="right">无</td><td>&nbsp;</td></tr>`
     $('#subproject_list').html(html)
 }

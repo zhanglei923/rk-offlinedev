@@ -12,7 +12,7 @@ let linkToStaticFile = (req, res, next) => {
     }
     var webappFolder = getConfig.getWebAppFolder()
     let root = webappFolder;
-    let filterDef = staticFilter.getFilterDef(req_path);
+    let filterDef = staticFilter.getFilterResult(req_path);
     if(filterDef) {
         root = filterDef.localpath;
         req_path = filterDef.req_path;
