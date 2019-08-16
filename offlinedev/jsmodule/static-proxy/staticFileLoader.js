@@ -12,9 +12,14 @@ var cache = {}
 module.exports = {
     loadCss: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
+        let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
         if(!fs.existsSync(fullfilepath)){
-            fullfilepath = projectFileSearch.searchFile(path)
+            let o = projectFileSearch.searchFile(path)
+            if(o) {
+                fromSubPrj = o.project;
+                fullfilepath = o.fpath;
+            }
         }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-css-file:', fullfilepath)
@@ -29,15 +34,20 @@ module.exports = {
             if(typeof content === 'undefined' || content === null){ 
                 callback(null);
             }else{
-                callback(content);
+                callback(content, {fromSubPrj});
             }
         });
     },
     loadTpl: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
+        let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
         if(!fs.existsSync(fullfilepath)){
-            fullfilepath = projectFileSearch.searchFile(path)
+            let o = projectFileSearch.searchFile(path)
+            if(o) {
+                fromSubPrj = o.project;
+                fullfilepath = o.fpath;
+            }
         }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-tpl-file:', fullfilepath)
@@ -52,16 +62,21 @@ module.exports = {
             if(typeof content === 'undefined' || content === null){ 
                 callback('');
             }else{
-                callback(content);
+                callback(content, {fromSubPrj});
             }
         });
     },
     loadJs: function (rootFolder, path, callback){
         if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(rootFolder, path, callback);
         //if(cache[path]) return cache[path];
+        let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
         if(!fs.existsSync(fullfilepath)){
-            fullfilepath = projectFileSearch.searchFile(path)
+            let o = projectFileSearch.searchFile(path)
+            if(o) {
+                fromSubPrj = o.project;
+                fullfilepath = o.fpath;
+            }
         }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file1:', fullfilepath)
@@ -99,8 +114,8 @@ module.exports = {
                 //cache[path] = jsContent;
                 //console.log(fs.existsSync(fullfilepath), fullfilepath)
                 let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
-                jsContent =   injectScript + jsContent
-                callback(jsContent);
+                //jsContent =   injectScript + jsContent
+                callback(jsContent, {fromSubPrj});
             }else{
                 callback(null);
             }

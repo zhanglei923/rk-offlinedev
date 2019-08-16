@@ -15,9 +15,14 @@ let thisUtil = {
     md5Map:{},
     loadJs: function (rootFolder, path, callback){
         //if(cache[path]) return cache[path];
+        let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
         if(!fs.existsSync(fullfilepath)){
-            fullfilepath = projectFileSearch.searchFile(path)
+            let o = projectFileSearch.searchFile(path)
+            if(o) {
+                fromSubPrj = o.project;
+                fullfilepath = o.fpath;
+            }
         }
         if(!fs.existsSync(fullfilepath)){
             console.log('no-js-file2:', fullfilepath)
@@ -67,7 +72,7 @@ let thisUtil = {
                 //console.log(fs.existsSync(fullfilepath), fullfilepath)
                 let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 jsContent = jsContent
-                callback(jsContent);
+                callback(jsContent, {fromSubPrj});
             }else{
                 callback(null);
             }

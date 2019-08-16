@@ -20,36 +20,42 @@ let linkToStaticFile = (req, res, next) => {
     }
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
-        staticFileLoader.loadJs(root, req_path, (jscontent)=>{
+        staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `//[static-filter]${filterDef?'[proxy]':''}${root}\n` + jscontent;
+                if(root) jscontent = `//[static-filter]${filterDef?'[proxy]':''}${root}\n`+
+                                     `//[sub-project]${info.fromSubPrj}\n` + 
+                                     jscontent;
                 res.send(jscontent);
             }
         })
         return;           
     }else if(/\.css$/.test(req_path)){
         res.set('Content-Type', 'text/css');
-        staticFileLoader.loadCss(root, req_path, (jscontent)=>{
+        staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `/** [static-filter]${filterDef?'[proxy]':''}${root} **/\n` + jscontent;
+                if(root) jscontent = `/** [static-filter]${filterDef?'[proxy]':''}${root} **/\n`+
+                                     `/** [sub-project]${info.fromSubPrj} **/\n` + 
+                                     jscontent;
                 res.send(jscontent);
             }
         })
         return;
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
-        staticFileLoader.loadTpl(root, req_path, (jscontent)=>{
+        staticFileLoader.loadTpl(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
                 res.sendStatus(404);
                 return;
             }else{
-                if(root) jscontent = `<!-- [static-filter]${filterDef?'[proxy]':''}${root} -->\n` + jscontent;
+                if(root) jscontent = `<!-- [static-filter]${filterDef?'[proxy]':''}${root} -->\n` +
+                                     `<!-- [sub-project]${info.fromSubPrj} -->` +
+                                     jscontent;
                 res.send(jscontent);
             }
         })
