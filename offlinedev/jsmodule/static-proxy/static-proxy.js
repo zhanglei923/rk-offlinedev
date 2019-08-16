@@ -3,7 +3,7 @@ var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 
 let linkToStaticFile = (req, res, next) => {
-    res.set('aa-rk', 'This is by rk-offlinedev!');
+    res.set('.rk', 'This is by rk-offlinedev!');
     let req_path = req.path;
     //console.log(req.path)
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
@@ -25,9 +25,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('aa-rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('aa-rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('aa-rk-filepath', info.fullfilepath);
+                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
                 if(root) jscontent = `//[rk-offlinedev]${filterDef?'[proxy]':''}${root}\n`+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
@@ -42,9 +42,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('aa-rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('aa-rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('aa-rk-filepath', info.fullfilepath);
+                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
                 if(root) jscontent = `/** [rk-offlinedev]${filterDef?'[proxy]':''}${root} **/\n`+
                                      //`/** [sub-project]${info.fromSubPrj} **/\n` + 
                                      jscontent;
@@ -59,9 +59,9 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                res.set('aa-rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                if(!info.fromSubPrj)res.set('aa-rk-webpath', `${filterDef?'[proxy]':''}${root}`);
-                if(info.fullfilepath)res.set('aa-rk-filepath', info.fullfilepath);
+                res.set('.rk-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                if(!info.fromSubPrj)res.set('.rk-webpath', `${filterDef?'[proxy]':''}${root}`);
+                if(info.fullfilepath)res.set('.rk-filepath', info.fullfilepath);
                 if(root) jscontent = `<!-- [rk-offlinedev]${filterDef?'[proxy]':''}${root} -->\n` +
                                      //`<!-- [sub-project]${info.fromSubPrj} -->` +
                                      jscontent;
