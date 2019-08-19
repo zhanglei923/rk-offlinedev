@@ -9,6 +9,11 @@ let userConfig = getConfig.getUserConfig();
 
 var cache = {}
 
+let prettifyFilePath = (fpath)=>{
+    fpath = fpath.replace(/\/{1,}/g, '/');
+    fpath = fpath.replace(/\\{1,}/g, '/');
+    return fpath;
+};
 module.exports = {
     loadCss: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
@@ -26,6 +31,7 @@ module.exports = {
             callback(null);
             return;
         }
+        fullfilepath = prettifyFilePath(fullfilepath);
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
@@ -54,6 +60,7 @@ module.exports = {
             callback(null);
             return;
         }
+        fullfilepath = prettifyFilePath(fullfilepath);
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
@@ -84,6 +91,7 @@ module.exports = {
             return;
         }
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
+        fullfilepath = prettifyFilePath(fullfilepath);
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
