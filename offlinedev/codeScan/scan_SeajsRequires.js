@@ -1,23 +1,65 @@
 let _ = require('lodash')
+let fs = require('fs')
+let pathutil = require('path')
+let webprojectUtil = require('../jsmodule/config/webprojectUtil')
 let regexp = require('../jsmodule/utils/seajs/reg')
 
 let urlist = []
 let _require = (url)=>{
     urlist.push(url)
 }
-let scan = (fpath, jscontent)=>{
+let scan = (staticroot, fpath, jscontent)=>{
+    let seaconfig = webprojectUtil.getSeaConfig();
     let requires = jscontent.match(regexp.REQUIRE_REGEX);
+    let results;
     if(_.isArray(requires)){
-        console.log(JSON.stringify(requires))
+        //console.log(JSON.stringify(requires))
         let evalstr = '';
         requires.forEach((str)=>{
             evalstr = evalstr + ';' + str.replace(/^require/g, '_require') + ';'
         })
         urlist = [];
-        console.log(evalstr)
+        //console.log(evalstr)
         eval(evalstr)
-        console.log(urlist)
+        for(let i = 0; i < urlist.length; i++){
+            let val = urlist[i];
+            if(seaconfig[val]) urlist[i] = seaconfig[val]
+        }
+        //console.log(urlist)
+        results = parseEachRequireUrls(staticroot, fpath, urlist)
     }
+    return results;
+}
+let parseEachRequireUrls = (staticroot, fpath, urlist)=>{
+    let sourceroot = pathutil.resolve(staticroot, './source')
+    let finfo = pathutil.parse(fpath);
+    let fdir = finfo.dir;
+    let result = []
+    for(let i = 0; i < urlist.length; i++){
+        let info = {}
+        let url = urlist[i];
+        let is_abs = !url.match(/^\./);
+        let root = is_abs ? sourceroot : fdir;
+        let url2 = url;
+        if(is_abs) url2 = './' + url2;
+        //if(!url2.match(/(\.css|\.tpl)$/)) url2 = url2 + '.js';
+        let fullfilepath = pathutil.resolve(root, url)
+        let exist = fs.existsSync(fullfilepath)
+        if(!exist) {
+            fullfilepath = fullfilepath + '.js';
+            exist = fs.existsSync(fullfilepath);
+            if(!exist) console.log('[not-found]' + fullfilepath)
+        }
+        info = {
+            fullfilepath,
+            sourceroot,
+            url2: url2,
+            url,
+            exist
+        }
+        result.push(info)
+    }
+    return result;
 }
 module.exports = {
     scan

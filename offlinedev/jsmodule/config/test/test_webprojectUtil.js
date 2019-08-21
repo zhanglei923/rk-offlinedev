@@ -1,5 +1,7 @@
-let webprojectUtil = require('../webprojectUtil');
-let seaconfig = webprojectUtil.loadSeaConfig('E:/workspaceGerrit/apps-ingage-web')
+let configUtil = require('../configUtil')
+let webprojectUtil = require('../webprojectUtil')
+configUtil.reloadConfig()
+let seaconfig = webprojectUtil.getSeaConfig()
 
 console.log(seaconfig)
 console.log('-------')

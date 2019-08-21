@@ -82,6 +82,7 @@ watcher(configFilePath, { recursive: false }, function(evt, name) {
 });
 
 let thisUtil = {
+    reloadConfig,
     getUserConfig: function(){
         return config;
     },

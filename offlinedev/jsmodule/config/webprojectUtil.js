@@ -2,7 +2,6 @@ var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
-let configUtil = require('./configUtil')
 let statusUtil = require('./statusUtil')
 let readSeaConfig = require('../utils/seajs/readSeaConfig')
 var rootpath = pathutil.resolve(__dirname, '../../../');
@@ -28,9 +27,8 @@ module.exports = {
     getWebProjectPath: (newpath)=>{
         return statusUtil.setData('webProjectPath')
     },
-    listAll: function(){
+    listAll: function(myroot){
         let list = [];
-        let myroot = configUtil.getMyRoot()
         eachcontentjs.eachFolder(myroot, (folder)=>{
             let depth = folder.split('/').length;
             let gitpath = pathutil.resolve(myroot, folder);
