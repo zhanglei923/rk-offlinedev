@@ -52,7 +52,7 @@ let showSubProjects = (result)=>{
         result.projects.forEach((item)=>{
             html += `<tr>
                         <td align="left">工程名<span class="projectname">${item.project}</span></td>
-                        <td><span class="projectpath">${item.projectPath}</span></td>
+                        <td><span class="projectpath ${!item.branchname?'status_negative':''}">${item.projectPath}</span>&nbsp;(${item.branchname?item.branchname:'<span class="status_negative">不是工程！</span>'})</td>
                     </tr>`
         })
     }

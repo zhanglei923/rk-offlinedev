@@ -1,4 +1,5 @@
 var fs = require('fs');
+var _ = require('lodash')
 var pathutil = require('path');
 var makeDir = require('make-dir');
 var watcher = require('node-watch');
@@ -77,7 +78,6 @@ let reloadConfig = ()=>{
     console.log('---')
 }
 reloadConfig();
-
 
 // watcher(configFilePath, { recursive: false }, function(evt, name) {
 //     console.log('%s changed.', name, evt);

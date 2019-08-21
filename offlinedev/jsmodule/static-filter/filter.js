@@ -2,6 +2,8 @@ let fs = require('fs');
 let _ = require('lodash')
 let pathutil = require('path')
 
+var gitUtil = require('../utils/gitUtil')
+
 let filterDefine = [];
 let projectsDefine = [];
 // http://localhost:666/static/source/separation/demo/ya.js
@@ -41,10 +43,12 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                 let branch = item.branch;
                 let projectPath = pathutil.resolve(webparent, project);
                 let projectStaticPath = pathutil.resolve(projectPath, './static/source');
+                let branchname = gitUtil.getBranchName(projectPath)
                 let item2 = {
                     project,
                     projectPath,
-                    localpath: projectStaticPath
+                    localpath: projectStaticPath,
+                    branchname
                 }
                 if(isok)arr2.push(item2);
             })

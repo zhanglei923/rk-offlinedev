@@ -94,10 +94,10 @@ table td{
     /* border: 1px solid #eee; */
 }
 .status_positive{
-    color:green;
+    color:green !important;
 }
 .status_negative{
-    color: red;
+    color: red !important;
 }
 .url_pattern{
     background-color: #c8d82f;

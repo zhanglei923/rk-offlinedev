@@ -4,6 +4,7 @@ var requester = require('sync-request');
 var http = require('http');
 //var unzip = require("unzip");
 var _ = require('lodash')
+var gitUtil = require('../../offlinedev/jsmodule/utils/gitUtil')
 var getConfig = require('../../offlinedev/jsmodule/config/configUtil')
 var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
 var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
@@ -24,7 +25,7 @@ module.exports = {
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             var webpath = getConfig.getWebRoot()
-            var branchName = getBranchName(webpath)
+            var branchName = gitUtil.getBranchName(webpath)
             console.log(webpath, branchName)
             let projects = filter.getProjectsDef();
             let filters = filter.getFilterDef()
@@ -156,13 +157,4 @@ var getUrlContent = function(url){
         console.log(furl) 
         var webresultText = data.statusCode === 200 ? data.getBody().toString() : null;
         return webresultText;
-};
-var getBranchName = function(prjPath){
-        var gitPath = prjPath + '/.git/'
-        if(!fs.existsSync(prjPath)) return '';
-        if(!fs.existsSync(gitPath)) return '';
-        var HEAD = fs.readFileSync(gitPath + 'HEAD','utf8');
-        HEAD = _.trim(HEAD)
-        var branchName = HEAD.replace('ref: refs/heads/', '');
-        return branchName;
 };
