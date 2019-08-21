@@ -11,6 +11,8 @@ let linkToStaticFile = (req, res, next) => {
         next();
         return;
     }
+    let webFolder = getConfig.getWebRoot()
+    let staticFolder = getConfig.getStaticFolder()
     var webappFolder = getConfig.getWebAppFolder()
     let root = webappFolder;
     let filterDef = staticFilter.getFilterResult(req_path);
@@ -26,11 +28,21 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
-                //scanner.scan(jscontent);
+                let debugComments = ''
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
+                let seaScanResults = scanner.scan(staticFolder, info.fullfilepath, jscontent);
+                if(seaScanResults && seaScanResults.missingFiles.length > 0){
+                    let missingfiles = seaScanResults.missingFiles;
+                    res.set('.rk-ERROR-bad-url', JSON.stringify(missingfiles));
+                    missingfiles.forEach((miss)=>{
+                        //debugComments += `//[rk][ERROR]：Can not find "${miss.url}"\n`
+                        debugComments += `;console.error('Can not find file "${miss.url}"');\n`
+                    })
+                }
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 if(root) jscontent = `//[rk][local-file]${info.fullfilepath}\n`+
+                                     debugComments+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
                 res.send(jscontent);

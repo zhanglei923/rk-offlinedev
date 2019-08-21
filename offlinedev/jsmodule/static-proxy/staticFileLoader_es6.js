@@ -7,7 +7,7 @@ let projectFileSearch = require('./projectFileSearch')
 var getConfig = require('../config/configUtil')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
-let my_tmp_folder = pathutil.resolve(tmp_folder, './staticFileLoader')
+let my_tmp_folder = pathutil.resolve(tmp_folder, './es6_downgrading')
 makeDir.sync(my_tmp_folder);
 var cache = {}
 

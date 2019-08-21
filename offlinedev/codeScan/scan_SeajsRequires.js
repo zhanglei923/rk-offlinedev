@@ -21,12 +21,15 @@ let scan = (staticroot, fpath, jscontent)=>{
         urlist = [];
         //console.log(evalstr)
         eval(evalstr)
+        let urlist2 = []
         for(let i = 0; i < urlist.length; i++){
             let val = urlist[i];
-            if(seaconfig[val]) urlist[i] = seaconfig[val]
+            if(!val || val.indexOf('{')>=0) continue;
+            if(seaconfig[val]) val = seaconfig[val];
+            urlist2.push(val);
         }
         //console.log(urlist)
-        results = parseEachRequireUrls(staticroot, fpath, urlist)
+        results = parseEachRequireUrls(staticroot, fpath, urlist2)
     }
     return results;
 }
@@ -34,7 +37,8 @@ let parseEachRequireUrls = (staticroot, fpath, urlist)=>{
     let sourceroot = pathutil.resolve(staticroot, './source')
     let finfo = pathutil.parse(fpath);
     let fdir = finfo.dir;
-    let result = []
+    let results = []
+    let missingFiles = []
     for(let i = 0; i < urlist.length; i++){
         let info = {}
         let url = urlist[i];
@@ -48,7 +52,10 @@ let parseEachRequireUrls = (staticroot, fpath, urlist)=>{
         if(!exist) {
             fullfilepath = fullfilepath + '.js';
             exist = fs.existsSync(fullfilepath);
-            if(!exist) console.log('[not-found]' + fullfilepath)
+            if(!exist) {
+                console.log('[not-found]' + fullfilepath)
+                missingFiles.push({fullfilepath, url, fpath})
+            }
         }
         info = {
             fullfilepath,
@@ -57,9 +64,12 @@ let parseEachRequireUrls = (staticroot, fpath, urlist)=>{
             url,
             exist
         }
-        result.push(info)
+        results.push(info)
     }
-    return result;
+    return {
+        missingFiles,
+        results
+    };
 }
 module.exports = {
     scan

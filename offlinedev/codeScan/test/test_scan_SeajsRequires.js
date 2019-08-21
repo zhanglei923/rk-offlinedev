@@ -11,4 +11,4 @@ let fpath = `${staticroot}/source/page/js/privatemsg/privateMsgDetailCtrl.js`
 let jscontent = fs.readFileSync(fpath, 'utf8')
 let result = scan_SeajsRequires.scan(staticroot, fpath, jscontent)
 
-//console.log(result)
+console.log(result)
