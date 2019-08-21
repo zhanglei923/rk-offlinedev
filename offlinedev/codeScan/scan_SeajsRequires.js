@@ -8,10 +8,17 @@ let urlist = []
 let _require = (url)=>{
     urlist.push(url)
 }
+let shouldIgnore = (fpath)=>{
+    //let finfo = pathutil.parse(fpath);
+    //if(finfo.base === 'static' && finfo.dir.match(/webapp$/)) return true;
+    fpath = fpath.replace(/\\{1,}/g, '/');
+    fpath = fpath.replace(/\/{1,}/g, '/');
+    if(fpath.indexOf('/static/source/')<=0) return true;
+}
 let scan = (staticroot, fpath, jscontent)=>{
     if(regexp.shouldIgnore(fpath)) return;
+    if(shouldIgnore(fpath)) return;
     let finfo = pathutil.parse(fpath);
-    if(finfo.base === 'static' && finfo.dir.match(/webapp$/)) return;
     let seaconfig = webprojectUtil.getSeaConfig();
     let requires = jscontent.match(regexp.REQUIRE_REGEX);
     let results;
