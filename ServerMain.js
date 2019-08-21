@@ -118,6 +118,10 @@ app.post('*',function(req, res){
 })
 //action转接
 app.get('*', function(req, res, next) {
+    if(!req.path.match(/\.action$/)){
+         next()
+         return;
+    }
    var html = 'unknown page.'
    var accept = req.headers.accept;
    var originalUrl = req.originalUrl;
@@ -129,10 +133,6 @@ app.get('*', function(req, res, next) {
    //console.log('pathname', pathname, isCanvas,urlInfo.query.canvas)
    //console.log(urlInfo)
    //console.log('req.path=', req.path)
-   if(!req.path.match(/\.action$/)){
-        next()
-        return;
-   }
     if(/^\/designer\.action/ig.test(pathname)){
         html = getPageHtml(isdeploy, 'frame30_designer.html');
     }else if(/^\/appdesigner\.action/ig.test(pathname)){
