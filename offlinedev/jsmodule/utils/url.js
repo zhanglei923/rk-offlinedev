@@ -1,6 +1,12 @@
 const urlParser = require('url');
 
 var _thisUtil = {
+    isStaticFile:(url)=>{
+        if(url.match(/(\.ts|\.js|\.tpl|\.css)$/)){
+            return true;
+        }
+        return false;
+    },
     getUrlQueryAsStr: (url) => {
         const myURL = urlParser.parse(url);
         //console.log('my: ', myURL.hostname, myURL.pathname, myURL.searchParams )

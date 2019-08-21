@@ -76,10 +76,10 @@ let reloadConfig = ()=>{
 reloadConfig();
 
 
-watcher(configFilePath, { recursive: false }, function(evt, name) {
-    console.log('%s changed.', name, evt);
-    reloadConfig();
-});
+// watcher(configFilePath, { recursive: false }, function(evt, name) {
+//     console.log('%s changed.', name, evt);
+//     reloadConfig();
+// });
 
 let thisUtil = {
     reloadConfig,
