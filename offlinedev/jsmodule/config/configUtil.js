@@ -39,6 +39,9 @@ let defaultConfig = {
     },
     es6:{
         autoTransformJs: false
+    },
+    debug:{
+        console: true
     }
 };
 let config={};
@@ -83,6 +86,14 @@ reloadConfig();
 
 let thisUtil = {
     reloadConfig,
+    isTrue:(cfgpath)=>{
+        let bool = false;
+        //console.log((`bool = config.${cfgpath}`))
+        try{
+            eval(`bool = config.${cfgpath}`)
+        }catch(e){}
+        return !!bool;
+    },
     getUserConfig: function(){
         return config;
     },

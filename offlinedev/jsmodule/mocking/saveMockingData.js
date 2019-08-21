@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
+var configUtil = require('../config/configUtil')
 var rootpath = pathutil.resolve(__dirname, '../../');
 var saveutil = require('../utils/url')
 let dataFolder = '../../mocking/';
@@ -13,7 +14,7 @@ var thisUtil = {
         if(!fs.existsSync(savepath)){
             fs.mkdirSync(savepath);
         }
-        console.log(savepath + '/' + saveName)
+        if(configUtil.isTrue('debug.console_log'))console.log(savepath + '/' + saveName)
     	fs.writeFileSync(savepath + '/' + saveName, content);
     },
     saveFileLinkAction:(url, flist)=>{
@@ -22,7 +23,7 @@ var thisUtil = {
         if(!fs.existsSync(savepath)){
             fs.mkdirSync(savepath);
         }
-        console.log(savepath + '/' + saveName)
+        if(configUtil.isTrue('debug.console_log'))console.log(savepath + '/' + saveName)
     	fs.writeFileSync(savepath + '/' + saveName, JSON.stringify(flist));
     },
     getAllFileLinks:()=>{
@@ -53,7 +54,7 @@ var thisUtil = {
     getCurrentFileLink: (nickname)=>{
         var result = thisUtil.getFileLinkAction(nickname)
         var final;
-        console.log('getCurrentFileLink', nickname, result)
+        if(configUtil.isTrue('debug.console_log'))console.log('getCurrentFileLink', nickname, result)
         result.forEach((re)=>{
             if(re.selected==='true' || re.selected===true) final = re.filepath;
         });

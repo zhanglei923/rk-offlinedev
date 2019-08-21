@@ -4,6 +4,7 @@ var _ = require('lodash')
 var requester = require('sync-request');
 var jsonformatter = require('format-json');
 var localStatus = require('../config/statusUtil')
+var configUtil = require('../config/configUtil')
 var routerScript = require('./routerScript')
 var saveutil = require('../utils/url')
 var saveMockingData = require('./saveMockingData')
@@ -78,7 +79,7 @@ module.exports = {
         let fname = saveutil.getSaveName(oactionname)
         //
         let linkname = saveMockingData.getCurrentFileLink(fname)
-        console.log('load:', linkname, fname)
+        if(configUtil.isTrue('debug.console_log'))console.log('load:', linkname, fname)
         if(linkname && linkname !== 'mock') {
             content = saveMockingData.getFileLinkContent(linkname)
             return content;
