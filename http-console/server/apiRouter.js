@@ -14,7 +14,7 @@ var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
-        console.log('[req]', req.originalUrl)
+        if(getConfig.isTrue('debug.console_log'))console.log('[req]', req.originalUrl)
         if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
             var prjpath = req.body.prjpath
             let ok = webprojectUtil.updateWebProjectPath(prjpath)
