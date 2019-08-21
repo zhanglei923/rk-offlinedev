@@ -36,7 +36,7 @@ module.exports = {
             //if(!fs.existsSync(gitpath)) return false;//stop
             if(/node\_modules/g.test(folder)) return false;
             if(depth> 4) return false;
-            console.log(folder)
+            //console.log(folder)
         })
         return list;
     }

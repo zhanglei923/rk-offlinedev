@@ -21,7 +21,7 @@ var _thisUtil = {
                 keys.push(key)
             })
             keys = keys.sort();
-            console.log(keys)
+            //console.log(keys)
         }
         var keysStr = keys.join('&')
         return {

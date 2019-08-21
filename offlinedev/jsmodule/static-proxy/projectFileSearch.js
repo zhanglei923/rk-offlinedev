@@ -11,12 +11,12 @@ let searchFile =(path)=>{
         let projectPath = prj.projectPath;
         fpath = projectPath + '/' +path;
         project = prj.project;
-        console.log(fpath)
+        //console.log(fpath)
         if(fs.existsSync(fpath)){
             break;
         }
     }
-    console.log(path)
+    //console.log(path)
     return fpath?{
         fpath,
         project
