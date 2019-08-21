@@ -1,6 +1,7 @@
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
+let scanner = require('../../codeScan/scan')
 
 let linkToStaticFile = (req, res, next) => {
     res.set('.rk', 'This is by rk-offlinedev!');
@@ -25,6 +26,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.sendStatus(404);
                 return;
             }else{
+                //scanner.scan(jscontent);
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);

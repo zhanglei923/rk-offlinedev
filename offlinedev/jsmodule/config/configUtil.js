@@ -4,6 +4,8 @@ var makeDir = require('make-dir');
 var watcher = require('node-watch');
 let jsonformat = require('json-format')
 
+let webprojectUtil = require('./webprojectUtil')
+
 let staticFilter = require('../static-filter/filter');
 
 var rootpath = pathutil.resolve(__dirname, '../../');
@@ -63,6 +65,7 @@ let reloadConfig = ()=>{
     let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
     let staticDebugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
 
+    webprojectUtil.loadSeaConfig(webroot)
     staticFilter.loadFilterDef(webroot, staticConfigFilePath, staticDebugConfigFilePath);
 
     console.log('[user-config]=', JSON.stringify(config))

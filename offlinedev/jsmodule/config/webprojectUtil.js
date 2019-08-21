@@ -4,10 +4,23 @@ var _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
 let configUtil = require('./configUtil')
 let statusUtil = require('./statusUtil')
+let readSeaConfig = require('../utils/seajs/readSeaConfig')
 var rootpath = pathutil.resolve(__dirname, '../../../');
 var config = {};
 var configpath;
+
+let currentSeaConfig;
 module.exports = {
+    loadSeaConfig:(webpath)=>{
+        console.log('[load sea-config]' + webpath)
+        let seapath = pathutil.resolve(webpath, './src/main/webapp/static')
+        let seaconfig = readSeaConfig.parseSeaConfig(seapath);
+        currentSeaConfig = seaconfig;
+        return seaconfig;
+    },
+    getSeaConfig:()=>{
+        return currentSeaConfig;
+    },
     updateWebProjectPath: (newpath)=>{
         console.log('new:', newpath)
         statusUtil.setData('webProjectPath', newpath)
