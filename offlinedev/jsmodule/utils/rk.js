@@ -3,6 +3,7 @@ var pathutil = require('path');
 var _ = require('lodash');
 var decomment = require('decomment');
 var stripcomments = require('strip-comments')
+let cacheUtil = require('./cacheUtil')
 
 var rk = {
     fetchChinese: function(src){
@@ -34,7 +35,13 @@ var rk = {
             .replace(/\n/g, '<br />');
     },
     cleanComments: function(str){
-        return stripcomments(str);
+        let cachekey = 'rk_cleanComments';
+        let md5 = cacheUtil.md5(str);
+        let cached = cacheUtil.getCache(cachekey, md5)
+        if(cached) return cached;
+        let code = stripcomments(str);
+        cacheUtil.setCache(cachekey, md5, code)
+        return code;
     },
     isJsonString: function(str){
             var yesitis = true;

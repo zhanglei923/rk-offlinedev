@@ -9,6 +9,9 @@ let _require = (url)=>{
     urlist.push(url)
 }
 let scan = (staticroot, fpath, jscontent)=>{
+    if(regexp.shouldIgnore(fpath)) return;
+    let finfo = pathutil.parse(fpath);
+    if(finfo.base === 'static' && finfo.dir.match(/webapp$/)) return;
     let seaconfig = webprojectUtil.getSeaConfig();
     let requires = jscontent.match(regexp.REQUIRE_REGEX);
     let results;
@@ -29,13 +32,12 @@ let scan = (staticroot, fpath, jscontent)=>{
             urlist2.push(val);
         }
         //console.log(urlist)
-        results = parseEachRequireUrls(staticroot, fpath, urlist2)
+        results = parseEachRequireUrls(staticroot, fpath, finfo, urlist2)
     }
     return results;
 }
-let parseEachRequireUrls = (staticroot, fpath, urlist)=>{
+let parseEachRequireUrls = (staticroot, fpath, finfo, urlist)=>{
     let sourceroot = pathutil.resolve(staticroot, './source')
-    let finfo = pathutil.parse(fpath);
     let fdir = finfo.dir;
     let results = []
     let missingFiles = []
