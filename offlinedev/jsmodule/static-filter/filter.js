@@ -48,6 +48,7 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                     project,
                     projectPath,
                     localpath: projectStaticPath,
+                    def_branchname: branch,
                     branchname
                 }
                 if(isok)arr2.push(item2);

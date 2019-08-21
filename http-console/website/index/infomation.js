@@ -50,9 +50,18 @@ let showSubProjects = (result)=>{
     if(result.projects && result.projects.length > 0){   
         has = true;   
         result.projects.forEach((item)=>{
+            let branchMatch = (item.def_branchname === item.branchname)
             html += `<tr>
                         <td align="left">工程名<span class="projectname">${item.project}</span></td>
-                        <td><span class="projectpath ${!item.branchname?'status_negative':''}">${item.projectPath}</span>&nbsp;(${item.branchname?item.branchname:'<span class="status_negative">不是工程！</span>'})</td>
+                        <td>
+                        <span class="projectpath ${!item.branchname?'status_negative':''}">
+                            ${item.projectPath}
+                        </span>
+                        &nbsp;
+                        (${item.branchname?item.branchname:'<span class="status_negative">不是工程！</span>'})
+                        ${branchMatch?item.branchname:`(<span class="status_negative">分支不符合要求</span>)`}
+                        ${branchMatch?'':`(<span class="status_negative">期望分支是${item.def_branchname}</span>)`}
+                        </td>
                     </tr>`
         })
     }
