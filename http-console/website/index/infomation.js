@@ -59,7 +59,7 @@ let showSubProjects = (result)=>{
                         </span>
                         &nbsp;
                         (${item.branchname?item.branchname:'<span class="status_negative">不是工程！</span>'})
-                        ${branchMatch?item.branchname:`(<span class="status_negative">分支不符合要求</span>)`}
+                        ${branchMatch?'':`(<span class="status_negative">分支不符合要求</span>)`}
                         ${branchMatch?'':`(<span class="status_negative">期望分支是${item.def_branchname}</span>)`}
                         </td>
                     </tr>`
