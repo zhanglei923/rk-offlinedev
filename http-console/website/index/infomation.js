@@ -54,14 +54,14 @@ let showSubProjects = (result)=>{
             html += `<tr>
                         <td align="left"><span class="projectname">${item.project}</span></td>
                         <td>
-                        <span class="projectpath ${!item.branchname?'status_negative':''}">
+                        <span class="projectpath ${!item.branchname?'status_negative_fill':''}">
                             ${item.projectPath}
                         </span>
                         &nbsp;
-                        ${!item.def_branchname?'(<span class="status_negative">没有指定分支！</span>)':''}
-                        (${item.branchname?item.branchname:'<span class="status_negative">不是git工程！</span>'})
-                        ${branchMatch?'':`(<span class="status_negative">分支不对</span>)`}
-                        ${branchMatch?'':`(<span class="status_negative">期望分支为：${item.def_branchname}</span>)`}
+                        ${!item.def_branchname?'<span class="status_negative_fill">工程没有指定分支</span>':''}
+                        (${item.branchname?item.branchname:'<span class="status_negative_fill">不是git工程</span>'})
+                        ${branchMatch?'':`<span class="status_negative_fill">分支不对</span>`}
+                        ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
                     </tr>`
         })

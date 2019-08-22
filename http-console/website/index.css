@@ -99,6 +99,12 @@ table td{
 .status_negative{
     color: red !important;
 }
+.status_positive_fill{
+    background-color:green !important;
+}
+.status_negative_fill{
+    background-color: red !important;
+}
 .url_pattern{
     background-color: #c8d82f;
 }
