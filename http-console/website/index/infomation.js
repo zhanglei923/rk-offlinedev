@@ -2,11 +2,11 @@ let showInfomation = (result)=>{
     $('#branchname').text()
     $('#webpath').html(``)
 
-
+    let hostname = window.location.hostname;
     let userConfig = result.userConfig;
     console.log(userConfig)
-    let httpurl = `http://localhost:${userConfig.http.port}/static/sea-config.js`;
-    let httpsurl = `https://localhost:${userConfig.https.port}/static/sea-config.js`;
+    let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
+    let httpsurl = `https://${hostname}:${userConfig.https.port}/static/sea-config.js`;
     let html = `<table border=0 class="infotable">
     <thead class="table_title">
         <tr>
@@ -27,7 +27,7 @@ let showInfomation = (result)=>{
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
         <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a></td></tr>
-        <tr><td align="right">Java环境用：</td><td><a target="_blank" href="${"https://localhost:444/static/sea-config.js"}">${"https://localhost:444/static/sea-config.js"}</a></td></tr>
+        <tr><td align="right">Java环境用：</td><td><a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a></td></tr>
         
     </tbody>
     </table>
