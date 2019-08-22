@@ -96,32 +96,8 @@ module.exports = {
             if (err) jsContent=null;                
             if(jsContent === ''){
                 callback('', {fromSubPrj, fullfilepath});
-            }else if(jsContent){            
-                if(/\.es6\.js$/.test(path)){
-                    var script = jsContent.toString();
-                    try{
-                    var result = babel.transform(script, {
-                            sourceMap: true,
-                            presets: ["env"],
-                            //presets: ['./node_modules/babel-preset-es2015'],
-                            //plugins: ["transform-runtime", ],
-                            code:true
-                    })
-                    console.log('map', result.map)
-                    jsContent = `
-                            define(function(require, exports, module) {
-                                ${result.code}
-                            });
-                            //# sourceMappingURL=sourcemap.js.map
-                    `
-                    fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));
-                    }catch(e){
-                    console.log('  Warn: failed at transform es6:', e)
-                    }
-                }
-                //cache[path] = jsContent;
-                //console.log(fs.existsSync(fullfilepath), fullfilepath)
-                let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
+            }else if(jsContent){
+                //let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 //jsContent =   injectScript + jsContent
                 callback(jsContent, {fromSubPrj, fullfilepath});
             }else{
