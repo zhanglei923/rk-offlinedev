@@ -8,7 +8,7 @@ module.exports = {
     init: function(){
         var path = pathutil.resolve(rootpath, './localStatus.data') //rootpath + '/' + '.localStatus'
         configpath = path;
-        console.log('load: localStatus')
+        //console.log('load: localStatus')
         if(!fs.existsSync(path)){
             fs.writeFileSync(path, JSON.stringify(config));
         }else{
