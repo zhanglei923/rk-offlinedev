@@ -58,7 +58,8 @@ let showSubProjects = (result)=>{
                             ${item.projectPath}
                         </span>
                         &nbsp;
-                        (${item.branchname?item.branchname:'<span class="status_negative">不是工程！</span>'})
+                        ${!item.def_branchname?'(<span class="status_negative">没有指定分支！</span>)':''}
+                        (${item.branchname?item.branchname:'<span class="status_negative">不是git工程！</span>'})
                         ${branchMatch?'':`(<span class="status_negative">分支不对</span>)`}
                         ${branchMatch?'':`(<span class="status_negative">期望分支为：${item.def_branchname}</span>)`}
                         </td>
