@@ -48,7 +48,7 @@
       color:white;
   }
   .download-btn.busy{
-      background-color: red;
+      background-color: #ff1b1b;
       color:white;
   }
   @-webkit-keyframes rotation{
@@ -85,7 +85,7 @@
     font-size: 11px;
 }
 .infomation .user-config{
-    color:red;
+    color:#ff1b1b;
 }
 table td{
     padding-left: 1px;
@@ -97,7 +97,7 @@ table td{
     color:green !important;
 }
 .status_negative{
-    color: red !important;
+    color: #ff1b1b !important;
 }
 .status_warn{
     color: yellow !important;
@@ -106,7 +106,7 @@ table td{
     background-color:green !important;
 }
 .status_negative_fill{
-    background-color: red !important;
+    background-color: #ff1b1b !important;
 }
 .status_warn_fill{
     background-color: yellow !important;

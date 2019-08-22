@@ -178,7 +178,7 @@ let getPageHtml = function(isdeploy, filename){
     if(isdeploy) filename = 'deploy.'+filename
     var fpath = pathutil.resolve(__dirname, './offlinedev/mocking/pages/'+ filename);
     if(!fs.existsSync(fpath)){
-        var page404 = fs.readFileSync(pathutil.resolve(__dirname, './offlinedev/pages/file-not-exist.tmpl'), 'utf8')
+        var page404 = fs.readFileSync(pathutil.resolve(__dirname, './http-console/website/pages/file-not-exist.tmpl'), 'utf8')
         var template = Handlebars.compile(page404);
         var html404 = template({fpath: fpath});
         return html404
