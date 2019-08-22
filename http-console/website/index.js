@@ -38,6 +38,18 @@ $.ajax({
         }
     });
 $.ajax({
+      url: '/offlinedev/api/self_check/',
+      cache: false,
+      method: 'POST',
+      data: {},
+      success: function( response ) {
+        console.log(response)
+
+      },
+      error:function(ajaxObj,msg,err){
+      }
+});
+$.ajax({
         url: '/offlinedev/api/getWebProjectInfo/',
         cache: false,
         method: 'POST',

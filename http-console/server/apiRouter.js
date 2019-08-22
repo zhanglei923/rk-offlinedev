@@ -11,6 +11,7 @@ var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
+let watchdog = require('../../offlinedev/watchdog/watchdog')
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
@@ -21,6 +22,13 @@ module.exports = {
             callback({
                 ok
             })
+        }
+        else if(/^\/offlinedev\/api\/self_check\//.test(req.originalUrl)){
+            var result = watchdog.watch();
+            callback({
+                result: result
+            })
+            return 'done'
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
