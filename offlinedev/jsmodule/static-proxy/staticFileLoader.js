@@ -8,30 +8,18 @@ let staticFileLoader_es6 = require('./staticFileLoader_es6')
 let userConfig = getConfig.getUserConfig();
 
 var cache = {}
+let pathfinder = require('./pathfinder')
 
-let prettifyFilePath = (fpath)=>{
-    fpath = fpath.replace(/\/{1,}/g, '/');
-    fpath = fpath.replace(/\\{1,}/g, '/');
-    return fpath;
-};
 module.exports = {
     loadCss: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        let fromSubPrj = null;
-        var fullfilepath = rootFolder + '/' + path;
-        if(!fs.existsSync(fullfilepath)){
-            let o = projectFileSearch.searchFile(path)
-            if(o) {
-                fromSubPrj = o.project;
-                fullfilepath = o.fpath;
-            }
-        }
-        if(!fs.existsSync(fullfilepath)){
-            console.log('no-css-file:', fullfilepath)
+        var findinfo = pathfinder.findPath(rootFolder, path, callback)//rootFolder + '/' + path;
+        if(!findinfo){
             callback(null);
             return;
         }
-        fullfilepath = prettifyFilePath(fullfilepath);
+        let fullfilepath = findinfo.fullfilepath;
+        let fromSubPrj = findinfo.fromSubPrj;
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
@@ -46,21 +34,13 @@ module.exports = {
     },
     loadTpl: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        let fromSubPrj = null;
-        var fullfilepath = rootFolder + '/' + path;
-        if(!fs.existsSync(fullfilepath)){
-            let o = projectFileSearch.searchFile(path)
-            if(o) {
-                fromSubPrj = o.project;
-                fullfilepath = o.fpath;
-            }
-        }
-        if(!fs.existsSync(fullfilepath)){
-            console.log('no-tpl-file:', fullfilepath)
+        var findinfo = pathfinder.findPath(rootFolder, path, callback)//rootFolder + '/' + path;
+        if(!findinfo){
             callback(null);
             return;
         }
-        fullfilepath = prettifyFilePath(fullfilepath);
+        let fullfilepath = findinfo.fullfilepath;
+        let fromSubPrj = findinfo.fromSubPrj;
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
@@ -76,22 +56,13 @@ module.exports = {
     loadJs: function (rootFolder, path, callback){
         if(userConfig.es6.autoTransformJs) return staticFileLoader_es6.loadJs(rootFolder, path, callback);
         //if(cache[path]) return cache[path];
-        let fromSubPrj = null;
-        var fullfilepath = rootFolder + '/' + path;
-        if(!fs.existsSync(fullfilepath)){
-            let o = projectFileSearch.searchFile(path)
-            if(o) {
-                fromSubPrj = o.project;
-                fullfilepath = o.fpath;
-            }
-        }
-        if(!fs.existsSync(fullfilepath)){
-            console.log('no-js-file1:', fullfilepath)
+        var findinfo = pathfinder.findPath(rootFolder, path, callback)//rootFolder + '/' + path;
+        if(!findinfo){
             callback(null);
             return;
         }
-        //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
-        fullfilepath = prettifyFilePath(fullfilepath);
+        let fullfilepath = findinfo.fullfilepath;
+        let fromSubPrj = findinfo.fromSubPrj;
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             if (err) jsContent=null;                
             if(jsContent === ''){

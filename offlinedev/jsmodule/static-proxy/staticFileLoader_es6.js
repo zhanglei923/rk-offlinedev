@@ -5,6 +5,7 @@ var babel = require("babel-core");
 var makeDir = require('make-dir');
 let projectFileSearch = require('./projectFileSearch')
 var getConfig = require('../config/configUtil')
+let pathfinder = require('./pathfinder')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
 let my_tmp_folder = pathutil.resolve(tmp_folder, './es6_downgrading')
@@ -15,20 +16,13 @@ let thisUtil = {
     md5Map:{},
     loadJs: function (rootFolder, path, callback){
         //if(cache[path]) return cache[path];
-        let fromSubPrj = null;
-        var fullfilepath = rootFolder + '/' + path;
-        if(!fs.existsSync(fullfilepath)){
-            let o = projectFileSearch.searchFile(path)
-            if(o) {
-                fromSubPrj = o.project;
-                fullfilepath = o.fpath;
-            }
-        }
-        if(!fs.existsSync(fullfilepath)){
-            console.log('no-js-file2:', fullfilepath)
+        var findinfo = pathfinder.findPath(rootFolder, path, callback)//rootFolder + '/' + path;
+        if(!findinfo){
             callback(null);
             return;
         }
+        let fullfilepath = findinfo.fullfilepath;
+        let fromSubPrj = findinfo.fromSubPrj;
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             let fullfilepathname = fullfilepath.replace(/[\\]{1,}/g,'~').replace(/\/{1,}/g,'~').replace(/\:{1,}/g,'~')
