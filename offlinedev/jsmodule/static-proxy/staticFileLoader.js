@@ -67,7 +67,7 @@ module.exports = {
                 content=null;    
             }            
             if(typeof content === 'undefined' || content === null){ 
-                callback('');
+                callback('', {fromSubPrj, fullfilepath});
             }else{
                 callback(content, {fromSubPrj, fullfilepath});
             }
@@ -95,7 +95,7 @@ module.exports = {
         fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
-                callback('');
+                callback('', {fromSubPrj, fullfilepath});
             }else if(jsContent){            
                 if(/\.es6\.js$/.test(path)){
                     var script = jsContent.toString();
