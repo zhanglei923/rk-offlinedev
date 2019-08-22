@@ -10,5 +10,5 @@ ServerMain.startHttps();
 
 const ServerRs = require('./ServerRs')
 ServerRs.startHttps(()=>{    
-    console.log('Visit: http://localhost:666')
+    console.log('[SUCCESS] Visit: http://localhost:666 to Use.')
 });
