@@ -4,11 +4,10 @@ var babel = require("babel-core");
 var getConfig = require('../config/configUtil')
 let projectFileSearch = require('./projectFileSearch')
 let staticFileLoader_es6 = require('./staticFileLoader_es6')
+let pathfinder = require('./pathfinder')
 
 let userConfig = getConfig.getUserConfig();
-
 var cache = {}
-let pathfinder = require('./pathfinder')
 
 module.exports = {
     loadCss: function(rootFolder, path, callback){
