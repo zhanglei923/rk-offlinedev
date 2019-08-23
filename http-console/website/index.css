@@ -103,12 +103,15 @@ table td{
     color: yellow !important;
 }
 .status_positive_fill{
+    width: fit-content;
     background-color:green !important;
 }
 .status_negative_fill{
+    width: fit-content;
     background-color: #ff1b1b !important;
 }
 .status_warn_fill{
+    width: fit-content;
     background-color: yellow !important;
 }
 .url_pattern{
@@ -119,4 +122,9 @@ table td{
 }
 .projectpath{
     color:blue;
+}
+.subproject_verify{
+    width:980px;
+    max-height: 200px;
+    overflow-y: auto;
 }
