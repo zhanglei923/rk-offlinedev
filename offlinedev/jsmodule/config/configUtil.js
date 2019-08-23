@@ -52,6 +52,22 @@ var webroot;
 var webappFolder;
 var static_project_root;
 
+let getAllPathInfo = (webroot)=>{
+    let webparent = pathutil.resolve(webroot, '../')
+    let webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+    
+    let static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
+    let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
+    let staticDebugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
+
+    return {
+        webparent,
+        webappFolder,
+        static_project_root,
+        staticConfigFilePath,
+        staticDebugConfigFilePath
+    }
+};
 let reloadConfig = ()=>{    
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
@@ -62,12 +78,13 @@ let reloadConfig = ()=>{
     config = Object.assign(defaultConfig, config);
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
-    webparent = pathutil.resolve(webroot, '../')
-    webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+    let allpathinfo = getAllPathInfo(webroot);
+    webparent = allpathinfo.webparent;
+    webappFolder = allpathinfo.webappFolder;
 
-    static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
-    let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
-    let staticDebugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
+    static_project_root = allpathinfo.static_project_root;
+    let staticConfigFilePath = allpathinfo.staticConfigFilePath;
+    let staticDebugConfigFilePath = allpathinfo.staticDebugConfigFilePath;
 
     webprojectUtil.loadSeaConfig(webroot)
     staticFilter.loadFilterDef(webroot, staticConfigFilePath, staticDebugConfigFilePath);
@@ -86,6 +103,7 @@ reloadConfig();
 
 let thisUtil = {
     reloadConfig,
+    getAllPathInfo,
     isTrue:(cfgpath)=>{
         let bool = false;
         //console.log((`bool = config.${cfgpath}`))
