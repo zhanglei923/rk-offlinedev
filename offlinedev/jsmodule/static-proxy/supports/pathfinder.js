@@ -1,6 +1,6 @@
 var fs = require('fs');
 var pathutil = require('path');
-let projectFileSearch = require('./projectFileSearch')
+let projectFileSearch = require('../projectFileSearch')
 let prettifyFilePath = (fpath)=>{
     fpath = fpath.replace(/\/{1,}/g, '/');
     fpath = fpath.replace(/\\{1,}/g, '/');
@@ -26,5 +26,8 @@ module.exports = {
             fullfilepath,
             fromSubPrj
         }
+    },
+    loadGlobalStaticFiles: ()=>{
+
     }
 }
