@@ -25,14 +25,20 @@ let searchFile =(path)=>{
         project
     }:null;
 }
-let findDupFiles = (root1, root2)=>{
+let findDupFiles = (root1, root2, allfiles)=>{
     let files = eachcontent.getAllFiles(root1)
     let dupfiles = [];
-    files.forEach((fpath)=>{
-        if(fpath.indexOf('node_modules')<0 && fpath.indexOf('.git')<0){
-            let relativepath = pathutil.relative(root1, fpath)
+    files.forEach((fpath1)=>{
+        if(fpath1.indexOf('node_modules')<0 && fpath1.indexOf('.git')<0){
+            let relativepath = pathutil.relative(root1, fpath1)
+            allfiles.push({
+                root1, relativepath
+            })
             let  fpath2 = pathutil.resolve(root2, relativepath)
             if(fs.existsSync(fpath2)){
+                allfiles.push({
+                    root2, relativepath
+                })
                 dupfiles.push({
                     root1,
                     root2,
@@ -46,27 +52,34 @@ let findDupFiles = (root1, root2)=>{
 let loadAllVPPStaticFiles = (webroot)=>{
     let webpathinfo = configUtil.getAllPathInfo(webroot);
 
-    staticFilter.loadFilterDef(webroot, webpathinfo.staticConfigFilePath, webpathinfo.staticDebugConfigFilePath);
+    staticFilter.loadFilterDef(webpathinfo.webroot, webpathinfo.staticConfigFilePath, webpathinfo.staticDebugConfigFilePath);
 
     let projects = staticFilter.getProjectsDef()
     let filters = staticFilter.getFilterDef()
 
-    let webappLists = [webpathinfo.webappFolder];
+    let webappLists = [{webapp: webpathinfo.webappFolder}];
     projects.forEach((p)=>{
-        webappLists.push(p.projectPath)
-    })
-    console.log(webappLists)
-    webappLists.forEach((webapp1, i)=>{
-        webappLists.forEach((webapp2, j)=>{
-            if(i < j){
-                console.log('A', webapp1, i,j)
-                console.log('B', webapp2)
-                let dups = findDupFiles(webapp1, webapp2)
-                console.log(dups)
-            }
-            
+        webappLists.push({
+            webapp: p.projectPath
         })
     })
+    console.log(webappLists)
+    let allfiles = []
+    let dupfiles = []
+    webappLists.forEach((p1, i)=>{
+        let webapp1 = p1.webapp;
+        webappLists.forEach((p2, j)=>{
+            let webapp2 = p2.webapp;
+            if(i < j){
+                // console.log('A', webapp1, i,j)
+                // console.log('B', webapp2)
+                let dups = findDupFiles(webapp1, webapp2, allfiles)//对比所有工程，是否有重复文件
+                dupfiles = dupfiles.concat(dups);
+            }            
+        })
+    })
+    console.log(dupfiles)
+    console.log(allfiles.length)
 
     // console.log(relativefiles)
     // console.log(relativefiles.length)
@@ -74,7 +87,10 @@ let loadAllVPPStaticFiles = (webroot)=>{
     return {
         webpathinfo,
         projects,
-        filters
+        filters,
+        dupfiles,
+        allfilesLength: allfiles.length
+        //allfiles
     }
 }
 //http://localhost:666/static/source/core/a.js

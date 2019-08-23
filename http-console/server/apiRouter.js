@@ -11,7 +11,7 @@ var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
-let watchdog = require('../../offlinedev/watchdog/watchdog')
+let watch_subProjectFiles = require('../../offlinedev/watchdog/watch_subProjectFiles')
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
@@ -24,7 +24,7 @@ module.exports = {
             })
         }
         else if(/^\/offlinedev\/api\/self_check\//.test(req.originalUrl)){
-            var result = watchdog.watch();
+            var result = watch_subProjectFiles.watch();
             callback({
                 result: result
             })

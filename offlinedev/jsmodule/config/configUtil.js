@@ -52,15 +52,17 @@ var webroot;
 var webappFolder;
 var static_project_root;
 
-let getAllPathInfo = (webroot)=>{
-    let webparent = pathutil.resolve(webroot, '../')
-    let webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+let getAllPathInfo = (_webroot)=>{
+    if(typeof _webroot === 'undefined') _webroot = webroot;
+    let webparent = pathutil.resolve(_webroot, '../')
+    let webappFolder = pathutil.resolve(_webroot, './src/main/webapp/');
     
     let static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
-    let staticConfigFilePath = pathutil.resolve(webroot, './static-config.json')
-    let staticDebugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
+    let staticConfigFilePath = pathutil.resolve(_webroot, './static-config.json')
+    let staticDebugConfigFilePath = pathutil.resolve(_webroot, './static-debug-config.json')
 
     return {
+        webroot,
         webparent,
         webappFolder,
         static_project_root,
