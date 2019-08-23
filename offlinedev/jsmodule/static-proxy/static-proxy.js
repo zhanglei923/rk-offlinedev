@@ -41,7 +41,8 @@ let linkToStaticFile = (req, res, next) => {
                 }
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
-                if(root) jscontent = `//[rk][local-file]${info.fullfilepath}\n`+
+                if(root) jscontent =`//[rk][main]${root}\n`+ 
+                                    `//[rk][local-file]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
