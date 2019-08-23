@@ -7,7 +7,7 @@ module.exports = {
         let allpathinfo = configUtil.getAllPathInfo();
         let webroot = allpathinfo.webroot;
 
-        console.log(webroot)
+        //console.log(webroot)
 
         let rpt = projectFileSearch.loadAllVPPStaticFiles(webroot)
         

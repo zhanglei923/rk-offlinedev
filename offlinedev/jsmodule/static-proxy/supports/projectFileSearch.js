@@ -63,7 +63,7 @@ let loadAllVPPStaticFiles = (webroot)=>{
             webapp: p.projectPath
         })
     })
-    console.log(webappLists)
+    //console.log(webappLists)
     let allfiles = []
     let dupfiles = []
     webappLists.forEach((p1, i)=>{
@@ -78,8 +78,8 @@ let loadAllVPPStaticFiles = (webroot)=>{
             }            
         })
     })
-    console.log(dupfiles)
-    console.log(allfiles.length)
+    // console.log(dupfiles)
+    // console.log(allfiles.length)
 
     // console.log(relativefiles)
     // console.log(relativefiles.length)

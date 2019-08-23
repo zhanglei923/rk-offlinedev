@@ -23,11 +23,9 @@ module.exports = {
                 ok
             })
         }
-        else if(/^\/offlinedev\/api\/self_check\//.test(req.originalUrl)){
+        else if(/^\/offlinedev\/api\/self_check\/findDupFilesBetweenProjects\//.test(req.originalUrl)){
             var result = watch_subProjectFiles.watch();
-            callback({
-                result: result
-            })
+            callback(result)
             return 'done'
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
