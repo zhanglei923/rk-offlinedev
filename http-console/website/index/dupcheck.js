@@ -7,7 +7,7 @@ let showDupCheck = ()=>{
         success: function( response ) {
             let result = response.result;
             console.log(result)
-            let html = '正常'
+            let html = '<span class="status_positive">Ok</span>'
             if(result.dupfiles && result.dupfiles.length > 0){
                 html = '<div><div>以下文件同时存在于多个工程中</div>'
                 result.dupfiles.forEach((dup)=>{
