@@ -42,12 +42,15 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                 let project = item.project;
                 let branch = item.branch;
                 let projectPath = pathutil.resolve(webparent, project);
-                let projectStaticPath = pathutil.resolve(projectPath, './static/source');
+                let projectStaticPath = pathutil.resolve(projectPath, './static');
+                let projectSourcePath = pathutil.resolve(projectPath, './static/source');
                 let branchname = gitUtil.getBranchName(projectPath)
                 let item2 = {
                     project,
                     projectPath,
-                    localpath: projectStaticPath,
+                    projectStaticPath,
+                    projectSourcePath,
+                    localpath: projectSourcePath,
                     def_branchname: branch,
                     branchname
                 }
