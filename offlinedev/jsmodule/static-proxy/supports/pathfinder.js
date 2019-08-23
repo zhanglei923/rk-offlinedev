@@ -26,8 +26,5 @@ module.exports = {
             fullfilepath,
             fromSubPrj
         }
-    },
-    loadAllVPPStaticFiles: (rootFolder)=>{
-
     }
 }

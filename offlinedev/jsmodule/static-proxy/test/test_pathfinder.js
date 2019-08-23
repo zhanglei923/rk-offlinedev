@@ -1,14 +1,6 @@
 let webroot = `E:/workspaceGerrit/_sub_separation_test/apps-ingage-web`
-let configUtil = require('../../config/configUtil');
-let staticFilter = require('../../static-filter/filter');
-let allpathinfo = configUtil.getAllPathInfo(webroot);
+let projectFileSearch = require('../supports/projectFileSearch')
 
-console.log(allpathinfo)
+let rpt = projectFileSearch.loadAllVPPStaticFiles(webroot)
 
-staticFilter.loadFilterDef(webroot, allpathinfo.staticConfigFilePath, allpathinfo.staticDebugConfigFilePath);
-
-let projects = staticFilter.getProjectsDef()
-let filters = staticFilter.getFilterDef()
-
-console.log(projects)
-console.log(projects.length)
+//console.log(rpt)
