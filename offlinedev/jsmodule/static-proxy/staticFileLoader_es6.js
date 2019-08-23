@@ -3,7 +3,7 @@ var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
 var babel = require("babel-core");
 var makeDir = require('make-dir');
-let projectFileSearch = require('./projectFileSearch')
+let projectFileSearch = require('./supports/projectFileSearch')
 var getConfig = require('../config/configUtil')
 let pathfinder = require('./supports/pathfinder')
 

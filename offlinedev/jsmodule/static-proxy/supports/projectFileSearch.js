@@ -1,6 +1,6 @@
 var fs = require('fs');
 var pathutil = require('path');
-let filters = require('../static-filter/filter')
+let filters = require('../../static-filter/filter')
 let searchFile =(path)=>{
     let projects = filters.getProjectsDef();
     //console.log(projects)
