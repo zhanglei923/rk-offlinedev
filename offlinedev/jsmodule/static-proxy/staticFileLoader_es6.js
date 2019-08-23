@@ -5,7 +5,7 @@ var babel = require("babel-core");
 var makeDir = require('make-dir');
 let projectFileSearch = require('./projectFileSearch')
 var getConfig = require('../config/configUtil')
-let pathfinder = require('./pathfinder')
+let pathfinder = require('./supports/pathfinder')
 
 let tmp_folder = getConfig.getMasterTmpFolder();
 let my_tmp_folder = pathutil.resolve(tmp_folder, './es6_downgrading')
