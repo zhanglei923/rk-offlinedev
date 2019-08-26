@@ -30,7 +30,9 @@ module.exports = {
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
+            let parentFolder = pathutil.resolve(masterFolder,'../').replace(/\\{1,}/g, '/')
             var webpath = getConfig.getWebRoot()
+            let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
             var branchName = gitUtil.getBranchName(webpath)
             console.log(webpath, branchName)
             let projects = filter.getProjectsDef();
@@ -38,7 +40,9 @@ module.exports = {
             callback({
                 branchName: branchName,
                 webpath: webpath,
+                webParentPath,
                 masterFolder,
+                parentFolder,
                 isCustomizedWebRoot: getConfig.isCustomizedWebRoot(),
                 userConfig: getConfig.getUserConfig(),
                 projects,

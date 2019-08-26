@@ -14,8 +14,9 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td align="right">我的目录：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
-        <tr><td align="right">Web工程目录：</td><td>
+        <tr><td align="right">工具：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
+        <tr><td align="right">当前工作区：</td><td><span style="color:blue;">${result.webParentPath}</span></td></tr>
+        <tr><td align="right">当前Web目录：</td><td>
                                                     <span style="color:blue;" class="${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
