@@ -105,7 +105,7 @@ table td{
 .status_positive_fill{
     width: fit-content;
     border: 1px solid green !important;
-    background-color:#c8d82f !important;
+    background-color:#d7e645 !important;
     padding-left: 2px;
     padding-right: 2px;
 }
