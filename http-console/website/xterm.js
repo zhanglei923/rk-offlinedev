@@ -23,7 +23,9 @@ term.on('key', function(key, ev) {
         term.write(`${prefix}`)
         submit(inputline)
     }else if(keyCode === KEY_BACKWARD){
-        
+        inputingChars.pop();
+        term.writeln(``)
+        term.write(`${prefix}`+inputingChars.join(''))
     }else if(keyCode === KEY_ARROW_LEFT){
         
     }else if(keyCode === KEY_ARROW_RIGHT){
