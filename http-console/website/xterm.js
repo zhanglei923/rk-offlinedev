@@ -4,6 +4,7 @@ let history = []
 
 let KEY_ENTER = 13;
 let KEY_BACKWARD = 8;
+let KEY_ALT = 9;
 let KEY_ARROW_LEFT = 37;
 let KEY_ARROW_RIGHT = 39;
 let KEY_ARROW_UP = 38;
@@ -32,6 +33,7 @@ $(function () {
         term.prompt();
         term.focus()
         term.on('key', function(key, ev) {
+            if(KEY_ALT === ev.keyCode) return;
             const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
             if (ev.keyCode === KEY_ENTER) {
                 term.writeln(``)
