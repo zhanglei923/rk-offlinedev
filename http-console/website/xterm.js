@@ -12,7 +12,7 @@ let KEY_ARROW_DOWN = 40;
 
 let query = window.location.search;
 let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
-$('#prjpath').html(`Working on: <span style="color:blue;">${prjpath}</span>`)
+$('#prjpath').html(`当前目录: "<span style="color:blue;">${prjpath}</span>"。临时应急用，请勿当正常终端。`)
 
 $(function () {
     var term = new Terminal();
@@ -34,6 +34,7 @@ $(function () {
         //term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
         term.prompt();
         term.focus()
+        term.writeln(``); submit('pwd && ls -aF')
         term.on('key', function(key, ev) {
             if(KEY_ALT === ev.keyCode) return;
             const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
