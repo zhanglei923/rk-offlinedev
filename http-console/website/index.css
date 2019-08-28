@@ -106,6 +106,8 @@ table td{
     width: fit-content;
     border: 1px solid green !important;
     background-color:#c8d82f !important;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .status_negative_fill{
     width: fit-content;
@@ -122,7 +124,7 @@ table td{
     background-color: #c8d82f;
 }
 .projectname{
-    background-color: #c8d82f;
+    /* background-color: #c8d82f; */
 }
 .projectpath{
     color:blue;

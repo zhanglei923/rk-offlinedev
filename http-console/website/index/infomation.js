@@ -17,10 +17,10 @@ let showInfomation = (result)=>{
         <tr><td align="right">工具：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
         <tr><td align="right">当前工作区：</td><td><span style="color:blue;">${result.webParentPath}</span></td></tr>
         <tr><td align="right">主工程：</td><td><span class="projectname"><a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a></span>
-                                                    <span class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
+                                                    <span style="margin-left:18px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
-                                                    <span>(${result.branchName})</span>
+                                                    <span class="status_positive_fill">${result.branchName}</span>
                                                     <button class="terminal_btn" onclick="openTerminal('${result.webpath}')" ppath="${result.webpath}">&gt;_</button>
                                                 </td>
         </tr>
@@ -66,9 +66,8 @@ let showSubProjects = (result)=>{
                         </span>
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
                         ${!item.projectExist?'<button class="clone_project_btn">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
-                        (${item.branchname?`<span class="status_positive_fill">${item.branchname}</span>`:'<span class="status_negative_fill">不是git工程</span>'})
+                        ${item.branchname?`<span class="status_positive_fill">${item.branchname}</span>`:'<span class="status_negative_fill">不是git工程</span>'}
                         ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${item.projectPath}')" ppath="${item.projectPath}">&gt;_</button>`:''}
-                        ${branchMatch?'':`<span class="status_negative_fill">分支不对</span>`}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
                     </tr>`
