@@ -63,15 +63,15 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
     projectsDefine = arr2;
     //console.log(filterDefine)
     //print
-    filterDefine.forEach((item)=>{
-        console.log('[a]', item.url_pattern)
-        console.log('[b]', item.localpath)
-    })
-    projectsDefine.forEach((item)=>{
-        console.log('[p1]', item.project)
-        console.log('[p2]', item.projectPath)
-        console.log('[p3]', item.localpath)
-    })
+    // filterDefine.forEach((item)=>{
+    //     console.log('[a]', item.url_pattern)
+    //     console.log('[b]', item.localpath)
+    // })
+    // projectsDefine.forEach((item)=>{
+    //     console.log('[p1]', item.project)
+    //     console.log('[p2]', item.projectPath)
+    //     console.log('[p3]', item.localpath)
+    // })
 }
 let getProjectsDef = ()=>{
     return projectsDefine;
