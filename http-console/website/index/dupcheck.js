@@ -8,7 +8,7 @@ let showDupCheck = ()=>{
             let result = response.result;
             let html = '<span class="status_positive">None</span>'
             if(result.dupfiles && result.dupfiles.length > 0){
-                html = '<div><div>以下文件同时存在于多个工程中</div>'
+                html = '<div><div class="status_negative_fill">发现重复文件：</div>'
                 result.dupfiles.forEach((dup)=>{
                     // {root1: "E:\workspaceGerrit\_sub_separation_test\apps-ingage-web\src\main\webapp", 
                     // root2: "E:\workspaceGerrit\_sub_separation_test\xsy-static-breeze", 
