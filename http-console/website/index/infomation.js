@@ -65,7 +65,7 @@ let showSubProjects = (result)=>{
                             ${item.projectPath}
                         </span>
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
-                        ${!item.projectExist?'<span class="status_negative_fill">目录不存在<button>立刻下载</button></span>':''}
+                        ${!item.projectExist?'<button class="clone_project_btn">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
                         (${item.branchname?`<span class="status_positive_fill">${item.branchname}</span>`:'<span class="status_negative_fill">不是git工程</span>'})
                         ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${item.projectPath}')" ppath="${item.projectPath}">&gt;_</button>`:''}
                         ${branchMatch?'':`<span class="status_negative_fill">分支不对</span>`}
