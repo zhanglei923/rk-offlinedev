@@ -21,7 +21,7 @@ let handle = (req,res,callback)=>{
         callback('not safe, stop run.')
         return;
     }
-    console.log(req.url, inputline)
+    //console.log(req.url, inputline)
     let command = [
         `cd ${prjpath}`,
         `${inputline}`
