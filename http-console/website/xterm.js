@@ -4,15 +4,16 @@ var term = new Terminal({
 term.open(document.getElementById('terminal'));
 const prefix = '>'
 term.write(`${prefix}`)
-let commands = []
+let inputingChars = []
+let history = []
 term.on('key', function(key, ev) {
     let keyCode = ev.keyCode;
     if(keyCode !== 13){
         term.write(key)//输入
-        commands.push(key)
+        inputingChars.push(key)
     }else{
-        let inputline = commands.join('');
-        commands = []
+        let inputline = inputingChars.join('');
+        inputingChars = []
         term.writeln(``)
         term.write(`${prefix}`)
         submit(inputline)
@@ -26,6 +27,7 @@ term.addDisposableListener('focus', function () {
   })
 let submit = (inputline)=>{
     console.log(inputline)
+    history.push(inputline)
     $.ajax({
         url: '/offlinedev/api/terminal/aaa',
         cache: false,
@@ -40,6 +42,7 @@ let submit = (inputline)=>{
               arr.forEach((line)=>{
                 term.writeln(`${line}`)
               })
+              term.write(`${prefix}`)
               term.scrollToBottom()
           }
 
