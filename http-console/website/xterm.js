@@ -30,7 +30,7 @@ $(function () {
         term.prompt = () => {
             term.write(`${prefix}`);
         };
-        term.writeln(``);
+        //term.writeln(``);
         //term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
         term.prompt();
         term.focus()
