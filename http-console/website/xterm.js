@@ -1,4 +1,4 @@
-const prefix = '[offlinedev]>'
+const prefix = '[rk-offlinedev]$ '
 let inputingChars = []
 let history = []
 
@@ -28,8 +28,7 @@ $(function () {
         term.prompt = () => {
             term.write(`${prefix}`);
         };
-        term.writeln('Welcome to rk-offline terminal!');
-        term.writeln(`Working on directory: ${prjpath}`);
+        term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
         term.prompt();
         term.focus()
         term.on('key', function(key, ev) {
@@ -75,10 +74,9 @@ let submit = (inputline)=>{
               arr.forEach((line)=>{
                 term.writeln(`${line}`)
               })
-              //term.prompt();
-              term.write(`${prefix}`)
-              term.scrollToBottom()
           }
+          term.write(`${prefix}`)
+          term.scrollToBottom()
 
         },
         error:function(ajaxObj,msg,err){
