@@ -11,6 +11,7 @@ let securityCheck = (inputline)=>{
 }
 let handle = (req,res,callback)=>{
     var inputline = req.body.inputline;
+    var prjpath = req.body.prjpath;
     inputline = _.trim(inputline)
     if(!inputline){
         callback('')
@@ -22,7 +23,7 @@ let handle = (req,res,callback)=>{
     }
     console.log(req.url, inputline)
     let command = [
-        `cd ~/workspaces/`,
+        `cd ${prjpath}`,
         `${inputline}`
     ]
     execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){

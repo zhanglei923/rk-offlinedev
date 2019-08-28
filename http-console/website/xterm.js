@@ -9,6 +9,9 @@ let KEY_ARROW_RIGHT = 39;
 let KEY_ARROW_UP = 38;
 let KEY_ARROW_DOWN = 40;
 
+let query = window.location.search;
+let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
+
 $(function () {
     var term = new Terminal();
     window.term=term;
@@ -26,6 +29,7 @@ $(function () {
             term.write(`\r\n${prefix}`);
         };
         term.writeln('Welcome to rk-offline terminal!');
+        term.writeln(`Working on directory: ${prjpath}`);
         term.prompt();
         term.on('key', function(key, ev) {
             const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
@@ -61,7 +65,7 @@ let submit = (inputline)=>{
         url: '/offlinedev/api/terminal/exec',
         cache: false,
         method: 'POST',
-        data: {inputline},
+        data: {inputline, prjpath},
         success: function( response ) {
           let result = response.result;
           if(result){
