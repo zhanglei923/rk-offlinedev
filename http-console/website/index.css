@@ -128,3 +128,7 @@ table td{
     max-height: 200px;
     overflow-y: auto;
 }
+.terminal_btn{
+    background-color: #6f6f6f;
+    color:white;
+}

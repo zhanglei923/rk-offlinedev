@@ -59,6 +59,7 @@ let showSubProjects = (result)=>{
                         <span class="projectpath ${!item.branchname?'status_negative_fill':''}">
                             ${item.projectPath}
                         </span>
+                        ${item.projectExist?'<span class="terminal_btn">&gt;_</span>':''}
                         &nbsp;
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
                         ${!item.projectExist?'<span class="status_negative_fill">目录不存在</span>':''}
