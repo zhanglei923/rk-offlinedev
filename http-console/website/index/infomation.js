@@ -20,6 +20,7 @@ let showInfomation = (result)=>{
                                                     <span style="color:blue;" class="${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
+                                                    <button class="terminal_btn" onclick="openTerminal('${result.webpath}')" ppath="${result.webpath}">&gt;_</button>
                                                     <span>&nbsp;(${result.branchName})</span>
                                                 </td>
         </tr>
