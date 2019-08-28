@@ -61,7 +61,7 @@ let showSubProjects = (result)=>{
                             </span>
                         </td>
                         <td>
-                        <span class="projectpath ${!item.branchname?'status_negative':'status_positive'}">
+                        <span class="projectpath ${!item.branchname?'status_negative':'status_positive'}" style="${!item.branchname?'text-decoration:line-through;':''}">
                             ${item.projectPath}
                         </span>
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
