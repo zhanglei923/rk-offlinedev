@@ -26,15 +26,16 @@ $(function () {
             console.log('focus')
         })
         term.prompt = () => {
-            term.write(`\r\n${prefix}`);
+            term.write(`${prefix}`);
         };
         term.writeln('Welcome to rk-offline terminal!');
         term.writeln(`Working on directory: ${prjpath}`);
         term.prompt();
+        term.focus()
         term.on('key', function(key, ev) {
             const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
             if (ev.keyCode === KEY_ENTER) {
-                term.prompt();
+                term.writeln(``)
                 let inputline = inputingChars.join('');
                 inputingChars = []
                 //term.writeln(``)
