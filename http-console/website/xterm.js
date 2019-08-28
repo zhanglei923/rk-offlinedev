@@ -12,6 +12,7 @@ let KEY_ARROW_DOWN = 40;
 
 let query = window.location.search;
 let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
+$('#prjpath').html(`Working on: <span style="color:blue;">${prjpath}</span>`)
 
 $(function () {
     var term = new Terminal();
@@ -29,7 +30,8 @@ $(function () {
         term.prompt = () => {
             term.write(`${prefix}`);
         };
-        term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
+        term.writeln(``);
+        //term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
         term.prompt();
         term.focus()
         term.on('key', function(key, ev) {

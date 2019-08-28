@@ -1,0 +1,10 @@
+.prjpath{
+    position: fixed;
+    left:0;
+    top:0;    
+    z-index: 999999;
+    background-color: yellow;
+    padding-left:4px;
+    padding-right:4px;
+
+}
