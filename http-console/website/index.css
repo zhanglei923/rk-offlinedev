@@ -108,7 +108,10 @@ table td{
 }
 .status_negative_fill{
     width: fit-content;
-    background-color: #ff1b1b !important;
+    border: 2px solid #dc0000 !important;
+    background-color: #f86969 !important;
+    padding-left: 2px;
+    padding-right: 2px;
 }
 .status_warn_fill{
     width: fit-content;
