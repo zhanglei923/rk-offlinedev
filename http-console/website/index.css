@@ -104,12 +104,13 @@ table td{
 }
 .status_positive_fill{
     width: fit-content;
-    background-color:green !important;
+    border: 1px solid green !important;
+    background-color:#c8d82f !important;
 }
 .status_negative_fill{
     width: fit-content;
-    border: 2px solid #dc0000 !important;
-    background-color: #f86969 !important;
+    border: 1px solid #dc0000 !important;
+    background-color: #ff8181 !important;
     padding-left: 2px;
     padding-right: 2px;
 }
