@@ -16,15 +16,15 @@ let showInfomation = (result)=>{
     <tbody>
         <tr><td align="right">工具：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
         <tr><td align="right">当前工作区：</td><td><span style="color:blue;">${result.webParentPath}</span></td></tr>
-        <tr><td align="right">当前Web目录：</td><td>
+        <tr><td align="right">主工程：</td><td><span class="projectname">apps-ingage-web</span>
                                                     <span style="color:blue;" class="${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
                                                     <span>&nbsp;(${result.branchName})</span>
                                                 </td>
         </tr>
-        <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
+        <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程检测：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_negative">Verifying...</span></div></td></tr></tbody></table></td></tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
