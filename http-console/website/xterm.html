@@ -1,0 +1,35 @@
+<!doctype html>
+  <html>
+    <head>
+      <link rel="stylesheet" href="/offlinedev-http-console/lib/js/xterm/xterm.css" />
+      <script src="/offlinedev-http-console/lib/js/xterm/xterm.js"></script>
+    </head>
+    <body>
+      <div id="terminal"></div>
+      <script>
+        var term = new Terminal({
+          // onKey:()=>{console.log('ffff')},
+          // onCursorMove:()=>{console.log('ffff')},
+          // onData:()=>{console.log('ffff')},
+          // onKey:()=>{console.log('ffff')},
+          // onLineFeed:()=>{console.log('ffff')},
+          // onRender:()=>{console.log('ffff')},
+          // onResize:()=>{console.log('ffff')},
+          // onScroll:()=>{console.log('ffff')},
+          // onSelectionChange:()=>{console.log('ffff')},
+          // onTitleChange:()=>{console.log('ffff')},
+        });
+        term.open(document.getElementById('terminal'));
+        term.write('Hello from \x1B[1;3;31mxterm.js\x1B[0m $ ')
+        term.on('key', function(key, ev) {
+            console.log("key==========",ev.keyCode);
+            term.write(key)//输入
+            //term.writeln(key)//输入并换行
+        }) 
+
+        // term.on('onKey', ()=>{
+        //   console.log('ffff')
+        // })
+      </script>
+    </body>
+  </html>
