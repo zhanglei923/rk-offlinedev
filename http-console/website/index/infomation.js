@@ -16,7 +16,7 @@ let showInfomation = (result)=>{
     <tbody>
         <tr><td align="right">工具：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
         <tr><td align="right">当前工作区：</td><td><span style="color:blue;">${result.webParentPath}</span></td></tr>
-        <tr><td align="right">主工程：</td><td><span class="projectname">apps-ingage-web</span>
+        <tr><td align="right">主工程：</td><td><span class="projectname"><a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a></span>
                                                     <span style="color:blue;" class="${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
@@ -55,7 +55,11 @@ let showSubProjects = (result)=>{
         result.projects.forEach((item)=>{
             let branchMatch = (item.def_branchname === item.branchname)
             html += `<tr>
-                        <td align="left">-<span class="projectname">${item.project}</span></td>
+                        <td align="left">
+                            -<span class="projectname">
+                                <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${item.project}">${item.project}</a>
+                            </span>
+                        </td>
                         <td>
                         <span class="projectpath ${!item.branchname?'status_negative_fill':''}">
                             ${item.projectPath}
