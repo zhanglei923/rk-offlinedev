@@ -1,9 +1,4 @@
-var term = new Terminal({
-    //rows:30
-});
-term.open(document.getElementById('terminal'));
-const prefix = '>'
-term.write(`${prefix}`)
+const prefix = '[offlinedev]>'
 let inputingChars = []
 let history = []
 
@@ -14,42 +9,56 @@ let KEY_ARROW_RIGHT = 39;
 let KEY_ARROW_UP = 38;
 let KEY_ARROW_DOWN = 40;
 
-term.on('key', function(key, ev) {
-    let keyCode = ev.keyCode;
-    if(keyCode === KEY_ENTER){
-        let inputline = inputingChars.join('');
-        inputingChars = []
-        term.writeln(``)
-        term.write(`${prefix}`)
-        submit(inputline)
-    }else if(keyCode === KEY_BACKWARD){
-        inputingChars.pop();
-        term.writeln(``)
-        term.write(`${prefix}`+inputingChars.join(''))
-    }else if(keyCode === KEY_ARROW_LEFT){
-        
-    }else if(keyCode === KEY_ARROW_RIGHT){
-        
-    }else if(keyCode === KEY_ARROW_UP){
-        
-    }else if(keyCode === KEY_ARROW_DOWN){
-        
-    }else{
-        term.write(key)//输入
-        inputingChars.push(key)
+$(function () {
+    var term = new Terminal();
+    window.term=term;
+    term.open(document.getElementById('terminal'));
+
+    function runFakeTerminal() {
+        if (term._initialized) {
+            return;
+        }
+        term._initialized = true;
+        term.addDisposableListener('focus', function () {
+            console.log('focus')
+        })
+        term.prompt = () => {
+            term.write(`\r\n${prefix}`);
+        };
+        term.writeln('Welcome to rk-offline terminal!');
+        term.prompt();
+        term.on('key', function(key, ev) {
+            const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
+            if (ev.keyCode === KEY_ENTER) {
+                term.prompt();
+                let inputline = inputingChars.join('');
+                inputingChars = []
+                //term.writeln(``)
+                //term.write(`${prefix}`)
+                submit(inputline)
+            } else if (ev.keyCode === KEY_BACKWARD) {
+                // Do not delete the prompt
+                if (term._core.buffer.x > 2) {
+                    term.write('\b \b');
+                }
+                inputingChars.pop();
+            } else if (printable) {
+                term.write(key);
+                inputingChars.push(key)
+            }
+        });
+
+        term.on('paste', function(data) {
+            term.write(data);
+        });
     }
-    console.log("key==========",ev.keyCode);
-    
-    //term.writeln(key)//输入并换行
+    runFakeTerminal();
 });
-term.addDisposableListener('focus', function () {
-    console.log('focus')
-  })
 let submit = (inputline)=>{
     console.log(inputline)
     history.push(inputline)
     $.ajax({
-        url: '/offlinedev/api/terminal/aaa',
+        url: '/offlinedev/api/terminal/exec',
         cache: false,
         method: 'POST',
         data: {inputline},
@@ -58,10 +67,10 @@ let submit = (inputline)=>{
           if(result){
             console.log(result)
               let arr = result.split('\n');
-              console.log(arr)
               arr.forEach((line)=>{
                 term.writeln(`${line}`)
               })
+              //term.prompt();
               term.write(`${prefix}`)
               term.scrollToBottom()
           }
