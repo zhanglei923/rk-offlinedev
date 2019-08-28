@@ -6,17 +6,35 @@ const prefix = '>'
 term.write(`${prefix}`)
 let inputingChars = []
 let history = []
+
+let KEY_ENTER = 13;
+let KEY_BACKWARD = 8;
+let KEY_ARROW_LEFT = 37;
+let KEY_ARROW_RIGHT = 39;
+let KEY_ARROW_UP = 38;
+let KEY_ARROW_DOWN = 40;
+
 term.on('key', function(key, ev) {
     let keyCode = ev.keyCode;
-    if(keyCode !== 13){
-        term.write(key)//输入
-        inputingChars.push(key)
-    }else{
+    if(keyCode === KEY_ENTER){
         let inputline = inputingChars.join('');
         inputingChars = []
         term.writeln(``)
         term.write(`${prefix}`)
         submit(inputline)
+    }else if(keyCode === KEY_BACKWARD){
+        
+    }else if(keyCode === KEY_ARROW_LEFT){
+        
+    }else if(keyCode === KEY_ARROW_RIGHT){
+        
+    }else if(keyCode === KEY_ARROW_UP){
+        
+    }else if(keyCode === KEY_ARROW_DOWN){
+        
+    }else{
+        term.write(key)//输入
+        inputingChars.push(key)
     }
     console.log("key==========",ev.keyCode);
     
