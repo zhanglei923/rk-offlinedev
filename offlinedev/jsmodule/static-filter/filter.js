@@ -48,6 +48,7 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
                 let item2 = {
                     project,
                     projectPath,
+                    projectExist: fs.existsSync(projectPath),
                     projectStaticPath,
                     projectSourcePath,
                     localpath: projectSourcePath,
