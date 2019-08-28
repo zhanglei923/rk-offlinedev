@@ -1,5 +1,5 @@
 var term = new Terminal({
-    rows:30
+    //rows:30
 });
 term.open(document.getElementById('terminal'));
 const prefix = '>'
@@ -11,11 +11,11 @@ term.on('key', function(key, ev) {
         term.write(key)//输入
         commands.push(key)
     }else{
-        let inputlines = commands.join('');
+        let inputline = commands.join('');
         commands = []
         term.writeln(``)
         term.write(`${prefix}`)
-        submit(inputlines)
+        submit(inputline)
     }
     console.log("key==========",ev.keyCode);
     
@@ -24,15 +24,24 @@ term.on('key', function(key, ev) {
 term.addDisposableListener('focus', function () {
     console.log('focus')
   })
-let submit = (inputlines)=>{
-    console.log(inputlines)
+let submit = (inputline)=>{
+    console.log(inputline)
     $.ajax({
         url: '/offlinedev/api/terminal/aaa',
         cache: false,
         method: 'POST',
-        data: {},
+        data: {inputline},
         success: function( response ) {
-          console.log(response)
+          let result = response.result;
+          if(result){
+            console.log(result)
+              let arr = result.split('\n');
+              console.log(arr)
+              arr.forEach((line)=>{
+                term.writeln(`${line}`)
+              })
+              term.scrollToBottom()
+          }
 
         },
         error:function(ajaxObj,msg,err){
