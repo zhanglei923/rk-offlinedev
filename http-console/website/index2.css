@@ -19,6 +19,7 @@
     list-style: none;
   }
   .infotable{
+      margin-bottom: 2px;
       min-width: 500px;
       background-color: #010101c2;
       color: #d5e5ff;
