@@ -26,7 +26,7 @@ let showInfomation = (result)=>{
         </tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
-        <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_negative">Verifying...</span></div></td></tr></tbody></table></td></tr>
+        <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_warn">Verifying...</span></div></td></tr></tbody></table></td></tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
         <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a>&nbsp;(等价于gulp https命令)</td></tr>
@@ -66,7 +66,7 @@ let showSubProjects = (result)=>{
                         </span>
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
                         ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
-                        ${item.branchname?`<span class="${branchMatch?'status_positive_fill':'status_negative_fill'}">${item.branchname}</span><span id="gitdirty_${item.project}" style="color:red;">chk..</span>`:'<span class="status_negative_fill">不是git工程</span>'}
+                        ${item.branchname?`<span class="${branchMatch?'status_positive_fill':'status_negative_fill'}">${item.branchname}</span>&nbsp;<span id="gitdirty_${item.project}" class="status_warn">checking..</span>`:'<span class="status_negative_fill">不是git工程</span>'}
                         ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(item.projectPath)}')" ppath="${item.projectPath}">&gt;_</button>`:''}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
