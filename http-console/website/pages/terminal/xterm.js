@@ -37,7 +37,7 @@ $(function () {
         //term.writeln(`Working on:  \x1B[1;1;4m${prjpath}\x1B[0m `);
         term.prompt();
         term.focus()
-        term.writeln(``); submit('pwd && ls -F')
+        term.writeln(``); submit('pwd && echo "========Files:=======" && ls -F && echo "=====Git Status:=====" && git status')
         term.on('key', function(key, ev) {
             if(KEY_ALT === ev.keyCode) return;
             const printable = !ev.altKey && !ev.altGraphKey && !ev.ctrlKey && !ev.metaKey;
