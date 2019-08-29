@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
+var execSh = require("exec-sh");
 let statusUtil = require('./statusUtil')
 let readSeaConfig = require('../utils/seajs/readSeaConfig')
 var rootpath = pathutil.resolve(__dirname, '../../../');
@@ -39,5 +40,26 @@ module.exports = {
             //console.log(folder)
         })
         return list;
+    },
+    isGitDirty: (prjpath, callback)=>{
+        if(!fs.existsSync(prjpath)) {
+            callback(null)
+            return null;
+        }
+        let commands = [
+            `cd ${prjpath}`,
+            `git status`
+        ]
+        commands = commands.join(' && ')
+        execSh(`${commands}`, true, function(err, stdout, stderr){
+            let result = ''
+            if (err) {
+            }else{
+                result = stdout;
+            }
+            let dirty = true;
+            if(result && result.match(/nothing\sto\scommit\,\sworking\stree\sclean/g)) dirty = false;
+            callback(dirty)
+          });
     }
 }

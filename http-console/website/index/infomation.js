@@ -66,13 +66,42 @@ let showSubProjects = (result)=>{
                         </span>
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
                         ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
-                        ${item.branchname?`<span class="${branchMatch?'status_positive_fill':'status_negative_fill'}">${item.branchname}</span>`:'<span class="status_negative_fill">不是git工程</span>'}
+                        ${item.branchname?`<span class="${branchMatch?'status_positive_fill':'status_negative_fill'}">${item.branchname}</span><span id="gitdirty_${item.project}" style="color:red;">chk..</span>`:'<span class="status_negative_fill">不是git工程</span>'}
                         ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(item.projectPath)}')" ppath="${item.projectPath}">&gt;_</button>`:''}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
                     </tr>`
         })
+        showSubProjectGitStatus(result.projects)
     }
     if(!has) html = `<tr><td align="right">无</td></tr>`
     $('#subproject_list').html(html)
+}
+let showSubProjectGitStatus = (projects)=>{
+    projects.forEach((item)=>{
+        $.ajax({
+            url: '/offlinedev/api/self_check/isGitDirty/',
+            cache: false,
+            method: 'POST',
+            data: {
+                prjpath: encodeURIComponent(item.projectPath),
+                prjname: item.project
+            },
+            success: function( response ) {
+                let result = response.result;
+                // {"status":0,"result":{"dirty":false,"prjname":"xsy-static-breeze"}}
+                let div = $('#gitdirty_' + result.prjname);
+                if(result.dirty !== null){
+                    div.addClass(result.dirty?'status_warn_fill':'status_positive_fill')
+                    div.html(result.dirty?'有未提交代码':'git干净')
+                    result.dirty ? div.show() : div.hide()
+                }else{                    
+                    div.hide()
+                }
+                console.warn(result)
+            },
+            error:function(ajaxObj,msg,err){
+            }
+        });
+    });
 }

@@ -7,6 +7,7 @@ var _ = require('lodash')
 var gitUtil = require('../../offlinedev/jsmodule/utils/gitUtil')
 var configUtil = require('../../offlinedev/jsmodule/config/configUtil')
 var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
+var subprojectUtil = require('../../offlinedev/jsmodule/config/subprojectUtil')
 var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
@@ -34,6 +35,19 @@ module.exports = {
         else if(/^\/offlinedev\/api\/self_check\/findDupFilesBetweenProjects\//.test(req.originalUrl)){
             var result = watch_subProjectFiles.watch();
             callback(result)
+            return 'done'
+        }
+        else if(/^\/offlinedev\/api\/self_check\/isGitDirty\//.test(req.originalUrl)){
+            var prjpath = decodeURIComponent(req.body.prjpath)
+            var prjname = req.body.prjname;
+            console.log(prjpath, prjname)
+            webprojectUtil.isGitDirty(prjpath, (dirty)=>{
+                console.log(dirty)
+                callback({
+                    dirty,
+                    prjname
+                })
+            })
             return 'done'
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){

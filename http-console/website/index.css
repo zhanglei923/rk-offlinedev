@@ -105,10 +105,11 @@ table td{
 }
 .status_positive_fill{
     width: fit-content;
-    border: 1px solid green !important;
-    background-color:#d7e645 !important;
+    border: 1px solid #02a502 !important;
+    background-color:#d7e64570 !important;
     padding-left: 2px;
     padding-right: 2px;
+    color: black !important;
 }
 .status_negative_fill{
     width: fit-content;
@@ -116,10 +117,15 @@ table td{
     background-color: #ff8181 !important;
     padding-left: 2px;
     padding-right: 2px;
+    color: black !important;
 }
 .status_warn_fill{
     width: fit-content;
-    background-color: yellow !important;
+    border: 1px solid #cdce1a !important;
+    background-color:#ffff7f !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: black !important;
 }
 .url_pattern{
     background-color: #c8d82f;
