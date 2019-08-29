@@ -14,8 +14,8 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td align="right">工具：</td><td><span style="color:blue;">${result.masterFolder}</span></td></tr>
-        <tr><td align="right">当前工作区：</td><td><span style="color:blue;">${result.webParentPath}</span></td></tr>
+        <tr><td align="right">工具：</td><td><span>${result.masterFolder}</span></td></tr>
+        <tr><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right">主工程：</td><td><span class="projectname"><a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a></span>
                                                     <span style="margin-left:18px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
