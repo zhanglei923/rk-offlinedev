@@ -103,7 +103,7 @@ table td{
     /* border: 1px solid #eee; */
 }
 .status_positive{
-    color:green !important;
+    color:greenyellow !important;
 }
 .status_negative{
     color: #ff1b1b !important;
