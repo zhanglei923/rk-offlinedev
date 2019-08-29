@@ -26,6 +26,11 @@ module.exports = {
                 ok
             })
         }
+        else if(/^\/offlinedev\/api\/webpath\/cloneProject\//.test(req.originalUrl)){
+            // var result = watch_subProjectFiles.watch();
+            // callback(result)
+            // return 'done'
+        }
         else if(/^\/offlinedev\/api\/self_check\/findDupFilesBetweenProjects\//.test(req.originalUrl)){
             var result = watch_subProjectFiles.watch();
             callback(result)

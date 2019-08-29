@@ -126,6 +126,9 @@ let thisUtil = {
     isCustomizedWebRoot: function(){
         return !!config.webProjectPath;
     },
+    getWebParentRoot: function(){
+        return pathutil.resolve(webroot, '../');
+    },
     getWebRoot: function(){
         return webroot;
     },
