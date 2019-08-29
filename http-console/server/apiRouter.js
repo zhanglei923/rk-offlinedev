@@ -5,7 +5,7 @@ var http = require('http');
 //var unzip = require("unzip");
 var _ = require('lodash')
 var gitUtil = require('../../offlinedev/jsmodule/utils/gitUtil')
-var getConfig = require('../../offlinedev/jsmodule/config/configUtil')
+var configUtil = require('../../offlinedev/jsmodule/config/configUtil')
 var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
 var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
@@ -15,7 +15,7 @@ let watch_subProjectFiles = require('../../offlinedev/watchdog/watch_subProjectF
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
-        if(getConfig.isTrue('debug.console_log'))console.log('[req]', req.originalUrl)
+        if(configUtil.isTrue('debug.console_log'))console.log('[req]', req.originalUrl)
         if(/^\/offlinedev\/api\/terminal\//.test(req.url)){
             require('./terminal').handle(req,res,callback)
         }else if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
@@ -31,9 +31,10 @@ module.exports = {
             return 'done'
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
+            configUtil.reloadConfig()
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             let parentFolder = pathutil.resolve(masterFolder,'../').replace(/\\{1,}/g, '/')
-            var webpath = getConfig.getWebRoot()
+            var webpath = configUtil.getWebRoot()
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
             var branchName = gitUtil.getBranchName(webpath)
             console.log(webpath, branchName)
@@ -45,8 +46,8 @@ module.exports = {
                 webParentPath,
                 masterFolder,
                 parentFolder,
-                isCustomizedWebRoot: getConfig.isCustomizedWebRoot(),
-                userConfig: getConfig.getUserConfig(),
+                isCustomizedWebRoot: configUtil.isCustomizedWebRoot(),
+                userConfig: configUtil.getUserConfig(),
                 projects,
                 filters
             })
@@ -116,7 +117,7 @@ module.exports = {
             content.forEach(function(fpath){
                 console.log(fpath)
             })
-            getConfig.initFiles()
+            configUtil.initFiles()
 
             var filename = caseName+".zip";
             var filepath = pathutil.resolve(__dirname, "../mocking/"+filename)
