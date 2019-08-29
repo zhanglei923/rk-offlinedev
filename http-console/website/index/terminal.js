@@ -1,3 +1,3 @@
 let openTerminal = (prjpath)=>{
-    window.open('./xterm.html?folder='+encodeURIComponent(prjpath))
+    window.open('./pages/terminal/xterm.html?folder='+encodeURIComponent(prjpath))
 }

@@ -18,7 +18,10 @@ $(function () {
     var term = new Terminal();
     window.term=term;
     term.open(document.getElementById('terminal'));
-
+    // $('body').on('mousedown', ()=>{
+    //     console.log('f')
+    //     term.focus()
+    // })
     function runFakeTerminal() {
         if (term._initialized) {
             return;
