@@ -3,7 +3,9 @@ let _ = require('lodash')
 var execSh = require("exec-sh");
 var moment = require('moment');
 let makeDir = require('make-dir')
-
+let isMine = (req)=>{
+    return !!/^\/offlinedev\/api\/terminal\//.test(req.url)
+}
 let securityCheck = (inputline)=>{
     let isSafe = true;
     if(inputline.match(/\brm\b\s{1,}\-rf/g)) isSafe = false;
@@ -12,6 +14,7 @@ let securityCheck = (inputline)=>{
 let handle = (req,res,callback)=>{
     var inputline = req.body.inputline;
     var prjpath = req.body.prjpath;
+    prjpath = decodeURIComponent(prjpath)
     inputline = _.trim(inputline)
     if(!inputline){
         callback('')
@@ -37,5 +40,6 @@ let handle = (req,res,callback)=>{
       });
 }
 module.exports = {
+    isMine,
     handle
 }

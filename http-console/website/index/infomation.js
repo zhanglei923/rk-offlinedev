@@ -21,7 +21,7 @@ let showInfomation = (result)=>{
                                                         ${result.webpath}
                                                     </span>
                                                     <span class="status_positive_fill">${result.branchName}</span>
-                                                    <button class="terminal_btn" onclick="openTerminal('${result.webpath}')" ppath="${result.webpath}">&gt;_</button>
+                                                    <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.webpath)}')" ppath="${result.webpath}">&gt;_</button>
                                                 </td>
         </tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
@@ -67,7 +67,7 @@ let showSubProjects = (result)=>{
                         ${!item.def_branchname?'<span class="status_negative_fill">没有指定分支</span>':''}
                         ${!item.projectExist?'<button class="clone_project_btn">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
                         ${item.branchname?`<span class="${branchMatch?'status_positive_fill':'status_negative_fill'}">${item.branchname}</span>`:'<span class="status_negative_fill">不是git工程</span>'}
-                        ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${item.projectPath}')" ppath="${item.projectPath}">&gt;_</button>`:''}
+                        ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(item.projectPath)}')" ppath="${item.projectPath}">&gt;_</button>`:''}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
                     </tr>`

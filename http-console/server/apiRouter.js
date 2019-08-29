@@ -16,8 +16,9 @@ let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
         if(configUtil.isTrue('debug.console_log'))console.log('[req]', req.originalUrl)
-        if(/^\/offlinedev\/api\/terminal\//.test(req.url)){
-            require('./terminal').handle(req,res,callback)
+        if(require('./apiTerminal').isMine(req)){
+            require('./apiTerminal').handle(req,res,callback)
+            return 'done'
         }else if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
             var prjpath = req.body.prjpath
             let ok = webprojectUtil.updateWebProjectPath(prjpath)
