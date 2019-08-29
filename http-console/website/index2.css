@@ -112,10 +112,19 @@ table td{
 .status_positive{
     color:#2fff56 !important;
 }
+.status_positive *{
+    color:#2fff56 !important;
+}
 .status_negative{
     color: #fb2c2c !important;
 }
+.status_negative *{
+    color: #fb2c2c !important;
+}
 .status_warn{
+    color: yellow !important;
+}
+.status_warn *{
     color: yellow !important;
 }
 .status_positive_fill{
@@ -125,6 +134,9 @@ table td{
     padding-right: 2px;
     color: #2fff56 !important;
 }
+.status_positive_fill *{
+    color: #2fff56 !important;
+}
 .status_negative_fill{
     width: fit-content;
     border: 1px solid #dc0000 !important;
@@ -132,11 +144,17 @@ table td{
     padding-right: 2px;
     color: red !important;
 }
+.status_negative_fill *{
+    color: red !important;
+}
 .status_warn_fill{
     width: fit-content;
     border: 1px solid #cdce1a !important;
     padding-left: 2px;
     padding-right: 2px;
+    color: #ffff7f !important;
+}
+.status_warn_fill *{
     color: #ffff7f !important;
 }
 .url_pattern{
