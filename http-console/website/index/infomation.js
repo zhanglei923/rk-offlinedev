@@ -56,8 +56,8 @@ let showSubProjects = (result)=>{
             let branchMatch = (item.def_branchname === item.branchname)
             html += `<tr>
                         <td align="left">
-                            -<span class="projectname">
-                                <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${item.project}">${item.project}</a>
+                            -<span class="projectname ">
+                                <a target="_blank" class="${!item.projectExist?'status_negative':''}" href="http://gerrit.ingageapp.com/#/admin/projects/${item.project}">${item.project}</a>
                             </span>
                         </td>
                         <td>
