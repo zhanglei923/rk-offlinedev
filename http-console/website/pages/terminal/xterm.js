@@ -15,7 +15,7 @@ let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
 $('#prjpath').html(`当前目录: "<span style="color:blue;">${prjpath}</span>"。临时应急用，请勿当正常终端。`)
 
 $(function () {
-    var term = new Terminal();
+    var term = new Terminal({rows:50});
     window.term=term;
     term.open(document.getElementById('terminal'));
     // $('body').on('mousedown', ()=>{
