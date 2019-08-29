@@ -58,7 +58,7 @@ module.exports = {
                 result = stdout;
             }
             let dirty = true;
-            if(result && result.match(/nothing\sto\scommit\,\sworking\stree\sclean/g)) dirty = false;
+            if(result && result.match(/nothing\sto\scommit/g)) dirty = false;
             callback(dirty)
           });
     }
