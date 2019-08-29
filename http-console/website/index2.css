@@ -1,0 +1,159 @@
+*{
+    margin: 0; 
+    padding: 0;
+    font-size: 12px;
+    font-family: 'Monaco' !important;
+    /* font-family: 'Andale Mono' !important; */
+      color: #eee;
+  }
+  a{
+      color: #9c9cff;
+  }
+  body{
+      /* background-color: #FAD500;
+      background-color: #ffdc10; */
+      background-color: #020202;
+      color: #eee;
+  }
+  li{
+    list-style: none;
+  }
+  .infotable{
+      min-width: 500px;
+  }
+  .table_title th{
+    border-bottom: 2px dotted #a9a9a9;
+  }
+  hr{
+    margin:4px 0 4px 0;
+    height:1px;
+    border:none;
+    border-top:1px dashed #666;
+  }
+  .about{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    background: -webkit-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -o-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: -moz-linear-gradient(#d5ffd5, #cacaff) !important;
+    background: linear-gradient(#d5ffd5, #cacaff) !important;
+    width: 450px;
+    font-size: 11px;
+    color: #242f26;
+    /* font-weight: bold; */
+    margin-right: 2px;
+    margin-bottom: 2px;
+    border-left: 2px solid #eee;
+    border-top: 2px solid #eee;
+    border-right: 2px solid #666;
+    border-bottom: 2px solid #666;
+  }
+  .about *{
+    color: black;
+  }
+  .download-btn{
+      background-color: #61bd61;
+      color:white;
+  }
+  .download-btn.busy{
+      background-color: #ff1b1b;
+      color:white;
+  }
+  @-webkit-keyframes rotation{
+    from {-webkit-transform: rotate(0deg);}
+    to {-webkit-transform: rotate(360deg);}
+  }
+  .Rotation{
+      -webkit-transform: rotate(360deg);
+      animation: rotation 1s linear infinite;
+      -moz-animation: rotation 1s linear infinite;
+      -webkit-animation: rotation 1s linear infinite;
+      -o-animation: rotation 1s linear infinite;
+  }
+
+.logo{
+    border-radius: 250px;
+    width:32px;
+    margin-top: 7px;
+    margin-left: 7px;
+}
+.branchname{
+     color:blue;
+}
+.body{
+    margin-left: 20px;
+}
+.visithistory{
+    max-width: 500px;
+}
+.visithistory li{
+    display: block;
+     list-sytle:none;
+     padding-left: 20px;
+    font-size: 11px;
+}
+.infomation .user-config{
+    color:#ff1b1b;
+}
+table td{
+    padding-left: 1px;
+}
+.infomation table {
+    /* border: 1px solid #eee; */
+}
+.status_positive{
+    color:green !important;
+}
+.status_negative{
+    color: #ff1b1b !important;
+}
+.status_warn{
+    color: yellow !important;
+}
+.status_positive_fill{
+    width: fit-content;
+    border: 1px solid greenyellow !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: greenyellow !important;
+}
+.status_negative_fill{
+    width: fit-content;
+    border: 1px solid #dc0000 !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: red !important;
+}
+.status_warn_fill{
+    width: fit-content;
+    border: 1px solid #cdce1a !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: #ffff7f !important;
+}
+.url_pattern{
+    background-color: #c8d82f;
+}
+.projectname{
+    /* background-color: #c8d82f; */
+}
+.projectpath{
+    color:blue;
+}
+.subproject_verify{
+    width:980px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+.terminal_btn{
+    background-color: #6f6f6f;
+    color:white;
+    padding-bottom:1px;
+    padding-right:6px;
+    border-radius:3px
+}
+.clone_project_btn{
+
+
+}
