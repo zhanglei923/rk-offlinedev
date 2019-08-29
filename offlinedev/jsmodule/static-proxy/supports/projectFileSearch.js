@@ -52,7 +52,7 @@ let findDupFiles = (root1, root2, allfiles)=>{
 let loadAllVPPStaticFiles = (webroot)=>{
     let webpathinfo = configUtil.getAllPathInfo(webroot);
 
-    staticFilter.loadFilterDef(webpathinfo.webroot, webpathinfo.staticConfigFilePath, webpathinfo.staticDebugConfigFilePath);
+    staticFilter.loadFilterDef(webpathinfo.webroot);
 
     let projects = staticFilter.getProjectsDef()
     let filters = staticFilter.getFilterDef()

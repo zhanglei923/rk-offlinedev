@@ -11,8 +11,12 @@ let projectsDefine = [];
 // http://localhost:666/static/source/separation/demo/ya.tpl
 // http://localhost:666/aaa/a.js
 // http://localhost:666/bbb/222/b.js
-let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
+let loadFilterDef = (webroot)=>{
     let webparent = pathutil.resolve(webroot, '../');
+    let configfilePath = pathutil.resolve(webroot, './static-config.json')
+    let debugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
+
+    //console.log('webroot=', webroot)
     let arr1 = [];
     let arr2 = [];
     //console.log('[static-config]', configfilePath, debugConfigFilePath)
@@ -72,6 +76,10 @@ let loadFilterDef = (webroot, configfilePath, debugConfigFilePath)=>{
     //     console.log('[p2]', item.projectPath)
     //     console.log('[p3]', item.localpath)
     // })
+    return {
+        filterDefine,
+        projectsDefine
+    }
 }
 let getProjectsDef = ()=>{
     return projectsDefine;

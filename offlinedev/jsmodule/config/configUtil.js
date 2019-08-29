@@ -89,7 +89,7 @@ let reloadConfig = ()=>{
     let staticDebugConfigFilePath = allpathinfo.staticDebugConfigFilePath;
 
     webprojectUtil.loadSeaConfig(webroot)
-    staticFilter.loadFilterDef(webroot, staticConfigFilePath, staticDebugConfigFilePath);
+    staticFilter.loadFilterDef(webroot);
 
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
