@@ -15,7 +15,7 @@ let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
 $('#prjpath').html(`当前目录: "<span style="color:blue;">${prjpath}</span>"。临时应急用，请勿当正常终端。`)
 
 $(function () {
-    var term = new Terminal({rows:50});
+    var term = new Terminal({rows:30});
     window.term=term;
     term.open(document.getElementById('terminal'));
     // $('body').on('mousedown', ()=>{
@@ -73,10 +73,14 @@ let submit = (inputline)=>{
         url: '/offlinedev/api/terminal/exec',
         cache: false,
         method: 'POST',
-        data: {inputline, prjpath},
+        data: {
+            inputline: encodeURIComponent(inputline), 
+            prjpath
+        },
         success: function( response ) {
           let result = response.result;
           if(result){
+            result = decodeURIComponent(result)
             console.log(result)
               let arr = result.split('\n');
               arr.forEach((line)=>{

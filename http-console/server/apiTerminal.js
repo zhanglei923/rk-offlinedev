@@ -14,6 +14,7 @@ let securityCheck = (inputline)=>{
 let handle = (req,res,callback)=>{
     var inputline = req.body.inputline;
     var prjpath = req.body.prjpath;
+    inputline = decodeURIComponent(inputline)
     prjpath = decodeURIComponent(prjpath)
     inputline = _.trim(inputline)
     if(!inputline){
@@ -36,7 +37,7 @@ let handle = (req,res,callback)=>{
         }else{
             result = stdout;
         }
-        callback(result)
+        callback(encodeURIComponent(result))
       });
 }
 module.exports = {
