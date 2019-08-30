@@ -100,6 +100,7 @@ let init_untransFileSelector = ()=>{
     let html = `<option value="all_untrans">All Untranslated.js</option>`
     for(var fpath in untrans){
         var shortfpath = getShortDrivePath(fpath)
+        if(shortfpath)
         html += `<option value="${fpath}">${shortfpath.replace(/\.js$/, '')}</option>`;
     }
     $('#untransFiles').append(html);
