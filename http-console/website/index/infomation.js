@@ -27,6 +27,10 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_warn">Verifying...</span></div></td></tr></tbody></table></td></tr>
+        <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
+        <td class="projectpath status_positive">${result.adminInfo.adminFolder}&nbsp;(${result.adminInfo.branch})</td>
+        `:`<td valign="top" colspan="999">not-found</td>`}
+        </tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
         <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a>&nbsp;(等价于gulp https命令)</td></tr>

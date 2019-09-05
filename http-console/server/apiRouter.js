@@ -6,6 +6,7 @@ var http = require('http');
 var _ = require('lodash')
 var gitUtil = require('../../offlinedev/jsmodule/utils/gitUtil')
 var configUtil = require('../../offlinedev/jsmodule/config/configUtil')
+var adminprojectUtil = require('../../offlinedev/jsmodule/config/adminprojectUtil')
 var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
 var subprojectUtil = require('../../offlinedev/jsmodule/config/subprojectUtil')
 var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
@@ -55,6 +56,8 @@ module.exports = {
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             let parentFolder = pathutil.resolve(masterFolder,'../').replace(/\\{1,}/g, '/')
             var webpath = configUtil.getWebRoot()
+            var allpathinfo = configUtil.getAllPathInfo()
+            var adminInfo = adminprojectUtil.getInfo(allpathinfo.adminFolder)
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
             var branchName = gitUtil.getBranchName(webpath)
             console.log(webpath, branchName)
@@ -69,7 +72,8 @@ module.exports = {
                 isCustomizedWebRoot: configUtil.isCustomizedWebRoot(),
                 userConfig: configUtil.getUserConfig(),
                 projects,
-                filters
+                filters,
+                adminInfo,
             })
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){
