@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 let projectFileSearch = require('./projectFileSearch')
+let configUtil = require('../../config/configUtil')
 let prettifyFilePath = (fpath)=>{
     fpath = fpath.replace(/\/{1,}/g, '/');
     fpath = fpath.replace(/\\{1,}/g, '/');
@@ -8,8 +9,20 @@ let prettifyFilePath = (fpath)=>{
 };
 module.exports = {
     findPath:(rootFolder, path)=>{
+        //console.log(path)
         let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
+        //支持admin工程
+        if(path.match(/^\/admin\//)){
+            let admin_webappFolder = configUtil.getAllPathInfo().admin_webappFolder;
+            let fullfilepath = admin_webappFolder + '/' + path.replace(/^\/admin\//, '/');
+            //console.log(fullfilepath)
+            if(!fs.existsSync(fullfilepath)) return;
+            return {
+                fullfilepath,
+                fromSubPrj
+            }
+        }
         if(!fs.existsSync(fullfilepath)){
             let o = projectFileSearch.searchFile(path)
             if(o) {

@@ -56,6 +56,9 @@ let getAllPathInfo = (_webroot)=>{
     if(typeof _webroot === 'undefined') _webroot = webroot;
     let webparent = pathutil.resolve(_webroot, '../')
     let webappFolder = pathutil.resolve(_webroot, './src/main/webapp/');
+
+    let adminFolder = pathutil.resolve(webparent, './apps-ingage-admin')
+    let admin_webappFolder = pathutil.resolve(adminFolder, './src/main/webapp/')
     
     let static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
     let staticConfigFilePath = pathutil.resolve(_webroot, './static-config.json')
@@ -65,6 +68,10 @@ let getAllPathInfo = (_webroot)=>{
         webroot,
         webparent,
         webappFolder,
+        
+        adminFolder,
+        admin_webappFolder,
+
         static_project_root,
         staticConfigFilePath,
         staticDebugConfigFilePath
