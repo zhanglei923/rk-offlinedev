@@ -39,7 +39,12 @@ var rk = {
         let md5 = cacheUtil.md5(str);
         let cached = cacheUtil.getCache(cachekey, md5)
         if(cached) return cached;
-        let code = stripcomments(str);
+        let code = str;
+        try{
+            code = stripcomments(str);
+        }catch(e){
+            console.log('[stripcomments]: bad javascript!')
+        }
         cacheUtil.setCache(cachekey, md5, code)
         return code;
     },
