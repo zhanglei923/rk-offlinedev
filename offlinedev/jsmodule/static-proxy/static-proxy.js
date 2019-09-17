@@ -25,7 +25,7 @@ let linkToStaticFile = (req, res, next) => {
         res.set('Content-Type', 'text/javascript');
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
-                res.sendStatus(404);
+                res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
             }else{
                 let debugComments = ''
@@ -54,7 +54,7 @@ let linkToStaticFile = (req, res, next) => {
         res.set('Content-Type', 'text/css');
         staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
-                res.sendStatus(404);
+                res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
             }else{
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
@@ -71,7 +71,7 @@ let linkToStaticFile = (req, res, next) => {
         res.set('Content-Type', 'text/html');
         staticFileLoader.loadTpl(root, req_path, (jscontent, info)=>{
             if(jscontent === null){
-                res.sendStatus(404);
+                res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
             }else{
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
