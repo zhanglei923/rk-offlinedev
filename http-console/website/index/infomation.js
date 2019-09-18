@@ -32,7 +32,7 @@ let showInfomation = (result)=>{
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_warn">Verifying...</span></div></td></tr></tbody></table></td></tr>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
-        <td><span class="projectpath status_positive">${result.adminInfo.adminFolder}&nbsp;</span><span class="status_positive_fill">${result.adminInfo.branch}</span>&nbsp;${adminWebBranchMatch?'<span class="status_positive">same':'<span class="status_warn">admin!=web'}</span>&nbsp;<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.adminInfo.adminFolder)}')" ppath="${result.adminInfo.adminFolder}">&gt;_</button></td>
+        <td><span class="projectpath status_positive">${result.adminInfo.adminFolder}&nbsp;</span><span class="status_positive_fill">${result.adminInfo.branch}</span>&nbsp;${adminWebBranchMatch?'<span class="status_positive">branch-equal':'<span class="status_warn">admin!=web'}</span>&nbsp;<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.adminInfo.adminFolder)}')" ppath="${result.adminInfo.adminFolder}">&gt;_</button></td>
         `:`<td valign="top" colspan="999" class="status_warn">Not-Found</td>`}
         </tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
