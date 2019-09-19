@@ -59,6 +59,7 @@ module.exports = {
             var allpathinfo = configUtil.getAllPathInfo()
             var adminInfo = adminprojectUtil.getInfo(allpathinfo.adminFolder)
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
+            let masterBranchName = gitUtil.getBranchName(masterFolder)
             var branchName = gitUtil.getBranchName(webpath)
             console.log(webpath, branchName)
             let projects = filter.getProjectsDef();
@@ -68,6 +69,7 @@ module.exports = {
                 webpath: webpath,
                 webParentPath,
                 masterFolder,
+                masterBranchName,
                 parentFolder,
                 isCustomizedWebRoot: configUtil.isCustomizedWebRoot(),
                 userConfig: configUtil.getUserConfig(),
