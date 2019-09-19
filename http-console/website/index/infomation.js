@@ -34,7 +34,7 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
         <td><span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
             &nbsp;<span class="status_positive_fill">${result.adminInfo.branch}</span>
-            &nbsp;${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
+            ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
             &nbsp;<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.adminInfo.adminFolder)}')" ppath="${result.adminInfo.adminFolder}">&gt;_</button>
         </td>
         `:`<td valign="top" colspan="999" class="status_warn">Not-Found</td>`}
