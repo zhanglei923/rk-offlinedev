@@ -45,6 +45,14 @@ $.ajax({
         success: function( response ) {
           console.log(response)
           let result = response.result;
+          
+          if(result.result.err){
+            $('#infomation').css({
+              'font-size': '20px',
+              color: 'red'
+          }).html(`ERROR: ${result.result.err}`)
+            return;
+          }
           $('#branchname').text(result.branchName)
           $('#webpath').html(`${result.isCustomizedWebRoot?'自定义:':''} ${result.webpath}`)
           if(result.isCustomizedWebRoot)$('#webpath').addClass('user-config')

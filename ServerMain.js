@@ -20,7 +20,7 @@ var credentials = {key: privateKey, cert: certificate};
 let userConfig = getConfig.getUserConfig();
 var webPath = getConfig.getWebAppFolder();
 if(!fs.existsSync(webPath)){
-    console.error('FATAL ERROR: default web project folder not found:', webPath)
+    console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webPath)
     console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
     return;
 } 

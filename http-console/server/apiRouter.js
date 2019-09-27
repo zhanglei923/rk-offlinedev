@@ -56,6 +56,15 @@ module.exports = {
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             let parentFolder = pathutil.resolve(masterFolder,'../').replace(/\\{1,}/g, '/')
             var webpath = configUtil.getWebRoot()
+            if(!fs.existsSync(webpath)) {
+                callback({
+                    result: {
+                        err: 'web-not-found',
+                        webpath
+                    }
+                })
+                return 'done'
+            }
             var allpathinfo = configUtil.getAllPathInfo()
             var adminInfo = adminprojectUtil.getInfo(allpathinfo.adminFolder)
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')

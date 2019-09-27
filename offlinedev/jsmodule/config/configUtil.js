@@ -87,6 +87,10 @@ let reloadConfig = ()=>{
     config = Object.assign(defaultConfig, config);
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
+    if(!fs.existsSync(webroot)){
+        config = null;
+        return;
+    }
     let allpathinfo = getAllPathInfo(webroot);
     webparent = allpathinfo.webparent;
     webappFolder = allpathinfo.webappFolder;
