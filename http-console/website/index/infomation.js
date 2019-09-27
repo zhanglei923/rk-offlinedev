@@ -78,7 +78,7 @@ let showSubProjects = (result)=>{
                         </span>
                         ${item.def_branchname?`<span class="status_positive_fill">${item.def_branchname}</span>`:'<span class="status_negative_fill">没有指定分支</span>'}
                         ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
-                        ${item.branchname?`${branchMatch?`<span class="status_positive_fill">${item.branchname}</span>`:`<span class="status_negative_fill">!=${item.branchname}</span>`}&nbsp;<span id="gitdirty_${item.project}" class="status_warn">checking..</span>`:'<span class="status_negative_fill">不是git工程</span>'}
+                        ${item.branchname?`${branchMatch?`<span class="status_positive_fill">=${item.branchname}</span>`:`<span class="status_negative_fill">!=${item.branchname}</span>`}&nbsp;<span id="gitdirty_${item.project}" class="status_warn">checking..</span>`:'<span class="status_negative_fill">不是git工程</span>'}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         ${item.projectExist?`<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(item.projectPath)}')" ppath="${item.projectPath}">&gt;_</button>`:''}
                         </td>
