@@ -46,11 +46,11 @@ $.ajax({
           console.log(response)
           let result = response.result;
           
-          if(result.result.err){
+          if(result && result.err){
             $('#infomation').css({
               'font-size': '20px',
               color: 'red'
-          }).html(`ERROR: ${result.result.err}`)
+          }).html(`ERROR: ${result.err}`)
             return;
           }
           $('#branchname').text(result.branchName)

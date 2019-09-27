@@ -58,10 +58,8 @@ module.exports = {
             var webpath = configUtil.getWebRoot()
             if(!fs.existsSync(webpath)) {
                 callback({
-                    result: {
                         err: 'web-not-found',
                         webpath
-                    }
                 })
                 return 'done'
             }
