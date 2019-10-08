@@ -1,6 +1,5 @@
 var fs = require('fs');
 var pathutil = require('path');
-var babel = require("babel-core");
 var getConfig = require('../config/configUtil')
 let projectFileSearch = require('./supports/projectFileSearch')
 let staticFileLoader_es6 = require('./staticFileLoader_es6')

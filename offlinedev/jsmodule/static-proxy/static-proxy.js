@@ -42,7 +42,7 @@ let linkToStaticFile = (req, res, next) => {
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 if(root) jscontent =`//[rk][main]${root}\n`+ 
-                                    `//[rk][local-file]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
+                                    `//[rk][file-path]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
@@ -60,7 +60,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
-                if(root) jscontent = `/** [rk][local-file]${info.fullfilepath} **/\n`+
+                if(root) jscontent = `/** [rk][file-path]${info.fullfilepath} **/\n`+
                                      //`/** [sub-project]${info.fromSubPrj} **/\n` + 
                                      jscontent;
                 res.send(jscontent);
@@ -77,7 +77,7 @@ let linkToStaticFile = (req, res, next) => {
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
-                if(root) jscontent = //`<!-- [rk][local-file]${info.fullfilepath} -->\n` + //注意！不要开放，擅自插入html评论标签，会引起jsplumb等插件异常
+                if(root) jscontent = //`<!-- [rk][file-path]${info.fullfilepath} -->\n` + //注意！不要开放，擅自插入html评论标签，会引起jsplumb等插件异常
                                      //`<!-- [sub-project]${info.fromSubPrj} -->` +
                                      jscontent;
                 res.send(jscontent);

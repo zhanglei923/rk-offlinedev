@@ -1,7 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
-var babel = require("babel-core");
+var babel = require("@babel/core");
 var makeDir = require('make-dir');
 let projectFileSearch = require('./supports/projectFileSearch')
 var getConfig = require('../config/configUtil')
@@ -32,31 +32,48 @@ let thisUtil = {
             }else if(jsContent){            
                 if(!fullfilepath.match(/sea\.js/g)&&!fullfilepath.match(/\/lib\//g)){
                     let md5 = blueimp_md5(jsContent)
+                    //let md5b = blueimp_md5(new Date()*1)
                     let fullfilepathname2 = md5;
                     //console.log(isDirty, fullfilepathname)
                     let tmp_filepath = pathutil.resolve(my_tmp_folder, fullfilepathname2);
                     let isDirty = !fs.existsSync(tmp_filepath);
-                    if(isDirty){
+                    //console.log('isDirty', isDirty)
+                    if(1){
                         var script = jsContent.toString();
                         try{
-                        var result = babel.transform(script, {
-                                sourceMap: true,
-                                presets: ["env"],
-                                //presets: ['./node_modules/babel-preset-es2015'],
-                                //plugins: ["transform-runtime", ],
-                                code:true
-                        })
-                        //console.log('map', result.map)
-                        jsContent = result.code;
-                        jsContent = `//[offlinedev]Babel transformed es6->es5\n` + jsContent;
-                        jsContent = jsContent.replace(/\"use\sstrict\"\;/,'')
-                        jsContent = jsContent.replace(/^\s{1,}/,'')
-                        //fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));
+                            let script2 = script;//'//'+md5b + '\n' + script;
+                            var result = babel.transform(script2, {
+                                plugins: [
+                                    // "@babel/plugin-proposal-object-rest-spread",
+                                    // "@babel/plugin-transform-arrow-functions"
+                                ],
+                                "presets": [//presents 是plugins的集合，npm里有其他定制的presets可用
+                                    [
+                                      "@babel/preset-env",
+                                      {
+                                        "useBuiltIns": false//"entry"
+                                      }
+                                    ]
+                                ]
+                              });
+                            //console.log(result)
+                            //console.log('map', result.map)
+                            jsContent = result.code;
+                            //jsContent = jsContent.split(md5b)[1]
+                            jsContent = `//[rk]Babel transformed es6->es5\n` + jsContent;
+                            jsContent = jsContent.replace(/\"use\sstrict\"\;/,'')
+                            jsContent = jsContent.replace(/^\s{1,}/,'')
+                            //fs.writeFileSync(fullfilepath + '.map', JSON.stringify(result.map));
                         }catch(e){
                             jsContent = script;
                             console.log(`  Warn: ${fullfilepath} failed at transform es6:`, e)
                         }
-                        fs.writeFileSync(tmp_filepath, jsContent);
+                        try{
+                            if(!fs.existsSync(my_tmp_folder))makeDir.sync(my_tmp_folder);
+                            fs.writeFileSync(tmp_filepath, jsContent);
+                        }catch(e){
+                            console.warn('write cache file failed:', tmp_filepath)
+                        }
                     }else{
                         jsContent = fs.readFileSync(tmp_filepath, 'utf8')
                     }
