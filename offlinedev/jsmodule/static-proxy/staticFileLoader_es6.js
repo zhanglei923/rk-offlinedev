@@ -38,7 +38,7 @@ let thisUtil = {
                     let tmp_filepath = pathutil.resolve(my_tmp_folder, fullfilepathname2);
                     let isDirty = !fs.existsSync(tmp_filepath);
                     //console.log('isDirty', isDirty)
-                    if(1){
+                    if(isDirty){
                         var script = jsContent.toString();
                         try{
                             let script2 = script;//'//'+md5b + '\n' + script;

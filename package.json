@@ -33,6 +33,7 @@
   "devDependencies": {
     "@babel/core": "^7.6.2",
     "@babel/preset-env": "7.6.2",
+    "@babel/polyfill": "7.6.0",
     "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
     "@babel/plugin-transform-arrow-functions": "7.2.0"
   },
