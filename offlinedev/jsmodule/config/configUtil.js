@@ -32,7 +32,7 @@ let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let defaultConfig = {
     webProjectPath: '',//default
     staticProjectPath: '',//default
-    deployFolder:'',//default
+    deployWebProjectPath:'',//default
     http:{
         port: 666
     },
@@ -92,7 +92,11 @@ let reloadConfig = ()=>{
         config = null;
         return;
     }
-    let deployFolder = config.deployFolder ? config.deployFolder : pathutil.resolve(config.webProjectPath, './src/main/webapp/static/deploy')
+    let deployWebProjectPath_val = config.deployWebProjectPath ? config.deployWebProjectPath : pathutil.resolve(config.webProjectPath, './src/main/webapp/static/deploy')
+    config.deployWebProjectPath_val = deployWebProjectPath_val;
+    config.deployWebProjectPath_val_exist = fs.existsSync(config.deployWebProjectPath_val)
+    config.deployStaticPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp/static')
+    config.deployStaticPath_val_exist = fs.existsSync(config.deployStaticPath_val)
     let allpathinfo = getAllPathInfo(webroot);
     webparent = allpathinfo.webparent;
     webappFolder = allpathinfo.webappFolder;
@@ -107,7 +111,7 @@ let reloadConfig = ()=>{
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
     console.log('[static-root]=', static_project_root)
-    console.log('[deploy]=', deployFolder)
+    console.log('[deploy]=', config.deployStaticPath_val)
     console.log('---')
 }
 reloadConfig();

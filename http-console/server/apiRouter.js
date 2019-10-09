@@ -195,6 +195,17 @@ module.exports = {
             callback(result)
             return 'done'
         }
+        else if(/^\/offlinedev\/api\/deploydebug\/updateDeployAsDebug000\//.test(req.originalUrl)){
+            let all = req.body.all;
+            let deployDebug = require('../../offlinedev/deployDebug/deployDebug');
+            deployDebug.updateDeployFolderAsDebug000()
+            
+            callback({aaa:111})
+            return 'done'
+        }else{
+            callback({})
+            return 'unknown'
+        }
     }
 }
 var getUrlContent = function(url){    

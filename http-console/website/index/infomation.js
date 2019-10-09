@@ -31,6 +31,14 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_warn">Verifying...</span></div></td></tr></tbody></table></td></tr>
+        <tr>
+            <td align="right" valign="top">Deploy目录：</td>
+            <td>
+                <span class="projectpath status_positive">${userConfig.deployStaticPath_val}</span>
+                &nbsp;,${userConfig.deployStaticPath_val_exist?'<span class="status_positive">ok</span>':'<span class="status_negative_fill">not-found</span>'}
+                <a href="javascript:void(0)" onclick="updateDeployAsDebug000()">updateDeployAsDebug000</a>
+                </td>
+        </tr>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
         <td><span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
             &nbsp;<span class="status_positive_fill">${result.adminInfo.branch}</span>
