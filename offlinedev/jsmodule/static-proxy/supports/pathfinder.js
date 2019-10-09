@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 let projectFileSearch = require('./projectFileSearch')
+let deploydebug = require('../../../../offlinedev/deployDebug/deployDebug')
 let configUtil = require('../../config/configUtil')
 let prettifyFilePath = (fpath)=>{
     fpath = fpath.replace(/\/{1,}/g, '/');
@@ -23,8 +24,17 @@ module.exports = {
                 fromSubPrj
             }
         }
+        //去子工程里找
         if(!fs.existsSync(fullfilepath)){
             let o = projectFileSearch.searchFile(path)
+            if(o) {
+                fromSubPrj = o.project;
+                fullfilepath = o.fpath;
+            }
+        }
+        //去外面的deploy目录下找
+        if(!fs.existsSync(fullfilepath)){
+            let o = deploydebug.searchFile(path)
             if(o) {
                 fromSubPrj = o.project;
                 fullfilepath = o.fpath;

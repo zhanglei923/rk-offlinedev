@@ -92,9 +92,12 @@ let reloadConfig = ()=>{
         config = null;
         return;
     }
-    let deployWebProjectPath_val = config.deployWebProjectPath ? config.deployWebProjectPath : pathutil.resolve(config.webProjectPath, './src/main/webapp/static/deploy')
+    let deployWebProjectPath_val = config.deployWebProjectPath ? config.deployWebProjectPath : config.webProjectPath;
     config.deployWebProjectPath_val = deployWebProjectPath_val;
     config.deployWebProjectPath_val_exist = fs.existsSync(config.deployWebProjectPath_val)
+
+    
+    config.deployWebappPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp')
     config.deployStaticPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp/static')
     config.deployStaticPath_val_exist = fs.existsSync(config.deployStaticPath_val)
     let allpathinfo = getAllPathInfo(webroot);

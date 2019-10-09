@@ -5,7 +5,13 @@ let eachcontentjs = require('eachcontent-js')
 
 let configUtil = require('../jsmodule/config/configUtil')
 
-
+let searchFile = (path)=>{
+    let fullpath = pathutil.resolve(configUtil.getUserConfig().deployWebappPath_val +'/'+ path)
+    return fs.existsSync(fullpath)?{
+        fpath: fullpath,
+        project: 'deploy'
+    }:null;
+};
 let renameToDebug000 = (fname)=>{
     fname = fname.replace(/\.[a-z0-9]{7}\.(js|css)/g, (str)=>{
         str = str.replace(/\.[a-z0-9]{7}\./g, '.debug000.')
@@ -65,5 +71,6 @@ var updateDeployFolderAsDebug000 = function(){
 };
 module.exports = {
     updateDeployFolderAsDebug000,
-    findHashFile
+    findHashFile,
+    searchFile
 }
