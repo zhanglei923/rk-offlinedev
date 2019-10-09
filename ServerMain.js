@@ -193,10 +193,17 @@ let getPageHtml = function(isdeploy, filename){
     var bodyMock = fs.readFileSync(__dirname +'/offlinedev/injectScript/html_body.mock', 'utf8');
     html = html.replace(/\<\/body\>/ig,''+bodyMock+'</body>')
 
-    if(isdeploy) html = html.replace(/\.[a-z0-9]{7}\.(js|css)/g, (str)=>{
-        str = str.replace(/\.[a-z0-9]{7}\./g, '.debug000.')
-        return str
-    })
+    if(isdeploy) {
+        html = html.replace(/\.[a-z0-9]{7}\.(js|css)/g, (str)=>{
+            str = str.replace(/\.[a-z0-9]{7}\./g, '.debug000.')
+            return str
+        })
+        // hash.js
+        html = html.replace(/\.[a-z0-9]{12}\.(js|css)/g, (str)=>{
+            str = str.replace(/\.[a-z0-9]{12}\./g, '.debug000.')
+            return str
+        })
+    }
 
     return html;
 }
