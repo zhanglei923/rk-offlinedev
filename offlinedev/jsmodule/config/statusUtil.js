@@ -1,7 +1,8 @@
 var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
-var rootpath = pathutil.resolve(__dirname, '../../../tmp');
+let auxiliary = require('./auxiliary')
+var rootpath = auxiliary.tmpFolder;
 var config = {};
 var configpath;
 module.exports = {

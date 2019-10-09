@@ -3,9 +3,9 @@ var _ = require('lodash');
 let pathutil = require('path')
 var blueimp_md5 = require("blueimp-md5")//https://github.com/blueimp/JavaScript-MD5
 let makeDir = require('make-dir')
+let auxiliary = require('../../jsmodule/config/auxiliary')
 
-let cache_folder = pathutil.resolve(__dirname, '../../../tmp')
-makeDir.sync(`${cache_folder}`)
+let cache_folder = auxiliary.tmpFolder;
 console.log(`[cache]${cache_folder}`)
 
 let getFolder = (cacheType, id)=>{

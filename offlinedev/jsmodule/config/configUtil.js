@@ -6,11 +6,14 @@ var watcher = require('node-watch');
 let jsonformat = require('json-format')
 
 let webprojectUtil = require('./webprojectUtil')
+let auxiliaryUtil = require('./auxiliary')
 
 let staticFilter = require('../static-filter/filter');
 
+let auxiliaryFolder = auxiliaryUtil.getRootFolder();
+
 var rootpath = pathutil.resolve(__dirname, '../../');
-let tmp_folder = pathutil.resolve(rootpath, '../tmp');
+let tmp_folder = auxiliaryUtil.tmpFolder;
 makeDir.sync(tmp_folder);
 
 var configJson;
@@ -19,9 +22,6 @@ var offlineFolder = pathutil.resolve(__dirname, '../../');
 var projectFolder = pathutil.resolve(offlineFolder, '../');
 var parentFolder = pathutil.resolve(projectFolder, '../');
 
-let auxiliaryFolder = pathutil.resolve(parentFolder, './rk-offlinedev-auxiliary')
-
-makeDir.sync(auxiliaryFolder)
 
 var fpath = offlineFolder + '/config.json'
 if(fs.existsSync(fpath)){
