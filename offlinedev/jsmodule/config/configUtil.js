@@ -32,6 +32,7 @@ let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let defaultConfig = {
     webProjectPath: '',//default
     staticProjectPath: '',//default
+    deployFolder:'',//default
     http:{
         port: 666
     },
@@ -86,11 +87,12 @@ let reloadConfig = ()=>{
     eval('config='+txtconfig)
     config = Object.assign(defaultConfig, config);
 
-    webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web/');
+    webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web');
     if(!fs.existsSync(webroot)){
         config = null;
         return;
     }
+    let deployFolder = config.deployFolder ? config.deployFolder : pathutil.resolve(config.webProjectPath, './src/main/webapp/static/deploy')
     let allpathinfo = getAllPathInfo(webroot);
     webparent = allpathinfo.webparent;
     webappFolder = allpathinfo.webappFolder;
@@ -105,6 +107,7 @@ let reloadConfig = ()=>{
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
     console.log('[static-root]=', static_project_root)
+    console.log('[deploy]=', deployFolder)
     console.log('---')
 }
 reloadConfig();

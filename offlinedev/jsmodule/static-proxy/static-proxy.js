@@ -6,8 +6,14 @@ let scanner = require('../../codeScan/scan')
 let linkToStaticFile = (req, res, next) => {
     res.set('.rk', 'This is by rk-offlinedev!');
     let req_path = req.path;
+    //console.log('req_path', req_path)
     //console.log(req.path)
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
+        next();
+        return;
+    }
+    if(req_path.match(/^\/static\/deploy\//)){
+        //console.log('deploy!', req_path)
         next();
         return;
     }
