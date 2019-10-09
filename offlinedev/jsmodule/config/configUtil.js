@@ -5,6 +5,8 @@ var makeDir = require('make-dir');
 var watcher = require('node-watch');
 let jsonformat = require('json-format')
 
+let statusUtil = require('./statusUtil')
+
 let webprojectUtil = require('./webprojectUtil')
 let auxiliaryUtil = require('./auxiliary')
 
@@ -82,6 +84,15 @@ let getAllPathInfo = (_webroot)=>{
         staticDebugConfigFilePath
     }
 };
+let getBranchNickName = (branchname)=>{
+    let nickname = branchname.replace(/\//g, '~~');
+    return nickname;
+}
+let getDeployDebugWebPath = (branchname)=>{
+    let nickname = getBranchNickName(branchname);
+    let nginxDeployFolder = auxiliaryUtil.nginxDeployFolder;
+    return pathutil.resolve(nginxDeployFolder, nickname+'/apps-ingage-web');
+}
 let reloadConfig = ()=>{    
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
@@ -98,7 +109,11 @@ let reloadConfig = ()=>{
         config = null;
         return;
     }
+    let branchnameOfDeployDebug = statusUtil.getData('branchnameOfDeployDebug');
+    branchnameOfDeployDebug = branchnameOfDeployDebug ? branchnameOfDeployDebug : 'develop';
+    //console.log('xxx', getDeployDebugWebPath(branchnameOfDeployDebug))
     let deployWebProjectPath_val = config.deployWebProjectPath ? config.deployWebProjectPath : config.webProjectPath;
+    deployWebProjectPath_val = getDeployDebugWebPath(branchnameOfDeployDebug);
     config.deployWebProjectPath_val = deployWebProjectPath_val;
     config.deployWebProjectPath_val_exist = fs.existsSync(config.deployWebProjectPath_val)
 
@@ -133,6 +148,7 @@ reloadConfig();
 let thisUtil = {
     reloadConfig,
     getAllPathInfo,
+    getBranchNickName,
     isTrue:(cfgpath)=>{
         let bool = false;
         //console.log((`bool = config.${cfgpath}`))

@@ -73,7 +73,7 @@ var updateDeployFolderAsDebug000 = function(staticFolder){
     console.log('newhashfullpath=', newhashfullpath)
 };
 let syncTarFile = (branchname)=>{
-    let nickname = branchname.replace(/\//g, '~~');
+    let nickname = configUtil.getBranchNickName(branchname);//branchname.replace(/\//g, '~~');
     let auxiliaryFolder = configUtil.getUserConfig().auxiliaryFolder;
     let myFolder = `${auxiliaryFolder}/nginx_deploy_download`
     let thisFolder = `${myFolder}/${nickname}`

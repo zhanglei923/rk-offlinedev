@@ -26,7 +26,7 @@ module.exports = {
         statusUtil.setData('webProjectPath', newpath)
     },
     getWebProjectPath: (newpath)=>{
-        return statusUtil.setData('webProjectPath')
+        return statusUtil.getData('webProjectPath')
     },
     listAll: function(myroot){
         let list = [];
