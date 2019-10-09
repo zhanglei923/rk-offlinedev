@@ -19,6 +19,10 @@ var offlineFolder = pathutil.resolve(__dirname, '../../');
 var projectFolder = pathutil.resolve(offlineFolder, '../');
 var parentFolder = pathutil.resolve(projectFolder, '../');
 
+let auxiliaryFolder = pathutil.resolve(parentFolder, './rk-offlinedev-auxiliary')
+
+makeDir.sync(auxiliaryFolder)
+
 var fpath = offlineFolder + '/config.json'
 if(fs.existsSync(fpath)){
     var data = fs.readFileSync(fpath, 'utf8');
@@ -86,6 +90,8 @@ let reloadConfig = ()=>{
     let txtconfig = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+txtconfig)
     config = Object.assign(defaultConfig, config);
+
+    config.auxiliaryFolder = auxiliaryFolder;
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web');
     if(!fs.existsSync(webroot)){

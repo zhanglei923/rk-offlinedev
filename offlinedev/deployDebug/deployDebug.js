@@ -1,6 +1,10 @@
 var fs = require('fs');
 var _ = require('lodash')
 var pathutil = require('path');
+const download = require('download');
+var makeDir = require('make-dir');
+var execSh = require("exec-sh");
+let tar = require('tar');
 let eachcontentjs = require('eachcontent-js')
 
 let configUtil = require('../jsmodule/config/configUtil')
@@ -39,10 +43,9 @@ let findHashFile = (staticFolder)=>{
     return hashfile;
 }
 
-var updateDeployFolderAsDebug000 = function(){
+var updateDeployFolderAsDebug000 = function(staticFolder){
     let deployStaticPath_val = configUtil.getUserConfig().deployStaticPath_val;
-    let deployStaticPath_val_exist = configUtil.getUserConfig().deployStaticPath_val_exist;
-    if(!deployStaticPath_val_exist) return false;
+    if(typeof staticFolder !== 'undefined') deployStaticPath_val = staticFolder;
     let allfiles = eachcontentjs.getAllFiles(deployStaticPath_val)
     let regexp = /\.[a-z0-9]{7}\.[a-z]{1,}$/
     allfiles.forEach((fpath)=>{
@@ -69,8 +72,66 @@ var updateDeployFolderAsDebug000 = function(){
     console.log('deployWebProjectPath=', deployStaticPath_val)
     console.log('newhashfullpath=', newhashfullpath)
 };
+let syncTarFile = (branchname)=>{
+    let nickname = branchname.replace(/\//g, '~~');
+    let auxiliaryFolder = configUtil.getUserConfig().auxiliaryFolder;
+    let myFolder = `${auxiliaryFolder}/nginx_deploy_download`
+    let thisFolder = `${myFolder}/${nickname}`
+    let thisStaticFolder = `${thisFolder}/apps-ingage-web/src/main/webapp/static`
+    makeDir.sync(thisFolder)
+    downloadTarFile(branchname, thisFolder, ()=>{
+        updateDeployFolderAsDebug000(thisStaticFolder)
+    });
+
+}
+let downloadTarFile = (branchname, dest, callback)=>{
+    makeDir.sync(dest);
+    //http://10.10.0.144/autopack/nginx-static/delivery-latest/nginx-static_v1910~~test~~nginx-autopack_latest.tar.gz
+    //http://10.10.0.144/autopack/nginx-static/delivery-latest/nginx-static_v1910~~test~~nginx-autopack_latest.tar.gz
+    //http://10.10.0.144/autopack/nginx-static/delivery-latest/nginx-static_v1910~~test~~nginx-autopack_latest.tar.gz
+    let nickname = branchname.replace(/\//g, '~~');
+    let filename = `nginx-static_${nickname}_latest.tar.gz`;
+    let url = `http://10.10.0.144/autopack/nginx-static/delivery-latest/${filename}`;
+    console.log('dwn:', '\nbranch='+branchname, '\nurl='+url, '\ndesc='+dest)
+    download(url, dest).then(() => {
+        console.log('done!');
+        deployTarFile(dest, filename, callback)
+    });
+}
+let deployTarFile = (dest, filename, callback)=>{
+
+    let command = [
+        `cd ${dest}`,
+        `echo "remove folder"`,
+        `rm -rf ${dest}/apps-ingage-web`
+    ]
+    command = command.join(' && ')
+    console.log(command)
+    execSh(`${command}`, true, function(err, stdout, stderr){
+        let result = ''
+        if (err) {
+            result = stderr;
+            console.log(stderr)
+        }else{            
+            console.log('unzip')
+            tar.x(  // or tar.extract(
+                {
+                file: `${dest}/${filename}`,
+                C: dest,
+                unlink: true
+                }
+            ).then(()=> { 
+                console.log('done')
+                callback()
+            })
+        }
+    });
+}
 module.exports = {
     updateDeployFolderAsDebug000,
     findHashFile,
-    searchFile
+    searchFile,
+    syncTarFile,
+    downloadTarFile,
+    deployTarFile
 }
