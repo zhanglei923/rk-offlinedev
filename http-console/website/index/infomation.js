@@ -35,8 +35,8 @@ let showInfomation = (result)=>{
             <td align="right" valign="top">Deploy目录：</td>
             <td>
                 <span class="projectpath status_positive">${userConfig.deployStaticPath_val}</span>
-                &nbsp;,${userConfig.deployStaticPath_val_exist?'<span class="status_positive">ok</span>':'<span class="status_negative_fill">not-found</span>'}
-                <a href="javascript:void(0)" onclick="updateDeployAsDebug000()">updateDeployAsDebug000</a>
+                &nbsp;,${userConfig.deployStaticPath_val_exist?'<span class="status_positive">Ok</span>':'<span class="status_negative_fill">not-found</span>'}
+                <a style="display:none;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">updateDeployAsDebug000</a>
                 </td>
         </tr>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
