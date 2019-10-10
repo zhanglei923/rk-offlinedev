@@ -111,6 +111,7 @@ let reloadConfig = ()=>{
     }
     let branchnameOfDeployDebug = statusUtil.getData('branchnameOfDeployDebug');
     branchnameOfDeployDebug = branchnameOfDeployDebug ? branchnameOfDeployDebug : 'develop';
+    config.branchnameOfDeployDebug = branchnameOfDeployDebug;
     //console.log('xxx', getDeployDebugWebPath(branchnameOfDeployDebug))
     let deployWebProjectPath_val = config.deployWebProjectPath ? config.deployWebProjectPath : config.webProjectPath;
     deployWebProjectPath_val = getDeployDebugWebPath(branchnameOfDeployDebug);
