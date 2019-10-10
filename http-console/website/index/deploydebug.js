@@ -20,6 +20,7 @@ let do_updateDeployAsDebug000 = (branchname)=>{
             console.warn(result)
         },
         error:function(ajaxObj,msg,err){
+            alert('updateDeployAsDebug000 failed!')
         },
         complete:function(ajaxObj,msg,err){
             $('#info_updateDeployAsDebug000').hide();
