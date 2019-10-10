@@ -7,6 +7,7 @@ var execSh = require("exec-sh");
 let tar = require('tar');
 let eachcontentjs = require('eachcontent-js')
 
+let statusUtil = require('../jsmodule/config/statusUtil')
 let configUtil = require('../jsmodule/config/configUtil')
 
 let searchFile = (path)=>{
@@ -81,6 +82,8 @@ let syncTarFile = (branchname)=>{
     makeDir.sync(thisFolder)
     downloadTarFile(branchname, thisFolder, ()=>{
         updateDeployFolderAsDebug000(thisStaticFolder)
+        statusUtil.setData('branchnameOfDeployDebug', branchname)
+        console.log('Deploy Debug Branch:', branchname)
     });
 
 }

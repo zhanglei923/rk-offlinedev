@@ -18,6 +18,7 @@ module.exports = {
         } 
     },
     setData: function(name, value){
+        if(!configpath) this.init()
         config[name] = value;
         //console.log(name, value)
         fs.writeFileSync(configpath, JSON.stringify(config));
