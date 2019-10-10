@@ -195,12 +195,13 @@ module.exports = {
             callback(result)
             return 'done'
         }
-        else if(/^\/offlinedev\/api\/deploydebug\/updateDeployAsDebug000\//.test(req.originalUrl)){
-            let all = req.body.all;
+        else if(/^\/offlinedev\/api\/deploydebug\/syncTarFile\//.test(req.originalUrl)){
+            let branchnickname = req.body.branchnickname;
+            let branchname = branchnickname.replace(/\~{2}/g, '/');
             let deployDebug = require('../../offlinedev/deployDebug/deployDebug');
-            deployDebug.updateDeployFolderAsDebug000()
-            
-            callback({aaa:111})
+            deployDebug.syncTarFile(branchname, ()=>{
+                callback({ok:true})
+            })            
             return 'done'
         }else{
             callback({})

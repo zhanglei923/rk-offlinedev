@@ -5,7 +5,7 @@ let deployDebug = require('../deployDebug')
 
 // let statusUtil = require('../../jsmodule/config/statusUtil')
 // statusUtil.setData('xx', '11')
-// console.log(statusUtil.getData('xx'))
+console.log(statusUtil.getData('branchnameOfDeployDebug'))
 deployDebug.syncTarFile('v1910/test/nginx-autopack')
 //deployDebug.syncTarFile('develop')
 

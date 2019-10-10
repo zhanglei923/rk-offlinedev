@@ -73,7 +73,7 @@ var updateDeployFolderAsDebug000 = function(staticFolder){
     console.log('deployWebProjectPath=', deployStaticPath_val)
     console.log('newhashfullpath=', newhashfullpath)
 };
-let syncTarFile = (branchname)=>{
+let syncTarFile = (branchname, succ)=>{
     let nickname = configUtil.getBranchNickName(branchname);//branchname.replace(/\//g, '~~');
     let auxiliaryFolder = configUtil.getUserConfig().auxiliaryFolder;
     let myFolder = `${auxiliaryFolder}/nginx_deploy_download`
@@ -84,6 +84,7 @@ let syncTarFile = (branchname)=>{
         updateDeployFolderAsDebug000(thisStaticFolder)
         statusUtil.setData('branchnameOfDeployDebug', branchname)
         console.log('Deploy Debug Branch:', branchname)
+        succ();
     });
 
 }
