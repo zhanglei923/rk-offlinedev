@@ -4,6 +4,9 @@ let updateDeployAsDebug000 = ()=>{
 }
 let do_updateDeployAsDebug000 = (branchname)=>{
     branchname = _.trim(branchname)
+    $('#info_updateDeployAsDebug000').show();
+    $('#info_updateDeployAsDebug000').text('syncing...');
+    $('#btn_updateDeployAsDebug000').hide();
     $.ajax({
         url: '/offlinedev/api/deploydebug/syncTarFile/',
         cache: false,
@@ -17,6 +20,11 @@ let do_updateDeployAsDebug000 = (branchname)=>{
             console.warn(result)
         },
         error:function(ajaxObj,msg,err){
+        },
+        complete:function(ajaxObj,msg,err){
+            $('#info_updateDeployAsDebug000').hide();
+            $('#btn_updateDeployAsDebug000').show();
+
         }
     });
 }
