@@ -1,6 +1,7 @@
 var fs = require('fs');
 var _ = require('lodash')
 var pathutil = require('path');
+var git = require('git-state')
 
 var getBranchName = function(prjPath){
     var gitPath = prjPath + '/.git/'
@@ -11,6 +12,13 @@ var getBranchName = function(prjPath){
     var branchName = HEAD.replace('ref: refs/heads/', '');
     return branchName;
 };
+let getBranchStatus = (prjPath)=>{
+    let isGit = git.isGitSync(prjPath)
+    if(!isGit) return null;
+    let result = git.checkSync(prjPath);
+    return result;
+}
 module.exports = {
-    getBranchName
+    getBranchName,
+    getBranchStatus
 }

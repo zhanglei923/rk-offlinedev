@@ -51,6 +51,13 @@ module.exports = {
             })
             return 'done'
         }
+        else if(/^\/offlinedev\/api\/getGitInfo/.test(req.url)){
+            var projectpath = decodeURIComponent(req.body.projectpath)
+            let status = gitUtil.getBranchStatus(projectpath);
+            callback({
+                status
+            })
+        }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             configUtil.reloadConfig()
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
@@ -204,7 +211,7 @@ module.exports = {
             })            
             return 'done'
         }else{
-            callback({})
+            callback({is404: true})
             return 'unknown'
         }
     }

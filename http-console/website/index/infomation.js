@@ -18,14 +18,17 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
-        <tr><td align="right">工具：</td><td><span>${result.masterFolder}</span>&nbsp;(<span class="status_positive">${result.masterBranchName}</span>)</td></tr>
+        <tr><td align="right">工具：</td>
+        <td>
+            <span>${result.masterFolder}</span>
+            <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}" class="status_warn"></span>
+        </td></tr>
         <tr><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right">主工程：</td><td><span class="projectname"><a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a></span>
                                                     <span style="margin-left:18px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
-                                                    <span class="status_positive_fill">${result.branchName}</span>
-                                                    <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.webpath)}')" ppath="${result.webpath}">&gt;_</button>
+                                                    <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}" class="status_warn"></span>
                                                 </td>
         </tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
@@ -42,10 +45,10 @@ let showInfomation = (result)=>{
             </td>
         </tr>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
-        <td><span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
-            &nbsp;<span class="status_positive_fill">${result.adminInfo.branch}</span>
+        <td>
+            <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
+            <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}" class="status_warn"></span>
             ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
-            &nbsp;<button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(result.adminInfo.adminFolder)}')" ppath="${result.adminInfo.adminFolder}">&gt;_</button>
         </td>
         `:`<td valign="top" colspan="999" class="status_warn">Not-Found</td>`}
         </tr>
@@ -58,7 +61,40 @@ let showInfomation = (result)=>{
     </table>
     `
     $('#infomation').html(html)
+    showGitStatus();
     showSubProjects(result)
+}
+let showGitStatus = ()=>{
+    $('span[git_project_info="true"]').each((i, span)=>{
+        span = $(span);
+        span.html('Loading...')
+        let encodedpath = span.attr('git_path')
+        let gitpath = decodeURIComponent(encodedpath)
+        //console.log(span, i)
+        $.ajax({
+            url: '/offlinedev/api/getGitInfo/',
+            cache: false,
+            method: 'POST',
+            data: {projectpath:encodeURIComponent(gitpath)},
+            success: function( response ) {
+                console.log(response.result)
+                let result = response.result;
+                let status = result.status;
+                let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
+                let isDirty = !isClean;
+                let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
+                            ${isDirty?'<span class="status_warn">git-dirty</span>':'<span class="status_positive">git-clean</span>'}
+                            <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
+                            `;
+                span.html(html);   
+                span.removeClass('status_warn') 
+            },
+            error:function(ajaxObj,msg,err){
+                span.html(`<span class="status_negative_fill">Failed! ${msg}</span>`)
+            }
+        });
+                                            
+    })
 }
 let showSubProjects = (result)=>{
     let has = false;

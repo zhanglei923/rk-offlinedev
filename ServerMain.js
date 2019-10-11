@@ -90,10 +90,14 @@ app.post('*',function(req, res){
     var originalUrl = req.originalUrl;
     if(/^\/offlinedev\/api\//.test(req.url)){
         var result = apiRouter.processPost(req, res, function(data){
-            res.json({
-                status: 0,
-                result: data
-            })            
+            if(data.is404){
+                res.sendStatus(404)
+            }else{
+                res.json({
+                    status: 0,
+                    result: data
+                }) 
+            }                       
         })
         return;
     }
