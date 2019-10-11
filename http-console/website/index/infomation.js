@@ -21,14 +21,14 @@ let showInfomation = (result)=>{
         <tr><td align="right">工具：</td>
         <td>
             <span>${result.masterFolder}</span>
-            <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}" class="status_warn"></span>
+            <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right">主工程：</td><td><span class="projectname"><a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a></span>
                                                     <span style="margin-left:18px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                                                         ${result.webpath}
                                                     </span>
-                                                    <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}" class="status_warn"></span>
+                                                    <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}"></span>
                                                 </td>
         </tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
