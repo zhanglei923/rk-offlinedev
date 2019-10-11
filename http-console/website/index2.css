@@ -15,6 +15,9 @@
       background-color: #57bfac;
       color: #88e2cf;
   }
+  button{
+      color:black !important;
+  }
   li{
     list-style: none;
   }
