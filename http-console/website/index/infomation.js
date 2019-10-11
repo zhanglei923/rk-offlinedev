@@ -119,7 +119,7 @@ let showGitStatus = ()=>{
     let loadingCss = 'status_loading'
     $('span[git_project_info="true"]').each((i, span)=>{
         span = $(span);
-        span.html('is-git')
+        span.html(',is-git')
         let time = Math.random()*10;
         while(time > 5){
             time = Math.random()*10;
