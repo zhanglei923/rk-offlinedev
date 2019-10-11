@@ -34,6 +34,14 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_loading">Verifying...</span></div></td></tr></tbody></table></td></tr>
+        <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
+        <td>
+            <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
+            <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
+            ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
+        </td>
+        `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
+        </tr>
         <tr>
             <td align="right" valign="top">Deploy目录：</td>
             <td>
@@ -49,14 +57,6 @@ let showInfomation = (result)=>{
                     <a id="btn_updateDeployAsDebug000" style="display:auto;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">Download</a>
                 </span>
             </td>
-        </tr>
-        <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
-        <td>
-            <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
-            <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
-            ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
-        </td>
-        `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
         </tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
