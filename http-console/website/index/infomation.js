@@ -39,7 +39,7 @@ let showInfomation = (result)=>{
             <td>
                 <span class="projectpath status_positive">${userConfig.deployStaticPath_val}</span>
                 <span class="status_positive_fill">${userConfig.branchnameOfDeployDebug}</span>
-                ${userConfig.deployStaticPath_val_exist?'<span class="status_positive">Ok</span>':'<span class="status_negative_fill">not-found</span>'}
+                ${userConfig.deployStaticPath_val_exist?'<span class="status_positive">Ok</span>':'<span class="status_negative_fill">Not-Found</span>'}
                 <span id="info_updateDeployAsDebug000" class="status_warn" style="display:none;"></span>
                 <a id="btn_updateDeployAsDebug000" style="display:auto;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">change</a>
             </td>
@@ -50,7 +50,7 @@ let showInfomation = (result)=>{
             <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
             ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
         </td>
-        `:`<td valign="top" colspan="999" class="status_warn">Not-Found</td>`}
+        `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
         </tr>
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
