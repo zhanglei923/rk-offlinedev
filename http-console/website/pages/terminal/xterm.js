@@ -1,4 +1,4 @@
-const prefix = '[rk-offlinedev]$ '
+const prefix = '[rk-terminal]$ '
 let inputingChars = []
 let history = []
 
