@@ -113,35 +113,41 @@ let showGitStatus = ()=>{
     let loadingCss = 'status_loading'
     $('span[git_project_info="true"]').each((i, span)=>{
         span = $(span);
-        span.addClass(loadingCss)
-        span.html('Loading...')
-        let encodedpath = span.attr('git_path')
-        let gitpath = decodeURIComponent(encodedpath)
-        //console.log(span, i)
-        $.ajax({
-            url: '/offlinedev/api/getGitInfo/',
-            cache: false,
-            method: 'POST',
-            data: {projectpath:encodeURIComponent(gitpath)},
-            success: function( response ) {
-                console.log(response.result)
-                let result = response.result;
-                let status = result.status;
-                let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
-                let txt = 'git-dirty'
-                if(status.ahead===1) txt += ', git-need-sync'
-                let isDirty = !isClean;
-                let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
-                            ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
-                            <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
-                            `;
-                span.html(html);   
-                span.removeClass(loadingCss) 
-            },
-            error:function(ajaxObj,msg,err){
-                span.html(`<span class="status_negative_fill">Load-Git-Info-Failed!${err}</span>`)
-            }
-        });
-                                            
+        span.html('is-git')
+        let time = Math.random()*10;
+        while(time > 5){
+            time = Math.random()*10;
+        }
+        setTimeout(()=>{
+            span.addClass(loadingCss)
+            span.html('Loading...')
+            let encodedpath = span.attr('git_path')
+            let gitpath = decodeURIComponent(encodedpath)
+            //console.log(span, i)
+            $.ajax({
+                url: '/offlinedev/api/getGitInfo/',
+                cache: false,
+                method: 'POST',
+                data: {projectpath:encodeURIComponent(gitpath)},
+                success: function( response ) {
+                    console.log(response.result)
+                    let result = response.result;
+                    let status = result.status;
+                    let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
+                    let txt = 'git-dirty'
+                    if(status.ahead===1) txt += ', git-need-sync'
+                    let isDirty = !isClean;
+                    let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
+                                ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
+                                <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
+                                `;
+                    span.html(html);   
+                    span.removeClass(loadingCss) 
+                },
+                error:function(ajaxObj,msg,err){
+                    span.html(`<span class="status_negative_fill">Load-Git-Info-Failed!${err}</span>`)
+                }
+            });
+        }, time*200)                         
     })
 }
