@@ -43,7 +43,7 @@ let showInfomation = (result)=>{
                 </span>
                 <span id="deploydebug000console" ${userConfig.deployStaticPath_val_exist?'':'style="display:none;" class="status_negative"'}>
                     <span class="projectpath status_positive">${userConfig.deployStaticPath_val}</span>
-                    ${userConfig.deployStaticPath_val_exist?`<span class="status_positive_fill">${userConfig.branchnameOfDeployDebug}</span>`:''}
+                    ${userConfig.deployStaticPath_val_exist?`<span class="">"${userConfig.branchnameOfDeployDebug}"</span>`:''}
                     ${userConfig.deployStaticPath_val_exist?'':'<span class="status_negative_fill">Not-Found</span>'}
                     <span id="info_updateDeployAsDebug000" class="status_loading" style="display:none;"></span>
                     <a id="btn_updateDeployAsDebug000" style="display:auto;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">Download</a>
