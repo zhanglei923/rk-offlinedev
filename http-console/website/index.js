@@ -9,34 +9,34 @@ $('#webpath').on('change', function(){
   //console.log(webprojectpath)
   saveWebProjectPath(webprojectpath)
 })
-$.ajax({
-        url: 'http://10.10.0.115:3004/offlinedev/folders',
-        jsonp: "callback",
-        jsonpCallback:"Callback",
-        dataType: "jsonp",
-        cache: false,
-        timeout: 2500,
-        data: {},
-        success: function( response ) {
-            console.log(response)
-            var data = JSON.parse(response);
-            console.log(data)
-            var html = ''// '<option value="">LOCAL</option>'
-            data.forEach(function(name){
-              name = name.replace(/\/{1,}/g,'');
-              html += '<option value="'+name+'">[115]:' +name+ '</option>'
-            })
-            $('#caseselect').html(html)
-            $('#caseselect').val(localStorage.getItem(ls_key))
-        },
-        error:function(ajaxObj,msg,err){
-          $('#caseselect').replaceWith('<span style="color:red">115 is out-of-service.</span>')
-          $('#download-btn').remove();
-        },
-        complete: function(){
+// $.ajax({
+//         url: 'http://10.10.0.115:3004/offlinedev/folders',
+//         jsonp: "callback",
+//         jsonpCallback:"Callback",
+//         dataType: "jsonp",
+//         cache: false,
+//         timeout: 2500,
+//         data: {},
+//         success: function( response ) {
+//             console.log(response)
+//             var data = JSON.parse(response);
+//             console.log(data)
+//             var html = ''// '<option value="">LOCAL</option>'
+//             data.forEach(function(name){
+//               name = name.replace(/\/{1,}/g,'');
+//               html += '<option value="'+name+'">[115]:' +name+ '</option>'
+//             })
+//             $('#caseselect').html(html)
+//             $('#caseselect').val(localStorage.getItem(ls_key))
+//         },
+//         error:function(ajaxObj,msg,err){
+//           $('#caseselect').replaceWith('<span style="color:red">115 is out-of-service.</span>')
+//           $('#download-btn').remove();
+//         },
+//         complete: function(){
           
-        }
-    });
+//         }
+//     });
 $.ajax({
         url: '/offlinedev/api/getWebProjectInfo/',
         cache: false,
