@@ -119,6 +119,11 @@ table td{
     100%{ opacity: 1; }  
 }  
 .status_loading{
+    border: 1px solid orange;
+    background-color: yellow;
+    margin:2px;
+    padding:1px;
+    color: black;
     -webkit-animation: twinkling 0.5s infinite ease-in-out;
 }
 .status_positive{
