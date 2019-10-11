@@ -81,9 +81,11 @@ let showGitStatus = ()=>{
                 let result = response.result;
                 let status = result.status;
                 let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
+                let txt = 'git-dirty'
+                if(status.ahead===1) txt += ', git-need-pull'
                 let isDirty = !isClean;
                 let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
-                            ${isDirty?'<span class="status_warn">git-dirty</span>':'<span class="status_positive">git-clean</span>'}
+                            ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive">git-clean</span>'}
                             <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
                             `;
                 span.html(html);   
