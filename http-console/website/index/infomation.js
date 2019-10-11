@@ -85,7 +85,7 @@ let showGitStatus = ()=>{
                 if(status.ahead===1) txt += ', git-need-sync'
                 let isDirty = !isClean;
                 let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
-                            ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive">git-clean</span>'}
+                            ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                             <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
                             `;
                 span.html(html);   
