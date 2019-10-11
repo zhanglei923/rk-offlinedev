@@ -4,6 +4,10 @@ let updateDeployAsDebug000 = ()=>{
 }
 let do_updateDeployAsDebug000 = (branchname)=>{
     branchname = _.trim(branchname)
+    if(!branchname) {
+        alert('名称不合法')
+        return;
+    }
     $('#info_updateDeployAsDebug000').show();
     $('#info_updateDeployAsDebug000').text('syncing...');
     $('#btn_updateDeployAsDebug000').hide();
