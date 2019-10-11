@@ -22,6 +22,7 @@ let do_updateDeployAsDebug000 = (branchname)=>{
             let result = response.result;
 
             console.warn(result)
+            window.location.reload()
         },
         error:function(ajaxObj,msg,err){
             alert('updateDeployAsDebug000 failed!')
