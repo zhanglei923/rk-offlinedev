@@ -90,7 +90,7 @@ let showGitStatus = ()=>{
                 span.removeClass('status_warn') 
             },
             error:function(ajaxObj,msg,err){
-                span.html(`<span class="status_negative_fill">Failed! ${msg}</span>`)
+                span.html(`<span class="status_negative_fill">Load-Git-Info-Failed!${err}</span>`)
             }
         });
                                             
