@@ -1,4 +1,4 @@
-const prefix = '[rk-terminal]$ '
+const prefix = '[应急用/莫当真]$ '
 let inputingChars = []
 let history = []
 
