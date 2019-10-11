@@ -109,6 +109,18 @@ table td{
 .infomation table {
     /* border: 1px solid #eee; */
 }
+
+@-webkit-keyframes twinkling{  
+    0%{ opacity: 0.1; }  
+    100%{ opacity: 1; }  
+}  
+@keyframes twinkling{  
+    0%{ opacity: 0.1; }  
+    100%{ opacity: 1; }  
+}  
+.status_loading{
+    -webkit-animation: twinkling 0.5s infinite ease-in-out;
+}
 .status_positive{
     color:#2fff56 !important;
 }
