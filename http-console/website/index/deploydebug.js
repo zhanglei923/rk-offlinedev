@@ -9,7 +9,7 @@ let do_updateDeployAsDebug000 = (branchname)=>{
         return;
     }
     $('#info_updateDeployAsDebug000').show();
-    $('#info_updateDeployAsDebug000').text('syncing...');
+    $('#info_updateDeployAsDebug000').text('Downloading...');
     $('#btn_updateDeployAsDebug000').hide();
     $.ajax({
         url: '/offlinedev/api/deploydebug/syncTarFile/',
