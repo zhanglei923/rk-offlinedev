@@ -34,6 +34,22 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_loading">Verifying...</span></div></td></tr></tbody></table></td></tr>
+
+        <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
+        <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
+        <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a>&nbsp;(等价于gulp https命令)</td></tr>
+        <tr><td align="right">自定义端口：</td><td><a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>&nbsp;(避免和本地https服务的443端口冲突)</td></tr>
+        
+    </tbody>
+    </table>
+
+    <table border=0 class="infotable">
+    <thead class="table_title">
+        <tr>
+            <th align="left" colspan="999">Admin和打包调试</th>
+        </tr>
+    </thead>
+    <tbody>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
         <td>
             <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
@@ -58,11 +74,6 @@ let showInfomation = (result)=>{
                 </span>
             </td>
         </tr>
-        <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
-        <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
-        <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a>&nbsp;(等价于gulp https命令)</td></tr>
-        <tr><td align="right">自定义端口：</td><td><a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>&nbsp;(避免和本地https服务的443端口冲突)</td></tr>
-        
     </tbody>
     </table>
     `
@@ -119,7 +130,7 @@ let showGitStatus = ()=>{
     let loadingCss = 'status_loading'
     $('span[git_project_info="true"]').each((i, span)=>{
         span = $(span);
-        span.html(',is-git')
+        span.html('[?]')
         let time = Math.random()*10;
         while(time > 5){
             time = Math.random()*10;

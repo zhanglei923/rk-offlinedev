@@ -22,7 +22,7 @@
     list-style: none;
   }
   .infotable{
-      margin-bottom: 2px;
+      margin-bottom: 5px;
       min-width: 500px;
       background-color: #010101c2;
       color: #d5e5ff;
@@ -30,6 +30,9 @@
   }
   .infotable *{
       color: #d5e5ff;
+  }
+  .table_title{
+    background-color: #010101c2;
   }
   .table_title th{
     border-bottom: 2px dotted #a9a9a9;
