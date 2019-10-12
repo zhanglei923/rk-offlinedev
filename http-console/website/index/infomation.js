@@ -37,15 +37,15 @@ let showInfomation = (result)=>{
 
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right"></td><td>
-                                        <a target="_blank" href="${httpurl}">${httpurl}</a>
+                                        <a class="url" target="_blank" href="${httpurl}">${httpurl}</a>
                                         <span class="comment">//默认的http端口是666<span>
                                    </td></tr>
         <tr><td align="right"></td><td>
-                                        <a target="_blank" href="${httpsurl}">${httpsurl}</a>
+                                        <a class="url" target="_blank" href="${httpsurl}">${httpsurl}</a>
                                         <span class="comment">//这是443 https端口，用来替代gulp https命令<span>
                                     </td></tr>
         <tr><td align="right"></td><td>
-                                        <a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>
+                                        <a class="url" target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>
                                         <span class="comment">//如果443端口被占用了，为避免冲突，可以访问444这个替代端口，同样是https的<span>
                                     </td></tr>
         

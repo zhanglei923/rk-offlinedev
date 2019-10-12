@@ -132,6 +132,10 @@ table td{
     0%{ opacity: 0.1; }  
     100%{ opacity: 1; }  
 }  
+.url{
+    font-family: monospace !important;
+    font-size: 14px;
+}
 .comment{
     margin-left:2px;
     color:#99fd00;
