@@ -36,7 +36,7 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_loading">Verifying...</span></div></td></tr></tbody></table></td></tr>
 
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
-        <tr><td align="right">URLs：</td><td>
+        <tr><td align="right"><span class="comment">URLs：</span></td><td>
                     <a class="url" target="_blank" href="${httpurl}">${httpurl}</a>
                     <span class="comment">//默认的http端口是666<span>
                 </td></tr>
@@ -67,7 +67,7 @@ let showInfomation = (result)=>{
         </td>
         `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
         </tr>
-        <tr><td align="right">URLs：</td><td>
+        <tr><td align="right"><span class="comment">URLs：</span></td><td>
                 <a class="url" target="_blank" href="${'http://localhost:666/admin/js/core/global.js'}">${'http://localhost:666/admin/js/core/global.js'}</a>
                 <span class="comment">//如果也下载了admin工程，也可以访问admin工程的资源<span>
             </td></tr>
@@ -88,14 +88,15 @@ let showInfomation = (result)=>{
                 </span>
                 <span id="deploydebug000console" ${userConfig.deployStaticPath_val_exist?'':'style="display:none;" class="status_negative"'}>
                     <span class="projectpath status_positive">${userConfig.deployStaticPath_val}</span>
-                    ${userConfig.deployStaticPath_val_exist?`<span class="">"${userConfig.branchnameOfDeployDebug}"</span>`:''}
-                    ${userConfig.deployStaticPath_val_exist?'':'<span class="status_negative_fill">Not-Found</span>'}
+                    <br>
+                    期望调试的打包分支是：${userConfig.deployStaticPath_val_exist?`<span class="">"${userConfig.branchnameOfDeployDebug}"</span>`:''}
+                    ${userConfig.deployStaticPath_val_exist?'':'<span class="status_negative_fill">UNKNOWN</span>'}
                     <span id="info_updateDeployAsDebug000" class="status_loading" style="display:none;"></span>
-                    <a id="btn_updateDeployAsDebug000" style="display:auto;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">Download</a>
+                    &nbsp;<button id="btn_updateDeployAsDebug000" style="display:auto;" href="javascript:void(0)" onclick="updateDeployAsDebug000()">从144上下载tar包到本地</button>
                 </span>
             </td>
         </tr>
-        <tr><td align="right">URLs：</td><td>
+        <tr><td align="right"><span class="comment">URLs：</span></td><td>
                 <a class="url" target="_blank" href="${'http://localhost:666/static/hash.debug000.js'}">${'http://localhost:666/static/hash.debug000.js'}</a>
                 <span class="comment">//这个用来调试打包后的资源<span>
             </td></tr>

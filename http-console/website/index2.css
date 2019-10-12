@@ -136,6 +136,10 @@ table td{
     font-family: monospace !important;
     font-size: 14px;
 }
+button{
+    background: #0101011c;
+    color: #d5e5ff !important;
+}
 .comment{
     margin-left:2px;
     color:#93a1b7;
