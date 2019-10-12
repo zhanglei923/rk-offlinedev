@@ -24,7 +24,8 @@
   .infotable{
       margin-bottom: 5px;
       min-width: 500px;
-      background-color: #010101c2;
+      background-color: #010101a3;
+      /* background-color: #010101c2; */
       color: #d5e5ff;
       border-radius:4px;
   }
@@ -32,10 +33,17 @@
       color: #d5e5ff;
   }
   .table_title{
-    background-color: #010101c2;
+    /* background-color: #010101c2; */
+    background-color: #0101014d;
   }
   .table_title th{
     border-bottom: 2px dotted #a9a9a9;
+  }
+  .infotable.subfunctions{
+    background-color: #0101014a;
+  }  
+  .infotable.subfunctions .table_title{
+    background-color: #0101014a;
   }
   hr{
     margin:4px 0 4px 0;

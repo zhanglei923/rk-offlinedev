@@ -14,7 +14,7 @@ let showInfomation = (result)=>{
     let html = `<table border=0 class="infotable">
     <thead class="table_title">
         <tr>
-            <th align="left" colspan="999">状态</th>
+            <th align="left" colspan="999">状态：</th>
         </tr>
     </thead>
     <tbody>
@@ -46,11 +46,11 @@ let showInfomation = (result)=>{
     <table border=0 class="infotable">
     <thead class="table_title">
         <tr>
-            <th align="left" colspan="999">Admin和打包调试</th>
+            <th align="left" colspan="999">Admin和打包调试：</th>
         </tr>
     </thead>
     <tbody>
-        <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
+        <tr><td align="right" valign="top">Admin：</td>${result.adminInfo?`
         <td>
             <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
             <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
