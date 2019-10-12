@@ -145,11 +145,11 @@ button{
     color:#93a1b7;
 }
 .status_loading{
-    border: 1px solid orange;
-    background-color: yellow;
+    border: 1px solid #2fff56;
+    /* background-color: #2fff56; */
     margin:2px;
     padding:1px;
-    color: black;
+    color: #2fff56;
     -webkit-animation: twinkling 0.5s infinite ease-in-out;
 }
 .status_positive{
