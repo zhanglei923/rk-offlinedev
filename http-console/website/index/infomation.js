@@ -37,17 +37,17 @@ let showInfomation = (result)=>{
 
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
         <tr><td align="right">URLs：</td><td>
-                                        <a class="url" target="_blank" href="${httpurl}">${httpurl}</a>
-                                        <span class="comment">//默认的http端口是666<span>
-                                   </td></tr>
+                    <a class="url" target="_blank" href="${httpurl}">${httpurl}</a>
+                    <span class="comment">//默认的http端口是666<span>
+                </td></tr>
         <tr><td align="right"></td><td>
-                                        <a class="url" target="_blank" href="${httpsurl}">${httpsurl}</a>
-                                        <span class="comment">//这是https路径，用来替代gulp https命令<span>
-                                    </td></tr>
+                    <a class="url" target="_blank" href="${httpsurl}">${httpsurl}</a>
+                    <span class="comment">//这是https路径，用来替代gulp https命令<span>
+                </td></tr>
         <tr><td align="right"></td><td>
-                                        <a class="url" target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>
-                                        <span class="comment">//如果https的443端口被占用了，可以访问444这个替代端口<span>
-                                    </td></tr>
+                    <a class="url" target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>
+                    <span class="comment">//如果https的443端口被占用了，可以访问444这个替代端口<span>
+                </td></tr>
         
     </tbody>
     </table>
@@ -68,21 +68,17 @@ let showInfomation = (result)=>{
         `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
         </tr>
         <tr><td align="right">URLs：</td><td>
-                                        <a class="url" target="_blank" href="${'http://localhost:666/admin/js/core/global.js'}">${'http://localhost:666/admin/js/core/global.js'}</a>
-                                        <span class="comment">//如果也下载了admin工程，也可以访问admin工程的资源<span>
-                                    </td></tr>
+                <a class="url" target="_blank" href="${'http://localhost:666/admin/js/core/global.js'}">${'http://localhost:666/admin/js/core/global.js'}</a>
+                <span class="comment">//如果也下载了admin工程，也可以访问admin工程的资源<span>
+            </td></tr>
         <tr><td align="right"></td><td>
-                                        <a class="url" target="_blank" href="${'https://localhost/admin/js/core/global.js'}">${'https://localhost/admin/js/core/global.js'}</a>
-                                        <span class="comment">//admin资源的https路径<span>
-                                    </td></tr>
+                    <a class="url" target="_blank" href="${'https://localhost/admin/js/core/global.js'}">${'https://localhost/admin/js/core/global.js'}</a>
+                    <span class="comment">//admin资源的https路径<span>
+                </td></tr>
         <tr><td align="right"></td><td>
-                                        <a class="url" target="_blank" href="${'https://localhost:444/admin/js/core/global.js'}">${'https://localhost:444/admin/js/core/global.js'}</a>
-                                        <span class="comment">//如果https的443端口被占用了，可以访问444这个替代端口<span>
-                                    </td></tr>
-
-
-                                    
-        
+                    <a class="url" target="_blank" href="${'https://localhost:444/admin/js/core/global.js'}">${'https://localhost:444/admin/js/core/global.js'}</a>
+                    <span class="comment">//如果https的443端口被占用了，可以访问444这个替代端口<span>
+                </td></tr>
         <tr>
             <td align="right" valign="top">调试Deploy打包：</td>
             <td>
@@ -99,6 +95,10 @@ let showInfomation = (result)=>{
                 </span>
             </td>
         </tr>
+        <tr><td align="right">URLs：</td><td>
+                <a class="url" target="_blank" href="${'http://localhost:666/static/hash.debug000.js'}">${'http://localhost:666/static/hash.debug000.js'}</a>
+                <span class="comment">//这个用来调试打包后的资源<span>
+            </td></tr>
     </tbody>
     </table>
     `
