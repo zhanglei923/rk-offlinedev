@@ -1,3 +1,5 @@
+let fs = require('fs')
+let pathutil = require('path')
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
@@ -8,6 +10,12 @@ let linkToStaticFile = (req, res, next) => {
     let req_path = req.path;
     //console.log('req_path', req_path)
     //console.log(req.path)
+    if(req_path === '/sw-offlinedev.js'){//如果是根目录/sw.js，默认是访问webapp目录下，因此在static-proxy.js里做了一个转接
+        let jscontent = fs.readFileSync(pathutil.resolve(getConfig.getMasterRoot(), './http-console/website/service-worker/sw-offlinedev.js'))
+        res.set('Content-Type', 'text/javascript');
+        res.send(jscontent);
+        return;
+    }
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
         next();
         return;

@@ -164,6 +164,9 @@ let thisUtil = {
     get: function (){
         return configJson;
     },
+    getMasterRoot: function(){
+        return projectFolder;
+    },
     getMyRoot: function(){
         return parentFolder;
     },
