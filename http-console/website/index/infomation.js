@@ -36,9 +36,18 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_loading">Verifying...</span></div></td></tr></tbody></table></td></tr>
 
         <tr style="display:none;"><td colspan="999" style="padding-left: 14px;">&nbsp;</td></tr>
-        <tr><td align="right">Http快速访问：</td><td><a target="_blank" href="${httpurl}">${httpurl}</a></td></tr>
-        <tr><td align="right">Host调试用：</td><td><a target="_blank" href="${httpsurl}">${httpsurl}</a>&nbsp;(等价于gulp https命令)</td></tr>
-        <tr><td align="right">自定义端口：</td><td><a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>&nbsp;(避免和本地https服务的443端口冲突)</td></tr>
+        <tr><td align="right"></td><td>
+                                        <a target="_blank" href="${httpurl}">${httpurl}</a>
+                                        <span class="comment">//默认的http端口是666<span>
+                                   </td></tr>
+        <tr><td align="right"></td><td>
+                                        <a target="_blank" href="${httpsurl}">${httpsurl}</a>
+                                        <span class="comment">//这是443 https端口，用来替代gulp https命令<span>
+                                    </td></tr>
+        <tr><td align="right"></td><td>
+                                        <a target="_blank" href="https://${hostname}:444/static/sea-config.js">https://${hostname}:444/static/sea-config.js</a>
+                                        <span class="comment">//如果443端口被占用了，为避免冲突，可以访问444这个替代端口，同样是https的<span>
+                                    </td></tr>
         
     </tbody>
     </table>

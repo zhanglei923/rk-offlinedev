@@ -132,6 +132,10 @@ table td{
     0%{ opacity: 0.1; }  
     100%{ opacity: 1; }  
 }  
+.comment{
+    margin-left:2px;
+    color:#99fd00;
+}
 .status_loading{
     border: 1px solid orange;
     background-color: yellow;
