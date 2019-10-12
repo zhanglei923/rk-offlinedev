@@ -97,7 +97,7 @@ let downloadTarFile = (branchname, dest, callback)=>{
     let filename = `nginx-static_${nickname}_latest.tar.gz`;
     let url = `http://10.10.0.144/autopack/nginx-static/delivery-latest/${filename}`;
     console.log('dwn:', '\nbranch='+branchname, '\nurl='+url, '\ndesc='+dest)
-    download(url, dest).then(() => {
+    download(url, dest, {timeout: 1000*3600*48}).then(() => {
         console.log('done!');
         deployTarFile(dest, filename, callback)
     });
