@@ -44,6 +44,7 @@ let scan = (staticroot, fpath, jscontent)=>{
     return results;
 }
 let parseEachRequireUrls = (staticroot, fpath, finfo, urlist)=>{
+    let webroot = pathutil.resolve(staticroot, '../')
     let sourceroot = pathutil.resolve(staticroot, './source')
     let fdir = finfo.dir;
     let results = []
@@ -51,12 +52,16 @@ let parseEachRequireUrls = (staticroot, fpath, finfo, urlist)=>{
     for(let i = 0; i < urlist.length; i++){
         let info = {}
         let url = urlist[i];
-        let is_abs = !url.match(/^\./);
-        let root = is_abs ? sourceroot : fdir;
+        let is_rootbased = url.match(/^[\/|\\]/);
+        let is_sourcebased = !url.match(/^\./) && !is_rootbased;
+        let root = is_sourcebased ? sourceroot : fdir;
         let url2 = url;
-        if(is_abs) url2 = './' + url2;
+        if(is_sourcebased) {
+            url2 = './' + url2;
+        }
         //if(!url2.match(/(\.css|\.tpl)$/)) url2 = url2 + '.js';
         let fullfilepath = pathutil.resolve(root, url)
+        if(is_rootbased) fullfilepath = pathutil.resolve(webroot, '.'+url);
         let exist = fs.existsSync(fullfilepath)
         if(!exist) {
             fullfilepath = fullfilepath + '.js';
