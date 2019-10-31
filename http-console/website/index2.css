@@ -214,3 +214,13 @@ button{
     max-height: 200px;
     overflow-y: auto;
 }
+.subproject_dup_table {
+    border: 1px solid gray;
+}
+.subproject_dup_table .row_0{
+    background-color: red;
+}
+.subproject_dup_table .row_1{
+    background-color: #c5233f;
+
+}

@@ -8,17 +8,24 @@ let showDupCheck = ()=>{
             let result = response.result;
             let html = '<span class="status_positive">None</span>'
             if(result.dupfiles && result.dupfiles.length > 0){
-                html = '<div><div class="status_negative_fill">发现重复文件：</div>'
-                result.dupfiles.forEach((dup)=>{
+                html = '<div><div class="status_negative_fill">发现重复文件：</div><table class="subproject_dup_table"><tbody>'
+                result.dupfiles.forEach((dup, i)=>{
+                    let zebra = i%2;
                     // {root1: "E:\workspaceGerrit\_sub_separation_test\apps-ingage-web\src\main\webapp", 
                     // root2: "E:\workspaceGerrit\_sub_separation_test\xsy-static-breeze", 
                     // relativepath: "embeded\breeze\breeze.lib.min.css"}
                     html += `
-                             <div class="status_negative" style="padding-left:15px;">${dup.root1}<span style="text-decoration:underline;font-weight:bolder;">/${dup.relativepath}</span></div>
-                             <div class="status_negative" style="padding-left:15px;margin-bottom:7px;">${dup.root2}<span style="text-decoration:underline;font-weight:bolder;">/${dup.relativepath}</span></div>
-                             `;
+                            <tr class="row_${zebra}">
+                                <td align="right">A</td>
+                                <td align="right">${dup.root1}</td>
+                                <td rowspan="2" class="">/${dup.relativepath}</td>
+                            </tr>
+                            <tr class="row_${zebra}">
+                                <td align="right">B</td>
+                                <td align="right">${dup.root2}</td>
+                            </tr>`;
                 })
-                html += '</div>'
+                html += '</tbody></table></div>'
             }
             $('#subproject_verify').html(html)
         },
