@@ -34,6 +34,9 @@ let showInfomation = (result)=>{
                 <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}"></span>
             </td>
         </tr>
+        <tr><td align="right" valign="top">&nbsp;</td><td>
+            <button id="deepCheck_web_project" onclick="javascript:deepCheck_web_project();">Web工程全面自检</button>
+        </td></tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
         <tr><td align="right">转义ES6：</td><td>${userConfig.es6.autoTransformJs?'<span class="status_warn_fill">On</span>':'<span class="status_positive">Off</span>'}</td></tr>
         <tr><td align="right" valign="top">子工程冲突：</td><td><table><tbody><tr><td><div id="subproject_verify" class="subproject_verify"><span class="status_loading">Verifying...</span></div></td></tr></tbody></table></td></tr>
