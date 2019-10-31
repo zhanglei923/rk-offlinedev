@@ -3,6 +3,7 @@ let fs = require('fs')
 let pathutil = require('path')
 let decomment = require('decomment')
 let stripcomments = require('strip-comments')
+let stripcsscomments = require('./util/zl-strip-css-comment.js')
 let eachcontentjs = require('eachcontent-js')
 let webprojectUtil = require('../jsmodule/config/webprojectUtil')
 let regexp = /url\((.*?)\)/gi
@@ -16,15 +17,8 @@ let staticroot = pathutil.resolve(webapp, './static');
 let reports = {}
 eachcontentjs.eachContent(staticroot, [/\.css$/], (content, csspath, states)=>{
     //console.log(csspath)
-    try{
-        content = stripcomments(content)
-    }catch(e){
-        try{
-            content = decomment(content,  {ignore: /url\([\w\s:\/=\-\+;,]*\)/g})
-        }catch(e){
-    
-        }
-    }
+    content = stripcsscomments(content)
+
     let cssfolder = pathutil.parse(csspath).dir;
     let urls = content.match(regexp);
     if(urls){
