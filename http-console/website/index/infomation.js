@@ -146,7 +146,7 @@ let showSubProjects = (result)=>{
                         ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
                         ${item.branchname?
                             `${branchMatch?
-                                `<span class="status_positive">match-define</span>`:
+                                `<span class="status_positive">as-required</span>`:
                                 `<span class="status_negative_fill">!=${item.branchname}</span>`}`:
                             '<span class="status_negative_fill">不是git工程</span>'}
                         ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}

@@ -8,7 +8,7 @@ let showDupCheck = ()=>{
             let result = response.result;
             let html = '<span class="status_positive">None</span>'
             if(result.dupfiles && result.dupfiles.length > 0){
-                html = '<div><div class="status_negative_fill">发现重复文件：</div><table class="subproject_dup_table"><tbody>'
+                html = `<div><div class="status_negative_fill">发现${result.dupfiles.length}个重复文件：</div><table class="subproject_dup_table"><tbody>`
                 result.dupfiles.forEach((dup, i)=>{
                     let zebra = i%2;
                     // {root1: "E:\workspaceGerrit\_sub_separation_test\apps-ingage-web\src\main\webapp", 
@@ -16,12 +16,12 @@ let showDupCheck = ()=>{
                     // relativepath: "embeded\breeze\breeze.lib.min.css"}
                     html += `
                             <tr class="row_${zebra}">
-                                <td align="right">A</td>
+                                <td align="center">A</td>
                                 <td align="right">${dup.root1}</td>
                                 <td rowspan="2" class="">/${dup.relativepath}</td>
                             </tr>
                             <tr class="row_${zebra}">
-                                <td align="right">B</td>
+                                <td align="center">B</td>
                                 <td align="right">${dup.root2}</td>
                             </tr>`;
                 })
