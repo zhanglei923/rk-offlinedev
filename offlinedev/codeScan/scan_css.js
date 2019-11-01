@@ -15,6 +15,7 @@ let staticroot = pathutil.resolve(webapp, './static');
 // console.log(pathutil.resolve(webapp,  'aaa/bbb/c.png'))
 // return;
 let reports = {}
+let badcount=0;
 eachcontentjs.eachContent(staticroot, [/\.css$/], (content, csspath, states)=>{
     //console.log(csspath)
     content = stripcsscomments(content)
@@ -42,6 +43,7 @@ eachcontentjs.eachContent(staticroot, [/\.css$/], (content, csspath, states)=>{
                 if(!fs.existsSync(fullpath)){
                     if(!reports[csspath]) reports[csspath] = [];
                     reports[csspath].push(orign_url)
+                    badcount++
                 }
             }
         })
@@ -49,4 +51,4 @@ eachcontentjs.eachContent(staticroot, [/\.css$/], (content, csspath, states)=>{
 })
 
 fs.writeFileSync('./rpt.json', JSON.stringify(reports))
-//console.log('[wrong]:', csspath, url)
+console.log('[wrong]:', badcount)
