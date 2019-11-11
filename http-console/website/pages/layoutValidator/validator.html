@@ -1,0 +1,21 @@
+<!doctype html>
+<html style="height: 100%;">
+<head>
+    <link rel="stylesheet" href="./validator.css" />
+    <title>rk-Terminal</title>
+</head>
+<body style="height: 100%;">
+    <div id="leftContent" class="leftContent">
+        <textarea id="jsonstring">//在这里输入布局json的字符串</textarea>
+    </div>
+    <div id="middleContent" class="middleContent">
+        <span id="errorcount"></span>
+        <button onclick="javascript:doValidate()" style="background-color: greenyellow;">检测</button>
+    </div>
+    <div id="rightContent" class="rightContent"></div>
+    <script src="../../lib/js/jquery.min.js"></script>
+    <script src="../../lib/js/lodash.min.js"></script>
+    <script src="../../lib/js/moment.min.js"></script>
+    <script src="./validator.js"></script>
+</body>
+</html>

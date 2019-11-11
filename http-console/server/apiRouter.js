@@ -21,6 +21,9 @@ module.exports = {
         if(require('./apiTerminal').isMine(req)){
             require('./apiTerminal').handle(req,res,callback)
             return 'done'
+        }else if(require('./apiLayoutValidator').isMine(req)){
+            require('./apiLayoutValidator').handle(req,res,callback)
+            return 'done'
         }else if(/^\/offlinedev\/api\/webpath\/updateWebProjectPath/.test(req.url)){
             var prjpath = req.body.prjpath
             let ok = webprojectUtil.updateWebProjectPath(prjpath)

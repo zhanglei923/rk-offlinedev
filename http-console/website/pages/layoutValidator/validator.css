@@ -1,0 +1,39 @@
+*{
+    border: 0;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+}
+.leftContent{
+    width:45%;
+    height:98%;
+    float:left;
+    display: inline;
+    border-right: 1px solid black;
+}
+.leftContent textarea{
+    width:100%;
+    height: 100%;
+}
+.middleContent{
+    width:6%;
+    height:98%;
+    float:left;
+    display: inline;
+    border-right: 1px solid black;
+
+}
+.rightContent{
+    width:47%;
+    height:98%;
+    float:right;
+    display: inline;
+    position: relative;
+}
+.item.error{
+    background-color: red;;
+}
+.item.fatal{
+    background-color: black;
+    color:red;
+}

@@ -25,13 +25,6 @@ let thisUtil = {
         errors = errors.concat(validate_reviewer.check(json));
         errors = errors.concat(betajson_reviewer.check(json));
         errors = errors.concat(widgets_reviewer.check(json));
-        if(errors.length>0) fs.writeFileSync('./rpt.json', JSON.stringify(errors))
-        let fatals = [];
-        let wrongs = [];
-        errors.forEach((err)=>{
-            if(!err.level || err.level==='fatal') wrongs.push(err);
-        })
-        if(wrongs.length>0) fs.writeFileSync('./rpt_mustfix.json', JSON.stringify(wrongs))
         return errors;        
     }
 }
