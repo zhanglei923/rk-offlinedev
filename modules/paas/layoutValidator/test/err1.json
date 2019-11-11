@@ -1,0 +1,444 @@
+{
+  "config": {
+    "tenantId": 957071716155010,
+    "widgets": {
+      "1351": {
+        "widgetType": "xsyTaskRefer",
+        "referItemId": 0,
+        "parentEntityId": 2,
+        "attributes": {
+          "maxGridRowCount": 10,
+          "expandedFlg": 1,
+          "showMode": "card",
+          "maxGridColCount": 6,
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3
+        },
+        "componentId": 54
+      },
+      "957272379588248": {
+        "widgetType": "xsyQuotationRefer",
+        "referItemId": 957272379588248,
+        "parentEntityId": 2,
+        "attributes": {
+          "maxGridRowCount": 10,
+          "expandedFlg": 1,
+          "showMode": "card",
+          "showItem": [
+            {
+              "id": 957272343854751,
+              "itemType": 9,
+              "name": "name",
+              "label": "报价单编号"
+            },
+            {
+              "id": 957272395169443,
+              "itemType": 1,
+              "name": "quotationTitle",
+              "label": "报价单名称"
+            },
+            {
+              "id": 957272379588246,
+              "itemType": 7,
+              "name": "validDate",
+              "label": "有效日期"
+            },
+            {
+              "id": 957272403279488,
+              "itemType": 6,
+              "name": "quotationAmount",
+              "label": "总金额"
+            },
+            {
+              "id": 957272395169450,
+              "itemType": 3,
+              "name": "quotationStage",
+              "label": "阶段"
+            },
+            {
+              "id": 957272395169446,
+              "itemType": 10,
+              "name": "quotationEntityRelAccount",
+              "label": "客户名称"
+            },
+            {
+              "id": 957272366792327,
+              "itemType": 21,
+              "name": "createdAt",
+              "label": "创建日期"
+            },
+            {
+              "id": 957272366792321,
+              "itemType": 10,
+              "name": "ownerId",
+              "label": "所有人"
+            }
+          ],
+          "maxGridColCount": 6,
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3,
+          "mainItem": {
+            "id": 957272343854751,
+            "itemType": 9,
+            "name": "name",
+            "label": "报价单编号"
+          }
+        },
+        "componentId": 89,
+        "childEntityId": 409
+      },
+      "132": {
+        "widgetType": "xsyTab",
+        "parentEntityId": 2,
+        "attributes": {}
+      },
+      "1350": {
+        "widgetType": "xsyScheduleRefer",
+        "referItemId": 0,
+        "parentEntityId": 2,
+        "attributes": {
+          "maxGridRowCount": 10,
+          "expandedFlg": 1,
+          "showMode": "card",
+          "maxGridColCount": 6,
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3
+        },
+        "componentId": 6
+      },
+      "1002": {
+        "widgetType": "xsyOpportunityRefer",
+        "referItemId": 0,
+        "parentEntityId": 2,
+        "attributes": {
+          "maxGridRowCount": 10,
+          "expandedFlg": 1,
+          "showMode": "card",
+          "showItem": [
+            {
+              "id": 957090408152746,
+              "itemType": 1,
+              "name": "opportunity.opportunityName",
+              "label": "机会名称"
+            },
+            {
+              "id": 957090440674946,
+              "itemType": 6,
+              "name": "opportunity.money",
+              "label": "销售金额"
+            },
+            {
+              "id": 957090429533869,
+              "itemType": 10,
+              "name": "opportunity.accountId",
+              "label": "客户名称"
+            },
+            {
+              "id": 957090408152751,
+              "itemType": 10,
+              "name": "opportunity.saleStageId",
+              "label": "销售阶段"
+            },
+            {
+              "id": 957090442231435,
+              "itemType": 7,
+              "name": "opportunity.closeDate",
+              "label": "结单日期"
+            }
+          ],
+          "maxGridColCount": 6,
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3,
+          "mainItem": {
+            "id": 957090408152746,
+            "itemType": 1,
+            "name": "opportunity.opportunityName",
+            "label": "机会名称"
+          }
+        },
+        "componentId": 5,
+        "childEntityId": 3
+      },
+      "112": {
+        "widgetType": "xsyWorkflowBar",
+        "parentEntityId": 2,
+        "attributes": {},
+        "componentId": 19
+      },
+      "1321": {
+        "widgetType": "xsyDiv",
+        "parentEntityId": 2,
+        "attributes": {
+          "title_resourcekey": "XdMDDetlLyt.-1027.1321",
+          "title": "资料"
+        }
+      },
+      "1312": {
+        "widgetType": "xsyReferContainer",
+        "parentEntityId": 2,
+        "attributes": {
+          "title_resourcekey": "XdMDDetlLyt.-1027.1312",
+          "title": "相关"
+        }
+      },
+      "13": {
+        "widgetType": "xsyHorizontalLayout",
+        "parentEntityId": 2,
+        "attributes": {
+          "layout": "WIDE:NARROW"
+        }
+      },
+      "1311": {
+        "widgetType": "xsyCrmActivityRecord",
+        "parentEntityId": 2,
+        "attributes": {
+          "title_resourcekey": "XdMDDetlLyt.-1027.1311",
+          "title": "活动记录"
+        },
+        "componentId": 21088
+      },
+      "11": {
+        "widgetType": "xsyApprovalBar",
+        "parentEntityId": 2,
+        "attributes": {},
+        "componentId": 9
+      },
+      "1322": {
+        "widgetType": "xsyGroupMember",
+        "parentEntityId": 2,
+        "attributes": {
+          "title_resourcekey": "XdMDDetlLyt.-1027.1322",
+          "title": "团队成员"
+        },
+        "componentId": 3
+      },
+      "957272266718878": {
+        "widgetType": "xsyStandardCustomizeRefer",
+        "referItemId": 957272266718878,
+        "parentEntityId": 2,
+        "attributes": {
+          "maxGridRowCount": 10,
+          "expandedFlg": 1,
+          "showMode": "card",
+          "showItem": [
+            {
+              "id": 957272253087398,
+              "itemType": 1,
+              "name": "name",
+              "label": "电子券名称"
+            },
+            {
+              "id": 957272266718858,
+              "itemType": 10,
+              "name": "ownerId",
+              "label": "所有人"
+            },
+            {
+              "id": 957272253087399,
+              "itemType": 10,
+              "name": "entityType",
+              "label": "业务类型"
+            },
+            {
+              "id": 957272253087404,
+              "itemType": 10,
+              "name": "createdBy",
+              "label": "创建人"
+            },
+            {
+              "id": 957272266718863,
+              "itemType": 21,
+              "name": "createdAt",
+              "label": "创建日期"
+            },
+            {
+              "id": 957272266718864,
+              "itemType": 10,
+              "name": "updatedBy",
+              "label": "修改人"
+            },
+            {
+              "id": 957272266718866,
+              "itemType": 21,
+              "name": "updatedAt",
+              "label": "修改日期"
+            }
+          ],
+          "maxGridColCount": 6,
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3,
+          "mainItem": {
+            "id": 957272253087398,
+            "itemType": 1,
+            "name": "name",
+            "label": "电子券名称"
+          }
+        },
+        "componentId": 73,
+        "childEntityId": 567
+      },
+      "2": {
+        "widgetType": "xsyContactHeader",
+        "widgetName": "header",
+        "parentEntityId": 2,
+        "attributes": {
+          "tenantId": -101,
+          "entityId": 2,
+          "toolbarNo": 1,
+          "titleItem": "contact.contactName",
+          "focusFlg": 1,
+          "keyItems": [
+            "contact.accountId",
+            "contact.post",
+            "contact.mobile",
+            "contact.email",
+            "contact.ownerId"
+          ]
+        },
+        "componentId": 63
+      },
+      "1": {
+        "widgetType": "xsyContactDetail",
+        "widgetName": "detail",
+        "parentEntityId": 2,
+        "attributes": {}
+      },
+      "1355": {
+        "widgetType": "xsyContactInfo",
+        "parentEntityId": 2,
+        "attributes": {},
+        "componentId": 64
+      },
+      "1357": {
+        "widgetType": "xsyApprovalRefer",
+        "parentEntityId": 2,
+        "attributes": {
+          "expandedFlg": 1,
+          "showMode": "card",
+          "maxCardRowCount": 6,
+          "maxCardColCount": 3
+        },
+        "componentId": 11
+      },
+      "131": {
+        "widgetType": "xsyTab",
+        "widgetName": "leftTab",
+        "parentEntityId": 2,
+        "attributes": {}
+      }
+    },
+    "ownerId": -101,
+    "entityId": 2,
+    "layoutId": 957090224062126,
+    "tenantConfigId": 0,
+    "layoutLabel": "默认联系人详情页布局",
+    "updatedAt": 1573192070781,
+    "id": 957142224289435,
+    "linkPageLayoutId": 957090232368791,
+    "layout": {
+      "children": {
+        "body": [
+          {
+            "children": {
+              "left": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "uuid": "1355"
+                        }
+                      ],
+                      "uuid": "1321"
+                    },
+                    {
+                      "children": [
+                        {
+                          "uuid": "1500"
+                        }
+                      ],
+                      "uuid": "150"
+                    },
+                    {
+                      "children": [
+                        {
+                          "uuid": "1600"
+                        }
+                      ],
+                      "uuid": "160"
+                    },
+                    {
+                      "children": [
+                        {
+                          "uuid": "1700"
+                        },
+                        {
+                          "uuid": "1701"
+                        },
+                        {
+                          "uuid": "1702"
+                        },
+                        {
+                          "uuid": "1703"
+                        }
+                      ],
+                      "uuid": "170"
+                    },
+                    {
+                      "children": [
+                        {
+                          "children": [
+                            {
+                              "uuid": "1800"
+                            }
+                          ],
+                          "uuid": "180"
+                        }
+                      ],
+                      "uuid": "18"
+                    }
+                  ],
+                  "uuid": "131"
+                }
+              ],
+              "right": [
+                {
+                  "children": [
+                    {
+                      "children": [
+                        {
+                          "uuid": "1900"
+                        }
+                      ],
+                      "uuid": "190"
+                    },
+                    {
+                      "children": [
+                        {
+                          "uuid": "2000"
+                        }
+                      ],
+                      "uuid": "200"
+                    }
+                  ],
+                  "uuid": "132"
+                }
+              ]
+            },
+            "uuid": "4"
+          }
+        ],
+        "head": [
+          {
+            "uuid": "3"
+          },
+          {
+            "uuid": "2"
+          }
+        ]
+      },
+      "uuid": "1"
+    }
+  },
+  "resource": {}
+}

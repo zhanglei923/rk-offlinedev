@@ -9,3 +9,4 @@ offlinedev/jsmodule/i18n/.save
 user-config.json
 package-lock.json
 offlinedev/codeScan/rpt.json
+modules/paas/layoutValidator/test/rpt*.json
