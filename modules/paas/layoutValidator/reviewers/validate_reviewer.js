@@ -98,7 +98,7 @@ module.exports = {
                         errorInfo: {
                             jsonid: json.id
                         },
-                        errorMsg: 'layout里的控件在widgets里无定义：layout id='+json.id+', uuid=' + node.uuid
+                        errorMsg: 'layout里的控件在widgets段里无定义：uuid=' + node.uuid
                     })
                 }
                 if(layoutidList[node.uuid+'']){
