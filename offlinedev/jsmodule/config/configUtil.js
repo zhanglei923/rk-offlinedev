@@ -48,6 +48,10 @@ let defaultConfig = {
     es6:{
         autoTransformJs: false
     },
+    jira:{
+        username:'',
+        password:''
+    },
     debug:{
         console: true
     }
@@ -160,6 +164,13 @@ let thisUtil = {
     },
     getUserConfig: function(){
         return config;
+    },
+    getValue: (cfgpath)=>{
+        let val;
+        try{
+            eval(`val = config.${cfgpath}`)
+        }catch(e){}
+        return val;
     },
     get: function (){
         return configJson;
