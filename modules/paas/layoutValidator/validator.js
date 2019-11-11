@@ -29,11 +29,9 @@ let thisUtil = {
         let fatals = [];
         let wrongs = [];
         errors.forEach((err)=>{
-            if(!err.level) wrongs.push(err);
-            if(err.level==='fatal') fatals.push(err);
+            if(!err.level || err.level==='fatal') wrongs.push(err);
         })
-        if(wrongs.length>0) fs.writeFileSync('./rpt_errors.json', JSON.stringify(wrongs))
-        if(fatals.length>0) fs.writeFileSync('./rpt_fatals.json', JSON.stringify(fatals))
+        if(wrongs.length>0) fs.writeFileSync('./rpt_mustfix.json', JSON.stringify(wrongs))
         return errors;        
     }
 }
