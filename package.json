@@ -31,9 +31,9 @@
     "jsonpath": "1.0.2",
     "download": "7.1.0",
     "tar": "5.0.5",
-    "node-zookeeper-client": "1.1.0",
     "git-parse": "1.0.3",
     "git-state": "4.1.0",
+    "node-zookeeper-client": "1.1.0",
     "jira-client": "6.13.0"
   },
   "devDependencies": {
