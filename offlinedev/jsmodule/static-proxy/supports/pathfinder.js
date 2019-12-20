@@ -13,6 +13,18 @@ module.exports = {
         //console.log(path)
         let fromSubPrj = null;
         var fullfilepath = rootFolder + '/' + path;
+        
+        //可能是线上含hash的路径，如果是，自动转接到不含hash的路径上去
+        let hashReg = /\.[a-z0-9]{7}\.(tpl|js)$/;
+        if(!fs.existsSync(fullfilepath) && path.match(hashReg)){
+            let path2 = path.replace(hashReg, (str)=>{
+                let str2 = str;
+                if(str.match(/\.tpl$/)) {console.log('tpl');str2 = str2.replace(/\.[a-z0-9]{7}\.tpl$/, '.tpl')}
+                if(str.match(/\.js$/)) {console.log('js');str2 = str2.replace(/\.[a-z0-9]{7}\.js$/, '.js')}
+                return str2;
+            })
+            fullfilepath = rootFolder + '/' + path2;
+        }
         //支持admin工程
         if(path.match(/^\/admin\//)){
             let admin_webappFolder = configUtil.getAllPathInfo().admin_webappFolder;
