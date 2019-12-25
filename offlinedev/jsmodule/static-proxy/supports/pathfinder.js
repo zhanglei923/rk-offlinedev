@@ -15,12 +15,13 @@ module.exports = {
         var fullfilepath = rootFolder + '/' + path;
         
         //可能是线上含hash的路径，如果是，自动转接到不含hash的路径上去
-        let hashReg = /\.[a-z0-9]{7}\.(tpl|js)$/;
+        let hashReg = /\.[a-z0-9]{7}\.(tpl|js|css)$/;
         if(!fs.existsSync(fullfilepath) && path.match(hashReg)){
             let path2 = path.replace(hashReg, (str)=>{
                 let str2 = str;
                 if(str.match(/\.tpl$/)) {console.log('tpl');str2 = str2.replace(/\.[a-z0-9]{7}\.tpl$/, '.tpl')}
                 if(str.match(/\.js$/)) {console.log('js');str2 = str2.replace(/\.[a-z0-9]{7}\.js$/, '.js')}
+                if(str.match(/\.css$/)) {console.log('css');str2 = str2.replace(/\.[a-z0-9]{7}\.css$/, '.css')}
                 return str2;
             })
             fullfilepath = rootFolder + '/' + path2;
