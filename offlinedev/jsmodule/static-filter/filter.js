@@ -13,8 +13,9 @@ let projectsDefine = [];
 // http://localhost:666/bbb/222/b.js
 let loadFilterDef = (webroot)=>{
     let webparent = pathutil.resolve(webroot, '../');
-    let configfilePath = pathutil.resolve(webroot, './static-config.json')
-    let debugConfigFilePath = pathutil.resolve(webroot, './static-debug-config.json')
+    let webappFolder = pathutil.resolve(webroot, './src/main/webapp/');
+    let configfilePath = pathutil.resolve(webappFolder, './static-config.json')
+    let debugConfigFilePath = pathutil.resolve(webappFolder, './static-debug-config.json')
 
     //console.log('webroot=', webroot)
     let arr1 = [];

@@ -72,8 +72,8 @@ let getAllPathInfo = (_webroot)=>{
     let admin_webappFolder = pathutil.resolve(adminFolder, './src/main/webapp/')
     
     let static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
-    let staticConfigFilePath = pathutil.resolve(_webroot, './static-config.json')
-    let staticDebugConfigFilePath = pathutil.resolve(_webroot, './static-debug-config.json')
+    let staticConfigFilePath = pathutil.resolve(webappFolder, './static-config.json')
+    let staticDebugConfigFilePath = pathutil.resolve(webappFolder, './static-debug-config.json')
 
     return {
         webroot,
