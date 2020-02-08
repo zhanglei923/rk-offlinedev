@@ -32,6 +32,7 @@ module.exports = {
             let fullfilepath = admin_webappFolder + '/' + path.replace(/^\/admin\//, '/');
             //console.log(fullfilepath)
             if(!fs.existsSync(fullfilepath)) return;
+            fullfilepath = prettifyFilePath(fullfilepath);
             return {
                 fullfilepath,
                 fromSubPrj
