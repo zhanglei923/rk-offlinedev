@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
 var babel = require("@babel/core");
