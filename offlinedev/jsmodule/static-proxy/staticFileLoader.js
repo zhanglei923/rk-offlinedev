@@ -1,4 +1,4 @@
-var fs = require('fs');
+var fs = require('fs-extra');
 var pathutil = require('path');
 var getConfig = require('../config/configUtil')
 let projectFileSearch = require('./supports/projectFileSearch')
