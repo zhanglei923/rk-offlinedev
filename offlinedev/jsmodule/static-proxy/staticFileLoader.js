@@ -8,6 +8,8 @@ let pathfinder = require('./supports/pathfinder')
 let userConfig = getConfig.getUserConfig();
 var cache = {}
 
+let fs_readFile = require('./supports/fs_readFile').fs_readFile;
+
 module.exports = {
     loadCss: function(rootFolder, path, callback){
         //if(cache[path]) return cache[path];
@@ -18,7 +20,7 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
                 content=null;    
@@ -39,7 +41,7 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
             if (err) {
                 console.log(err)
                 content=null;    
@@ -61,7 +63,7 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
                 callback('', {fromSubPrj, fullfilepath});
