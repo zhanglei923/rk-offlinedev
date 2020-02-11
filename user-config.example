@@ -16,6 +16,7 @@
         password:''
     },
     debug:{
-        console: true
+        console: true,
+        concatStaticRequests: false
     }
 }
