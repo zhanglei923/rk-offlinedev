@@ -34,28 +34,10 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
+let configFileExamplePath = pathutil.resolve(projectFolder, './user-config.example')
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
-let defaultConfig = {
-    webProjectPath: '',//default
-    staticProjectPath: '',//default
-    deployWebProjectPath:'',//default
-    http:{
-        port: 666
-    },
-    https:{
-        port: 443
-    },
-    es6:{
-        autoTransformJs: false
-    },
-    jira:{
-        username:'',
-        password:''
-    },
-    debug:{
-        console: true
-    }
-};
+let defaultConfig;
+eval(`defaultConfig = `+fs.readFileSync(configFileExamplePath, 'utf8'));
 let config={};
 //var parentFolder = pathutil.resolve(__dirname, '../../../../');
 var webparent;

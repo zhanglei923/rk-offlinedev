@@ -1,0 +1,21 @@
+{
+    webProjectPath: '',//default
+    staticProjectPath: '',//default
+    deployWebProjectPath:'',//default
+    http:{
+        port: 666
+    },
+    https:{
+        port: 443
+    },
+    es6:{
+        autoTransformJs: false
+    },
+    jira:{
+        username:'',
+        password:''
+    },
+    debug:{
+        console: true
+    }
+}
