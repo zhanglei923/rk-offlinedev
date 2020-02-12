@@ -55,7 +55,7 @@ module.exports = {
             }
         }
         if(!fs.existsSync(fullfilepath)){
-            console.log('no-file:', fullfilepath)
+            //console.log('no-file:', fullfilepath)
             return;
         }
         fullfilepath = prettifyFilePath(fullfilepath);
