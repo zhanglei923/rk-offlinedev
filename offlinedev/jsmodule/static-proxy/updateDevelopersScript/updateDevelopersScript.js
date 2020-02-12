@@ -1,6 +1,7 @@
 //动态将代码注入到特定js里
 let fs = require('fs');
 let pathutil = require('path');
+let eachcontentjs = require('eachcontent-js')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 
@@ -10,6 +11,15 @@ let isFirstJs = (fpath)=>{
     }
     return false;
 }
+let CacheOfAllTpl = {}
+let updateAllTplJson = ()=>{
+    let sourceDir = getConfig.getSourceFolder();
+    eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
+        let pathid = pathutil.relative(sourceDir, path);
+        //console.log(pathid)
+        CacheOfAllTpl[pathid] = content;
+    })
+}
 let updateFirstJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
     if(!enable) return content;
@@ -18,11 +28,15 @@ let updateFirstJs = (info, content)=>{
     let userconfig = getConfig.getUserConfig()
     
     if(isFirstJs(fullfilepath)){
+        updateAllTplJson()
         let dir = pathutil.parse(__filename).dir;
         let srcpath = pathutil.resolve(dir, './code/default_script.js');
         let defaultjs = fs.readFileSync(srcpath, 'utf8')
 
-        defaultjs += `window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig)
+        let alltpljson = `${JSON.stringify(CacheOfAllTpl)}`
+
+        defaultjs += `;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
+        defaultjs += `;window.rk_offlinedev.ALL_TPL_JSON=`+alltpljson;
         defaultjs += `\n//****** END *******//\n`
 
         content = defaultjs + content;
@@ -32,7 +46,6 @@ let updateFirstJs = (info, content)=>{
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
     if(!enable) return content;
-
     let fullfilepath = info.fullfilepath;
 
     if(!isFirstJs(fullfilepath)){
@@ -45,21 +58,19 @@ let updateJs = (info, content)=>{
             if(req_path.match(/\.tpl$/)){
                 let req_realpath;
                 if(req_path.match(/^\./)) {
-                    req_realpath = pathutil.resolve(fdir, req_path)
+                    req_realpath = pathutil.resolve(fdir, req_path);
                 }else{
-                    req_realpath = pathutil.resolve(staticDir, req_path)
+                    req_realpath = pathutil.resolve(sourceDir, req_path);
                 }
                 if(fs.existsSync(req_realpath)){
-                    let replacereg = new RegExp(`[\"|\']${req_path}[\"|\']`);
-                    let pathid = pathutil.relative(sourceDir, req_realpath);                
-                    content = content.replace(replacereg, `"${req_path}(${pathid})"`)
-    
-                    console.log(req_path, staticDir)
-                    console.log(fdir)
-                    console.log(req_realpath)
-                    console.log('pathid',pathid)
+                    var replacereg = new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
+                    let pathid = pathutil.relative(sourceDir, req_realpath);
+                    content = content.replace(replacereg, `require("${req_path},${pathid}"`)    
+                    // console.log(req_path, staticDir)
+                    // console.log(fdir)
+                    // console.log(req_realpath)
+                    // console.log('pathid',pathid)
                 }
-
             }
         });
     }
