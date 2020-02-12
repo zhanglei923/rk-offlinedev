@@ -55,21 +55,28 @@ let updateJs = (info, content)=>{
         let fdir = pathutil.parse(fullfilepath).dir;
         let deps = regParserMini.getRequires(content);
         deps.forEach((req_path)=>{
+            let req_realpath;
+            if(req_path.match(/^\./)) {
+                req_realpath = pathutil.resolve(fdir, req_path);
+            }else{
+                req_realpath = pathutil.resolve(sourceDir, req_path);
+            }
+            var replacereg = new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
             if(req_path.match(/\.tpl$/)){
-                let req_realpath;
-                if(req_path.match(/^\./)) {
-                    req_realpath = pathutil.resolve(fdir, req_path);
-                }else{
-                    req_realpath = pathutil.resolve(sourceDir, req_path);
-                }
                 if(fs.existsSync(req_realpath)){
-                    var replacereg = new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
                     let pathid = pathutil.relative(sourceDir, req_realpath);
                     content = content.replace(replacereg, `require("${req_path},${pathid}"`)    
                     // console.log(req_path, staticDir)
                     // console.log(fdir)
                     // console.log(req_realpath)
                     // console.log('pathid',pathid)
+                }
+            }else if(0){
+                if(!fs.existsSync(req_realpath)) req_realpath = req_realpath + '.js';
+                if(fs.existsSync(req_realpath)){
+                    let pathid = pathutil.relative(sourceDir, req_realpath);
+                    let hotpath = pathutil.parse(pathid).dir + '/__hot_folder.js'
+                    content = content.replace(replacereg, `require("${hotpath}"`);
                 }
             }
         });
