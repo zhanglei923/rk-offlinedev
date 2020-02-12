@@ -24,6 +24,7 @@ module.exports = {
         fs.writeFileSync(configpath, JSON.stringify(config));
     },
     getData: function(name){
+        if(!config[name]) this.init()
         return config[name];
     }
 }
