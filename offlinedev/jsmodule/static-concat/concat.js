@@ -5,6 +5,7 @@ let md5util = require('blueimp-md5')
 
 let eachcontentjs = require('eachcontent-js')
 var execSh = require("exec-sh");
+let regParserMini = require('../utils/seajs/regParserMini')
 let statusUtil = require('../config/statusUtil')
 
 
@@ -28,7 +29,19 @@ let run = ()=>{
     if(oldmtimeHash !== mtimeHash) changed = true;
 
     statusUtil.setData(STATUS_KEY, mtimeHash)
-    console.log((new Date()*1)-t0, allmtime.length, oldmtimeHash, mtimeHash, changed)
+    console.log((new Date()*1)-t0, oldmtimeHash, mtimeHash, changed)
+
+    let requireReport = {}
+    t0=(new Date()*1)
+    eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
+        //md5util(c)
+        let requires = regParserMini.getRequires(c)
+        requireReport[path] = requires;
+    })
+    console.log((new Date()*1)-t0)
+    fs.writeFileSync('./rpt.json', JSON.stringify(requireReport))
+
+
 }
 module.exports = {
     run

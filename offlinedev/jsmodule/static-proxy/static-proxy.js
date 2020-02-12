@@ -50,7 +50,7 @@ let linkToStaticFile = (req, res, next) => {
                     res.set('.rk-ERROR-bad-url', JSON.stringify(missingfiles));
                     missingfiles.forEach((miss)=>{
                         //debugComments += `//[rk][ERROR]：Can not find "${miss.url}"\n`
-                        debugComments += `;console.error('File not found: require("${miss.url}")');\n`
+                        debugComments += `;console.error('[rk-offlinedev]File not found: require("${miss.url}")');\n`
                     })
                 }
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
