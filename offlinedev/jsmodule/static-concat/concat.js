@@ -39,7 +39,19 @@ let run = ()=>{
         requireReport[path] = requires;
     })
     console.log((new Date()*1)-t0)
-    //fs.writeFileSync('./rpt.json', JSON.stringify(requireReport))
+
+    let requireReport2 = {}
+    t0=(new Date()*1)
+    eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
+        //md5util(c)
+        let requires = regParserMini.getRequires2(c)
+        requireReport2[path] = requires;
+    })
+    console.log((new Date()*1)-t0)
+
+
+    // fs.writeFileSync('./rpt.json', JSON.stringify(requireReport))
+    // fs.writeFileSync('./rpt2.json', JSON.stringify(requireReport2))
 
 
 }

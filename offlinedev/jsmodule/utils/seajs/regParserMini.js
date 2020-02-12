@@ -5,36 +5,63 @@ var getPath = function(requreResults){
     var pathReg = reg.PATH_REGEX;
     for(var x = 0, lenx = requreResults.length; x < lenx; x++) {
         var item = requreResults[x];
-        item = _.trim(item);
-        item = item.replace(/"/ig, "'");//疑似nodejs的bug，如果字符串中含有双引号"，那么执行concat会失败，用for循环也会失败，因此只得转换为单引号先
-        if((item.match(/\"/ig) && item.match(/\"/ig).length > 2) || (item.match(/\'/ig) && item.match(/\'/ig).length > 2)) {
-            item = null;//含有多个双引号或单引号，有字符串拼接，不合法
+        let isobj = (typeof item === 'object');
+        let rawPath = isobj ? item.rawPath : item;
+        rawPath = _.trim(rawPath);
+        rawPath = rawPath.replace(/"/ig, "'");//疑似nodejs的bug，如果字符串中含有双引号"，那么执行concat会失败，用for循环也会失败，因此只得转换为单引号先
+        if((rawPath.match(/\"/ig) && rawPath.match(/\"/ig).length > 2) || (rawPath.match(/\'/ig) && rawPath.match(/\'/ig).length > 2)) {
+            rawPath = null;//含有多个双引号或单引号，有字符串拼接，不合法
         }else{
-            var rest = item.replace(pathReg, '')
+            var rest = rawPath.replace(pathReg, '')
             if(rest.indexOf('+')>=0){//字符串拼接不允许
-                item=null;      
+                rawPath=null;      
             }else{
-                item = item.match(pathReg)[0];//提取require路径
-                item = item.replace(/'/ig, '');//删掉单引号     
+                rawPath = rawPath.match(pathReg)[0];//提取require路径
+                rawPath = rawPath.replace(/'/ig, '');//删掉单引号     
             }    
         }
-        requreResults[x] = item;
+        if(isobj) {
+            requreResults[x].rawPath = rawPath;
+        }else{
+            requreResults[x] = rawPath;
+        }
     };
     requreResults = _.compact(requreResults);
     requreResults = _.uniq(requreResults);
     return requreResults;
 };
-let reduceContent = (raw_jscontent)=>{
+let reduceContentAsLines = (raw_jscontent)=>{
     let arr = raw_jscontent.split('\n')
-    let requiretxt = ''
+    let lines = [];
     arr.forEach((linetxt)=>{
         linetxt = _.trim(linetxt);
-        if(linetxt.match(/require/)) requiretxt += '\n'+linetxt;
+        if(linetxt.match(/require/)) lines.push(linetxt);
     })
-    //console.log('>>', requiretxt)
-    return requiretxt;
+    return lines;
+}
+let reduceContent = (raw_jscontent)=>{
+    let lines = reduceContentAsLines(raw_jscontent);
+    return lines.join('\n');
 }
 let getRequires = (jscontent)=>{
+    let lines = reduceContentAsLines(jscontent);
+    if(lines.length===0) return [];
+    let requires = [];
+    lines.forEach((line)=>{
+        let withExport = !!line.match(/\=[\s]{0,}require/);
+        let arr = line.match(reg.REQUIRE_REGEX);
+        if(arr){
+            arr.forEach((rawPath)=>{
+                requires.push({
+                    rawPath,
+                    withExport
+                })
+            });
+        }
+    })
+    return getPath(requires)
+}
+let getRequires2 = (jscontent)=>{
     let mincontent = reduceContent(jscontent)
     if(!mincontent) return [];
     let requires = mincontent.match(reg.REQUIRE_REGEX);
@@ -43,5 +70,6 @@ let getRequires = (jscontent)=>{
 }
 
 module.exports = {
+    getRequires2,
     getRequires
 };

@@ -54,7 +54,8 @@ let updateJs = (info, content)=>{
     
         let fdir = pathutil.parse(fullfilepath).dir;
         let deps = regParserMini.getRequires(content);
-        deps.forEach((req_path)=>{
+        deps.forEach((info)=>{
+            let req_path = info.rawPath;
             let req_realpath;
             if(req_path.match(/^\./)) {
                 req_realpath = pathutil.resolve(fdir, req_path);
