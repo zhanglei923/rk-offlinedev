@@ -1,5 +1,5 @@
 var fs = require('fs');
-let filter = require('./filter')
+let filter = require('../filter')
 let fullfilepath;
 console.log(fs.existsSync(fullfilepath))
 let o = filter.loadFilterDef(
