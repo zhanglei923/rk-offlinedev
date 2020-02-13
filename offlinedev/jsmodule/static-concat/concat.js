@@ -2,6 +2,8 @@ let fs = require('fs');
 let pathutil = require('path')
 let _ = require('lodash')
 let md5util = require('blueimp-md5')
+let stripcomments = require('strip-comments')
+let reg = require('../utils/seajs/reg')
 
 let eachcontentjs = require('eachcontent-js')
 var execSh = require("exec-sh");
@@ -32,20 +34,58 @@ let run = ()=>{
     console.log((new Date()*1)-t0, oldmtimeHash, mtimeHash, changed)
 
     let requireReport = {}
-    t0=(new Date()*1)
-    eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
-        //md5util(c)
-        let requires = regParserMini.getRequires(c)
-        requireReport[path] = requires;
-    })
-    console.log((new Date()*1)-t0)
+    // t0=(new Date()*1)
+    // eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
+    //     //md5util(c)
+    //     let requires = regParserMini.getRequires(c)
+    //     requireReport[path] = requires;
+    // })
+    // console.log((new Date()*1)-t0)
 
     let requireReport2 = {}
+    // t0=(new Date()*1)
+    // eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
+    //     //md5util(c)
+    //     let requires = regParserMini.getRequires2(c)
+    //     requireReport2[path] = requires;
+    // })
+    // console.log((new Date()*1)-t0)
+
+    let script = `
+   require('fff') /**
+       */ require('asfd')
+
+       /**
+       let a=1;
+    `
+    console.log(stripcomments(script))
+//return;
+
+    let requireReport3 = {}
     t0=(new Date()*1)
-    eachcontentjs.eachContent(sourcepath, [/\.js$/,/\.tpl$/], (c, path, states)=>{
-        //md5util(c)
-        let requires = regParserMini.getRequires2(c)
-        requireReport2[path] = requires;
+    let hasKeywords = (line)=>{
+        if(line.indexOf('//')>=0 || line.indexOf('/*')>=0 || line.indexOf('*/')>=0) return true;
+    }
+    eachcontentjs.eachContent(sourcepath, [/\.js$/], (content, path, states)=>{
+        if(content){
+            let arr = content.split('\n');
+            let linearr= []
+            let isInComment = false;
+            arr.forEach((line)=>{
+                line=_.trim(line);
+                if(line && !line.match(/^\/{2,}/g))
+                if(line.length < 300){
+                    linearr.push(line)
+                }
+                else if(line.length<10*1000 && line.indexOf('require')>=0){
+                    linearr.push(line)
+                }
+            })
+            let content2 = linearr.join('\n')
+            //console.log(content.length, content2.length)
+            stripcomments(content2)
+            //fs.writeFileSync(path, content2)
+        }
     })
     console.log((new Date()*1)-t0)
 
@@ -58,3 +98,6 @@ let run = ()=>{
 module.exports = {
     run
 };
+
+
+
