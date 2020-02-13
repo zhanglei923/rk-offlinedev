@@ -65,8 +65,9 @@ let updateJs = (info, content)=>{
             var replacereg = new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
             if(req_path.match(/\.tpl$/)){
                 if(fs.existsSync(req_realpath)){
+                    let split = `,,,`
                     let pathid = pathutil.relative(sourceDir, req_realpath);
-                    content = content.replace(replacereg, `require("${req_path},${pathid}"`)    
+                    content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
                     // console.log(req_path, staticDir)
                     // console.log(fdir)
                     // console.log(req_realpath)
