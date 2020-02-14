@@ -170,6 +170,12 @@ button{
 .status_warn *{
     color: yellow !important;
 }
+.status_off{
+    color: #d5e5ff !important;
+}
+.status_off *{
+    color: #d5e5ff !important;
+}
 .status_positive_fill{
     width: fit-content;
     border: 1px solid #2fff56 !important;
