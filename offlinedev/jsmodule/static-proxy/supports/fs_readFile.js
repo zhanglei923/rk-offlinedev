@@ -26,19 +26,18 @@ let fs_readFile = (fpath, opt, cb)=>{
                 return;
             }
         }
-        let content;
-        let read_err;
-        try{
-            content = fs.readFileSync(fpath, opt);
-        }catch(e){
-            read_err = e;
-        }
-        global.FileMemoCache[cachekey] = {
-            ctime36,
-            mtime36,
-            content
-        };
-        cb(read_err, content);
+        // let content;
+        // let read_err;
+        fs.readFile(fpath, opt, (read_err, content)=>{
+            if(!read_err){
+                global.FileMemoCache[cachekey] = {
+                    ctime36,
+                    mtime36,
+                    content
+                };
+            }
+            cb(read_err, content);
+        });
     });
 }
 
