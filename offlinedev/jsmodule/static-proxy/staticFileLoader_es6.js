@@ -12,6 +12,8 @@ let my_tmp_folder = pathutil.resolve(tmp_folder, './es6_downgrading')
 makeDir.sync(my_tmp_folder);
 var cache = {}
 
+let fs_readFile = require('./supports/fs_readFile').fs_readFile;
+
 let thisUtil = {
     md5Map:{},
     loadJs: function (rootFolder, path, callback){
@@ -24,7 +26,7 @@ let thisUtil = {
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
-        fs.readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
             let fullfilepathname = fullfilepath.replace(/[\\]{1,}/g,'~').replace(/\/{1,}/g,'~').replace(/\:{1,}/g,'~')
             if (err) jsContent=null;
             if(jsContent === ''){
