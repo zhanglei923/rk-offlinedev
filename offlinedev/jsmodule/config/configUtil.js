@@ -1,4 +1,5 @@
 var fs = require('fs');
+let os = require('os');
 var _ = require('lodash')
 var pathutil = require('path');
 var makeDir = require('make-dir');
@@ -125,6 +126,7 @@ let reloadConfig = ()=>{
     console.log('[web-root]=', webroot)
     console.log('[static-root]=', static_project_root)
     console.log('[deploy]=', config.deployStaticPath_val)
+    console.log('[platform]=', os.platform())
     console.log('---')
 }
 reloadConfig();

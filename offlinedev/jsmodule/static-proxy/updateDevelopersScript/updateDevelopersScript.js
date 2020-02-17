@@ -1,9 +1,12 @@
 //动态将代码注入到特定js里
 let fs = require('fs');
 let pathutil = require('path');
+let os = require('os');
 let eachcontentjs = require('eachcontent-js')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
+
+let platform = os.platform();
 
 let isFirstJs = (fpath)=>{
     if(fpath.match(/seajs\/sea\.js$/)){
@@ -11,14 +14,40 @@ let isFirstJs = (fpath)=>{
     }
     return false;
 }
-let CacheOfAllTpl = {}
+let CacheOfAllTpl;
+let canWatch = platform.toLowerCase() !== 'linux';
+let tplWatched = false;
 let updateAllTplJson = ()=>{
     let sourceDir = getConfig.getSourceFolder();
-    eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
-        let pathid = pathutil.relative(sourceDir, path);
-        //console.log(pathid)
-        CacheOfAllTpl[pathid] = content;
-    })
+    if(!canWatch) CacheOfAllTpl = null;//无法watch，只好每次都加载
+    if(!CacheOfAllTpl){
+        CacheOfAllTpl = {}
+        console.log('[RK]Load all tpl')
+        eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
+            let pathid = pathutil.relative(sourceDir, path);
+            //console.log(pathid)
+            CacheOfAllTpl[pathid] = content;
+        })
+    }
+    if(canWatch && !tplWatched){
+        console.log('[RK]Watching tpl files...')
+        fs.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
+            persistent:true,
+            recursive:true
+        },(e, filename)=>{
+            if(filename.match(/\.tpl$/)){
+                //console.log('changed', filename)
+                let pathid = filename;
+                let fulltplpath = pathutil.resolve(sourceDir, filename);
+                if(fs.existsSync(fulltplpath)){
+                    CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
+                }else{
+                    delete CacheOfAllTpl[pathid]
+                }
+            }
+        })
+        tplWatched = true;
+    }
 }
 let updateFirstJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
