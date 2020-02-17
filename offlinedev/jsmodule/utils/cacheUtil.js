@@ -6,7 +6,7 @@ let makeDir = require('make-dir')
 let auxiliary = require('../../jsmodule/config/auxiliary')
 
 let cache_folder = auxiliary.tmpFolder;
-console.log(`[cache]${cache_folder}`)
+console.log(`[CACHE]${cache_folder}`)
 
 let getFolder = (cacheType, id)=>{
     if(!fs.existsSync(cache_folder)){
