@@ -1,7 +1,12 @@
-var fs = require('fs-extra');
+let fs = require('fs-extra');
+let MemoCache = {};
 
 let fs_readFile = (fpath, opt, cb)=>{
     if(typeof cb === 'undefined') cb = ()=>{};
+    if(!fs.existsSync(fpath)){
+        cb(null);
+        return null;
+    }
     let content;
     let err;
     try{
