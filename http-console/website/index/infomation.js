@@ -38,8 +38,9 @@ let showInfomation = (result)=>{
             <button id="deepCheck_web_project" class="status_off_fill" onclick="javascript:deepCheck_web_project();">Web工程全面自检</button>
         </td></tr>
         <tr><td align="right" valign="top">功能：</td><td>
+            <span><span class="${userConfig.debug && userConfig.debug.cacheStaticRequests?'status_positive_fill':'status_off_fill'}">自动缓存</span>
+            <span><span class="${userConfig.debug && userConfig.debug.concatStaticRequests?'status_positive_fill':'status_off_fill'}">聚合请求</span>
             <span><span class="${userConfig.es6.autoTransformJs?'status_warn_fill':'status_off_fill'}">转义ES6</span>
-            <span><span class="${userConfig.debug && userConfig.debug.concatStaticRequests?'status_warn_fill':'status_off_fill'}">聚合请求</span>
             <span><span class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_dangous_fill':'status_off_fill'}">实时检测js</span>
         </td></tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>

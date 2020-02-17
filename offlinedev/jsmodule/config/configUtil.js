@@ -88,6 +88,8 @@ let reloadConfig = ()=>{
     eval('config='+txtconfig)
     config = Object.assign(defaultConfig, config);
 
+    if(config.debug && typeof config.debug.cacheStaticRequests === 'undefined') config.debug.cacheStaticRequests = true;
+ 
     config.auxiliaryFolder = auxiliaryFolder;
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web');

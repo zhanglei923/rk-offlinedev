@@ -1,4 +1,6 @@
 let fs = require('fs-extra');
+let configUtil = require('../../config/configUtil')
+
 global.FileMemoCache = {};
 
 let fs_readFile = (fpath, opt, cb)=>{
@@ -18,7 +20,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         let mtime36 = mtime.toString(36);
         let cachekey = fpath;
         //console.log(cachekey)
-        if(global.FileMemoCache[cachekey]){
+        if(global.FileMemoCache[cachekey] && configUtil.getValue('debug.cacheStaticRequests')){
             let memo = global.FileMemoCache[cachekey];
             if(memo.mtime36 === mtime36 && memo.ctime36 === ctime36){
                 //console.log('cc', global.FileMemoCache[cachekey])
@@ -29,7 +31,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         // let content;
         // let read_err;
         fs.readFile(fpath, opt, (read_err, content)=>{
-            if(!read_err){
+            if(!read_err && configUtil.getValue('debug.cacheStaticRequests')){
                 global.FileMemoCache[cachekey] = {
                     ctime36,
                     mtime36,

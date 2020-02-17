@@ -47,7 +47,12 @@ let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
     if(!enable) return content;
     let fullfilepath = info.fullfilepath;
-
+    if(fullfilepath.match(/\.min\.js/) || 
+       fullfilepath.match(/\.bundle\.js/) || 
+       fullfilepath.match(/\.sdk\.js/) 
+      ){
+        return content;
+    }
     if(!isFirstJs(fullfilepath)){
         let staticDir = getConfig.getStaticFolder();
         let sourceDir = getConfig.getSourceFolder();
