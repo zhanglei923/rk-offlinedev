@@ -17,6 +17,7 @@
     },
     debug:{
         console: true,
-        concatStaticRequests: false
+        concatStaticRequests: false,
+        detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
     }
 }
