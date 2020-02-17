@@ -183,6 +183,13 @@ button{
 .status_off_fill *{
     color: #7c7e82 !important;
 }
+.status_dangous_fill{
+    color: #fd25cd !important;
+    border: 1px solid #fd25cd !important;
+}
+.status_dangous_fill *{
+    color: #fd25cd !important;
+}
 .status_positive_fill{
     width: fit-content;
     border: 1px solid #2fff56 !important;
