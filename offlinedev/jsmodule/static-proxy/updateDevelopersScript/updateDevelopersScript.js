@@ -2,6 +2,7 @@
 let fs = require('fs');
 let pathutil = require('path');
 let os = require('os');
+let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
@@ -22,7 +23,7 @@ let updateAllTplJson = ()=>{
     if(!canWatch) CacheOfAllTpl = null;//无法watch，只好每次都加载
     if(!CacheOfAllTpl){
         CacheOfAllTpl = {}
-        console.log('[RK]Load all tpl')
+        //console.log('[RK]Load all tpl')
         eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
             let pathid = pathutil.relative(sourceDir, path);
             //console.log(pathid)
@@ -31,14 +32,14 @@ let updateAllTplJson = ()=>{
     }
     if(canWatch && !tplWatched){
         console.log('[RK]Watching tpl files...')
-        fs.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
+        watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
             persistent:true,
             recursive:true
-        },(e, filename)=>{
+        }).on('all',(e, filename)=>{
             if(filename.match(/\.tpl$/)){
-                //console.log('changed', filename)
-                let pathid = filename;
-                let fulltplpath = pathutil.resolve(sourceDir, filename);
+                let pathid = pathutil.relative(sourceDir, filename);
+                //console.log('changed', filename, pathid)
+                let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
                 if(fs.existsSync(fulltplpath)){
                     CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
                 }else{
