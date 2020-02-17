@@ -171,10 +171,17 @@ button{
     color: yellow !important;
 }
 .status_off{
-    color: #d5e5ff !important;
+    color: #7c7e82 !important;
 }
 .status_off *{
-    color: #d5e5ff !important;
+    color: #7c7e82 !important;
+}
+.status_off_fill{
+    color: #7c7e82 !important;
+    border: 1px solid #7c7e82 !important;
+}
+.status_off_fill *{
+    color: #7c7e82 !important;
 }
 .status_positive_fill{
     width: fit-content;
