@@ -73,6 +73,7 @@ let updateFirstJs = (info, content)=>{
     }
     return content;
 }
+let depsCache = {};//缓存
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
     if(!enable) return content;
@@ -84,11 +85,26 @@ let updateJs = (info, content)=>{
         return content;
     }
     if(!isFirstJs(fullfilepath)){
+        let fstate = fs.lstatSync(fullfilepath);
+        let ctime36 = fstate.ctimeMs.toString(36);
+        let mtime36 = fstate.mtimeMs.toString(36);
+        let mc36 = mtime36+'-'+ctime36;
+
         let staticDir = getConfig.getStaticFolder();
         let sourceDir = getConfig.getSourceFolder();
     
         let fdir = pathutil.parse(fullfilepath).dir;
-        let deps = regParserMini.getRequires(content);
+        let deps = [];
+        let cache = depsCache[fullfilepath];
+        if(cache && cache.mc36 === mc36){
+            deps = cache.deps;
+        }else{
+            deps = regParserMini.getRequires(content);
+            depsCache[fullfilepath] = {
+                mc36,
+                deps
+            }
+        }
         deps.forEach((info)=>{
             let req_path = info.rawPath;
             let req_realpath;

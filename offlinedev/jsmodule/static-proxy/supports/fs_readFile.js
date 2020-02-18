@@ -30,11 +30,12 @@ let fs_readFile = (fpath, opt, cb)=>{
         }
         let ctime36 = fstate.ctimeMs.toString(36);
         let mtime36 = fstate.mtimeMs.toString(36);
+        let mc36 = mtime36+'-'+ctime36;
         let cachekey = getKey(fpath);
         //console.log(cachekey)
         if(global.FileMemoCache[cachekey] && configUtil.getValue('debug.cacheStaticRequests')){
             let memo = global.FileMemoCache[cachekey];
-            if(memo.mtime36 === mtime36 && memo.ctime36 === ctime36){
+            if(memo.mc36 === mc36){
                 //console.log('cc', global.FileMemoCache[cachekey])
                 cb(null, global.FileMemoCache[cachekey].content);
                 return;
@@ -46,8 +47,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.cacheStaticRequests')){
                 global.FileMemoCache[cachekey] = {
-                    ctime36,
-                    mtime36,
+                    mc36,
                     content
                 };
             }
