@@ -137,6 +137,12 @@ let updateJs = (info, content)=>{
 
     return content;
 }
+let updateRouterJs = ()=>{
+    
+};
+let updateI18nJs = ()=>{
+
+};
 module.exports = {
     isFirstJs,
     updateFirstJs,
