@@ -66,11 +66,11 @@ var do_validateDupBetweenTransUntrans = (trans, untrans) =>{
     }
     var fatalerror = false;
     if(nonUniqkeys.length > 0){
-        notice_error('发现致命错误：untranslated.js里的各文件中有重复的key：'+nonUniqkeys.join(', '))
+        notice_error('发现致命错误：untranslated.js里的各文件中有重复的key：'+nonUniqkeys.join('<br>'))
         fatalerror = true;
     }
     if(duplist.length > 0){
-        notice_error('发现致命错误：untranslated.js里和all_zh-cn里有重复的key：'+duplist.join(', '))
+        notice_error('发现致命错误：untranslated.js里和all_zh-cn里有重复的key：'+duplist.join('<br>'))
         fatalerror = true;
     }
     if(fatalerror){
