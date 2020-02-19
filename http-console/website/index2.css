@@ -220,6 +220,31 @@ button{
 .status_warn_fill *{
     color: #ffff7f !important;
 }
+.status_is_on {
+    padding:2px;
+    width: fit-content;
+    color: #2fff56 !important;
+}
+.status_is_off {
+    padding:2px;
+    width: fit-content;
+    color: #7c7e82 !important;    
+}
+.status_is_neutral{
+    border: 1px solid #7c7e82 !important;
+}
+.status_is_positive {
+    border: 1px solid #2fff56 !important;
+}
+.status_is_warn {
+    border: 1px solid #ffff7f !important;
+}
+.status_is_dangous {
+    border: 1px solid #f00 !important;    
+}
+.status_is_negative {
+    border: 1px solid #fd25cd !important;    
+}
 .url_pattern{
     background-color: #c8d82f;
 }
