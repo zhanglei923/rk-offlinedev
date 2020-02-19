@@ -27,6 +27,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             let newcontent = arr.join('define');
             let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
             newcontent = `define(function (require, exports, module) {\n`+
+                         `require = rk_offlinedev_update_require(require);\n`+
                          `let ${returnVarName} = ${funprefix}_`+newcontent+'\n'+
                          `if(typeof ${returnVarName} !== "undefined") return ${returnVarName};`+'\n});'
             fs.writeFileSync(fpath, newcontent)

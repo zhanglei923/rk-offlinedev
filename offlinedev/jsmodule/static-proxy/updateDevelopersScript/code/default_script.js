@@ -11,3 +11,10 @@ window.rk_offlinedev_debug_define = (fun)=>{
        return fun;
    }
 }
+window.rk_offlinedev_update_require = function(_require){
+    let new_require = function(a){
+        return _require.apply(seajs, arguments)
+    }
+    for(let k in _require) new_require[k] = _require[k];
+    return new_require;
+};
