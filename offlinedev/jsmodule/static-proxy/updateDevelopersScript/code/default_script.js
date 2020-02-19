@@ -11,6 +11,7 @@ window.rk_offlinedev_debug_define = (fun)=>{
        return fun;
    }
 }
+window.rk_offlinedev_pathid_cache = {}
 window.rk_offlinedev_update_require = function(_require){
     let new_require = function(a){
         return _require.apply(seajs, arguments)

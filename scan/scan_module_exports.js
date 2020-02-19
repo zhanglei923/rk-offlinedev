@@ -1,4 +1,5 @@
 let fs = require('fs')
+let pathutil = require('path')
 let _ = require('lodash')
 let rk = require('../offlinedev/jsmodule/utils/rk')
 let eachcontentjs = require('eachcontent-js')
@@ -8,6 +9,8 @@ let t0=new Date()*1;
 
 let funprefix = 'rk_offlinedev_debug';
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
+    let pathid = pathutil.relative(sourcepath,  fpath)
+    //console.log('pathid=', pathid)
     if(content.indexOf(funprefix)<=0)
     if(!rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath) && rk.mightBeCmdFile(content)){
         content = _.trim(content);
@@ -28,8 +31,9 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
             newcontent = `define(function (require, exports, module) {\n`+
                          `require = rk_offlinedev_update_require(require);\n`+
+                         `let rk_offlinedev_this_path_id=${pathid};\n`+
                          `let ${returnVarName} = ${funprefix}_`+newcontent+'\n'+
-                         `if(typeof ${returnVarName} !== "undefined") return ${returnVarName};`+'\n});'
+                         `if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache['${pathid}'] = ${returnVarName}; return rk_offlinedev_pathid_cache['${pathid}'];`+'\n});'
             fs.writeFileSync(fpath, newcontent)
         }
 
