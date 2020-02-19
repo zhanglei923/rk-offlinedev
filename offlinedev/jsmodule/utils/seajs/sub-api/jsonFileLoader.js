@@ -18,7 +18,11 @@ let loadJsonFromFile = (fullfilepath)=>{
     if(fs.existsSync(fullfilepath)){
         //console.log(fullfilepath)
         let content = fs.readFileSync(fullfilepath, 'utf8');
-        eval(content);
+        try{
+            eval(content);
+        }catch(e){
+            console.log(e);
+        }
         //console.log(returnJson)
     }
     return returnJson;

@@ -139,21 +139,16 @@ let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
     //console.log(fullfilepath)
     deps.forEach((info)=>{
         let req_path = info.rawPath;
+        var replacereg = seajsUtil.getRequireRegForReplacement(req_path, true);
+        //console.log(replacereg)
         let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path)
-        if(!fs.existsSync(req_realpath))
-        console.log(req_realpath)
-        // var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-        // if(req_path.match(/\.tpl$/)){
-        //     if(fs.existsSync(req_realpath)){
-        //         let split = `,,,`
-        //         let pathid = pathutil.relative(sourceDir, req_realpath);
-        //         content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
-        //         // console.log(req_path, staticDir)
-        //         // console.log(fdir)
-        //         // console.log(req_realpath)
-        //         // console.log('pathid',pathid)
-        //     }
-        // }
+        if(fs.existsSync(req_realpath)){
+            let json = seajsUtil.loadJsonFromFile(req_realpath);
+            if(json){
+                let jsonstr = JSON.stringify(json);
+                content = content.replace(replacereg, jsonstr)
+            }
+        }
     });
     return content;
 };

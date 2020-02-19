@@ -28,8 +28,9 @@ let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
     if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';
     return realpath;
 };
-let getRequireRegForReplacement = (req_path)=>{
-    return new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
+let getRequireRegForReplacement = (req_path, closeright)=>{
+    if(typeof closeright === 'undefined') closeright = false;//不闭合右侧圆括号，可以简化替换风险
+    return new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")'+(closeright?'[\\s]{0,}\\){1}':''), 'g');
 }
 let me = {
     parseSeaConfig,
