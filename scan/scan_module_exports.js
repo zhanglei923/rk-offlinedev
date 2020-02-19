@@ -6,7 +6,7 @@ let eachcontentjs = require('eachcontent-js')
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 let t0=new Date()*1;
 
-let funprefix = 'rk_offlinedev_debug_'
+let funprefix = 'rk_offlinedev_debug';
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     if(content.indexOf(funprefix)<=0)
     if(!rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath) && rk.mightBeCmdFile(content)){
@@ -25,9 +25,10 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
                 arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced by rk-offlinedev **/)')
             }
             let newcontent = arr.join('define');
+            let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
             newcontent = `define(function (require, exports, module) {\n`+
-                         `return ${funprefix}`+newcontent+
-                         '\n});';
+                         `let ${returnVarName} = ${funprefix}_`+newcontent+'\n'+
+                         `if(typeof ${returnVarName} !== "undefined") return ${returnVarName};`+'\n});'
             fs.writeFileSync(fpath, newcontent)
         }
 

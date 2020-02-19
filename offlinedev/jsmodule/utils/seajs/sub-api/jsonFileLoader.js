@@ -14,6 +14,13 @@ let loadJsonFromFile = (fullfilepath)=>{
             returnJson = arg;
         }
     }
+    let rk_offlinedev_debug_define = (fun)=>{
+        if(typeof fun === 'function'){
+            return fun()
+        }else{
+            return fun;
+        }
+     }
     if(!fs.existsSync(fullfilepath)) fullfilepath += '.js';
     if(fs.existsSync(fullfilepath)){
         //console.log(fullfilepath)
