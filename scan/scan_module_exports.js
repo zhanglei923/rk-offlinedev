@@ -17,8 +17,11 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             console.log('header:', header)
         }else{
             arr[0]='';
+            for(let i=0;i<3;i++){//节约时间                
+                if(arr[i])
+                arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced **/)')
+            }
             let newcontent = arr.join('define');
-            newcontent = newcontent.replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced **/)')
             newcontent = `define(function (require, exports, module) {\nreturn rk_offlinedev_debug_`+newcontent+'\n});';
             fs.writeFileSync(fpath, newcontent)
         }
