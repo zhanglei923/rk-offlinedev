@@ -4,6 +4,7 @@ let pathutil = require('path');
 let os = require('os');
 let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
+let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
@@ -17,6 +18,7 @@ let isFirstJs = (fpath)=>{
     return false;
 }
 let CacheOfAllTpl;
+let CacheOfI18n;
 let canWatch = platform.toLowerCase() !== 'linux';
 let tplWatched = false;
 let updateAllTplJson = ()=>{
@@ -32,7 +34,7 @@ let updateAllTplJson = ()=>{
         })
     }
     if(canWatch && !tplWatched){
-        console.log('[RK]Watching tpl files...')
+        console.log('[RK]Watching tpl/i18n files...')
         watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
             persistent:true,
             recursive:true
@@ -42,10 +44,16 @@ let updateAllTplJson = ()=>{
                 //console.log('changed', filename, pathid)
                 let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
                 if(fs.existsSync(fulltplpath)){
-                    CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
+                    //CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
+                    fs_readFile.fs_readFile(fulltplpath, {encoding:'utf8'}, (err, content) => {
+                        CacheOfAllTpl[pathid] = content;
+                    });
                 }else{
                     delete CacheOfAllTpl[pathid]
                 }
+            }else
+            if(filename.match(/i18n/g)){
+                CacheOfI18n = null;//置空，重新加载
             }
         })
         tplWatched = true;
@@ -104,9 +112,13 @@ let updateJs = (info, content)=>{
                 mc36,
                 deps
             }
-        }        
+        }       
         if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
-            return updateI18nJs(sourceDir, fullfilepath, content, deps);
+            //let t0=new Date()*1;
+            let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
+            CacheOfI18n = c;
+            //console.log(new Date()*1 - t0)
+            return c;
         }
         deps.forEach((info)=>{
             let req_path = info.rawPath;
