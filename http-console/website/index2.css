@@ -234,16 +234,19 @@ button{
     border: 1px solid #7c7e82 !important;
 }
 .status_is_positive {
-    border: 1px solid #2fff56 !important;
+    border: 1px solid #00981d !important;
 }
 .status_is_warn {
     border: 1px solid #ffff7f !important;
+    background-color: #ffff002e !important;
 }
 .status_is_dangous {
-    border: 1px solid #f00 !important;    
+    border: 1px solid #f00 !important;   
+    background-color: #b90404a1; 
 }
 .status_is_negative {
-    border: 1px solid #fd25cd !important;    
+    border: 1px solid #fd25cd !important;   
+    background-color: #b90404a1;  
 }
 .url_pattern{
     background-color: #c8d82f;
