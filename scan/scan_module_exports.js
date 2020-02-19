@@ -25,7 +25,9 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
                 arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced by rk-offlinedev **/)')
             }
             let newcontent = arr.join('define');
-            newcontent = `define(function (require, exports, module) {\nreturn ${funprefix}`+newcontent+'\n});';
+            newcontent = `define(function (require, exports, module) {\n`+
+                         `return ${funprefix}`+newcontent+
+                         '\n});';
             fs.writeFileSync(fpath, newcontent)
         }
 
