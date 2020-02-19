@@ -6,6 +6,7 @@ let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
+let seajsUtil = require('../../utils/seajs/seajsUtil');
 
 let platform = os.platform();
 
@@ -93,7 +94,6 @@ let updateJs = (info, content)=>{
         let staticDir = getConfig.getStaticFolder();
         let sourceDir = getConfig.getSourceFolder();
     
-        let fdir = pathutil.parse(fullfilepath).dir;
         let deps = [];
         let cache = depsCache[fullfilepath];
         if(cache && cache.mc36 === mc36){
@@ -104,16 +104,14 @@ let updateJs = (info, content)=>{
                 mc36,
                 deps
             }
+        }        
+        if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
+            return updateI18nJs(sourceDir, fullfilepath, content, deps);
         }
         deps.forEach((info)=>{
             let req_path = info.rawPath;
-            let req_realpath;
-            if(req_path.match(/^\./)) {
-                req_realpath = pathutil.resolve(fdir, req_path);
-            }else{
-                req_realpath = pathutil.resolve(sourceDir, req_path);
-            }
-            var replacereg = new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
+            let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+            var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
             if(req_path.match(/\.tpl$/)){
                 if(fs.existsSync(req_realpath)){
                     let split = `,,,`
@@ -137,11 +135,27 @@ let updateJs = (info, content)=>{
 
     return content;
 }
-let updateRouterJs = ()=>{
-    
-};
-let updateI18nJs = ()=>{
-
+let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
+    //console.log(fullfilepath)
+    deps.forEach((info)=>{
+        let req_path = info.rawPath;
+        let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path)
+        if(!fs.existsSync(req_realpath))
+        console.log(req_realpath)
+        // var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+        // if(req_path.match(/\.tpl$/)){
+        //     if(fs.existsSync(req_realpath)){
+        //         let split = `,,,`
+        //         let pathid = pathutil.relative(sourceDir, req_realpath);
+        //         content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
+        //         // console.log(req_path, staticDir)
+        //         // console.log(fdir)
+        //         // console.log(req_realpath)
+        //         // console.log('pathid',pathid)
+        //     }
+        // }
+    });
+    return content;
 };
 module.exports = {
     isFirstJs,

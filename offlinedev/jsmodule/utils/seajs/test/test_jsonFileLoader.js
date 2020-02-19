@@ -149,3 +149,5 @@ result.push(loader.loadJsonFromFile('/Users/zhanglei/workspaces/apps-ingage-web/
 result.push(loader.loadJsonFromFile('/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source/core/i18n/default_global'));
 
 console.log(loader.loadJsonFromFile('/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source/core/i18n/default_global'))
+console.log(loader.loadJsonFromFile('/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source/core/i18n/v1810/xiaodi.js'))
+

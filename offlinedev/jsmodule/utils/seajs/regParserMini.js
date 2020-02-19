@@ -35,6 +35,7 @@ let reduceContentAsLines = (raw_jscontent)=>{
     let lines = [];
     arr.forEach((linetxt)=>{
         linetxt = _.trim(linetxt);
+        if(!linetxt.match(/^\s?\/{2,}/))//不要注释的
         if(linetxt.match(/require/)) lines.push(linetxt);
     })
     return lines;

@@ -1,4 +1,5 @@
 let fs = require('fs')
+let pathutil = require('path')
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
 let parseSeaConfig = (seaPath)=>{
     var HashFilePath = seaPath + '/hash.js';
@@ -16,8 +17,24 @@ let parseSeaConfig = (seaPath)=>{
     return SeaConfig;
     
 };
+let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
+    let realpath;
+    if(requirePath.match(/^\./)){
+        let fdir = pathutil.parse(ownerFilePath).dir;
+        realpath = pathutil.resolve(fdir, requirePath)
+    }else{
+        realpath = pathutil.resolve(sourcePath, requirePath)
+    }
+    if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';
+    return realpath;
+};
+let getRequireRegForReplacement = (req_path)=>{
+    return new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")', 'g');
+}
 let me = {
     parseSeaConfig,
-    loadJsonFromFile: jsonFileLoader.loadJsonFromFile
+    loadJsonFromFile: jsonFileLoader.loadJsonFromFile,
+    resolveRequirePath,
+    getRequireRegForReplacement
 }
 module.exports = me;
