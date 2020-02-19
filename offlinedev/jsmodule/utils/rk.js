@@ -6,6 +6,16 @@ var stripcomments = require('strip-comments')
 let cacheUtil = require('./cacheUtil')
 
 var rk = {
+    isCookedJsPath: function(fpath){
+        if(fpath.match(/\.min\.js/) || 
+            fpath.match(/\.bundle\.js/) || 
+            fpath.match(/\-sdk\-rk\.js/) ||
+            fpath.match(/node_modules/)
+        ){
+            return true;
+        }
+        return false;
+    },
     fetchChinese: function(src){
         var arr = []
         if(/[\s?\u4e00-\u9fa5\，\。\：\,]+/ig.test(src)){

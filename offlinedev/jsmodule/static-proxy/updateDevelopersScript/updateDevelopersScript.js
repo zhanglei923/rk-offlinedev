@@ -4,6 +4,7 @@ let pathutil = require('path');
 let os = require('os');
 let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
+let rk = require('../../utils/rk')
 let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
@@ -87,10 +88,7 @@ let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticRequests')
     if(!enable) return content;
     let fullfilepath = info.fullfilepath;
-    if(fullfilepath.match(/\.min\.js/) || 
-       fullfilepath.match(/\.bundle\.js/) || 
-       fullfilepath.match(/\.sdk\.js/) 
-      ){
+    if(rk.isCookedJsPath(fullfilepath)){
         return content;
     }
     if(!isFirstJs(fullfilepath)){

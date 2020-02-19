@@ -18,3 +18,4 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
 
 console.log(matcharr.length / totalarr.length)
 
+console.log(new Date()*1-t0)

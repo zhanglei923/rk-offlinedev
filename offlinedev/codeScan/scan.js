@@ -3,10 +3,7 @@ let scan_SeajsRequires = require('./scan_SeajsRequires')
 
 module.exports = {
     scan:(staticFolder, fpath, jscontent)=>{
-        if(fpath.match(/\.min\.js/) || 
-            fpath.match(/\.bundle\.js/) || 
-            fpath.match(/\.sdk\.js/) 
-        ){
+        if(rk.isCookedJsPath(fpath)){
             return null;
         }
         jscontent = rk.cleanComments(jscontent)
