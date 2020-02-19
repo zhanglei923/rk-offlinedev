@@ -44,15 +44,8 @@ let linkToStaticFile = (req, res, next) => {
                 return;
             }else{
                 let debugComments = ''
-                res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
-                let canscan = true;
-                if(info.fullfilepath.match(/\.min\.js/) || 
-                    info.fullfilepath.match(/\.bundle\.js/) || 
-                    info.fullfilepath.match(/\.sdk\.js/) 
-                ){
-                    canscan = false;
-                }
-                if(getConfig.getValue('debug.detect404RequireUrls') && canscan){
+                res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');                
+                if(getConfig.getValue('debug.detect404RequireUrls')){
                     let seaScanResults = scanner.scan(staticFolder, info.fullfilepath, jscontent);
                     if(seaScanResults && seaScanResults.missingFiles.length > 0){
                         let missingfiles = seaScanResults.missingFiles;
