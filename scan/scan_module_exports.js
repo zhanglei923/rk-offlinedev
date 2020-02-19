@@ -6,7 +6,9 @@ let eachcontentjs = require('eachcontent-js')
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 let t0=new Date()*1;
 
+let funprefix = 'rk_offlinedev_debug_'
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
+    if(content.indexOf(funprefix)<=0)
     if(!rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath) && rk.mightBeCmdFile(content)){
         content = _.trim(content);
         let arr = content.split('define');
@@ -15,14 +17,15 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
         if(header) {
             //头部有问题
             console.log('header:', header)
+            console.log('fpath:', fpath)
         }else{
             arr[0]='';
             for(let i=0;i<3;i++){//节约时间                
                 if(arr[i])
-                arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced **/)')
+                arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced by rk-offlinedev **/)')
             }
             let newcontent = arr.join('define');
-            newcontent = `define(function (require, exports, module) {\nreturn rk_offlinedev_debug_`+newcontent+'\n});';
+            newcontent = `define(function (require, exports, module) {\nreturn ${funprefix}`+newcontent+'\n});';
             fs.writeFileSync(fpath, newcontent)
         }
 
