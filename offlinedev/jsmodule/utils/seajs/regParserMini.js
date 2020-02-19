@@ -52,6 +52,11 @@ let getRequires = (jscontent)=>{
     if(lines.length===0) return [];
     let requires = [];
     lines.forEach((line)=>{
+        // let a = require
+        // fun( requre()
+        // fun(a, require())
+        // a= [require()]
+        // a= [1, require()]
         let withExport = !!/\=[\s]{0,}require/.test(line)//!!line.match(/\=[\s]{0,}require/);
         let arr = line.match(reg.REQUIRE_REGEX);
         if(arr){
