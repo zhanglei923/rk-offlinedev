@@ -16,6 +16,7 @@
         password:''
     },
     debug:{
+        gzip: true,//是否开启gzip，但稍微消耗cpu
         console: true,
         cacheStaticRequests: true,//自动缓存静态资源，建议开启
         concatStaticRequests: false,//自动聚合静态资源请求，目前只支持tpl
