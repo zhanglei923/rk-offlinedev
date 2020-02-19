@@ -35,8 +35,11 @@ let reduceContentAsLines = (raw_jscontent)=>{
     let lines = [];
     arr.forEach((linetxt)=>{
         linetxt = _.trim(linetxt);
-        if(!linetxt.match(/^\s?\/{2,}/))//不要注释的
-        if(linetxt.match(/require/)) lines.push(linetxt);
+
+        // if(!linetxt.match(/^\s?\/{2,}/))//不要注释的
+        // if(linetxt.match(/require/)) lines.push(linetxt);
+
+        if(!/^\s?\/{2,}/.test(linetxt) && /require(\s|\()/.test(linetxt)) lines.push(linetxt);
     })
     return lines;
 }
@@ -49,7 +52,7 @@ let getRequires = (jscontent)=>{
     if(lines.length===0) return [];
     let requires = [];
     lines.forEach((line)=>{
-        let withExport = !!line.match(/\=[\s]{0,}require/);
+        let withExport = !!/\=[\s]{0,}require/.test(line)//!!line.match(/\=[\s]{0,}require/);
         let arr = line.match(reg.REQUIRE_REGEX);
         if(arr){
             arr.forEach((rawPath)=>{

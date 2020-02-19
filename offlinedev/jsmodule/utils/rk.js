@@ -6,11 +6,21 @@ var stripcomments = require('strip-comments')
 let cacheUtil = require('./cacheUtil')
 
 var rk = {
+    mightBeCmdFile: function(content){
+        return /define\s{0,}\(/.test(content);
+    },
     isCookedJsPath: function(fpath){
         if(fpath.match(/\.min\.js/) || 
             fpath.match(/\.bundle\.js/) || 
             fpath.match(/\-sdk\-rk\.js/) ||
             fpath.match(/node_modules/)
+        ){
+            return true;
+        }
+        return false;
+    },
+    isLibJsPath: function(fpath){
+        if(fpath.match(/\/lib\//g)
         ){
             return true;
         }
