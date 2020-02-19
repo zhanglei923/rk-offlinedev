@@ -119,30 +119,31 @@ let updateJs = (info, content)=>{
             CacheOfI18n = c;
             //console.log(new Date()*1 - t0)
             return c;
+        }else{
+            deps.forEach((info)=>{
+                let req_path = info.rawPath;
+                let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                if(req_path.match(/\.tpl$/)){
+                    if(fs.existsSync(req_realpath)){
+                        let split = `,,,`
+                        let pathid = pathutil.relative(sourceDir, req_realpath);
+                        content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
+                        // console.log(req_path, staticDir)
+                        // console.log(fdir)
+                        // console.log(req_realpath)
+                        // console.log('pathid',pathid)
+                    }
+                }else if(0){
+                    if(!fs.existsSync(req_realpath)) req_realpath = req_realpath + '.js';
+                    if(fs.existsSync(req_realpath)){
+                        let pathid = pathutil.relative(sourceDir, req_realpath);
+                        let hotpath = pathutil.parse(pathid).dir + '/__hot_folder.js'
+                        content = content.replace(replacereg, `require("${hotpath}"`);
+                    }
+                }
+            });
         }
-        deps.forEach((info)=>{
-            let req_path = info.rawPath;
-            let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
-            var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            if(req_path.match(/\.tpl$/)){
-                if(fs.existsSync(req_realpath)){
-                    let split = `,,,`
-                    let pathid = pathutil.relative(sourceDir, req_realpath);
-                    content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
-                    // console.log(req_path, staticDir)
-                    // console.log(fdir)
-                    // console.log(req_realpath)
-                    // console.log('pathid',pathid)
-                }
-            }else if(0){
-                if(!fs.existsSync(req_realpath)) req_realpath = req_realpath + '.js';
-                if(fs.existsSync(req_realpath)){
-                    let pathid = pathutil.relative(sourceDir, req_realpath);
-                    let hotpath = pathutil.parse(pathid).dir + '/__hot_folder.js'
-                    content = content.replace(replacereg, `require("${hotpath}"`);
-                }
-            }
-        });
     }
 
     return content;
