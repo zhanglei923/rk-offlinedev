@@ -27,7 +27,7 @@ let showInfomation = (result)=>{
             <span><span class="${userConfig.debug && userConfig.debug.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
             <span><span class="${userConfig.debug && userConfig.debug.cacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">自动缓存</span>
             <span><span class="${userConfig.debug && userConfig.debug.concatStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">聚合请求</span>
-            <span><span class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">转义ES6</span>
+            <span><span class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">降级ES6</span>
             <span><span class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_dangous':'status_is_off status_is_neutral'}">实时检测js</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
