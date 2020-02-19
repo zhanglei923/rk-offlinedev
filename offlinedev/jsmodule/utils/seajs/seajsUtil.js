@@ -1,4 +1,5 @@
 let fs = require('fs')
+let jsonFileLoader = require('./sub-api/jsonFileLoader')
 let parseSeaConfig = (seaPath)=>{
     var HashFilePath = seaPath + '/hash.js';
     var SeaConfigPath = seaPath + '/sea-config.js';
@@ -15,6 +16,8 @@ let parseSeaConfig = (seaPath)=>{
     return SeaConfig;
     
 };
-module.exports = {
-    parseSeaConfig
+let me = {
+    parseSeaConfig,
+    loadJsonFromFile: jsonFileLoader.loadJsonFromFile
 }
+module.exports = me;
