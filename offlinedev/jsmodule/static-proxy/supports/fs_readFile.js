@@ -38,7 +38,11 @@ let fs_readFile = (fpath, opt, cb)=>{
             let memo = global.FileMemoCache[cachekey];
             if(memo.mc36 === mc36){
                 //console.log('cc', global.FileMemoCache[cachekey])
-                cb(null, global.FileMemoCache[cachekey].content);
+                cb(null, global.FileMemoCache[cachekey].content, {
+                    isCached: true,
+                    mc36: memo.mc36,
+                    cmdinfo: memo.cmdinfo
+                });
                 return;
             }
         }
@@ -54,7 +58,11 @@ let fs_readFile = (fpath, opt, cb)=>{
                     content
                 };
             }
-            cb(read_err, content);
+            cb(read_err, content, {
+                isCached: false,
+                mc36,
+                cmdinfo
+            });
         });
     });
 }

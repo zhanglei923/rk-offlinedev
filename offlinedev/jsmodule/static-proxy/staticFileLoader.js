@@ -2,6 +2,7 @@ var fs = require('fs-extra');
 var pathutil = require('path');
 var getConfig = require('../config/configUtil')
 let projectFileSearch = require('./supports/projectFileSearch')
+let loadCmdInfo = require('../static-proxy/supports/loadCmdInfo')
 let staticFileLoader_es6 = require('./staticFileLoader_es6')
 let pathfinder = require('./supports/pathfinder')
 
@@ -63,14 +64,15 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, info) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
                 callback('', {fromSubPrj, fullfilepath});
             }else if(jsContent){
                 //let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 //jsContent =   injectScript + jsContent
-                callback(jsContent, {fromSubPrj, fullfilepath});
+                let cmdinf = loadCmdInfo.loadCmdInfo(fullfilepath, jsContent)
+                callback(jsContent, {fromSubPrj, fullfilepath, cmdinf});
             }else{
                 callback(null);
             }
