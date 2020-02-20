@@ -11,7 +11,7 @@ window.rk_offlinedev_debug_define = (fun)=>{
        return fun;
    }
 }
-window.rk_offlinedev_do_original_return=true;//需要在web的router.js的seajs.use(里，设成false，这样后面就不走seajs的return了
+window.rk_offlinedev_do_original_return=true;//需要在web的router.js的seajs.use(里，设成false，这样后面define函数就不走seajs的return了，便于聚合js代码
 window.rk_offlinedev_pathid_cache = {}
 window.rk_offlinedev_update_require = function(_require, pathid){
     let mypathid = pathid;

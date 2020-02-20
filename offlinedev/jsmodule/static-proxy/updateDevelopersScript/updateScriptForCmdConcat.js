@@ -14,7 +14,7 @@ let funprefix = 'rk_offlinedev_debug';
 let updateRouterJs = (content)=>{
     content = content.replace(/function\s{1,}goError/g, 
 `
-;delete window.rk_offlinedev_do_original_return;//这句话是rk-offlinedev注入的
+;delete window.rk_offlinedev_do_original_return;//需要在web的router.js的seajs.use(里，设成false，这样后面define函数就不走seajs的return了，便于聚合js代码
 
 function goError`
 )
