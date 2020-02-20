@@ -1,6 +1,7 @@
 let fs = require('fs-extra');
 let pathutil = require('path')
 let configUtil = require('../../config/configUtil')
+let loadCmdInfo = require('../supports/loadCmdInfo')
 
 global.FileMemoCache = {};
 
@@ -44,10 +45,12 @@ let fs_readFile = (fpath, opt, cb)=>{
         // let content;
         // let read_err;
         fs.readFile(fpath, opt, (read_err, content)=>{
+            let cmdinfo = loadCmdInfo.loadCmdInfo(fpath, content);
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.cacheStaticRequests')){
                 global.FileMemoCache[cachekey] = {
                     mc36,
+                    cmdinfo,
                     content
                 };
             }
