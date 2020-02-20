@@ -10,6 +10,17 @@ var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
 
+/**
+ * 原理说明：
+ *  - seajs的define函数不利于聚合js，因为它会有return语句，导致聚合后的代码执行中断
+ *  - 因此解决思路是，拦截并重写了define函数，源代码里不允许return了，return的obj被基于pathid缓存了下来。
+ *  - 这样以来，在require时，基于pathid返回给变量，比如var a = require('../a')，这个返回是从缓存里取的。
+ * 
+ * 
+ * 
+ */
+
+
 let funprefix = 'rk_offlinedev_debug';
 let updateRouterJs = (content)=>{
     content = content.replace(/function\s{1,}goError/g, 
