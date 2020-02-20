@@ -79,7 +79,7 @@ let updateFirstJs = (info, content)=>{
         defaultjs += `;window.rk_offlinedev.ALL_TPL_JSON=`+alltpljson;
         defaultjs += `\n//****** END *******//\n`
 
-        content = defaultjs + content;
+        content = content +';\n'+ defaultjs;
     }
     return content;
 }
