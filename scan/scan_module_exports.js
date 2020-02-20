@@ -32,11 +32,12 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             newcontent = 
 `define(function (require, exports, module) {
     let rk_offlinedev_this_path_id="${pathid}";
+    ;"rk-^^^^^^^^^^";"${pathid}";"rk-$$$$$$$$$$";//这里供外界用function.toString获取到pathid
     rk_offlinedev.this_path_id = rk_offlinedev_this_path_id;
     require = rk_offlinedev_update_require(require, rk_offlinedev_this_path_id);
     let ${returnVarName} = ${funprefix}_${newcontent}
     if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[rk_offlinedev_this_path_id] = ${returnVarName}; 
-    return rk_offlinedev_pathid_cache[rk_offlinedev_this_path_id];
+    if(window.rk_offlinedev_do_original_return)return rk_offlinedev_pathid_cache[rk_offlinedev_this_path_id];
 });`
             fs.writeFileSync(fpath, newcontent)
         }

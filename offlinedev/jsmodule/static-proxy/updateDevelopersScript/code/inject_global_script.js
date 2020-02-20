@@ -11,27 +11,43 @@ window.rk_offlinedev_debug_define = (fun)=>{
        return fun;
    }
 }
+window.rk_offlinedev_do_original_return=true;//需要在web的router.js的seajs.use(里，设成false，这样后面就不走seajs的return了
 window.rk_offlinedev_pathid_cache = {}
 window.rk_offlinedev_update_require = function(_require, pathid){
     let mypathid = pathid;
     let new_require = function(reqpath){
         let req_pathid;
-        if(seajs.data.alias[reqpath]) reqpath = seajs.data.alias[reqpath];
+        let alias;
+        if(seajs.data.alias[reqpath]) {
+            alias = reqpath;
+            reqpath = seajs.data.alias[reqpath];
+        }
         if(reqpath.match(/^\./)) {
             req_pathid = seajs.resolve(reqpath, mypathid)
         }else{
             req_pathid = reqpath;
         }
+        if(!/\.tpl$|\.js$|\.css$|\.json$/ig.test(req_pathid)){
+            req_pathid = req_pathid + '.js';
+        }
         let url = seajs.resolve(req_pathid)
-        let returnObj = rk_offlinedev_pathid_cache[req_pathid];
-        //if(returnObj)console.log(req_pathid, returnObj)
-        
-        return returnObj ? returnObj : _require.apply(seajs, arguments)
+        let hehe = _require.apply(seajs, arguments)
+        let returnObj = rk_offlinedev_pathid_cache[req_pathid];        
+        return returnObj?returnObj:hehe;
     }
     for(let k in _require) new_require[k] = _require[k];
     return new_require;
 };
-let rk_offlinedev_TmpDefine = define;
-define = function(){
-    return rk_offlinedev_TmpDefine.apply(seajs, arguments);
+let rk_offlinedev_OriginalDefine = define;
+define = function(fun){
+    let fun_str = fun.toString();
+    let pathid;
+    if(fun_str.indexOf("rk-$$$$$$$$$$")>=0){
+        let header = fun_str.split("rk-$$$$$$$$$$")[0]
+        let content = header.split("rk-^^^^^^^^^^")[1]
+        pathid = content.replace(/\"/g,'').replace(/\;/g,'')
+    }
+    rk_offlinedev_OriginalDefine.apply(seajs, arguments);
+    //console.log(pathid)
+    if(rk_offlinedev_pathid_cache[pathid]) return rk_offlinedev_pathid_cache[pathid]
 }
