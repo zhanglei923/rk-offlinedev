@@ -68,7 +68,7 @@ let updateJs = (info, content)=>{
                 arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced by rk-offlinedev **/)')
             }
             let newcontent = arr.join('define');
-            let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
+            let returnVarName = `${funprefix}_return${(Math.random()+'').replace(/\./g,'')}`
             let info = {
                 pathid
             }
