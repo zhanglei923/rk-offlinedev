@@ -12,7 +12,11 @@ let seajsUtil = require('../../utils/seajs/seajsUtil');
 
 /**
  * 原理说明：
- *  - seajs的define函数不利于聚合js，因为它会有return语句，导致聚合后的代码执行中断
+ *  - seajs有个硬伤，就是一个js函数只允许有一个define，如果有多个，也只会有一个有效。
+ *  - 这就非常不利于聚合。
+ *  - 因此，思路是将源代码里的define重命名，将多个js文件合并后，包裹一个新的define函数。
+ *  - 而且，
+ *  - seajs的define函数不利于聚合js，因为它会有return语句，导致聚合后的代码执行中断。
  *  - 因此解决思路是，拦截并重写了define函数，源代码里不允许return了，return的obj被基于pathid缓存了下来。
  *  - 这样以来，在require时，基于pathid返回给变量，比如var a = require('../a')，这个返回是从缓存里取的。
  * 
