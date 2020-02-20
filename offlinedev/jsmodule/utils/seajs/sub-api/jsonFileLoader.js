@@ -5,7 +5,9 @@ let loadJsonFromFile = (fullfilepath)=>{
     let returnJson;
     let define = (arg)=>{//假函数，用来替换js文本里的define执行
         if(typeof arg === 'function'){
-            let r={},e={},m={};
+            let r=()=>{
+                throw `[RK 错误]json文件里不允许有require，文件路径：${fullfilepath}`
+            },e={},m={};
             let json = arg(r,e,m);
             if(json) returnJson = json;
             if(m.exports) returnJson = m.exports;
@@ -20,7 +22,7 @@ let loadJsonFromFile = (fullfilepath)=>{
         }else{
             return fun;
         }
-     }
+    }
     let rk_offlinedev = {};
     if(!fs.existsSync(fullfilepath)) fullfilepath += '.js';
     if(fs.existsSync(fullfilepath)){
