@@ -24,10 +24,14 @@ window.rk_offlinedev_update_require = function(_require, pathid){
         }
         let url = seajs.resolve(req_pathid)
         let returnObj = rk_offlinedev_pathid_cache[req_pathid];
-        if(returnObj)console.log(req_pathid, returnObj)
+        //if(returnObj)console.log(req_pathid, returnObj)
         
         return returnObj ? returnObj : _require.apply(seajs, arguments)
     }
     for(let k in _require) new_require[k] = _require[k];
     return new_require;
 };
+let rk_offlinedev_TmpDefine = define;
+define = function(){
+    return rk_offlinedev_TmpDefine.apply(seajs, arguments);
+}
