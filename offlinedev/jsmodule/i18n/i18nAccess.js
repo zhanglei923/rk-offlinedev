@@ -30,7 +30,7 @@ module.exports = {
             let json = {}
             if(fs.existsSync(fpath)) {
                 let content = fs.readFileSync(fpath, 'utf8');
-                content = content.replace(/^\s?define/, 'my_define')
+                content = content.replace(/^\s{0,}define/, 'my_define')
                 eval(`json = ${content}`)
             }
             all[langCode] = json;

@@ -39,7 +39,7 @@ let reduceContentAsLines = (raw_jscontent)=>{
         // if(!linetxt.match(/^\s?\/{2,}/))//不要注释的
         // if(linetxt.match(/require/)) lines.push(linetxt);
 
-        if(!/^\s?\/{2,}/.test(linetxt) && /require(\s|\()/.test(linetxt)) lines.push(linetxt);
+        if(!/^\s{0,}\/{2,}/.test(linetxt) && /require(\s|\()/.test(linetxt)) lines.push(linetxt);
     })
     return lines;
 }

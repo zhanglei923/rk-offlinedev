@@ -25,7 +25,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             arr[0]='';
             for(let i=0;i<3;i++){//节约时间                
                 if(arr[i])
-                arr[i] = arr[i].replace(/\(\s?require\s?\,\s?exports\s?\,\s?module\s?\)/g, '(/** replaced by rk-offlinedev **/)')
+                arr[i] = arr[i].replace(/\(\s{0,}require\s{0,}\,\s{0,}exports\s{0,}\,\s{0,}module\s{0,}\)/g, '(/** replaced by rk-offlinedev **/)')
             }
             let newcontent = arr.join('define');
             let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
