@@ -89,8 +89,11 @@ let reloadConfig = ()=>{
     eval('config='+txtconfig)
     config = Object.assign(defaultConfig, config);
 
-    if(config.debug && typeof config.debug.gzip === 'undefined') config.debug.gzip = true;
-    if(config.debug && typeof config.debug.cacheStaticRequests === 'undefined') config.debug.cacheStaticRequests = true;
+    if(config.debug){
+        if(typeof config.debug.gzip === 'undefined') config.debug.gzip = true;
+        if(typeof config.debug.cacheStaticRequests === 'undefined') config.debug.cacheStaticRequests = true;
+        if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
+    }
  
     config.auxiliaryFolder = auxiliaryFolder;
 
