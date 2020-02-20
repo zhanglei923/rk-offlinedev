@@ -8,6 +8,7 @@ let pathfinder = require('./supports/pathfinder')
 
 let userConfig = getConfig.getUserConfig();
 var cache = {}
+let cachedCmdInfo = {}
 
 let fs_readFile = require('./supports/fs_readFile').fs_readFile;
 
@@ -71,7 +72,14 @@ module.exports = {
             }else if(jsContent){
                 //let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 //jsContent =   injectScript + jsContent
-                let cmdinf = loadCmdInfo.loadCmdInfo(fullfilepath, jsContent)
+                let cmdinf;
+                if(info && info.isCached){
+                    cmdinf = cachedCmdInfo[fullfilepath]
+                }else{
+                    cmdinf = loadCmdInfo.loadCmdInfo(fullfilepath, jsContent)
+                    cachedCmdInfo[fullfilepath] = cmdinf;
+                }
+                //if(fullfilepath.indexOf('xxx')>=0)console.log(cmdinf)
                 callback(jsContent, {fromSubPrj, fullfilepath, cmdinf});
             }else{
                 callback(null);
