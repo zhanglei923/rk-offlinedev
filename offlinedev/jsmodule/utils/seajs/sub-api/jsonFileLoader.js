@@ -21,6 +21,7 @@ let loadJsonFromFile = (fullfilepath)=>{
             return fun;
         }
      }
+    let rk_offlinedev = {};
     if(!fs.existsSync(fullfilepath)) fullfilepath += '.js';
     if(fs.existsSync(fullfilepath)){
         //console.log(fullfilepath)
