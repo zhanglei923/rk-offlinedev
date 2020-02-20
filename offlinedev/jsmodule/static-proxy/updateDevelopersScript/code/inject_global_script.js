@@ -45,7 +45,9 @@ define = function(fun){
     if(fun_str.indexOf("rk-$$$$$$$$$$")>=0){
         let header = fun_str.split("rk-$$$$$$$$$$")[0]
         let content = header.split("rk-^^^^^^^^^^")[1]
-        pathid = content.replace(/\"/g,'').replace(/\;/g,'')
+        let infostr = content.replace(/\"/g,'').replace(/\;/g,'')
+        let info = JSON.parse(decodeURIComponent(infostr))
+        pathid = info.pathid;
     }
     rk_offlinedev_OriginalDefine.apply(seajs, arguments);
     //console.log(pathid)
