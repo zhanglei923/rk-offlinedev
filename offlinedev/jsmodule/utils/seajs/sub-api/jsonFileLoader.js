@@ -23,6 +23,9 @@ let loadJsonFromFile = (fullfilepath)=>{
             return fun;
         }
     }
+    let rk_offlinedev_update_require = (_require)=>{
+        return _require;
+    }
     let rk_offlinedev = {};
     if(!fs.existsSync(fullfilepath)) fullfilepath += '.js';
     if(fs.existsSync(fullfilepath)){
