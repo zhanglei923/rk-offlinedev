@@ -61,7 +61,7 @@ let updateAllTplJson = ()=>{
     }
 }
 let updateFirstJs = (info, content)=>{
-    let enable = getConfig.getValue('debug.concatStaticRequests')
+    let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
 
     let fullfilepath = info.fullfilepath;
@@ -85,7 +85,7 @@ let updateFirstJs = (info, content)=>{
 }
 let depsCache = {};//缓存
 let updateJs = (info, content)=>{
-    let enable = getConfig.getValue('debug.concatStaticRequests')
+    let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
     let fullfilepath = info.fullfilepath;
     if(rk.isCookedJsPath(fullfilepath)){

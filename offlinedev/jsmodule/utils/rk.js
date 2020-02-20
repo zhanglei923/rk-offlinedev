@@ -54,6 +54,13 @@ var rk = {
             .replace(/"/g, '&quot;')
             .replace(/\n/g, '<br />');
     },
+    cleanCommentsFast: function(str){
+        if(typeof str !== 'string') return str;
+        if(!str) return str;
+        //可能不是javascript，比如tpl什么的
+        //by: http://upshots.org/javascript/javascript-regexp-to-remove-comments
+        return str.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
+    },
     cleanComments: function(str){
         let cachekey = 'rk_cleanComments';
         let md5 = cacheUtil.md5(str);
