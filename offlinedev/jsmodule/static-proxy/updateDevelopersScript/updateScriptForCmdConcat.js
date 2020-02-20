@@ -74,6 +74,7 @@ let updateJs = (info, content)=>{
                 pathid
             }
             let infostr = encodeURIComponent(JSON.stringify(info))
+            newcontent = newcontent.replace(/\bexports\b\s{0,}=/g, `exports = rk_offlinedev_pathid_cache[${pathidVarName}] = `)
             newcontent = 
 `define(function (require, exports, module) {
     let ${pathidVarName}="${pathid}";
