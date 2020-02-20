@@ -3,7 +3,7 @@ let pathutil = require('path')
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
-let updateDevelopersScript = require('./updateDevelopersScript/updateDevelopersScript')
+let updateScriptForI18nTpl = require('./updateDevelopersScript/updateScriptForI18nTpl')
 let scanner = require('../../codeScan/scan')
 
 let linkToStaticFile = (req, res, next) => {
@@ -58,8 +58,8 @@ let linkToStaticFile = (req, res, next) => {
                 }
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
-                jscontent = updateDevelopersScript.updateFirstJs(info, jscontent)
-                jscontent = updateDevelopersScript.updateJs(info, jscontent)
+                jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
+                jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
