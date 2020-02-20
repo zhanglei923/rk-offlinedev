@@ -4,6 +4,7 @@ let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 let updateScriptForI18nTpl = require('./updateDevelopersScript/updateScriptForI18nTpl')
+let updateScriptForCmdConcat = require('./updateDevelopersScript/updateScriptForCmdConcat')
 let scanner = require('../../codeScan/scan')
 
 let linkToStaticFile = (req, res, next) => {
@@ -28,6 +29,7 @@ let linkToStaticFile = (req, res, next) => {
     }
     let webFolder = getConfig.getWebRoot()
     let staticFolder = getConfig.getStaticFolder()
+    let sourceFolder = getConfig.getSourceFolder()
     var webappFolder = getConfig.getWebAppFolder()
     let root = webappFolder;
     let filterDef = staticFilter.getFilterResult(req_path);
@@ -39,6 +41,7 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
+            info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
@@ -60,6 +63,7 @@ let linkToStaticFile = (req, res, next) => {
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
                 jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
+                jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
@@ -72,6 +76,7 @@ let linkToStaticFile = (req, res, next) => {
     }else if(/\.css$/.test(req_path)){
         res.set('Content-Type', 'text/css');
         staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
+            info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
@@ -89,6 +94,7 @@ let linkToStaticFile = (req, res, next) => {
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
         staticFileLoader.loadTpl(root, req_path, (jscontent, info)=>{
+            info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
