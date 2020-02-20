@@ -11,10 +11,22 @@ let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
 
 let funprefix = 'rk_offlinedev_debug';
+let updateRouterJs = (content)=>{
+    content = content.replace(/function\s{1,}goError/g, 
+`
+;delete window.rk_offlinedev_do_original_return;//这句话是rk-offlinedev注入的
 
+function goError`
+)
+    return content;
+}
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticJsRequests')
     if(!enable) return content;
+
+    if(info.fullfilepath.indexOf('static/router.js')>=0) {
+        return updateRouterJs(content);//加一句话
+    }
     if(info.fullfilepath.indexOf('source')<=0) return content;//不是source目录里的
     let fullfilepath = info.fullfilepath;
 
