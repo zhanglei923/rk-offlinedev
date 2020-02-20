@@ -29,11 +29,15 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             }
             let newcontent = arr.join('define');
             let returnVarName = `${funprefix}_${(Math.random()+'').replace(/\./g,'')}`
-            newcontent = `define(function (require, exports, module) {\n`+
-                         `require = rk_offlinedev_update_require(require);\n`+
-                         `let rk_offlinedev_this_path_id=${pathid};\n`+
-                         `let ${returnVarName} = ${funprefix}_`+newcontent+'\n'+
-                         `if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache['${pathid}'] = ${returnVarName}; return rk_offlinedev_pathid_cache['${pathid}'];`+'\n});'
+            newcontent = 
+`define(function (require, exports, module) {
+    let rk_offlinedev_this_path_id="${pathid}";
+    rk_offlinedev.this_path_id = rk_offlinedev_this_path_id;
+    require = rk_offlinedev_update_require(require, rk_offlinedev_this_path_id);
+    let ${returnVarName} = ${funprefix}_${newcontent}
+    if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[rk_offlinedev_this_path_id] = ${returnVarName}; 
+    return rk_offlinedev_pathid_cache[rk_offlinedev_this_path_id];
+});`
             fs.writeFileSync(fpath, newcontent)
         }
 
