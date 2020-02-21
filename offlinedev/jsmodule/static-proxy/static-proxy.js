@@ -59,13 +59,15 @@ let linkToStaticFile = (req, res, next) => {
                         })
                     }
                 }
+                let is_rk_cached = (info.fileinfo && info.fileinfo.isCached);
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
+                res.set('.rk-cached', is_rk_cached);
                 jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
                 jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                 jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
-                                    `//[rk][real-path]${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
+                                    `//[rk][real-path]${is_rk_cached?'[cached]':'[not-cached]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
