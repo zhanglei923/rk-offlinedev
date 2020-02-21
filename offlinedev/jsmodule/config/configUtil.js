@@ -91,7 +91,7 @@ let reloadConfig = ()=>{
 
     if(config.debug){
         if(typeof config.debug.gzip === 'undefined') config.debug.gzip = true;
-        if(typeof config.debug.cacheStaticRequests === 'undefined') config.debug.cacheStaticRequests = true;
+        if(typeof config.debug.autoCacheStaticRequests === 'undefined') config.debug.autoCacheStaticRequests = true;
         if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
     }
  

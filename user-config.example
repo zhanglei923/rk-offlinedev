@@ -21,7 +21,7 @@
     },
     debug:{
         console: true,
-        cacheStaticRequests: true,//自动缓存静态资源，建议开启
+        autoCacheStaticRequests: true,//自动缓存静态资源，建议开启
         concatStaticTplRequests: false,//自动聚合静态资源请求，目前只支持tpl
         concatStaticJsRequests: false,//自动聚合静态资源请求，目前只支持tpl
         detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
