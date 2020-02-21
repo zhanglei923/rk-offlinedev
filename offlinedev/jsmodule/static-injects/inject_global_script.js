@@ -53,3 +53,13 @@ define = function(fun){
     //console.log(pathid)
     if(rk_offlinedev_pathid_cache[pathid]) return rk_offlinedev_pathid_cache[pathid]
 }
+// let rk_offlinedev_Original_seause = seajs.use;
+// seajs.use = function(srcs, fun, a0,a1,a2,a3,a4,a5,a6,a7){
+//     let fun2 = function(){
+//         let args = arguments;
+//         console.log('!!!!!!!!!!!!!!!!!!!')
+//         return fun.apply(seajs, args)
+//     }
+//     console.log('~~~~~~~~~')
+//     return rk_offlinedev_Original_seause.call(seajs, srcs, fun2, a0,a1,a2,a3,a4,a5,a6,a7)
+// }

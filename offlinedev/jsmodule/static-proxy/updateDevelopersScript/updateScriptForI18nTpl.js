@@ -75,7 +75,7 @@ let updateFirstJs = (info, content)=>{
 
         let alltpljson = `${JSON.stringify(CacheOfAllTpl)}`
 
-        defaultjs += `;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
+        defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
         defaultjs += `;window.rk_offlinedev.ALL_TPL_JSON=`+alltpljson;
         defaultjs += `\n//****** END *******//\n`
 
