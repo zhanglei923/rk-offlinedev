@@ -75,16 +75,19 @@ let updateJs = (info, content)=>{
             }
             let infostr = encodeURIComponent(JSON.stringify(info))
             newcontent = newcontent.replace(/\bexports\b\s{0,}=/g, `exports = rk_offlinedev_pathid_cache[${pathidVarName}] = `)
-            newcontent = 
-`define(function (require, exports, module) {
-    let ${pathidVarName}="${pathid}";
-    ;"rk-^^^^^^^^^^";"${infostr}";"rk-$$$$$$$$$$";//这里供外界用function.toString获取到pathid
-    rk_offlinedev.this_path_id = ${pathidVarName};
-    require = rk_offlinedev_update_require(require, ${pathidVarName});
-    let ${returnVarName} = ${funprefix}_${newcontent}
-    if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[${pathidVarName}] = ${returnVarName}; 
-    if(window.rk_offlinedev_do_original_return)return rk_offlinedev_pathid_cache[${pathidVarName}];
-});`
+            let newcontent_arr = [
+                `define(function (require, exports, module) {`
+                    ,`let ${pathidVarName}="${pathid}";`
+                    ,`;"rk-^^^^^^^^^^";"${infostr}";"rk-$$$$$$$$$$";/** 这里供外界用function.toString获取到pathid **/`
+                    ,`rk_offlinedev.this_path_id = ${pathidVarName};`
+                    ,`require = rk_offlinedev_update_require(require, ${pathidVarName});`
+                    ,`let ${returnVarName} = ${funprefix}_${newcontent}`
+                    ,`\n`
+                    ,`if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[${pathidVarName}] = ${returnVarName}; `
+                    ,`if(window.rk_offlinedev_do_original_return)return rk_offlinedev_pathid_cache[${pathidVarName}];`
+                ,`});`
+            ];
+            newcontent = newcontent_arr.join(';')
             //fs.writeFileSync(fullfilepath, newcontent)
             return newcontent;
         }
