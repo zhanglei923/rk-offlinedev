@@ -9,6 +9,7 @@
     "body-parser": "1.19.0",
     "child_process": "^1.0.2",
     "express": "4.17.1",
+    "spdy":"4.0.1",
     "format-json": "^1.0.3",
     "json-format": "1.0.1",
     "handlebars": "4.3.0",

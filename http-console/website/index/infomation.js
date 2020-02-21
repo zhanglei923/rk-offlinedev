@@ -24,7 +24,8 @@ let showInfomation = (result)=>{
             <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right" valign="top">工具配置：</td><td>
-            <span><span class="${userConfig.debug && userConfig.debug.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
+            <span><span class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
+            <span><span class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
             <span><span class="${userConfig.debug && userConfig.debug.cacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">自动缓存</span>
             <span><span class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">聚合Tpl</span>
             <span><span class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_dangous':'status_is_off status_is_neutral'}">聚合Js</span>

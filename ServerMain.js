@@ -1,5 +1,6 @@
 //说明，这是离线开发的server
 var express = require('express');
+let spdy = require('spdy');
 let compression = require('compression')
 var app = express();
 var fs = require('fs');
@@ -38,7 +39,7 @@ mockingPath = mockingPath.concat([
 mockingPath.forEach((folderpath)=>{
     if (!fs.existsSync(folderpath)){fs.mkdirSync(folderpath)}
 })
-
+if(getConfig.getValue('httpConfig.http2')) https = spdy;
 var httpServer = http.createServer(app);
 var httpsServer = https.createServer(credentials, app);
 
@@ -50,8 +51,8 @@ var SSLPORT = userConfig.https.port;
 
 app.use(bodyParser.json({limit: '100mb'}));
 app.use(bodyParser.urlencoded({limit: '100mb', extended: true}));
-if(getConfig.getValue('debug.gzip'))app.use(compression())//gzip
-//console.log('debug.gzip', getConfig.getValue('debug.gzip'))
+if(getConfig.getValue('httpConfig.gzip'))app.use(compression())//gzip
+//console.log('http.gzip', getConfig.getValue('httpConfig.gzip'))
 
 app.all('*', function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
