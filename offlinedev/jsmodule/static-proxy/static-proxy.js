@@ -41,7 +41,7 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
-            info.sourceFolder = sourceFolder;
+            if(info)info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
@@ -76,7 +76,7 @@ let linkToStaticFile = (req, res, next) => {
     }else if(/\.css$/.test(req_path)){
         res.set('Content-Type', 'text/css');
         staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
-            info.sourceFolder = sourceFolder;
+            if(info)info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
@@ -94,7 +94,7 @@ let linkToStaticFile = (req, res, next) => {
     }else if(/\.tpl$/.test(req_path)) {
         res.set('Content-Type', 'text/html');
         staticFileLoader.loadTpl(root, req_path, (jscontent, info)=>{
-            info.sourceFolder = sourceFolder;
+            if(info)info.sourceFolder = sourceFolder;
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
