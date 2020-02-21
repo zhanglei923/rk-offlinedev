@@ -16,7 +16,7 @@
         password:''
     },
     httpConfig:{
-        http2: false,
+        http2: false,//是否开启http2协议
         gzip: true,//是否开启gzip，但稍微消耗cpu
     },
     debug:{
