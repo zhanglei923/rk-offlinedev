@@ -70,7 +70,7 @@ let updateFirstJs = (info, content)=>{
     if(isFirstJs(fullfilepath)){
         updateAllTplJson()
         let dir = pathutil.parse(__filename).dir;
-        let srcpath = pathutil.resolve(dir, './code/inject_global_script.js');
+        let srcpath = pathutil.resolve(dir, '../../static-injects/inject_global_script.js');
         let defaultjs = fs.readFileSync(srcpath, 'utf8')
 
         let alltpljson = `${JSON.stringify(CacheOfAllTpl)}`
