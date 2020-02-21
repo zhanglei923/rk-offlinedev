@@ -12,6 +12,7 @@ window.rk_offlinedev_debug_define = (fun)=>{
    }
 }
 window.rk_offlinedev_pathid_cache = {}
+window.rk_offlinedev_pathid_cache2 = {}
 window.rk_offlinedev_update_require = function(_require, pathid){
     let mypathid = pathid;
     let new_require = function(reqpath){
@@ -29,8 +30,11 @@ window.rk_offlinedev_update_require = function(_require, pathid){
         if(!/\.tpl$|\.js$|\.css$|\.json$/ig.test(req_pathid)){
             req_pathid = req_pathid + '.js';
         }
+        if(rk_offlinedev_pathid_cache[req_pathid]) return rk_offlinedev_pathid_cache[req_pathid];
+        if(rk_offlinedev_pathid_cache2[req_pathid]) return rk_offlinedev_pathid_cache2[req_pathid];
         let url = seajs.resolve(req_pathid)
         let hehe = _require.apply(seajs, arguments)
+        rk_offlinedev_pathid_cache2[req_pathid] = hehe;
         let returnObj = rk_offlinedev_pathid_cache[req_pathid];        
         return returnObj?returnObj:hehe;
     }
