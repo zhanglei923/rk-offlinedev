@@ -23,25 +23,11 @@ let seajsUtil = require('../../utils/seajs/seajsUtil');
  * 
  * 
  */
-
-
 let funprefix = 'rk_offlinedev_debug';
-let updateRouterJs = (content)=>{
-    content = content.replace(/function\s{1,}goError/g, 
-`
-;delete window.rk_offlinedev_do_original_return;//需要在web的router.js的seajs.use(里，设成false，这样后面define函数就不走seajs的return了，便于聚合js代码
-
-function goError`
-)
-    return content;
-}
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticJsRequests')
     if(!enable) return content;
 
-    if(info.fullfilepath.indexOf('static/router.js')>=0) {
-        return updateRouterJs(content);//加一句话
-    }
     if(info.fullfilepath.indexOf('source')<=0) return content;//不是source目录里的
     let fullfilepath = info.fullfilepath;
 
@@ -84,7 +70,7 @@ let updateJs = (info, content)=>{
                     ,`let ${returnVarName} = ${funprefix}_${newcontent}`
                     ,`\n`
                     ,`if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[${pathidVarName}] = ${returnVarName}; `
-                    ,`if(window.rk_offlinedev_do_original_return)return rk_offlinedev_pathid_cache[${pathidVarName}];`
+                    ,`if(window.rk_offlinedev_shouldDoOriginalSeajsReturn("${pathid}"))return rk_offlinedev_pathid_cache[${pathidVarName}];`
                 ,`});`
             ];
             newcontent = newcontent_arr.join(';')

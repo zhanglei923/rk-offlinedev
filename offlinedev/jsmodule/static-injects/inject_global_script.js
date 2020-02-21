@@ -11,7 +11,6 @@ window.rk_offlinedev_debug_define = (fun)=>{
        return fun;
    }
 }
-window.rk_offlinedev_do_original_return=true;//需要在web的router.js的seajs.use(里，设成false，这样后面define函数就不走seajs的return了，便于聚合js代码
 window.rk_offlinedev_pathid_cache = {}
 window.rk_offlinedev_update_require = function(_require, pathid){
     let mypathid = pathid;
@@ -52,6 +51,17 @@ define = function(fun){
     rk_offlinedev_OriginalDefine.apply(seajs, arguments);
     //console.log(pathid)
     if(rk_offlinedev_pathid_cache[pathid]) return rk_offlinedev_pathid_cache[pathid]
+}
+//这几个pathid是被seajs.use用的，因此必须执行seajs默认的return模式，不能被拦截，否则seajs。use获取不到返回对象
+window.rk_offlinedev_shouldDoOriginalSeajsReturn = (pathid)=>{
+    let used_pathid = [
+        "core/rkloader.js", 
+        "page/js/frame/pageMainCtrl.js", 
+        "oldcrm/js/core/common-crm.js", 
+        "platform/page/index/widget.js",
+        "core/utils/i18n/process_data.js"
+    ];
+    return _.includes(used_pathid, pathid)
 }
 let rk_offlinedev_Original_seause = seajs.use;
 seajs.use = function(srcs, callback, a0,a1,a2,a3,a4,a5,a6,a7){
