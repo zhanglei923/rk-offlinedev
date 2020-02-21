@@ -26,7 +26,7 @@ let thisUtil = {
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
         //var jsContent = fs.readFileSync(fullfilepath, 'utf8'); 
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {
             let fullfilepathname = fullfilepath.replace(/[\\]{1,}/g,'~').replace(/\/{1,}/g,'~').replace(/\:{1,}/g,'~')
             if (err) jsContent=null;
             if(jsContent === ''){
@@ -85,7 +85,7 @@ let thisUtil = {
                 //console.log(fs.existsSync(fullfilepath), fullfilepath)
                 let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 jsContent = jsContent
-                callback(jsContent, {fromSubPrj, fullfilepath});
+                callback(jsContent, {fromSubPrj, fullfilepath, fileinfo});
             }else{
                 callback(null);
             }

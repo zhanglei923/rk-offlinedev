@@ -22,7 +22,7 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content, fileinfo) => {
             if (err) {
                 console.log(err)
                 content=null;    
@@ -30,7 +30,7 @@ module.exports = {
             if(typeof content === 'undefined' || content === null){ 
                 callback(null);
             }else{
-                callback(content, {fromSubPrj, fullfilepath});
+                callback(content, {fromSubPrj, fullfilepath, fileinfo});
             }
         });
     },
@@ -43,15 +43,15 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, content, fileinfo) => {
             if (err) {
                 console.log(err)
                 content=null;    
             }            
             if(typeof content === 'undefined' || content === null){ 
-                callback('', {fromSubPrj, fullfilepath});
+                callback('', {fromSubPrj, fullfilepath, fileinfo});
             }else{
-                callback(content, {fromSubPrj, fullfilepath});
+                callback(content, {fromSubPrj, fullfilepath, fileinfo});
             }
         });
     },
@@ -65,22 +65,22 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, info) => {
+        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
-                callback('', {fromSubPrj, fullfilepath});
+                callback('', {fromSubPrj, fullfilepath, fileinfo});
             }else if(jsContent){
                 //let injectScript = `;//Source: ${rootFolder},, Injected by rk-offlinedev: https://github.com/zhanglei923/rk-offlinedev';\n`
                 //jsContent =   injectScript + jsContent
-                let cmdinf;
-                if(info && info.isCached){
-                    cmdinf = cachedCmdInfo[fullfilepath]
+                let cmdinfo;
+                if(fileinfo && fileinfo.isCached){
+                    cmdinfo = cachedCmdInfo[fullfilepath]
                 }else{
-                    cmdinf = loadCmdInfo.loadCmdInfo(fullfilepath, jsContent)
-                    cachedCmdInfo[fullfilepath] = cmdinf;
+                    cmdinfo = loadCmdInfo.loadCmdInfo(fullfilepath, jsContent)
+                    cachedCmdInfo[fullfilepath] = cmdinfo;
                 }
-                //if(fullfilepath.indexOf('xxx')>=0)console.log(cmdinf)
-                callback(jsContent, {fromSubPrj, fullfilepath, cmdinf});
+                //if(fullfilepath.indexOf('xxx')>=0)console.log(cmdinfo)
+                callback(jsContent, {fromSubPrj, fullfilepath, fileinfo, cmdinfo});
             }else{
                 callback(null);
             }
