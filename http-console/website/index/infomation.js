@@ -28,9 +28,9 @@ let showInfomation = (result)=>{
             <span><span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">GZIP</span>
             <span><span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">CACHE</span>
             <span><span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+TPL</span>
-            <span><span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_dangous':'status_is_off status_is_neutral'}">+JS</span>
+            <span><span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+JS</span>
             <span><span title="user-config.json: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
-            <span><span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_dangous':'status_is_off status_is_neutral'}">404</span>
+            <span><span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right">主工程：</td><td>
