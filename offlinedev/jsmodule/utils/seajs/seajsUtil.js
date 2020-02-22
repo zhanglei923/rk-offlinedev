@@ -51,6 +51,10 @@ let setPathVars = (requirePath)=>{
 }
 let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
     let realpath;
+    let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
+    if(alias && alias[requirePath]){
+        requirePath = alias[requirePath];
+    }
     requirePath = setPathVars(requirePath);
     if(requirePath.match(/^\./)){
         let fdir = pathutil.parse(ownerFilePath).dir;
