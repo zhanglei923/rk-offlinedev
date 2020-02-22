@@ -123,7 +123,7 @@ let reloadConfig = ()=>{
     let staticConfigFilePath = allpathinfo.staticConfigFilePath;
     let staticDebugConfigFilePath = allpathinfo.staticDebugConfigFilePath;
 
-    webprojectUtil.loadSeaConfig(webroot)
+    config.runtime.seajsConfig.alias = webprojectUtil.loadSeaConfig(webroot)
     staticFilter.loadFilterDef(webroot);
 
     global.rkGlobalConfig = config;

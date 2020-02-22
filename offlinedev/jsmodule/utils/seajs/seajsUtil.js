@@ -1,7 +1,7 @@
 let fs = require('fs')
 let pathutil = require('path')
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
-let parseSeaConfig = (seaPath)=>{
+let parseSeaConfig2 = (seaPath)=>{
     var HashFilePath = seaPath + '/hash.js';
     var SeaConfigPath = seaPath + '/sea-config.js';
     var SeaConfig = {};
@@ -17,6 +17,27 @@ let parseSeaConfig = (seaPath)=>{
     return SeaConfig;
     
 };
+let parseSeaConfig = (seaPath)=>{
+    var SeaConfigPath = seaPath + '/sea-config.js';
+    let content = fs.readFileSync(SeaConfigPath,'utf8');
+    let arr = content.split('\n');
+    let keyvalue = []
+    let isIn = false;
+    arr.forEach((line)=>{
+        if(isIn && /\}/.test(line)) isIn = false;
+        if(isIn){
+            keyvalue.push(line)
+        }
+        if(/\balias\b\s{0,}\:/g.test(line)) isIn = true;
+
+    })
+    let jsonstr = `{${keyvalue.join('')}}`;
+    //console.log(jsonstr)
+    let SeaConfig;
+    eval(`SeaConfig = ${jsonstr}`)
+    //console.log(SeaConfig)
+    return SeaConfig;
+}
 let setPathVars = (requirePath)=>{
     if(requirePath.indexOf('{')<=0) return requirePath;
     let vars = global.rkGlobalConfig.runtime.seajsConfig.vars;
