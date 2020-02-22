@@ -62,7 +62,7 @@ let updateJs = (info, content)=>{
             let infostr = encodeURIComponent(JSON.stringify(info))
             newcontent = newcontent.replace(/\bexports\b\s{0,}=/g, `exports = rk_offlinedev_pathid_cache[${pathidVarName}] = `)
             let newcontent_arr = [
-                `define(function (require, exports, module) {`
+                `define(function (require, exports, module) {\n`
                     ,`let ${pathidVarName}="${pathid}";`
                     ,`;"rk-^^^^^^^^^^";"${infostr}";"rk-$$$$$$$$$$";/** 这里供外界用function.toString获取到pathid **/`
                     ,`rk_offlinedev.this_path_id = ${pathidVarName};`
@@ -71,7 +71,7 @@ let updateJs = (info, content)=>{
                     ,`\n`
                     ,`if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[${pathidVarName}] = ${returnVarName}; `
                     ,`if(window.rk_offlinedev_shouldDoOriginalSeajsReturn("${pathid}"))return rk_offlinedev_pathid_cache[${pathidVarName}];`
-                ,`});`
+                ,`\n});`
             ];
             newcontent = newcontent_arr.join(';')
             //fs.writeFileSync(fullfilepath, newcontent)
