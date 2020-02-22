@@ -87,7 +87,9 @@ let reloadConfig = ()=>{
     }
     let txtconfig = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+txtconfig)
-    config = Object.assign(defaultConfig, config);
+    let df = JSON.parse(JSON.stringify(defaultConfig));
+    config = _.assignIn(df, config);
+    //console.log(JSON.stringify(config))
 
     if(config.debug){
         if(typeof config.debug.gzip === 'undefined') config.debug.gzip = true;
