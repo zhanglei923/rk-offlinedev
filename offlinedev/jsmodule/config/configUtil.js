@@ -92,8 +92,6 @@ let reloadConfig = ()=>{
     //console.log(JSON.stringify(config))
 
     if(config.debug){
-        if(typeof config.debug.gzip === 'undefined') config.debug.gzip = true;
-        if(typeof config.debug.autoCacheStaticRequests === 'undefined') config.debug.autoCacheStaticRequests = true;
         if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
     }
  
