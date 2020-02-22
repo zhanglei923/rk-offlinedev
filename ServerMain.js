@@ -16,6 +16,7 @@ var privateKey = fs.readFileSync('./offlinedev/sslKey/v2/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
+var fpowerUtil = require('./offlinedev/jsmodule/utils/fpowerUtil')
 var credentials = {key: privateKey, cert: certificate};
 
 let userConfig = getConfig.getUserConfig();
@@ -224,13 +225,7 @@ var record404Actions = function(originalUrl){
     localStatus.setData('nofileUrls', _.uniq(nofileUrls))
     console.log('no-file', originalUrl)
 }
-// console.log('Updating...')
-// exec.exec('git pull', {
-//         timeout: 10*1000
-//     }, (error, stdout, stderr) => {
-//     console.log(`${stderr}`);
-//     console.log(`${stdout}`);
-//     console.log('----------')
+fpowerUtil.start();
 
 module.exports = {
     startHttp:()=>{
