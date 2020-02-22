@@ -8,6 +8,8 @@ let showInfomation = (result)=>{
     }
     let hostname = window.location.hostname;
     let userConfig = result.userConfig;
+    let sysStatus = result.sysStatus;
+    let cacheStatus = result.cacheStatus;
     console.log(userConfig)
     let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
     let httpsurl = `https://${hostname}:${userConfig.https.port}/static/sea-config.js`;
@@ -24,16 +26,23 @@ let showInfomation = (result)=>{
             <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right" valign="top">工具配置：</td><td>
-            <span><span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
-            <span><span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
-            <span><span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache</span>
-            <span><span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
-            <span><span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
-            <span><span title="user-config.json: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
-            <span><span title="user-config.json: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
-            <span><span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
+            <span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
+            <span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
+            <span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache</span>
+            <span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
+            <span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
+            <span title="user-config.json: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
+            <span title="user-config.json: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
+            <span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
+        </td></tr>
+        <tr><td align="right" valign="top">工具状态：</td><td>
+            <span>Heap:&nbsp;${sysStatus.meminfo.heapTotalMB}MB/${sysStatus.meminfo.heapUsedMB}MB=${sysStatus.meminfo.usedtotalPersentage}%</span>
+            <span>rss=&nbsp;${sysStatus.meminfo.rssMB}MB</span>
+            <br>
+            <span>Tmp=&nbsp;${cacheStatus.cache_folder} (${cacheStatus.totalCacheSizeMB}MB Used)</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
+        <tr><td align="right"></td><td colspan="999"><hr></td></tr>
         <tr><td align="right">主工程：</td><td>
                 <span class="projectname">
                     <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>

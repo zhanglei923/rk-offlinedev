@@ -3,10 +3,11 @@ var _ = require('lodash');
 let pathutil = require('path')
 var blueimp_md5 = require("blueimp-md5")//https://github.com/blueimp/JavaScript-MD5
 let makeDir = require('make-dir')
+let eachcontentjs = require('eachcontent-js')
 let auxiliary = require('../../jsmodule/config/auxiliary')
 
 let cache_folder = auxiliary.tmpFolder;
-console.log(`[CACHE]${cache_folder}`)
+console.log(`[TMP]${cache_folder}`)
 
 let getFolder = (cacheType, id)=>{
     if(!fs.existsSync(cache_folder)){
@@ -40,6 +41,18 @@ let removeCache = (cacheType, id)=>{
     });
 }
 
+let reportStatus = ()=>{
+    let totalsize = 0;
+    eachcontentjs.eachStatus(cache_folder, /./, (status, path)=>{
+        totalsize += status.size;
+    })
+    return {
+        cache_folder,
+        totalCacheSize: totalsize,
+        totalCacheSizeMB: (totalsize/1024/1024).toFixed(2),
+    }
+}
+
 module.exports = {
     md5:(str)=>{
         str = str ? str : '';
@@ -49,4 +62,5 @@ module.exports = {
     setCache,
     getCache,
     removeCache,
+    reportStatus
 }

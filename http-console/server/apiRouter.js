@@ -9,6 +9,8 @@ var configUtil = require('../../offlinedev/jsmodule/config/configUtil')
 var adminprojectUtil = require('../../offlinedev/jsmodule/config/adminprojectUtil')
 var webprojectUtil = require('../../offlinedev/jsmodule/config/webprojectUtil')
 var subprojectUtil = require('../../offlinedev/jsmodule/config/subprojectUtil')
+let systemUtil = require('../../offlinedev/jsmodule/config/systemUtil')
+let cacheUtil = require('../../offlinedev/jsmodule/utils/cacheUtil')
 var i18nAccess = require('../../offlinedev/jsmodule/i18n/i18nAccess')
 var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
@@ -73,6 +75,8 @@ module.exports = {
                 })
                 return 'done'
             }
+            let sysStatus = systemUtil.reportStatus()
+            let cacheStatus = cacheUtil.reportStatus()
             var allpathinfo = configUtil.getAllPathInfo()
             var adminInfo = adminprojectUtil.getInfo(allpathinfo.adminFolder)
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
@@ -89,10 +93,12 @@ module.exports = {
                 masterBranchName,
                 parentFolder,
                 isCustomizedWebRoot: configUtil.isCustomizedWebRoot(),
-                userConfig: configUtil.getUserConfig(),
+                userConfig: configUtil.getUserConfig(),//用户配置全集
                 projects,
                 filters,
                 adminInfo,
+                sysStatus,
+                cacheStatus
             })
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){
