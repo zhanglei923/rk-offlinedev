@@ -22,8 +22,11 @@
     debug:{
         console: true,
         autoCacheStaticRequests: true,//自动缓存静态资源，建议开启
+        
         concatStaticTplRequests: true,//自动聚合tpl静态资源请求
         concatStaticJsRequests: false,//自动聚合js静态资源请求
+        concatStaticCssRequests: false,//自动聚合css静态资源请求
+
         detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
     },
     runtime:{//这里定义一些运行时的状态，约定于jsp里的SESSION变量
