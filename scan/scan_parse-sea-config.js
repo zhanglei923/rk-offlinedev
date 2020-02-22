@@ -21,7 +21,11 @@ let parseSeajsConfig = (sourcepath)=>{
         if(/\balias\b\s{0,}\:/g.test(line)) isIn = true;
 
     })
-    console.log(keyvalue)
+    let jsonstr = `{${keyvalue.join('')}}`;
+    //console.log(jsonstr)
+    let json;
+    eval(`json = ${jsonstr}`)
+    console.log(json)
 }
 parseSeajsConfig(sourcepath)
 console.log(new Date()*1-t0)
