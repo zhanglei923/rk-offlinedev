@@ -29,6 +29,7 @@ let showInfomation = (result)=>{
             <span><span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache</span>
             <span><span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
             <span><span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
+            <span><span title="user-config.json: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
             <span><span title="user-config.json: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
             <span><span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
