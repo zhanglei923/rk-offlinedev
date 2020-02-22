@@ -3,7 +3,7 @@ let pathutil = require('path')
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
-let hot_response = require('./updateDevelopersScript/hot_response');
+let staticHotLoader = require('./staticHotLoader');
 let updateScriptForI18nTpl = require('./updateDevelopersScript/updateScriptForI18nTpl')
 let updateScriptForCmdConcat = require('./updateDevelopersScript/updateScriptForCmdConcat')
 let scanner = require('../../codeScan/scan')
@@ -42,8 +42,8 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         res.set('Content-Type', 'text/javascript');
         //console.log(req_path)
-        if(hot_response.isHotUrl(req_path)){
-            hot_response.loadContent(res, req_path);
+        if(staticHotLoader.isHotUrl(req_path)){
+            staticHotLoader.loadContent(res, req_path);
             return;
         }
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
