@@ -17,8 +17,20 @@ let parseSeaConfig = (seaPath)=>{
     return SeaConfig;
     
 };
+let setPathVars = (requirePath)=>{
+    if(requirePath.indexOf('{')<=0) return requirePath;
+    let vars = global.rkGlobalConfig.runtime.seajsConfig.vars;
+    //console.log('bf:', requirePath)
+    for(let v in vars){
+        let reg = new RegExp(`{${v}}`, 'g');
+        requirePath = requirePath.replace(reg, vars[v]);
+    }
+    //console.log('af:', requirePath)
+    return requirePath;
+}
 let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
     let realpath;
+    requirePath = setPathVars(requirePath);
     if(requirePath.match(/^\./)){
         let fdir = pathutil.parse(ownerFilePath).dir;
         realpath = pathutil.resolve(fdir, requirePath)
@@ -36,6 +48,7 @@ let me = {
     parseSeaConfig,
     loadJsonFromFile: jsonFileLoader.loadJsonFromFile,
     resolveRequirePath,
-    getRequireRegForReplacement
+    getRequireRegForReplacement,
+    setPathVars
 }
 module.exports = me;

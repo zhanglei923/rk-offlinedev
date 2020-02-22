@@ -126,6 +126,7 @@ let reloadConfig = ()=>{
     webprojectUtil.loadSeaConfig(webroot)
     staticFilter.loadFilterDef(webroot);
 
+    global.rkGlobalConfig = config;
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
     console.log('[static-root]=', static_project_root)

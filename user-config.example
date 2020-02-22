@@ -29,7 +29,8 @@
     runtime:{
         seajsConfig: {
                 vars: {
-                    'languageCode': 'zh-cn',
+                    'locale':'zh-cn',
+                    'languageCode': 'zh',
                 }
             }
     }
