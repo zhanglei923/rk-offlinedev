@@ -201,8 +201,8 @@ let showGitStatus = ()=>{
                     let result = response.result;
                     let status = result.status;
                     let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
-                    let txt = 'git-dirty'
-                    if(status.ahead===1) txt += ', git-not-new'
+                    let txt = 'file-dirty'
+                    if(status.ahead===1) txt += ', unfresh'
                     let isDirty = !isClean;
                     let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
