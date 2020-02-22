@@ -63,11 +63,10 @@ let updateAllTplJson = ()=>{
 let updateFirstJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
-
+        
     let fullfilepath = info.fullfilepath;
-    let userconfig = getConfig.getUserConfig()
-    
     if(isFirstJs(fullfilepath)){
+        let userconfig = getConfig.getUserConfig()
         updateAllTplJson()
         let dir = pathutil.parse(__filename).dir;
         let srcpath = pathutil.resolve(dir, '../../static-injects/inject_global_script.js');
