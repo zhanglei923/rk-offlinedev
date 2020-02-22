@@ -1,19 +1,19 @@
 {
-    webProjectPath: '',//default
-    staticProjectPath: '',//default
-    deployWebProjectPath:'',//default
+    webProjectPath: '',//你的web工程的路径，如果为空，则默认找平级目录下的web工程
+    staticProjectPath: '',//【不开放】
+    deployWebProjectPath:'',//从144下载的deploy包【不开放】
     http:{
-        port: 666
+        port: 666 //可以改变http的端口号
     },
     https:{
-        port: 443
+        port: 443 //可以改变http的端口号
     },
     es6:{
         autoTransformJs: false //自动将es6以上的语法，降级为普通js
     },
     jira:{
-        username:'',
-        password:''
+        username:'',//你的jira用户名
+        password:'' //你的jira密码
     },
     httpConfig:{
         http2: false,//是否开启http2协议
@@ -26,8 +26,8 @@
         concatStaticJsRequests: false,//自动聚合静态资源请求，目前只支持tpl
         detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
     },
-    runtime:{
-        seajsConfig: {
+    runtime:{//这里定义一些运行时的状态，约定于jsp里的SESSION变量
+        seajsConfig: {//这里是sea-config.js里的同名配置
                 vars: {
                     'locale':'zh-cn',
                     'languageCode': 'zh',
