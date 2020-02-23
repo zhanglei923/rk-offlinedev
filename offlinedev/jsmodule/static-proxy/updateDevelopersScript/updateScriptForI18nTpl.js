@@ -68,7 +68,7 @@ let updateAllTplJson = ()=>{
                     delete CacheOfAllTpl[pathid]
                 }
             }else
-            if(filename.match(/i18n/g)){
+            if(filename.match(/core\/i18n\//g)){
                 CacheOfI18n = null;//置空，重新加载
             }
         })
