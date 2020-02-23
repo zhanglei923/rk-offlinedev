@@ -51,7 +51,7 @@ let loadContent = (res, url)=>{
                 let cmdinfo = {};
                 let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
                 jsContent = updateScriptForCmdConcat.updateJs(info, jsContent, false)
-                fullcontent += `;${fullfilepath};\n${jsContent}`
+                fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
             }
             if(len === 0){
                 onall(fullcontent)
