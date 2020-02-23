@@ -7,7 +7,7 @@ global.FileMemoCache = {};
 
 let me = {}
 let getKey = (fullpath)=>{
-    return pathutil.normalize(fullpath).replace(/\/{1,}/g,',,,').replace(/\\{1,}/g,',,,');
+    return pathutil.normalize(fullpath);//.replace(/\/{1,}/g,',,,').replace(/\\{1,}/g,',,,');
 }
 let loadAllFiles = (rootpath)=>{
 

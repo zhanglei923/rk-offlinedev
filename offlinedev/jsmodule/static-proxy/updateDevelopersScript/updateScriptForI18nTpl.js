@@ -28,11 +28,22 @@ let updateAllTplJson = ()=>{
     if(!CacheOfAllTpl){
         CacheOfAllTpl = {}
         //console.log('[RK]Load all tpl')
-        eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
+        eachcontentjs.eachPath(sourceDir, [/\.tpl$/], (path)=>{
+            let content;
+            if(global.FileMemoCache[path]){
+                content = global.FileMemoCache[path].content;
+            }else{
+                content = fs.readFileSync(path, 'utf8')
+            }
             let pathid = pathutil.relative(sourceDir, path);
             //console.log(pathid)
             CacheOfAllTpl[pathid] = content;
-        })
+        });
+        // eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
+        //     let pathid = pathutil.relative(sourceDir, path);
+        //     //console.log(pathid)
+        //     CacheOfAllTpl[pathid] = content;
+        // })
     }
     if(canWatch && !tplWatched){
         console.log('[RK]Watching tpl/i18n files...')
