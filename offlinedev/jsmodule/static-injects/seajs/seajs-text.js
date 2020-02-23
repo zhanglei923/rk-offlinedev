@@ -207,18 +207,24 @@
     })();
 //rk-offlinedev 初始化
 (function(){
-  let initRkOfflineDev = function(){
-    $(function(){
-        $('body').append('<div style="position:fixed !important;background-color:#002520 !important;left:1px;font-size: 10px !important;bottom:1px;z-index:999998765 !important;">'+
-                          '<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev开启</a>'+
-                        '</div>'
-        );
-        console.warn('[rk-offlinedev]seajs-text注入成功')
-    })
+  var initRkOfflineDev = function(){
+      var div = document.createElement('div');
+      document.body.appendChild(div)
+      div.setAttribute('id','rk-offlinediv')
+      div.style.position='fixed';
+      div.style['background-color']='#002520';
+      div.style.left='1px';
+      div.style['font-size']= '10px';
+      div.style.bottom='1px';
+      div.style['z-index']='999998765';
+      
+      div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev开启</a>'
+      console.warn('[rk-offlinedev]seajs-text注入成功')
   };
-  if(document.all) {   
-    window.attachEvent('onload', initRkOfflineDev);   
-  }else{   
-    window.addEventListener('load', initRkOfflineDev, false);   
-  }
+  initRkOfflineDev()
+  // if(document.all) {   
+  //   window.attachEvent('onload', initRkOfflineDev);   
+  // }else{   
+  //   window.addEventListener('load', initRkOfflineDev, false);   
+  // }
 })()
