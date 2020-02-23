@@ -55,21 +55,23 @@ let updateAllTplJson = ()=>{
             recursive:true,
             ignored:/node\_modules/g
         }).on('all',(e, filename)=>{
-            if(filename.match(/\.tpl$/)){
-                let pathid = pathutil.relative(sourceDir, filename);
-                //console.log('changed', filename, pathid)
-                let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
-                if(fs.existsSync(fulltplpath)){
-                    //CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
-                    fs_readFile.fs_readFile(fulltplpath, {encoding:'utf8'}, (err, content) => {
-                        CacheOfAllTpl[pathid] = content;
-                    });
-                }else{
-                    delete CacheOfAllTpl[pathid]
+            if(!/Dir$/.test(e)){//不关注文件夹
+                if(filename.match(/\.tpl$/)){
+                    let pathid = pathutil.relative(sourceDir, filename);
+                    //console.log('changed', filename, pathid)
+                    let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
+                    if(fs.existsSync(fulltplpath)){
+                        //CacheOfAllTpl[pathid] = fs.readFileSync(fulltplpath, 'utf8')
+                        fs_readFile.fs_readFile(fulltplpath, {encoding:'utf8'}, (err, content) => {
+                            CacheOfAllTpl[pathid] = content;
+                        });
+                    }else{
+                        delete CacheOfAllTpl[pathid]
+                    }
+                }else
+                if(filename.match(/core\/i18n\//g)){
+                    CacheOfI18n = null;//置空，重新加载
                 }
-            }else
-            if(filename.match(/core\/i18n\//g)){
-                CacheOfI18n = null;//置空，重新加载
             }
         })
         tplWatched = true;
