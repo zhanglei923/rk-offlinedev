@@ -1,6 +1,6 @@
 var fs = require('fs');
 var _ = require('lodash')
-var pathutil = require('path');
+var blueimp_md5 = require("blueimp-md5")
 let is_path_inside = require('is-path-inside')
 var cacheUtil = require('./cacheUtil')
 
@@ -21,9 +21,6 @@ var cacheUtil = require('./cacheUtil')
 if(!global.PowerCache) global.PowerCache = {}
 const CACHE_NAME = 'requested_file_power'
 let plusFilePower = (fullfilepath)=>{
-    if(!fs.existsSync(fullfilepath)) {
-        return;
-    }
     if(typeof global.PowerCache[fullfilepath] === 'undefined') global.PowerCache[fullfilepath] = 0;
     global.PowerCache[fullfilepath]++;
 }
@@ -38,19 +35,20 @@ let isInside = (rootList, fullfilepath)=>{
     return isin;
 }
 let loadPower = (rootList)=>{
-    let cachenamelist = cacheUtil.listCacheId(CACHE_NAME)
-    if(!cachenamelist) return;
+    let cacheidlist = cacheUtil.listCacheId(CACHE_NAME)
+    if(!cacheidlist) return;
     global.PowerCache = {}
-    cachenamelist.forEach((cachename)=>{
-        let fullfilepath = cachename;//.replace(/\~\.\~/g, '/');
-        console.log('!!!', fullfilepath)
+    cacheidlist.forEach((cacheid)=>{
+        let content = cacheUtil.getCache(CACHE_NAME, cacheid)
+        let data = JSON.parse(content);
+        let fullfilepath = data.fpath;
         if(fs.existsSync(fullfilepath)){
             if(isInside(rootList, fullfilepath)){
-                let power = cacheUtil.getCache(CACHE_NAME, cachename)
+                let power = data.power;
                 global.PowerCache[fullfilepath] = power*1;
             }
         }else{
-            if(fs.existsSync(cachename))fs.unlinkSync(cachename);
+            cacheUtil.removeCache(cacheid);
         }
     })
 }
@@ -59,21 +57,26 @@ let getPowerData = ()=>{
 }
 let savePower = ()=>{
     for(let fpath in global.PowerCache){
-        let pw = global.PowerCache[fpath];
-        let fpathnickname = fpath.replace(/\/{1,}/g, '/');
-        //fpathnickname = fpathnickname.replace(/\/{1,}/g,'~.~');
-        cacheUtil.setCache(CACHE_NAME, fpathnickname, pw);
+        let power = global.PowerCache[fpath];
+        let hashid = blueimp_md5(fpath)
+        //setTimeout(()=>{
+            cacheUtil.setCache(CACHE_NAME, hashid, JSON.stringify({
+                fpath,
+                power
+            }));
+        //},0)
     }    
+    //console.log('saved')
 }
 
 let mytimer;
 module.exports = {
     startTimer:()=>{
         clearInterval(mytimer);
-        console.log('[HEART BEAT] File Power')
+        console.log('[F-Power] On')
         mytimer = setInterval(()=>{
             savePower();
-        }, 30*1000)
+        }, 60*1000)
     },
     plusFilePower,
     loadPower,

@@ -73,7 +73,7 @@ let linkToStaticFile = (req, res, next) => {
                 jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                 jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
-                                    `//[rk][real-path]${is_rk_cached?'[cached]':'[not-cached]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
+                                    `//[rk][real-path]${is_rk_cached?'[cached]':'[read]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
                                      //`//[sub-project]${info.fromSubPrj}\n` + 
                                      jscontent;
@@ -92,7 +92,8 @@ let linkToStaticFile = (req, res, next) => {
                 res.set('.rk-local-file-project', info.fromSubPrj ? info.fromSubPrj : 'apps-ingage-web');
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
-                if(root) jscontent = `/** [rk][file-path]${info.fullfilepath} **/\n`+
+                let is_rk_cached = (info.fileinfo && info.fileinfo.isCached);
+                if(root) jscontent = `/** [rk][file-path]${is_rk_cached?'[cached]':'[read]'}${info.fullfilepath} **/\n`+
                                      //`/** [sub-project]${info.fromSubPrj} **/\n` + 
                                      jscontent;
                 res.send(jscontent);

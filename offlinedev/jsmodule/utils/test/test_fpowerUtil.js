@@ -52,5 +52,5 @@ console.log(fpowerUtil.getPowerData())
 
 
 console.log('---~--')
-fpowerUtil.loadPower([`/Users/zhanglei/workspaces/apps-ingage-web`, `ccc`])
+fpowerUtil.loadPower([`/Users/zhanglei/workspaces/apps-ingage-web`, `/folder/not-exist`])
 console.log(fpowerUtil.getPowerData())

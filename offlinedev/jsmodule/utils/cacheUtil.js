@@ -52,9 +52,7 @@ let removeCache = (cacheType, id)=>{
     if(!folder) return;
     id = encodeURIComponent(id)
     let fpath = `${folder}/${id}.cache`;
-    fs.unlinkSync(fpath, ()=>{
-
-    });
+    if(fs.existsSync(fpath))fs.unlinkSync(fpath, ()=>{});
 }
 
 let reportStatus = ()=>{

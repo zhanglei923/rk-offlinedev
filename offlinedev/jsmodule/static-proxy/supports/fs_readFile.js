@@ -1,5 +1,6 @@
 let fs = require('fs-extra');
 let pathutil = require('path')
+let fpowerUtil = require('../../utils/fpowerUtil')
 let configUtil = require('../../config/configUtil')
 
 global.FileMemoCache = {};
@@ -37,6 +38,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             let memo = global.FileMemoCache[cachekey];
             if(memo.mc36 === mc36){
                 //console.log('cc', global.FileMemoCache[cachekey])
+                fpowerUtil.plusFilePower(fpath)
                 cb(null, global.FileMemoCache[cachekey].content, {
                     isCached: true,
                     mc36: memo.mc36
@@ -49,6 +51,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         fs.readFile(fpath, opt, (read_err, content)=>{
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.autoCacheStaticRequests')){
+                fpowerUtil.plusFilePower(fpath)
                 global.FileMemoCache[cachekey] = {
                     mc36,
                     content
