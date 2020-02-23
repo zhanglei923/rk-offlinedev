@@ -209,7 +209,7 @@
 (function(){
   let initRkOfflineDev = function(){
     $(function(){
-        $('body').append('<div style="position:fixed;background-color:yellow;left:0;top:0;z-index:999998765;">'+
+        $('body').append('<div style="position:fixed;background-color:yellow;left:1px;font-size: 10px;bottom:1px;z-index:999998765;">'+
                           '<a href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已激活</a>'+
                         '</div>'
         );
