@@ -210,7 +210,7 @@
   let initRkOfflineDev = function(){
     $(function(){
         $('body').append('<div style="position:fixed;background-color:yellow;left:0;top:0;z-index:999998765;">'+
-                          'rk-offlinedev'+
+                          'rk-offlinedev已启动'+
                         '</div>'
         );
         console.warn('[rk-offlinedev]seajs-text注入成功')
