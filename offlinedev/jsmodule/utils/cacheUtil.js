@@ -18,13 +18,15 @@ let getFolder = (cacheType)=>{
     if(!fs.existsSync(folder)) fs.mkdirSync(folder);
     return folder;
 }
-let listCacheFiles = (cacheType)=>{
+let listCacheId = (cacheType)=>{
     let folder = getFolder(cacheType)
     if(!folder) return;
     if(!fs.existsSync(folder)) return;
     let pathlist = []
-    eachcontentjs.eachPath(folder, /\.cache$/, (fpath)=>{
-        pathlist.push(fpath);
+    eachcontentjs.eachPath(folder, /\.cache$/, (fullfilepath)=>{
+        let fpath =  pathutil.relative(folder, fullfilepath);
+        let fname = fpath.replace(/\.cache$/,'');
+        pathlist.push(fname);
     })
     return pathlist;
 }
@@ -35,7 +37,7 @@ let setCache = (cacheType, id, content)=>{
     fs.writeFileSync(fpath, content);
 }
 let getCache = (cacheType, id)=>{
-    let folder = getFolder(cacheType, id)
+    let folder = getFolder(cacheType)
     if(!folder) return;
     let fpath = `${folder}/${id}.cache`;
     if(!fs.existsSync(fpath)) return null;
@@ -43,7 +45,7 @@ let getCache = (cacheType, id)=>{
     return content;
 }
 let removeCache = (cacheType, id)=>{
-    let folder = getFolder(cacheType, id)
+    let folder = getFolder(cacheType)
     if(!folder) return;
     let fpath = `${folder}/${id}.cache`;
     fs.unlinkSync(fpath, ()=>{
@@ -71,7 +73,7 @@ module.exports = {
     cache_folder,
     setCache,
     getCache,
-    listCacheFiles,
+    listCacheId,
     removeCache,
     reportStatus
 }

@@ -21,6 +21,9 @@ var cacheUtil = require('./cacheUtil')
 if(!global.PowerCache) global.PowerCache = {}
 const CACHE_NAME = 'requested_file_power'
 let plusFilePower = (fullfilepath)=>{
+    if(!fs.existsSync(fullfilepath)) {
+        return;
+    }
     if(typeof global.PowerCache[fullfilepath] === 'undefined') global.PowerCache[fullfilepath] = 0;
     global.PowerCache[fullfilepath]++;
 }
@@ -35,17 +38,19 @@ let isInside = (rootList, fullfilepath)=>{
     return isin;
 }
 let loadPower = (rootList)=>{
-    let filelist = cacheUtil.listCacheFiles(CACHE_NAME)
-    if(!filelist) return;
-    filelist.forEach((cachefilename)=>{
-        let fullfilepath = cachefilename.replace(/\~\.\~/g, '/');
+    let cachenamelist = cacheUtil.listCacheId(CACHE_NAME)
+    if(!cachenamelist) return;
+    global.PowerCache = {}
+    cachenamelist.forEach((cachename)=>{
+        let fullfilepath = cachename.replace(/\~\.\~/g, '/');
+        console.log('!!!', fullfilepath)
         if(fs.existsSync(fullfilepath)){
-            if(isInside(rootList)){
-                let power = fs.readFileSync(fullfilepath);
+            if(isInside(rootList, fullfilepath)){
+                let power = cacheUtil.getCache(CACHE_NAME, cachename)
                 global.PowerCache[fullfilepath] = power*1;
             }
         }else{
-            fs.unlinkSync(cachefilename);
+            fs.unlinkSync(cachename);
         }
     })
 }
