@@ -210,7 +210,7 @@
   let initRkOfflineDev = function(){
     $(function(){
         $('body').append('<div style="position:fixed;background-color:yellow;left:0;top:0;z-index:999998765;">'+
-                          'rk-offlinedev已启动'+
+                          '<a href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已激活</a>'+
                         '</div>'
         );
         console.warn('[rk-offlinedev]seajs-text注入成功')
