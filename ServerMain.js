@@ -11,6 +11,7 @@ var bodyParser = require('body-parser')
 var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
+var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updateDevelopersScript/updateStaticsUrl')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/v2/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
@@ -225,7 +226,13 @@ var record404Actions = function(originalUrl){
     localStatus.setData('nofileUrls', _.uniq(nofileUrls))
     console.log('no-file', originalUrl)
 }
-if(getConfig.getValue('debug.autoCacheStaticRequests')) fpowerUtil.startTimer();
+if(getConfig.getValue('debug.autoCacheStaticRequests')) {
+    let t0 = new Date()*1;
+    console.log(`[Pre-Load] Start...`)
+    fs_readFile.preloadCache();
+    console.log(`[Pre-Load] Finished, cost=`, ((new Date()*1)-t0)+'ms');
+    fpowerUtil.startTimer();
+}
 
 module.exports = {
     startHttp:()=>{

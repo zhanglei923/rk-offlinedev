@@ -64,5 +64,31 @@ let fs_readFile = (fpath, opt, cb)=>{
         });
     });
 }
+let preloadCache = ()=>{
+    let webapproot = configUtil.getWebAppFolder()
+    let roots = [webapproot]
+    fpowerUtil.loadPower(roots);
+    let powers = fpowerUtil.getPowerData();
+    ///console.log(powers)
+    for(let fpath in powers){
+        let cachekey = getKey(fpath)
+        if(fs.existsSync(fpath)){
+            let fstate = fs.lstatSync(fpath)
+            let content = fs.readFileSync(fpath, 'utf8')
+            let ctime36 = fstate.ctimeMs.toString(36);
+            let mtime36 = fstate.mtimeMs.toString(36);
+            let mc36 = mtime36+'-'+ctime36;
+            let cache = {
+                mc36,
+                content
+            }
+            //console.log(content)
+            global.FileMemoCache[cachekey] = cache;
+        }else{
+            console.log('unknown error: power cache not found' + fpath)
+        }
+    }
+}
 me.fs_readFile = fs_readFile;
+me.preloadCache = preloadCache;
 module.exports = me;
