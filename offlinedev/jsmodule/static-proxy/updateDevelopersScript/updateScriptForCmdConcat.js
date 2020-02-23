@@ -75,6 +75,25 @@ let updateJs = (info, content)=>{
             ];
             newcontent = newcontent_arr.join(';')
             //fs.writeFileSync(fullfilepath, newcontent)
+            if(1 && global.rkFileDepsCache[fullfilepath]){
+                // https://crm-dev61rs.ingageapp.com/static/source/lib/antlr/measurecheck/ExpressionParser.js
+                // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/config/viewset/echartsbaseset/biviewwaterfall/demoConfig/demoDataConfig.js
+                // https://crm-dev61rs.ingageapp.com/static/source/products/bi/widget/bikanbansharedialog/bikanbansharedialog.js
+                let deps = global.rkFileDepsCache[fullfilepath].deps;
+                let sourceDir = getConfig.getSourceFolder();
+                deps.forEach((info)=>{
+                    let req_path = info.rawPath;
+                    let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+                    var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                    if(req_realpath.match(/\.js$/)){
+                        if(fs.existsSync(req_realpath)){
+                            let pathid = pathutil.relative(sourceDir, req_realpath);
+                            let hotpath = pathutil.parse(pathid).dir + '/__hot_folder.js'
+                            newcontent = newcontent.replace(replacereg, `require("${pathid}"`);
+                        }
+                    }
+                });
+            }
             return newcontent;
         }
 

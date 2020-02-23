@@ -67,9 +67,16 @@ let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
 };
 let getRequireRegForReplacement = (req_path, closeright)=>{
     if(typeof closeright === 'undefined') closeright = false;//不闭合右侧圆括号，可以简化替换风险
-    return new RegExp('require[\\s]?[\(][\\s]{0,}(\'|")'+req_path+'(\'|")'+(closeright?'[\\s]{0,}\\){1}':''), 'g');
+    return new RegExp('require[\\s]{0,}[\(][\\s]{0,}(\'|")'+req_path+'(\'|")'+(closeright?'[\\s]{0,}\\){1}':''), 'g');
+}
+let addJsExt = (req_pathid)=>{
+    if(!/\.tpl$|\.js$|\.css$|\.json$/ig.test(req_pathid)){
+        req_pathid = req_pathid + '.js';
+    }
+    return req_pathid;
 }
 let me = {
+    addJsExt,
     parseSeaConfig,
     loadJsonFromFile: jsonFileLoader.loadJsonFromFile,
     resolveRequirePath,

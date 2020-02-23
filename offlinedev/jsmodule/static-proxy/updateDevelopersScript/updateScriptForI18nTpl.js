@@ -99,7 +99,7 @@ let updateFirstJs = (info, content)=>{
     }
     return content;
 }
-let depsCache = {};//缓存
+global.rkFileDepsCache = {};//缓存
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
@@ -117,12 +117,12 @@ let updateJs = (info, content)=>{
         let sourceDir = getConfig.getSourceFolder();
     
         let deps = [];
-        let cache = depsCache[fullfilepath];
+        let cache = global.rkFileDepsCache[fullfilepath];
         if(cache && cache.mc36 === mc36){
             deps = cache.deps;
         }else{
             deps = regParserMini.getRequires(content);
-            depsCache[fullfilepath] = {
+            global.rkFileDepsCache[fullfilepath] = {
                 mc36,
                 deps
             }
@@ -147,13 +147,6 @@ let updateJs = (info, content)=>{
                         // console.log(fdir)
                         // console.log(req_realpath)
                         // console.log('pathid',pathid)
-                    }
-                }else if(0){
-                    if(!fs.existsSync(req_realpath)) req_realpath = req_realpath + '.js';
-                    if(fs.existsSync(req_realpath)){
-                        let pathid = pathutil.relative(sourceDir, req_realpath);
-                        let hotpath = pathutil.parse(pathid).dir + '/__hot_folder.js'
-                        content = content.replace(replacereg, `require("${hotpath}"`);
                     }
                 }
             });
