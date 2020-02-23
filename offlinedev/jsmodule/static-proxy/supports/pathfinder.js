@@ -60,9 +60,11 @@ module.exports = {
         }
         fullfilepath = prettifyFilePath(fullfilepath);
         //如果有些想被转接到rk-offlinedev本地的js文件，在这里变一下路径
-        if(fullfilepath.match(/seajs\-text\.js$/)){
-            //console.log(fullfilepath)
+        if(fullfilepath.match(/\/seajs\-text\.js$/)){
             fullfilepath = pathutil.resolve(__filename, '../../../static-injects/seajs/seajs-text.js');
+        }else 
+        if(fullfilepath.match(/seajs\/sea\.js$/)){
+            fullfilepath = pathutil.resolve(__filename, '../../../static-injects/seajs/sea.js');
         }
         return {
             fullfilepath,
