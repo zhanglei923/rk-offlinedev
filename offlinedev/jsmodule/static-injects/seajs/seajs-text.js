@@ -209,8 +209,8 @@
 (function(){
   let initRkOfflineDev = function(){
     $(function(){
-        $('body').append('<div style="position:fixed;background-color:yellow;left:1px;font-size: 10px;bottom:1px;z-index:999998765;">'+
-                          '<a href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已激活</a>'+
+        $('body').append('<div style="position:fixed !important;background-color:#002520 !important;left:1px;font-size: 10px !important;bottom:1px;z-index:999998765 !important;">'+
+                          '<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已激活</a>'+
                         '</div>'
         );
         console.warn('[rk-offlinedev]seajs-text注入成功')
