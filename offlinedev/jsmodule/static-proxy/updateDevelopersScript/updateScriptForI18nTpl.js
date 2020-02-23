@@ -122,7 +122,9 @@ let updateJs = (info, content)=>{
             deps = cache.deps;
         }else{
             deps = regParserMini.getRequires(content);
+            let mightBeCmd = rk.mightBeCmdFile(content)
             global.rkFileDepsCache[fullfilepath] = {
+                mightBeCmd,
                 mc36,
                 deps
             }

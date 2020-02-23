@@ -5,7 +5,7 @@ var configJson = require('../config/configUtil').get()
 
 let me = {
     isHotUrl: (url)=>{
-        return /hotresponse\.js$/.test(url);
+        return /\_hotresponse\_\.js$/.test(url);
     },
     loadContent: (res, url)=>{
         res.send(`hot-content`);
