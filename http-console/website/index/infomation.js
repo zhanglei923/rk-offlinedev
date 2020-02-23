@@ -36,7 +36,7 @@ let showInfomation = (result)=>{
             <span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
         <tr><td align="right" valign="top">工具状态：</td><td>
-            <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
+            <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}% Used</span>
             <span>,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
             <br>
             <span>Tmp=&nbsp;${cacheStatus.cache_folder} (${cacheStatus.totalCacheSizeMB}MB Used)</span>
