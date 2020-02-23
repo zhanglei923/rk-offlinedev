@@ -42,7 +42,7 @@ let loadPower = (rootList)=>{
     if(!cachenamelist) return;
     global.PowerCache = {}
     cachenamelist.forEach((cachename)=>{
-        let fullfilepath = cachename.replace(/\~\.\~/g, '/');
+        let fullfilepath = cachename;//.replace(/\~\.\~/g, '/');
         console.log('!!!', fullfilepath)
         if(fs.existsSync(fullfilepath)){
             if(isInside(rootList, fullfilepath)){
@@ -50,7 +50,7 @@ let loadPower = (rootList)=>{
                 global.PowerCache[fullfilepath] = power*1;
             }
         }else{
-            fs.unlinkSync(cachename);
+            if(fs.existsSync(cachename))fs.unlinkSync(cachename);
         }
     })
 }
@@ -61,7 +61,7 @@ let savePower = ()=>{
     for(let fpath in global.PowerCache){
         let pw = global.PowerCache[fpath];
         let fpathnickname = fpath.replace(/\/{1,}/g, '/');
-        fpathnickname = fpathnickname.replace(/\/{1,}/g,'~.~');
+        //fpathnickname = fpathnickname.replace(/\/{1,}/g,'~.~');
         cacheUtil.setCache(CACHE_NAME, fpathnickname, pw);
     }    
 }

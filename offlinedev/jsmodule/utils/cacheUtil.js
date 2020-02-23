@@ -26,6 +26,7 @@ let listCacheId = (cacheType)=>{
     eachcontentjs.eachPath(folder, /\.cache$/, (fullfilepath)=>{
         let fpath =  pathutil.relative(folder, fullfilepath);
         let fname = fpath.replace(/\.cache$/,'');
+        fname = decodeURIComponent(fname)
         pathlist.push(fname);
     })
     return pathlist;
@@ -33,12 +34,14 @@ let listCacheId = (cacheType)=>{
 let setCache = (cacheType, id, content)=>{
     let folder = getFolder(cacheType)
     if(!folder) return;
+    id = encodeURIComponent(id);
     let fpath = `${folder}/${id}.cache`;
     fs.writeFileSync(fpath, content);
 }
 let getCache = (cacheType, id)=>{
     let folder = getFolder(cacheType)
     if(!folder) return;
+    id = encodeURIComponent(id);
     let fpath = `${folder}/${id}.cache`;
     if(!fs.existsSync(fpath)) return null;
     let content = fs.readFileSync(fpath, 'utf8')
@@ -47,6 +50,7 @@ let getCache = (cacheType, id)=>{
 let removeCache = (cacheType, id)=>{
     let folder = getFolder(cacheType)
     if(!folder) return;
+    id = encodeURIComponent(id)
     let fpath = `${folder}/${id}.cache`;
     fs.unlinkSync(fpath, ()=>{
 
