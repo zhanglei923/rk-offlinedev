@@ -77,7 +77,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
             newcontent = newcontent_arr.join(';')
             //fs.writeFileSync(fullfilepath, newcontent)
             let thisfileinfo = global.rkFileDepsCache[fullfilepath]
-            if(1 && thisfileinfo && thisfileinfo.mightBeCmd){
+            if(0 && thisfileinfo && thisfileinfo.mightBeCmd){
                 // https://crm-dev61rs.ingageapp.com/static/source/lib/antlr/measurecheck/ExpressionParser.js
                 // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/config/viewset/echartsbaseset/biviewwaterfall/demoConfig/demoDataConfig.js
                 // https://crm-dev61rs.ingageapp.com/static/source/products/bi/widget/bikanbansharedialog/bikanbansharedialog.js
