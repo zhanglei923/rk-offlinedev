@@ -1,4 +1,4 @@
-//rk-offlinedev
+//from rk-offlinedev
 /*! Sea.js 2.3.0 | seajs.org/LICENSE.md */ ! function(a, b) {
     function c(a) {
         return function(b) {
