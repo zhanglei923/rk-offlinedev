@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
+let updateScriptForCmdConcat = require('./updateDevelopersScript/updateScriptForCmdConcat')
 
 let webFolder = getConfig.getWebRoot()
 let staticFolder = getConfig.getStaticFolder()
@@ -16,7 +17,7 @@ let loadContent = (res, url)=>{
     let dir = pathutil.parse(url).dir;
     dir = dir.replace(/^\/{1,}/, './')
     dir = pathutil.resolve(webappFolder, dir);
-    console.log('dir=', dir)
+    //console.log('dir=', dir)
     if(!fs.existsSync(dir)){
         console.log(`[rk error]not found: ${dir}`)
         res.sendStatus(404).send(`Not Found: ${dir}`)
@@ -32,15 +33,24 @@ let loadContent = (res, url)=>{
             files.push(file)
         }
     })
-    let len = files.length;
+    let jsfiles = [];
+    files.forEach((fullfilepath)=>{
+        if(fullfilepath.match(/\.js$/)) jsfiles.push(fullfilepath)
+    });
+    let len = jsfiles.length;
     let fullcontent = ''
     let onall = (fullcontent)=>{
+        fullcontent = `define(function (require, exports, module) {;\n${fullcontent};\n});`;
         res.send(fullcontent);
     }
-    files.forEach((fullfilepath)=>{
+    jsfiles.forEach((fullfilepath)=>{
         fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {  
             len--;
             if(err){}else{
+                let fromSubPrj = {};
+                let cmdinfo = {};
+                let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
+                jsContent = updateScriptForCmdConcat.updateJs(info, jsContent, false)
                 fullcontent += `;${fullfilepath};\n${jsContent}`
             }
             if(len === 0){

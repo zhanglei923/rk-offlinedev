@@ -24,7 +24,8 @@ let seajsUtil = require('../../utils/seajs/seajsUtil');
  * 
  */
 let funprefix = 'rk_offlinedev_debug';
-let updateJs = (info, content)=>{
+let updateJs = (info, content, widthDefineHeader)=>{
+    if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
     let enable = getConfig.getValue('debug.concatStaticJsRequests')
     if(!enable) return content;
 
@@ -62,7 +63,7 @@ let updateJs = (info, content)=>{
             let infostr = encodeURIComponent(JSON.stringify(info))
             newcontent = newcontent.replace(/\bexports\b\s{0,}=/g, `exports = rk_offlinedev_pathid_cache[${pathidVarName}] = `)
             let newcontent_arr = [
-                `define(function (require, exports, module) {\n`
+                (widthDefineHeader ? `define(function (require, exports, module) {\n`:'')
                     ,`let ${pathidVarName}="${pathid}";`
                     ,`;"rk-^^^^^^^^^^";"${infostr}";"rk-$$$$$$$$$$";/** 这里供外界用function.toString获取到pathid **/`
                     ,`rk_offlinedev.this_path_id = ${pathidVarName};`
@@ -71,7 +72,7 @@ let updateJs = (info, content)=>{
                     ,`\n`
                     ,`if(typeof ${returnVarName} !== "undefined") rk_offlinedev_pathid_cache[${pathidVarName}] = ${returnVarName}; `
                     ,`if(window.rk_offlinedev_shouldDoOriginalSeajsReturn("${pathid}"))return rk_offlinedev_pathid_cache[${pathidVarName}];`
-                ,`\n});`
+                ,(widthDefineHeader ? `\n});`:'')
             ];
             newcontent = newcontent_arr.join(';')
             //fs.writeFileSync(fullfilepath, newcontent)

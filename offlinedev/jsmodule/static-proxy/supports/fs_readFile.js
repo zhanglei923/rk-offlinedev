@@ -1,5 +1,6 @@
 let fs = require('fs-extra');
 let pathutil = require('path')
+let rk = require('../../utils/rk')
 let fpowerUtil = require('../../utils/fpowerUtil')
 let configUtil = require('../../config/configUtil')
 
@@ -41,7 +42,8 @@ let fs_readFile = (fpath, opt, cb)=>{
                 fpowerUtil.plusFilePower(fpath)
                 cb(null, global.FileMemoCache[cachekey].content, {
                     isCached: true,
-                    mc36: memo.mc36
+                    mc36: memo.mc36,
+                    mightBeCmd: memo.mightBeCmd
                 });
                 return;
             }
@@ -49,17 +51,20 @@ let fs_readFile = (fpath, opt, cb)=>{
         // let content;
         // let read_err;
         fs.readFile(fpath, opt, (read_err, content)=>{
+            let mightBeCmd = rk.mightBeCmdFile(content)
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.autoCacheStaticRequests')){
                 fpowerUtil.plusFilePower(fpath)
                 global.FileMemoCache[cachekey] = {
                     mc36,
-                    content
+                    content,
+                    mightBeCmd
                 };
             }
             cb(read_err, content, {
                 isCached: false,
-                mc36
+                mc36,
+                mightBeCmd
             });
         });
     });
