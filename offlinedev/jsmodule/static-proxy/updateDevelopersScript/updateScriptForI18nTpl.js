@@ -28,6 +28,7 @@ let updateAllTplJson = ()=>{
     if(!CacheOfAllTpl){
         CacheOfAllTpl = {}
         //console.log('[RK]Load all tpl')
+        //let t0=new Date()*1
         eachcontentjs.eachPath(sourceDir, [/\.tpl$/], (path)=>{
             let content;
             if(global.FileMemoCache[path]){
@@ -37,8 +38,10 @@ let updateAllTplJson = ()=>{
             }
             let pathid = pathutil.relative(sourceDir, path);
             //console.log(pathid)
+            //if(content)content = content.replace(/\n/g,'').replace(/\s{1,}/g,' ')//.replace(/\>\s{1,}\</g,'')
             CacheOfAllTpl[pathid] = content;
         });
+        //console.log(new Date()*1 - t0)
         // eachcontentjs.eachContent(sourceDir, [/\.tpl$/], (content, path, states)=>{
         //     let pathid = pathutil.relative(sourceDir, path);
         //     //console.log(pathid)
