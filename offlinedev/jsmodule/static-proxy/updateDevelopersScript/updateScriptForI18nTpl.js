@@ -52,7 +52,8 @@ let updateAllTplJson = ()=>{
         console.log('[RK]Watching tpl/i18n files...')
         watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
             persistent:true,
-            recursive:true
+            recursive:true,
+            ignored:/node\_modules/g
         }).on('all',(e, filename)=>{
             if(filename.match(/\.tpl$/)){
                 let pathid = pathutil.relative(sourceDir, filename);
