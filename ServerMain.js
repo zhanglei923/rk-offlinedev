@@ -225,7 +225,8 @@ var record404Actions = function(originalUrl){
     localStatus.setData('nofileUrls', _.uniq(nofileUrls))
     console.log('no-file', originalUrl)
 }
-fpowerUtil.start();
+
+//fpowerUtil.startTimer();
 
 module.exports = {
     startHttp:()=>{

@@ -9,7 +9,7 @@ let auxiliary = require('../../jsmodule/config/auxiliary')
 let cache_folder = auxiliary.tmpFolder;
 console.log(`[TMP]${cache_folder}`)
 
-let getFolder = (cacheType, id)=>{
+let getFolder = (cacheType)=>{
     if(!fs.existsSync(cache_folder)){
         console.log(`cache_folder ${cache_folder} not exist.`);
         return;
@@ -18,8 +18,18 @@ let getFolder = (cacheType, id)=>{
     if(!fs.existsSync(folder)) fs.mkdirSync(folder);
     return folder;
 }
+let listCacheFiles = (cacheType)=>{
+    let folder = getFolder(cacheType)
+    if(!folder) return;
+    if(!fs.existsSync(folder)) return;
+    let pathlist = []
+    eachcontentjs.eachPath(folder, /\.cache$/, (fpath)=>{
+        pathlist.push(fpath);
+    })
+    return pathlist;
+}
 let setCache = (cacheType, id, content)=>{
-    let folder = getFolder(cacheType, id)
+    let folder = getFolder(cacheType)
     if(!folder) return;
     let fpath = `${folder}/${id}.cache`;
     fs.writeFileSync(fpath, content);
@@ -61,6 +71,7 @@ module.exports = {
     cache_folder,
     setCache,
     getCache,
+    listCacheFiles,
     removeCache,
     reportStatus
 }

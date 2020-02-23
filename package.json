@@ -37,7 +37,8 @@
     "git-parse": "1.0.3",
     "git-state": "4.1.0",
     "node-zookeeper-client": "1.1.0",
-    "jira-client": "6.13.0"
+    "jira-client": "6.13.0",
+    "is-path-inside":"3.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
