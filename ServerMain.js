@@ -230,8 +230,9 @@ if(getConfig.getValue('debug.autoCacheStaticRequests')) {
     let t0 = new Date()*1;
     console.log(`[Pre-Load] Start...`)
     fs_readFile.preloadCache();
-    console.log(`[Pre-Load] Finished, cost=`, ((new Date()*1)-t0)+'ms');
+    console.log(`[Pre-Load] Finished, cost=`, ((new Date()*1)-t0)+'ms');    
     fpowerUtil.startTimer();
+    console.log('[File-Power] On')
 }
 
 module.exports = {

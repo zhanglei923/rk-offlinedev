@@ -68,16 +68,16 @@ let savePower = ()=>{
     }    
     //console.log('saved')
 }
-
 let mytimer;
+let startTimer = ()=>{
+    clearTimeout(mytimer);
+    mytimer = setTimeout(()=>{
+        savePower();
+        startTimer();
+    }, 60*1000)
+}
 module.exports = {
-    startTimer:()=>{
-        clearInterval(mytimer);
-        console.log('[F-Power] On')
-        mytimer = setInterval(()=>{
-            savePower();
-        }, 60*1000)
-    },
+    startTimer,
     plusFilePower,
     loadPower,
     savePower,
