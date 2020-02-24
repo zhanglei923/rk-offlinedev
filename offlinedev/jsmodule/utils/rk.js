@@ -5,7 +5,13 @@ var decomment = require('decomment');
 var stripcomments = require('strip-comments')
 let cacheUtil = require('./cacheUtil')
 
-var rk = {
+//用到的地方太多，直接注册到global了
+global.rk_formatPath = (fpath)=>{
+    fpath = fpath.replace(/\\{1,}/g, '/').replace(/\/{1,}/g, '/')
+    return fpath;
+}
+
+var rk = {    
     mightBeCmdFile: function(content){
         return /define\s{0,}\(/.test(content);
     },
