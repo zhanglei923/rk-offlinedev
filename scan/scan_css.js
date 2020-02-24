@@ -39,6 +39,7 @@ eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
             fullurl = pathutil.resolve(dir, raw_url);
         }
         if(ishttp) console.log(fullurl)
+        fullurl = fullurl.split('?')[0]
         if(!ishttp && !fs.existsSync(fullurl)){
             badurls.push(fullurl)
         }
