@@ -4,8 +4,8 @@ let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 let staticHotLoader = require('./staticHotLoader');
-let updateScriptForI18nTpl = require('./updateDevelopersScript/updateScriptForI18nTpl')
-let updateScriptForCmdConcat = require('./updateDevelopersScript/updateScriptForCmdConcat')
+let updateScriptForI18nTpl = require('./updators/updateScriptForI18nTpl')
+let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let scanner = require('../../codeScan/scan')
 
 let linkToStaticFile = (req, res, next) => {

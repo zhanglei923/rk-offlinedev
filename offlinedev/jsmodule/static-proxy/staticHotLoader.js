@@ -2,7 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
-let updateScriptForCmdConcat = require('./updateDevelopersScript/updateScriptForCmdConcat')
+let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 
 let webFolder = getConfig.getWebRoot()
 let staticFolder = getConfig.getStaticFolder()

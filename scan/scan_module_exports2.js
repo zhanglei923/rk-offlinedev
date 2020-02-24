@@ -7,7 +7,7 @@ let eachcontentjs = require('eachcontent-js')
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 let t0=new Date()*1;
 
-let updateScriptForCmdConcat = require('../offlinedev/jsmodule/static-proxy/updateDevelopersScript/updateScriptForCmdConcat')
+let updateScriptForCmdConcat = require('../offlinedev/jsmodule/static-proxy/updators/updateScriptForCmdConcat')
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     let info = {
         fullfilepath:fpath,
