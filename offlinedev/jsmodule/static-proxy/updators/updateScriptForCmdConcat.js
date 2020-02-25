@@ -34,7 +34,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
 
     let sourcepath = info.sourceFolder;
 
-    let pathid = pathutil.relative(sourcepath,  fullfilepath)
+    let pathid = info.pathid;//pathutil.relative(sourcepath,  fullfilepath)
     //console.log('pathid=', pathid)
     if(content.indexOf(funprefix)<=0)
     if(!rk.isCookedJsPath(fullfilepath) && !rk.isLibJsPath(fullfilepath) && rk.mightBeCmdFile(content)){

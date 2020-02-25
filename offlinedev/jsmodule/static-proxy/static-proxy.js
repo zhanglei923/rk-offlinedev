@@ -47,7 +47,10 @@ let linkToStaticFile = (req, res, next) => {
             return;
         }
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
-            if(info)info.sourceFolder = sourceFolder;
+            if(info){
+                info.sourceFolder = sourceFolder;
+                info.pathid = pathutil.relative(info.sourceFolder,  info.fullfilepath);//seajs pathid
+            }
             if(jscontent === null){
                 res.status(404).send(`[rk-offlinedev][404]File Not Found.\n[rk-offlinedev]web=${webappFolder}\n[filepath=]`+req_path);
                 return;
