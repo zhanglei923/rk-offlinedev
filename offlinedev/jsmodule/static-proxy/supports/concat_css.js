@@ -66,7 +66,25 @@ let parseUrls = (webbaseDir, filepath, content)=>{
     }
     return details;
 }
-
+let getNewCssContent = (fullfilepath, csscontent, outputdir)=>{
+    if(!csscontent) return csscontent;
+    let dir = pathutil.parse(fullfilepath).dir;
+    let newcontent = csscontent;
+    let output = getUrls(csscontent);
+    if(output.relative_urls){
+        output.relative_urls.forEach((raw_url)=>{
+            let raw_fullpath = pathutil.resolve(dir, raw_url);
+            let new_relative_url = pathutil.relative(outputdir,raw_fullpath);
+            // console.log(
+            //     '[a]'+outputdir,'\n', 
+            //     '[b]'+raw_fullpath,'\n', 
+            //     '[c]'+new_relative_url)
+            let reg = new RegExp(`${raw_url}`, 'g');
+            newcontent = newcontent.replace(reg, new_relative_url)
+        })
+    }
+    return newcontent;
+}
 let me = {
     getUrls,
     parseUrls,
@@ -76,10 +94,6 @@ let me = {
     testUrls: (webbaseDir, filepath, csscontent)=>{
 
     },
-    getNewCssContent: (oldfilepath, targetdir, csscontent)=>{
-        if(!csscontent) return csscontent;
-        
-        
-    }
+    getNewCssContent
 }
 module.exports = me;
