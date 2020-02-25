@@ -66,15 +66,16 @@ let parseUrls = (webbaseDir, filepath, content)=>{
     }
     return details;
 }
-let getNewCssContent = (fullfilepath, csscontent, outputdir)=>{
+let getNewCssContent = (fullfilepath, csscontent, destfile)=>{
     if(!csscontent) return csscontent;
     let dir = pathutil.parse(fullfilepath).dir;
+    let destdir = pathutil.parse(destfile).dir;
     let newcontent = csscontent;
     let output = getUrls(csscontent);
     if(output.relative_urls){
         output.relative_urls.forEach((raw_url)=>{
             let raw_fullpath = pathutil.resolve(dir, raw_url);
-            let new_relative_url = pathutil.relative(outputdir,raw_fullpath);
+            let new_relative_url = pathutil.relative(destdir,raw_fullpath);
             //if(!/^\.\//.test(new_relative_url)) new_relative_url = './'+new_relative_url
             let bfreg = raw_url.replace(/\?/g, '\\?')
             let reg = new RegExp(`${bfreg}`, 'g');
