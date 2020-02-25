@@ -110,9 +110,15 @@
 }
 .visithistory li{
     display: block;
-     list-sytle:none;
-     padding-left: 20px;
+    list-style:none;
+    padding-left: 20px;
     font-size: 11px;
+}
+.infomation.loading{
+    padding:10px;
+    width: 1000px !important;
+    min-height:200px;
+    background-color: #010101a3;
 }
 .infomation .user-config{
     color:#ff1b1b;

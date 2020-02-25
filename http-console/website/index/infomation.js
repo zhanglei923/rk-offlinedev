@@ -127,7 +127,8 @@ let showInfomation = (result)=>{
             </td></tr>
     </tbody>
     </table>
-    `
+    `;
+    $('#infomation').removeClass(`loading`)
     $('#infomation').html(html)
     showSubProjects(result)
     showGitStatus();
