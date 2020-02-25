@@ -4,6 +4,7 @@ let pathutil = require('path');
 let os = require('os');
 let _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
+let is_path_inside = require('is-path-inside')
 let rk = require('../../utils/rk')
 let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
@@ -30,12 +31,16 @@ let updateJs = (info, content, widthDefineHeader)=>{
         deps.forEach((info)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
-            var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            if(req_realpath.match(/\.js$/)){
-
+            if(req_realpath.match(/\.css$/)){
+                let bi_path = pathutil.resolve(sourceDir, './products/bi')
+                if(is_path_inside(req_realpath, bi_path)){
+                    var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                    content = content.replace(replacereg, `require("platform/core/css/all-bi-widgets.css"`)    
+                    //console.log()
+                }
+                //console.log(req_realpath)
             }
         });
-        return newcontent;
     }
 
 

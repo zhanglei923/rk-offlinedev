@@ -6,6 +6,7 @@ var staticFileLoader = require('./staticFileLoader')
 let staticMemoLoader = require('./staticMemoLoader');
 let updateScriptForI18nTpl = require('./updators/updateScriptForI18nTpl')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
+let updateScriptForConcatCss = require('./updators/updateScriptForConcatCss')
 let scanner = require('../../codeScan/scan')
 
 let linkToStaticFile = (req, res, next) => {
@@ -75,6 +76,8 @@ let linkToStaticFile = (req, res, next) => {
                 jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
                 jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                 jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
+                jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
+                
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${is_rk_cached?'[cached]':'[read]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
