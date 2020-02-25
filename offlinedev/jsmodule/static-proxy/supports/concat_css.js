@@ -11,7 +11,7 @@ let getUrls = (content)=>{
     let absolute_urls = [];
     let http_urls = [];
     cssUrls.forEach((raw_url)=>{
-        if(raw_url.match(/^http\s{0,1}\:/)){
+        if(raw_url.match(/^http\s{0,1}\:/) || raw_url.match(/^#/)){// http://, https://, #default#VML
             http_urls.push(raw_url);
         }else if(raw_url.match(/^\//)){
             absolute_urls.push(raw_url);
