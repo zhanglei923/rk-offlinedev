@@ -75,10 +75,7 @@ let getNewCssContent = (fullfilepath, csscontent, outputdir)=>{
         output.relative_urls.forEach((raw_url)=>{
             let raw_fullpath = pathutil.resolve(dir, raw_url);
             let new_relative_url = pathutil.relative(outputdir,raw_fullpath);
-            // console.log(
-            //     '[a]'+outputdir,'\n', 
-            //     '[b]'+raw_fullpath,'\n', 
-            //     '[c]'+new_relative_url)
+            //if(!/^\.\//.test(new_relative_url)) new_relative_url = './'+new_relative_url
             let reg = new RegExp(`${raw_url}`, 'g');
             newcontent = newcontent.replace(reg, new_relative_url)
         })

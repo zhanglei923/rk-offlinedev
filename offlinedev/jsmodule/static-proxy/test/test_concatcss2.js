@@ -4,7 +4,9 @@ let concatcss = require('../supports/concat_css')
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 
+let superdir = `/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source`
+let supercss = ''
 eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
-    let output = concatcss.getNewCssContent(fpath, content, `/Users/zhanglei/ddd`);
-    fs.writeFileSync(fpath, output)
+    supercss += concatcss.getNewCssContent(fpath, content, superdir);
 });
+fs.writeFileSync(`${superdir}/su.css`, supercss)
