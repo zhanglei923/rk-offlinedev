@@ -42,10 +42,11 @@ let parseUrls = (webbaseDir, filepath, content)=>{
         details.absolute_urls = []
         urls.absolute_urls.forEach((raw_url)=>{
             let realfilepath = webbaseDir+''+raw_url;
+            let testpath = realfilepath.split('?')[0];//去掉可能的请求参数
             details.absolute_urls.push({
                 raw_url,
                 realfilepath,
-                exist: fs.existsSync(realfilepath)
+                exist: fs.existsSync(testpath)
             })
         })
     }
@@ -55,10 +56,11 @@ let parseUrls = (webbaseDir, filepath, content)=>{
         let dir = pathinfo.dir;
         urls.relative_urls.forEach((raw_url)=>{
             let realfilepath = pathutil.resolve(dir, raw_url);
+            let testpath = realfilepath.split('?')[0];//去掉可能的请求参数
             details.relative_urls.push({
                 raw_url,    
                 realfilepath,
-                exist: fs.existsSync(realfilepath)
+                exist: fs.existsSync(testpath)
             })
         })
     }
