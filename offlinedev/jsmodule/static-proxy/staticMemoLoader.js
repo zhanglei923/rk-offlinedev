@@ -5,6 +5,8 @@ var getConfig = require('../config/configUtil')
 let updateCss = require('./updators/updateCss')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
+let load_all_bi_widgets_css = require('./staticMemo/load_all_bi_widgets_css')
+
 
 let webFolder = getConfig.getWebRoot()
 let staticFolder = getConfig.getStaticFolder()
@@ -17,12 +19,20 @@ let isHotUrl = (url)=>{
         return true;
     }else if(load_all_xsy_widgets_css.is(url)){
         return true;
-    }
+    }else if(load_all_bi_widgets_css.is(url)){
+        return true;
+    }    
     return false;
 }
 let loadCssContent = (res, url)=>{
     if(load_all_xsy_widgets_css.is(url)){
         load_all_xsy_widgets_css.load(webappFolder, (content)=>{
+            res.send(content)
+        })
+        return;
+    }else 
+    if(load_all_bi_widgets_css.is(url)){
+        load_all_bi_widgets_css.load(webappFolder, (content)=>{
             res.send(content)
         })
         return;
