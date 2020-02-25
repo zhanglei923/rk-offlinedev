@@ -77,7 +77,8 @@ let linkToStaticFile = (req, res, next) => {
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 res.set('.rk-cached', is_rk_cached);
 
-                let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== info.mc36))
+                let newMC36 = info.fileinfo.mc36;
+                let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== newMC36))
                 if(!enableLevel2Cache || level2needsupdate){
                     jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
                     jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
@@ -85,7 +86,7 @@ let linkToStaticFile = (req, res, next) => {
                     jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
     
                     level2JsCache[req_path] = {
-                        mc36: info.mc36,
+                        mc36: newMC36,
                         jscontent
                     }
                     //console.log('level2')
