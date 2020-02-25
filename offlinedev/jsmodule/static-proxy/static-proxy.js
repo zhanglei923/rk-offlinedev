@@ -9,6 +9,9 @@ let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let updateScriptForConcatCss = require('./updators/updateScriptForConcatCss')
 let scanner = require('../../codeScan/scan')
 
+let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticRequestsLevel2');
+let level2JsCache = {}//这里缓存处理过的js文本，如果内存消耗过高，建议关闭
+
 let linkToStaticFile = (req, res, next) => {
     res.set('.rk', 'This is by rk-offlinedev!');
     let req_path = req.path;
@@ -73,11 +76,22 @@ let linkToStaticFile = (req, res, next) => {
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 res.set('.rk-cached', is_rk_cached);
-                jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
-                jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
-                jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
-                jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
-                
+
+                let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== info.mc36))
+                if(!enableLevel2Cache || level2needsupdate){
+                    jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
+                    jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
+                    jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
+                    jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
+    
+                    level2JsCache[req_path] = {
+                        mc36: info.mc36,
+                        jscontent
+                    }
+                    //console.log('level2')
+                }else{
+                    jscontent = level2JsCache[req_path].jscontent;
+                }                
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${is_rk_cached?'[cached]':'[read]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
                                      debugComments+
