@@ -6,10 +6,10 @@ let updateCss = require('../updators/updateCss')
 
 module.exports = {
     is:(url)=>{
-        return /all\-bi\-widgets\.css$/.test(url);
+        return /all\-bi\-widgets\_HOT\.css$/.test(url);
     },
     load:(webappFolder, callback)=>{
-        let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-bi-widgets.css')
+        let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-bi-widgets_HOT.css')
         updateCss.updateCss({
             sourceDirList: [
                 pathutil.resolve(webappFolder, './static/source/products/bi')

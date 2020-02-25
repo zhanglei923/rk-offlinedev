@@ -35,12 +35,13 @@ let updateJs = (info, content, widthDefineHeader)=>{
                 let bi_path = pathutil.resolve(sourceDir, './products/bi')
                 if(is_path_inside(req_realpath, bi_path)){
                     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                    content = content.replace(replacereg, `require("platform/core/css/all-bi-widgets.css"`)    
+                    content = content.replace(replacereg, `require("platform/core/css/all-bi-widgets_HOT.css"`)    
                     //console.log()
                 }
                 //console.log(req_realpath)
             }
         });
+        if(content.indexOf('all-xsy-widgets.css')>=0) content = content.replace(/all-xsy-widgets\.css/g, 'all-xsy-widgets_HOT.css')
     }
 
 
