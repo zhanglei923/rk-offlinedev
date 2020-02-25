@@ -4,6 +4,7 @@ let eachcontentjs = require('eachcontent-js')
 let concatcss = require('../supports/concat_css')
 let rk = require('../../utils/rk')
 let fs_readFile = require('../supports/fs_readFile')
+var CleanCSS = require('clean-css');
 
 var configJson = require('../../config/configUtil').get()
 
@@ -33,7 +34,12 @@ let updateCss = function (config){
                 csscontent += `\n/*** ${csspath} ***/\n`+concatcss.getNewCssContent(csspath, content, config.destFile);
             }
             if(len === 0) {
-                config.success(csscontent);
+                if(1){
+                    config.success(csscontent);
+                }else{
+                    var output = new CleanCSS( { /* options */ }).minify(csscontent);
+                    config.success(output.styles);
+                }                
             }
         });
     })
