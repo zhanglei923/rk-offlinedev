@@ -10,5 +10,21 @@ eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
         fpath, 
         content
     );
-    fs.writeFileSync(fpath, JSON.stringify(output))
+    let outputstring = []
+    if(output.relative_urls){
+        output.relative_urls.forEach((info)=>{
+            if(!info.exist){
+                outputstring.push(info.raw_url)
+            }
+        })
+    }
+    if(output.absolute_urls){
+        output.absolute_urls.forEach((info)=>{
+            if(!info.exist){
+                outputstring.push(info.raw_url)
+            }
+        })
+    }
+    if(outputstring.length>0)
+    fs.writeFileSync(fpath, outputstring.join('\n'));
 });
