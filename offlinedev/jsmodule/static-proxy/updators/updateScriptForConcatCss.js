@@ -10,6 +10,8 @@ let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
+let load_all_bi_widgets_css = require('../staticMemo/load_all_bi_widgets_css')
+let load_all_xsy_widgets_css = require('../staticMemo/load_all_xsy_widgets_css')
 
 let updateJs = (info, content, widthDefineHeader)=>{
     if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
@@ -31,17 +33,19 @@ let updateJs = (info, content, widthDefineHeader)=>{
         deps.forEach((info)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
-            if(req_realpath.match(/\.css$/)){
-                let bi_path = pathutil.resolve(sourceDir, './products/bi')
-                if(is_path_inside(req_realpath, bi_path)){
-                    var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                    content = content.replace(replacereg, `require("platform/core/css/all-bi-widgets_HOT.css"`)    
-                    //console.log()
-                }
-                //console.log(req_realpath)
+            let hotpathid;
+            hotpathid = load_all_bi_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            if(hotpathid){
+                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                content = content.replace(replacereg, `require("${hotpathid}"`) 
+            }
+            hotpathid = load_all_xsy_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            if(hotpathid){
+                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                content = content.replace(replacereg, `require("${hotpathid}"`) 
             }
         });
-        if(content.indexOf('all-xsy-widgets.css')>=0) content = content.replace(/all-xsy-widgets\.css/g, 'all-xsy-widgets_HOT.css')
+        //if(content.indexOf('all-xsy-widgets.css')>=0) content = content.replace(/all-xsy-widgets\.css/g, 'all-xsy-widgets_HOT.css')
     }
 
 

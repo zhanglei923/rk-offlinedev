@@ -8,6 +8,11 @@ module.exports = {
     isMyHotUrl:(url)=>{
         return /all\-xsy\-widgets\_HOT\.css$/.test(url);
     },
+    shouldReplacedWithThis:(sourceDir, req_realpath)=>{
+        if(req_realpath.match(/all\-xsy\-widgets.css$/)){
+            return 'platform/core/css/all-xsy-widgets_HOT.css';
+        }
+    },
     load:(webappFolder, callback)=>{
         let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-xsy-widgets_HOT.css')
         updateCss.updateCss({
