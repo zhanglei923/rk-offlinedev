@@ -22,6 +22,7 @@
     debug:{
         console: true,
         autoCacheStaticRequests: true,//自动缓存静态资源，建议开启
+        autoCacheStaticRequestsLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启
         
         concatStaticTplRequests: true,//自动聚合tpl静态资源请求
         concatStaticJsRequests: false,//自动聚合js静态资源请求
