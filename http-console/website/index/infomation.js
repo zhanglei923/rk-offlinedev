@@ -28,7 +28,8 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">配置：</td><td>
             <span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
             <span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
-            <span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache</span>
+            <span title="user-config.json: debug.autoCacheStaticRequests" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache[1]</span>
+            <span title="user-config.json: debug.autoCacheStaticRequestsLevel2" class="${userConfig.debug && userConfig.debug.autoCacheStaticRequestsLevel2?'status_is_on status_is_positive':'status_is_off status_is_negative'}">[2]</span>
             <span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
             <span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
             <span title="user-config.json: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
