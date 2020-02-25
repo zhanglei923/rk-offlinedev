@@ -4,6 +4,7 @@ var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
 let updateCss = require('./updators/updateCss')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
+let load_hot_bundle_js = require('./staticMemo/load_hot_bundle_js')
 let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
 let load_all_bi_widgets_css = require('./staticMemo/load_all_bi_widgets_css')
 
@@ -14,8 +15,7 @@ let sourceFolder = getConfig.getSourceFolder()
 var webappFolder = getConfig.getWebAppFolder()
 
 let isHotUrl = (url)=>{
-    //console.log('??', url)
-    if(/\_hotresponse\_\.js$/.test(url)) {
+    if(load_hot_bundle_js.is(url)) {
         return true;
     }else if(load_all_xsy_widgets_css.is(url)){
         return true;
@@ -39,51 +39,16 @@ let loadCssContent = (res, url)=>{
     }
 }
 let loadJsContent = (res, url)=>{
-    // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
-    let dir = pathutil.parse(url).dir;
-    dir = dir.replace(/^\/{1,}/, './')
-    dir = pathutil.resolve(webappFolder, dir);
-    //console.log('dir=', dir)
-    if(!fs.existsSync(dir)){
-        console.log(`[rk error]not found: ${dir}`)
-        res.sendStatus(404).send(`Not Found: ${dir}`)
+    if(load_hot_bundle_js.is(url)){
+        load_hot_bundle_js.load(webappFolder, url, (content)=>{
+            if(content === null) {
+                res.sendStatus(404).send(`Not Found: ${dir}`)
+            }else{
+                res.send(content)
+            }
+        })
         return;
     }
-    let files = []
-    var list = fs.readdirSync(dir)
-    list.forEach(function(file) {
-        file = dir + '/' + file
-        //console.log(file)
-        var stat = fs.statSync(file)
-        if (stat && !stat.isDirectory()) {
-            files.push(file)
-        }
-    })
-    let jsfiles = [];
-    files.forEach((fullfilepath)=>{
-        if(fullfilepath.match(/\.js$/)) jsfiles.push(fullfilepath)
-    });
-    let len = jsfiles.length;
-    let fullcontent = ''
-    let onall = (fullcontent)=>{
-        fullcontent = `define(function (require, exports, module) {;\n${fullcontent};\n});`;
-        res.send(fullcontent);
-    }
-    jsfiles.forEach((fullfilepath)=>{
-        fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {  
-            len--;
-            if(err){}else{
-                let fromSubPrj = {};
-                let cmdinfo = {};
-                let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
-                jsContent = updateScriptForCmdConcat.updateJs(info, jsContent, false)
-                fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
-            }
-            if(len === 0){
-                onall(fullcontent)
-            }
-        });
-    })
 }
 let me = {
     isHotUrl,
