@@ -5,7 +5,7 @@ var getConfig = require('../../config/configUtil')
 let updateCss = require('../updators/updateCss')
 
 module.exports = {
-    is:(url)=>{
+    isMyHotUrl:(url)=>{
         return /\_hotresponse\_\.js$/.test(url);
     },
     load:(webappFolder, url, callback)=>{

@@ -15,23 +15,23 @@ let sourceFolder = getConfig.getSourceFolder()
 var webappFolder = getConfig.getWebAppFolder()
 
 let isHotUrl = (url)=>{
-    if(load_hot_bundle_js.is(url)) {
+    if(load_hot_bundle_js.isMyHotUrl(url)) {
         return true;
-    }else if(load_all_xsy_widgets_css.is(url)){
+    }else if(load_all_xsy_widgets_css.isMyHotUrl(url)){
         return true;
-    }else if(load_all_bi_widgets_css.is(url)){
+    }else if(load_all_bi_widgets_css.isMyHotUrl(url)){
         return true;
     }    
     return false;
 }
 let loadCssContent = (res, url)=>{
-    if(load_all_xsy_widgets_css.is(url)){
+    if(load_all_xsy_widgets_css.isMyHotUrl(url)){
         load_all_xsy_widgets_css.load(webappFolder, (content)=>{
             res.send(content)
         })
         return;
     }else 
-    if(load_all_bi_widgets_css.is(url)){
+    if(load_all_bi_widgets_css.isMyHotUrl(url)){
         load_all_bi_widgets_css.load(webappFolder, (content)=>{
             res.send(content)
         })
@@ -39,7 +39,7 @@ let loadCssContent = (res, url)=>{
     }
 }
 let loadJsContent = (res, url)=>{
-    if(load_hot_bundle_js.is(url)){
+    if(load_hot_bundle_js.isMyHotUrl(url)){
         load_hot_bundle_js.load(webappFolder, url, (content)=>{
             if(content === null) {
                 res.sendStatus(404).send(`Not Found: ${dir}`)
