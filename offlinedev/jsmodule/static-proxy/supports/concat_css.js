@@ -76,21 +76,41 @@ let getNewCssContent = (fullfilepath, csscontent, outputdir)=>{
             let raw_fullpath = pathutil.resolve(dir, raw_url);
             let new_relative_url = pathutil.relative(outputdir,raw_fullpath);
             //if(!/^\.\//.test(new_relative_url)) new_relative_url = './'+new_relative_url
-            let reg = new RegExp(`${raw_url}`, 'g');
+            let bfreg = raw_url.replace(/\?/g, '\\?')
+            let reg = new RegExp(`${bfreg}`, 'g');
             newcontent = newcontent.replace(reg, new_relative_url)
         })
     }
     return newcontent;
 }
+let testUrls = (webbaseDir, fpath, content)=>{
+    let output = parseUrls(
+        webbaseDir, 
+        fpath, 
+        content
+    );
+    let badurls = []
+    if(output.relative_urls){
+        output.relative_urls.forEach((info)=>{
+            if(!info.exist){
+                badurls.push(info.raw_url)
+            }
+        })
+    }
+    if(output.absolute_urls){
+        output.absolute_urls.forEach((info)=>{
+            if(!info.exist){
+                badurls.push(info.raw_url)
+            }
+        })
+    }
+    return badurls;
+}
 let me = {
     getUrls,
     parseUrls,
-    concatCss: (targetfolder, filterFun)=>{
-
-    },
-    testUrls: (webbaseDir, filepath, csscontent)=>{
-
-    },
+    concatCss: (targetfolder, filterFun)=>{},
+    testUrls,
     getNewCssContent
 }
 module.exports = me;
