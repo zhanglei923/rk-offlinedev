@@ -10,9 +10,23 @@ let sourceFolder = getConfig.getSourceFolder()
 var webappFolder = getConfig.getWebAppFolder()
 
 let isHotUrl = (url)=>{
-    return /\_hotresponse\_\.js$/.test(url);
+    //console.log('??', url)
+    if(/\_hotresponse\_\.js$/.test(url)) {
+        return true;
+    }else if(/all\-xsy\-widgets\.css$/.test(url)){
+        return true;
+    }
+    return false;
 }
-let loadContent = (res, url)=>{
+let loadCssContent = (res, url)=>{
+    //console.log('??')
+    let onall = (fullcontent)=>{
+        fullcontent = `/**** load in memoery ****/\n${fullcontent}`;
+        res.send(fullcontent);
+    }
+    onall('haha')
+}
+let loadJsContent = (res, url)=>{
     // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
     let dir = pathutil.parse(url).dir;
     dir = dir.replace(/^\/{1,}/, './')
@@ -61,6 +75,7 @@ let loadContent = (res, url)=>{
 }
 let me = {
     isHotUrl,
-    loadContent
+    loadCssContent,
+    loadJsContent
 }
 module.exports = me;

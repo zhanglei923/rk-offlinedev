@@ -43,7 +43,7 @@ let linkToStaticFile = (req, res, next) => {
         res.set('Content-Type', 'text/javascript');
         //console.log(req_path)
         if(staticMemoLoader.isHotUrl(req_path)){
-            staticMemoLoader.loadContent(res, req_path);
+            staticMemoLoader.loadJsContent(res, req_path);
             return;
         }
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
@@ -83,6 +83,10 @@ let linkToStaticFile = (req, res, next) => {
         return;           
     }else if(/\.css$/.test(req_path)){
         res.set('Content-Type', 'text/css');
+        if(staticMemoLoader.isHotUrl(req_path)){
+            staticMemoLoader.loadCssContent(res, req_path);
+            return;
+        }
         staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
             if(info)info.sourceFolder = sourceFolder;
             if(jscontent === null){
