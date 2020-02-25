@@ -19,7 +19,7 @@ module.exports = {
             },
             destFile,
             success: function(newcontent){
-                newcontent = `/**** load in memoery ****/\n${newcontent}`;
+                newcontent = `/**** load from memoery, by rk-offlinedev ****/\n${newcontent}`;
                 callback(newcontent);
             }
         })
