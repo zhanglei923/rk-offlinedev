@@ -4,6 +4,7 @@ var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
 let updateCss = require('./updators/updateCss')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
+let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
 
 let webFolder = getConfig.getWebRoot()
 let staticFolder = getConfig.getStaticFolder()
@@ -14,27 +15,18 @@ let isHotUrl = (url)=>{
     //console.log('??', url)
     if(/\_hotresponse\_\.js$/.test(url)) {
         return true;
-    }else if(/all\-xsy\-widgets\.css$/.test(url)){
+    }else if(load_all_xsy_widgets_css.is(url)){
         return true;
     }
     return false;
 }
 let loadCssContent = (res, url)=>{
-    let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-xsy-widgets.css')
-    updateCss.updateCss({
-        sourceDirList: [
-            pathutil.resolve(webappFolder, 'platform/widgets'),
-            pathutil.resolve(webappFolder, 'platform/layout')
-        ],
-        filterFun:()=>{
-            return true;
-        },
-        destFile,
-        success: function(newcontent){
-            newcontent = `/**** load in memoery ****/\n${newcontent}`;
-            res.send(newcontent);
-        }
-    })
+    if(load_all_xsy_widgets_css.is(url)){
+        load_all_xsy_widgets_css.load(webappFolder, (content)=>{
+            res.send(content)
+        })
+        return;
+    }
 }
 let loadJsContent = (res, url)=>{
     // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
