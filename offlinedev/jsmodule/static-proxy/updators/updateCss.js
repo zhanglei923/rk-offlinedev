@@ -30,7 +30,7 @@ let updateCss = function (config){
             if(err){
                 console.log(err)
             }else{
-                csscontent += concatcss.getNewCssContent(csspath, content, config.destFile);
+                csscontent += `\n/*** ${csspath} ***/\n`+concatcss.getNewCssContent(csspath, content, config.destFile);
             }
             if(len === 0) {
                 config.success(csscontent);
