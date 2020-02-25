@@ -13,7 +13,7 @@ let concatConfig = {
     filterFun:()=>{},
     destFile:``
 }
-let updateCss = function (config){
+let concatCss = function (config){
     let csspathlist = [];
     config.sourceDirList.forEach((dir)=>{
         //console.log(dir)
@@ -45,5 +45,5 @@ let updateCss = function (config){
     })
 }
 module.exports = {
-    updateCss
+    concatCss
 }

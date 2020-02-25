@@ -2,7 +2,6 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
-let updateCss = require('../updators/updateCss')
 
 module.exports = {
     isMyHotUrl:(url)=>{

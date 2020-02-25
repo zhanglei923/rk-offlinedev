@@ -6,7 +6,7 @@ let updateCss = require('../updators/updateCss')
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/`
 let destFile = pathutil.resolve(sourcepath, './static/source/platform/core/css/all-xsy-widgets.css')
-updateCss.updateCss({
+updateCss.concatCss({
     sourceDirList: [
         pathutil.resolve(sourcepath, 'platform/widgets'),
         pathutil.resolve(sourcepath, 'platform/layout')

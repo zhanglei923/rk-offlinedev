@@ -15,7 +15,7 @@ module.exports = {
     },
     load:(webappFolder, callback)=>{
         let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-xsy-widgets_HOT.css')
-        updateCss.updateCss({
+        updateCss.concatCss({
             sourceDirList: [
                 pathutil.resolve(webappFolder, 'platform/widgets'),
                 pathutil.resolve(webappFolder, 'platform/layout')

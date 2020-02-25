@@ -2,7 +2,6 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
-let updateCss = require('./updators/updateCss')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let load_hot_bundle_js = require('./staticMemo/load_hot_bundle_js')
 let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')

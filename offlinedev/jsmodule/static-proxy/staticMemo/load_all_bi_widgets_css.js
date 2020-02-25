@@ -19,7 +19,7 @@ module.exports = {
     },
     load:(webappFolder, callback)=>{
         let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-bi-widgets_HOT.css')
-        updateCss.updateCss({
+        updateCss.concatCss({
             sourceDirList: [
                 pathutil.resolve(webappFolder, './static/source/products/bi')
             ],
