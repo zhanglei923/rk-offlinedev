@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
+let updateCss = require('./updators/updateCss')
 let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 
 let webFolder = getConfig.getWebRoot()
@@ -19,12 +20,21 @@ let isHotUrl = (url)=>{
     return false;
 }
 let loadCssContent = (res, url)=>{
-    //console.log('??')
-    let onall = (fullcontent)=>{
-        fullcontent = `/**** load in memoery ****/\n${fullcontent}`;
-        res.send(fullcontent);
-    }
-    onall('haha')
+    let destFile = pathutil.resolve(webappFolder, './static/source/platform/core/css/all-xsy-widgets.css')
+    updateCss.updateCss({
+        sourceDirList: [
+            pathutil.resolve(webappFolder, 'platform/widgets'),
+            pathutil.resolve(webappFolder, 'platform/layout')
+        ],
+        filterFun:()=>{
+            return true;
+        },
+        destFile,
+        success: function(newcontent){
+            newcontent = `/**** load in memoery ****/\n${newcontent}`;
+            res.send(newcontent);
+        }
+    })
 }
 let loadJsContent = (res, url)=>{
     // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
