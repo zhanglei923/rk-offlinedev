@@ -26,7 +26,7 @@ let isHotUrl = (url)=>{
     }    
     return false;
 }
-let loadCssContent = (res, url)=>{
+let loadHotCss = (res, url)=>{
     if(load_all_xsy_widgets_css.isMyHotUrl(url)){
         load_all_xsy_widgets_css.load(webappFolder, (content)=>{
             res.send(content)
@@ -46,7 +46,7 @@ let loadCssContent = (res, url)=>{
         return;
     }
 }
-let loadJsContent = (res, url)=>{
+let loadHotJs = (res, url)=>{
     if(load_hot_bundle_js.isMyHotUrl(url)){
         load_hot_bundle_js.load(webappFolder, url, (content)=>{
             if(content === null) {
@@ -60,7 +60,7 @@ let loadJsContent = (res, url)=>{
 }
 let me = {
     isHotUrl,
-    loadCssContent,
-    loadJsContent
+    loadHotCss,
+    loadHotJs
 }
 module.exports = me;
