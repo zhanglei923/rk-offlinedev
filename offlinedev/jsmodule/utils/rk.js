@@ -35,6 +35,7 @@ var rk = {
         return false;
     },
     isLibJsPath: function(fpath){
+        fpath = rk_formatPath(fpath)
         if(fpath.match(/\/lib\//g)
         ){
             return true;
