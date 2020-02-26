@@ -2,9 +2,7 @@
 
 NOTICE:
 
-This is a `PRIVATE` toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author. 
-
-This tookit are *NOT* allowed to be used in Liability/Trademark use/Patent use/Warranty purposes.
+This is a *PRIVATE* toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author. This tookit are *NOT* allowed to be used in Liability/Trademark use/Patent use/Warranty purposes.
 
 
 LISCENSE: 
