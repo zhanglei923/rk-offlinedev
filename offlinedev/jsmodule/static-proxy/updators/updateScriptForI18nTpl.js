@@ -37,6 +37,7 @@ let updateAllTplJson = ()=>{
                 content = fs.readFileSync(path, 'utf8')
             }
             let pathid = pathutil.relative(sourceDir, path);
+            pathid = rk_formatPath(pathid)
             //console.log(pathid)
             //if(content)content = content.replace(/\n/g,'').replace(/\s{1,}/g,' ')//.replace(/\>\s{1,}\</g,'')
             CacheOfAllTpl[pathid] = content;
