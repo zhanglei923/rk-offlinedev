@@ -6,6 +6,7 @@ let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let load_hot_bundle_js = require('./staticMemo/load_hot_bundle_js')
 let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
 let load_all_bi_widgets_css = require('./staticMemo/load_all_bi_widgets_css')
+let load_all_products_userdefinedmeasure_css = require('./staticMemo/load_all_products_userdefinedmeasure_css')
 
 
 let webFolder = getConfig.getWebRoot()
@@ -20,6 +21,8 @@ let isHotUrl = (url)=>{
         return true;
     }else if(load_all_bi_widgets_css.isMyHotUrl(url)){
         return true;
+    }else if(load_all_products_userdefinedmeasure_css.isMyHotUrl(url)){
+        return true;
     }    
     return false;
 }
@@ -32,6 +35,12 @@ let loadCssContent = (res, url)=>{
     }else 
     if(load_all_bi_widgets_css.isMyHotUrl(url)){
         load_all_bi_widgets_css.load(webappFolder, (content)=>{
+            res.send(content)
+        })
+        return;
+    }else 
+    if(load_all_products_userdefinedmeasure_css.isMyHotUrl(url)){
+        load_all_products_userdefinedmeasure_css.load(webappFolder, (content)=>{
             res.send(content)
         })
         return;
