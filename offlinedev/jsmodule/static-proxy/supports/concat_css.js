@@ -79,6 +79,7 @@ let getNewCssContent = (fullfilepath, csscontent, destfile)=>{
             //if(!/^\.\//.test(new_relative_url)) new_relative_url = './'+new_relative_url
             let bfreg = raw_url.replace(/\?/g, '\\?')
             let reg = new RegExp(`${bfreg}`, 'g');
+            new_relative_url = rk_formatPath(new_relative_url)
             newcontent = newcontent.replace(reg, new_relative_url)
         })
     }
