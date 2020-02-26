@@ -12,6 +12,7 @@ var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
+var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
 var privateKey = fs.readFileSync('./offlinedev/sslKey/v2/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
@@ -226,15 +227,24 @@ var record404Actions = function(originalUrl){
     localStatus.setData('nofileUrls', _.uniq(nofileUrls))
     console.log('no-file', originalUrl)
 }
-if(getConfig.getValue('debug.autoCacheStaticRequests')) {
-    fpowerUtil.startTimer();
-    console.log('[File-Power] On')
-    setTimeout(()=>{
-        let t0 = new Date()*1;
-        console.log(`[Pre-Load] Loading...`)
-        fs_readFile.preloadCache();
-        console.log(`[Pre-Load] Done.`, ((new Date()*1)-t0)+'ms');    
-    },1)
+let preloaded = false;
+let afterStart = ()=>{
+    if(preloaded) return;
+    if(getConfig.getValue('debug.autoCacheStaticRequests')) {
+        fpowerUtil.startTimer();
+        console.log('[File-Power] On')
+        setTimeout(()=>{
+            let t0 = new Date()*1;
+            console.log(`[Pre-Load] Loading files...`)
+            fs_readFile.preloadCache((fpath, content)=>{
+                seajsUtil.preLoadDeps(getConfig.getSourceFolder(), {fpath, content})
+                
+            });
+            console.log(`[Pre-Load] Cost:`, ((new Date()*1)-t0)+'ms');    
+            console.log(`[Pre-Load] Done.`);    
+        },1)
+    }
+    preloaded = true;
 }
 
 module.exports = {
@@ -244,11 +254,13 @@ module.exports = {
             var port = server.address().port;
             
             console.log('[HTTP] http://localhost:%s', port);
+            afterStart()
         });
     }, 
     startHttps:()=>{
         httpsServer.listen(SSLPORT, function() {
             console.log('[HTTPS] https://localhost:%s', SSLPORT);
+            afterStart()
         });
     }
 }

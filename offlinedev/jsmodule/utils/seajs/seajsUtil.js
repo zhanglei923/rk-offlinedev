@@ -99,6 +99,11 @@ let getFileDeps = (fullfilepath, content)=>{
     }       
     return global.rkFileDepsCache[fullfilepath];
 }
+let preLoadDeps = (sourcepath, fpath, content)=>{
+    if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
+        getFileDeps(fpath, content);
+    }
+}
 let me = {
     addJsExt,
     parseSeaConfig,
@@ -106,6 +111,7 @@ let me = {
     resolveRequirePath,
     getRequireRegForReplacement,
     setPathVars,
-    getFileDeps
+    getFileDeps,
+    preLoadDeps
 }
 module.exports = me;

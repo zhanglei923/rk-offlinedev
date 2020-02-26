@@ -69,7 +69,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         });
     });
 }
-let preloadCache = ()=>{
+let preloadCache = (onFileRead)=>{
     let webapproot = configUtil.getWebAppFolder()
     let roots = [webapproot]
     fpowerUtil.loadPower(roots);
@@ -89,6 +89,7 @@ let preloadCache = ()=>{
             }
             //console.log(content)
             global.FileMemoCache[cachekey] = cache;
+            onFileRead(fpath, content)
         }else{
             console.log('unknown error: power cache not found' + fpath)
         }
