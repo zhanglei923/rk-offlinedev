@@ -6,6 +6,7 @@ var makeDir = require('make-dir');
 var watcher = require('node-watch');
 let jsonformat = require('json-format')
 
+let gitUtil = require('../utils/gitUtil')
 let statusUtil = require('./statusUtil')
 
 let webprojectUtil = require('./webprojectUtil')
@@ -116,6 +117,10 @@ let reloadConfig = ()=>{
     config.deployStaticPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp/static')
     config.deployStaticPath_val_exist = fs.existsSync(config.deployStaticPath_val)
     let allpathinfo = getAllPathInfo(webroot);
+    let webProjectBranch = gitUtil.getBranchName(webroot)
+    config.webProjectInfo = {
+        branch: webProjectBranch
+    }
     webparent = allpathinfo.webparent;
     webappFolder = allpathinfo.webappFolder;
 
@@ -129,6 +134,7 @@ let reloadConfig = ()=>{
     global.rkGlobalConfig = config;
     console.log('[user-config]=', JSON.stringify(config))
     console.log('[web-root]=', webroot)
+    console.log('[web-branch]=', webProjectBranch)
     console.log('[static-root]=', static_project_root)
     console.log('[deploy]=', config.deployStaticPath_val)
     console.log('[platform]=', os.platform())

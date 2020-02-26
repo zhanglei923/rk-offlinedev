@@ -217,8 +217,9 @@
       div.style['font-size']= '10px';
       div.style.bottom='1px';
       div.style['z-index']='999998765';
-      
-      div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已开启</a>'
+
+      let webbranch = rk_offlinedev.userConfig.webProjectInfo.branch
+      div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev已开启'+'('+webbranch+')'+'</a>'
       console.warn('[rk-offlinedev]seajs-text注入成功')
   };
   initRkOfflineDev()
