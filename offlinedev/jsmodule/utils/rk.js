@@ -10,6 +10,15 @@ global.rk_formatPath = (fpath)=>{
     fpath = fpath.replace(/\\{1,}/g, '/').replace(/\/{1,}/g, '/')
     return fpath;
 }
+// let old_path_resolve = pathutil.resolve;
+// pathutil.resolve = function(){
+//     let resolved = old_path_resolve.apply(pathutil, arguments)
+//     console.log('bf:', resolved)
+
+//     resolved = rk_formatPath(resolved)
+//     console.log('af:', resolved)
+//     return resolved;
+// }
 
 var rk = {    
     mightBeCmdFile: function(content){

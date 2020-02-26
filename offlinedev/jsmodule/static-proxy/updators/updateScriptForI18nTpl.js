@@ -83,15 +83,9 @@ let updateFirstJs = (info, content)=>{
         
     let fullfilepath = info.fullfilepath;
     if(isFirstJs(fullfilepath)){
-        let userconfig = getConfig.getUserConfig()
         updateAllTplJson()
-        let dir = pathutil.parse(__filename).dir;
-        let srcpath = pathutil.resolve(dir, '../../static-injects/inject_global_script.js');
-        let defaultjs = fs.readFileSync(srcpath, 'utf8')
-
+        let defaultjs = '\n;\n'
         let alltpljson = `${JSON.stringify(CacheOfAllTpl)}`
-
-        defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
         defaultjs += `;window.rk_offlinedev.ALL_TPL_JSON=`+alltpljson;
         defaultjs += `\n//****** END *******//\n`
 
@@ -144,6 +138,7 @@ let updateJs = (info, content)=>{
                     if(fs.existsSync(req_realpath)){
                         let split = `,,,`
                         let pathid = pathutil.relative(sourceDir, req_realpath);
+                        //pathid = rk_formatPath(pathid);
                         content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
                         // console.log(req_path, staticDir)
                         // console.log(fdir)

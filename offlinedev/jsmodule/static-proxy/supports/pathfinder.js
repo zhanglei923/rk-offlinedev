@@ -66,6 +66,7 @@ module.exports = {
         if(fullfilepath.match(/seajs\/sea\.js$/)){
             fullfilepath = pathutil.resolve(__filename, '../../../static-injects/seajs/sea.js');
         }
+        fullfilepath = rk_formatPath(fullfilepath)
         return {
             fullfilepath,
             fromSubPrj
