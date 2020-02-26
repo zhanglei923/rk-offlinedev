@@ -12,7 +12,7 @@ let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
 let load_all_bi_widgets_css = require('../staticMemo/load_all_bi_widgets_css')
 let load_all_xsy_widgets_css = require('../staticMemo/load_all_xsy_widgets_css')
-let load_all_products_userdefinedmeasure_css = require('../staticMemo/load_all_products_userdefinedmeasure_css')
+let load_all_userdefinedmeasure_css = require('../staticMemo/load_all_userdefinedmeasure_css')
 let load_all_lib_css = require('../staticMemo/load_all_lib_css')
 
 let updateJs = (info, content, widthDefineHeader)=>{
@@ -46,7 +46,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
                 var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
                 content = content.replace(replacereg, `require("${hotpathid}"`) 
             }
-            hotpathid = load_all_products_userdefinedmeasure_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            hotpathid = load_all_userdefinedmeasure_css.shouldReplacedWithThis(sourceDir, req_realpath)
             if(hotpathid){
                 var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
                 content = content.replace(replacereg, `require("${hotpathid}"`) 
