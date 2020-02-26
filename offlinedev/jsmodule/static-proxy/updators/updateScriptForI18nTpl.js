@@ -138,7 +138,7 @@ let updateJs = (info, content)=>{
                     if(fs.existsSync(req_realpath)){
                         let split = `,,,`
                         let pathid = pathutil.relative(sourceDir, req_realpath);
-                        //pathid = rk_formatPath(pathid);
+                        pathid = rk_formatPath(pathid);
                         content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
                         // console.log(req_path, staticDir)
                         // console.log(fdir)
