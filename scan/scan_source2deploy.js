@@ -22,6 +22,15 @@ let t0=new Date()*1;
 
 makeDir.sync(deploypath)
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
+eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
+    let fdir = pathutil.parse(fpath).dir;
+    let pathid = pathutil.relative(sourcepath, fpath);
+    let newpath = pathutil.resolve(deploypath, pathid);
+    let newdir = pathutil.parse(newpath).dir;
+    makeDir.sync(newdir)
+
+    fs.writeFileSync(newpath, content) 
+});
 eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
     let fdir = pathutil.parse(fpath).dir;
     let pathid = pathutil.relative(sourcepath, fpath);
@@ -41,6 +50,8 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     makeDir.sync(newdir)
 
     if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath)){
+        content = content.replace(/http(s){0,1}\:\/\//g, 'http--')//【重点查这个问题！！】
+        content = rk.cleanComments(content);
         let deps = parser.getRequiresAsArray(content);
         let depspathid = [];
         deps.forEach((raw_req)=>{
@@ -71,7 +82,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             content = content.replace(/\)\s*\;?$/g, '');
             content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
 
-            //content = content.replace(/\)\}\s{0,}\;{0,}\s{0,}\)\s{0,}$/g, '');
+            content = content.replace(/\;{1,}\s{0,}\)\s{0,}$/g, '');//【重点查这个问题！！】
             //console.log(deps)
         }
     }
