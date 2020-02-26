@@ -44,11 +44,11 @@ let showInfomation = (result)=>{
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right"></td><td colspan="999"><hr></td></tr>
-        <tr><td align="right">主工程：</td><td>
-                <span class="projectname">
+        <tr><td align="right">Web工程：</td><td>
+                <span style="display:none;" class="projectname">
                     <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>
                 </span>
-                <span style="margin-left:18px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
+                <span style="margin-left:0px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                     ${result.webpath}
                 </span>
                 <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}"></span>
