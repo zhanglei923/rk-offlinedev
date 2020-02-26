@@ -1,7 +1,12 @@
 # rk-offlinedev
 
+NOTICE:
+  This is a `PRIVATE` toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author.
+
+
 LISCENSE:
-This is a `PRIVATE` toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author.
+[Creative Commons Zero v1.0 Universal](https://choosealicense.com/licenses/cc0-1.0/)
+
 
 How to use:
  1. First, make sure you have `git` and `nodejs` installed.
