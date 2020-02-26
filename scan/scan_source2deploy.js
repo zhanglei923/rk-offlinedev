@@ -31,6 +31,7 @@ eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
 
     let content2 = util.format('define("%s",%s,%s)', pathid, '[]', content)
     fs.writeFileSync(newpath, content2) 
+    fs.writeFileSync(newpath+'.js', content2) 
 });
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     let fdir = pathutil.parse(fpath).dir;
@@ -70,7 +71,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             content = content.replace(/\)\s*\;?$/g, '');
             content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
 
-            content = content.replace(/\)\s{0,}$/g, '');
+            //content = content.replace(/\)\}\s{0,}\;{0,}\s{0,}\)\s{0,}$/g, '');
             //console.log(deps)
         }
     }
