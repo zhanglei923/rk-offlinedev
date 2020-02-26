@@ -47,12 +47,21 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             if(seaconfig[raw_req]) {
                 req_pathid = seaconfig[raw_req];
             }else{
-                let req_fullpath = pathutil.resolve(fdir, raw_req);           
+                //let req_fullpath = pathutil.resolve(fdir, raw_req);      
+                let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req)     
+                // if(fpath.indexOf('pageMainCtrl.js')>=0 && raw_req.indexOf('fileUploaderCtrl')>=0){
+                //     console.log(fdir)
+                //     console.log(raw_req)
+                //     console.log(req_fullpath)
+                // }
                 req_pathid = pathutil.relative(sourcepath, req_fullpath);
             } 
             req_pathid = seajsUtil.addJsExt(req_pathid)
             depspathid.push(req_pathid)
         })
+        // if(fpath.indexOf('pageMainCtrl.js')>=0){
+        //     //console.log(deps)
+        // }
         //console.log(depspathid)
         if(	seaHeaderReg.test(content) 
         ){
@@ -61,7 +70,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             content = content.replace(/\)\s*\;?$/g, '');
             content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
 
-            content = content.replace(/\)$/g, '');
+            content = content.replace(/\)\s{0,}$/g, '');
             //console.log(deps)
         }
     }
