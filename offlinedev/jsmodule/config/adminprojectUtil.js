@@ -12,7 +12,7 @@ var configpath;
 let currentSeaConfig;
 module.exports = {
     getInfo:(adminpath)=>{
-        console.log('[load sea-config]' + adminpath)
+        //console.log('[load sea-config]' + adminpath)
         if(!fs.existsSync(adminpath)) return null;
         let info = {
             adminFolder: adminpath,
