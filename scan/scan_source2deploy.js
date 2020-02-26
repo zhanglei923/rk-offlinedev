@@ -22,7 +22,16 @@ let t0=new Date()*1;
 
 makeDir.sync(deploypath)
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
+eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
+    let fdir = pathutil.parse(fpath).dir;
+    let pathid = pathutil.relative(sourcepath, fpath);
+    let newpath = pathutil.resolve(deploypath, pathid);
+    let newdir = pathutil.parse(newpath).dir;
+    makeDir.sync(newdir)
 
+    let content2 = util.format('define("%s",%s,%s)', pathid, '[]', content)
+    fs.writeFileSync(newpath, content2) 
+});
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     let fdir = pathutil.parse(fpath).dir;
     let pathid = pathutil.relative(sourcepath, fpath);
@@ -57,7 +66,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
         }
     }
 
-    console.log(newpath)
+    //console.log(newpath)
     fs.writeFileSync(newpath, content)
 });
 console.log(new Date()*1-t0)
