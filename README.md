@@ -4,11 +4,6 @@ NOTICE:
 
 This is a *PRIVATE* toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author. This tookit are *NOT* allowed to be used in Liability/Trademark use/Patent use/Warranty purposes.
 
-
-LISCENSE: 
-
-[Creative Commons Zero v1.0 Universal](https://choosealicense.com/licenses/cc0-1.0/)
-
 -------
 
 How to use:
@@ -38,3 +33,8 @@ How to use:
     如果你是mac或linux，需要加sudo：`sudo node server.js`
  1. 如果提示成功，那么打开浏览器，访问[http://localhost:666/](http://localhost:666/) 或者 [https://localhost](https://localhost)
 1. 如果你同时有多个web项目，可以修改这个文件指向你想调试的web工程：`./rk-offlinedev/user-config.json`，比如设成：`"webProjectPath": "E:/workspaceGerrit/apps-ingage-web"`
+
+
+LISCENSE: 
+
+[Creative Commons Zero v1.0 Universal](https://choosealicense.com/licenses/cc0-1.0/)
