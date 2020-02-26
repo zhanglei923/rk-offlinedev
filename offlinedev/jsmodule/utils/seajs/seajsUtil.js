@@ -1,5 +1,7 @@
 let fs = require('fs')
 let pathutil = require('path')
+let rk = require('../../utils/rk')
+let regParserMini = require('./regParserMini');
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
 let parseSeaConfig2 = (seaPath)=>{
     var HashFilePath = seaPath + '/hash.js';
@@ -75,12 +77,35 @@ let addJsExt = (req_pathid)=>{
     }
     return req_pathid;
 }
+global.rkFileDepsCache = {};//缓存
+let getFileDeps = (fullfilepath, content)=>{
+    let fstate = fs.lstatSync(fullfilepath);
+    let ctime36 = fstate.ctimeMs.toString(36);
+    let mtime36 = fstate.mtimeMs.toString(36);
+    let mc36 = mtime36+'-'+ctime36;
+    
+    let deps = [];
+    let cache = global.rkFileDepsCache[fullfilepath];
+    if(cache && cache.mc36 === mc36){
+        deps = cache.deps;
+    }else{
+        deps = regParserMini.getRequires(content);
+        let mightBeCmd = rk.mightBeCmdFile(content)
+        global.rkFileDepsCache[fullfilepath] = {
+            mightBeCmd,
+            mc36,
+            deps
+        }
+    }       
+    return global.rkFileDepsCache[fullfilepath];
+}
 let me = {
     addJsExt,
     parseSeaConfig,
     loadJsonFromFile: jsonFileLoader.loadJsonFromFile,
     resolveRequirePath,
     getRequireRegForReplacement,
-    setPathVars
+    setPathVars,
+    getFileDeps
 }
 module.exports = me;

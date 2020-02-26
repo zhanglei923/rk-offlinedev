@@ -94,7 +94,6 @@ let updateFirstJs = (info, content)=>{
     }
     return content;
 }
-global.rkFileDepsCache = {};//缓存
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
@@ -111,19 +110,7 @@ let updateJs = (info, content)=>{
         let staticDir = getConfig.getStaticFolder();
         let sourceDir = getConfig.getSourceFolder();
     
-        let deps = [];
-        let cache = global.rkFileDepsCache[fullfilepath];
-        if(cache && cache.mc36 === mc36){
-            deps = cache.deps;
-        }else{
-            deps = regParserMini.getRequires(content);
-            let mightBeCmd = rk.mightBeCmdFile(content)
-            global.rkFileDepsCache[fullfilepath] = {
-                mightBeCmd,
-                mc36,
-                deps
-            }
-        }       
+        let deps = seajsUtil.getFileDeps(fullfilepath, content).deps;
         if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
             //let t0=new Date()*1;
             let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
