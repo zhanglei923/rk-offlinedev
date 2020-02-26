@@ -13,7 +13,7 @@ let seajsUtil = require('../offlinedev/jsmodule/utils/seajs/seajsUtil')
 let eachcontentjs = require('eachcontent-js')
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
-let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/deploy2`
+let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 
 let seaconfig = seajsUtil.parseSeaConfig(`/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static`)
 console.log(seaconfig)
@@ -50,7 +50,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             content = content.trim().replace(/>\s*\r?\n\s*</g, '><').replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
             content = content.replace(seaHeaderReg, 'function(require,exports,module)')
             content = content.replace(/\)\s*\;?$/g, '');
-            content = util.format('define("%s",%s,%s)', fpath, JSON.stringify(depspathid), content)
+            content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
             //console.log(deps)
         }
     }
