@@ -13,7 +13,7 @@ let seajsUtil = require('../offlinedev/jsmodule/utils/seajs/seajsUtil')
 let eachcontentjs = require('eachcontent-js')
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
-let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
+let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/deploy`
 
 let seaconfig = seajsUtil.parseSeaConfig(`/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static`)
 console.log(seaconfig)
@@ -44,18 +44,20 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             req_pathid = seajsUtil.addJsExt(req_pathid)
             depspathid.push(req_pathid)
         })
-        console.log(depspathid)
+        //console.log(depspathid)
         if(	seaHeaderReg.test(content) 
         ){
-            content = content.trim().replace(/>\s*\r?\n\s*</g, '><').replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
+            //content = content.trim().replace(/>\s*\r?\n\s*</g, '><').replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
             content = content.replace(seaHeaderReg, 'function(require,exports,module)')
             content = content.replace(/\)\s*\;?$/g, '');
             content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
+
+            content = content.replace(/\)$/g, '');
             //console.log(deps)
         }
     }
 
-    //console.log(newpath)
+    console.log(newpath)
     fs.writeFileSync(newpath, content)
 });
 console.log(new Date()*1-t0)

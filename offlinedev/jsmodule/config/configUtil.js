@@ -190,6 +190,9 @@ let thisUtil = {
     getSourceFolder: function(){
         return this.getStaticFolder() + '/source';
     },
+    getDeployFolder: function(){
+        return this.getStaticFolder() + '/deploy';
+    },
     getMasterTmpFolder: ()=>{
         return tmp_folder;
     },

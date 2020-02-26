@@ -17,6 +17,12 @@ let linkToStaticFile = (req, res, next) => {
     let req_path = req.path;
     //console.log('req_path', req_path)
     //console.log(req.path)
+    let webFolder = getConfig.getWebRoot()
+    let staticFolder = getConfig.getStaticFolder()
+    let sourceFolder = getConfig.getSourceFolder()
+    let deployFolder = getConfig.getDeployFolder()
+    var webappFolder = getConfig.getWebAppFolder()
+    let root = webappFolder;
     if(req_path === '/sw-offlinedev.js'){//如果是根目录/sw.js，默认是访问webapp目录下，因此在static-proxy.js里做了一个转接
         let jscontent = fs.readFileSync(pathutil.resolve(getConfig.getMasterRoot(), './http-console/website/service-worker/sw-offlinedev.js'))
         res.set('Content-Type', 'text/javascript');
@@ -28,15 +34,15 @@ let linkToStaticFile = (req, res, next) => {
         return;
     }
     if(req_path.match(/^\/static\/deploy\//)){
-        //console.log('deploy!', req_path)
-        next();
+        console.log('deploy!', webappFolder, req_path)
+        let fulldeploypath = pathutil.resolve(webappFolder, req_path)
+        if(fs.existsSync(fulldeploypath)){
+            res.send(jscontent);
+        }else{
+            res.status(404).send(`Can not find:${fulldeploypath}`)
+        }
         return;
     }
-    let webFolder = getConfig.getWebRoot()
-    let staticFolder = getConfig.getStaticFolder()
-    let sourceFolder = getConfig.getSourceFolder()
-    var webappFolder = getConfig.getWebAppFolder()
-    let root = webappFolder;
     let filterDef = staticFilter.getFilterResult(req_path);
     if(filterDef) {
         root = filterDef.localpath;
