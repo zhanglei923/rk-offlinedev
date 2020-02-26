@@ -18,7 +18,6 @@ How to use:
     Or, if mac/linux, Run `sudo node server.js`
  1. Open your browser and visit [http://localhost:666/](http://localhost:666/) or [https://localhost](https://localhost)
 
-------
 
 警告：
 这是私有项目，若非团队成员，禁止任何拷贝/集成/修改/发布，若要进行上述行为，请联系作者。
@@ -34,6 +33,7 @@ How to use:
  1. 如果提示成功，那么打开浏览器，访问[http://localhost:666/](http://localhost:666/) 或者 [https://localhost](https://localhost)
 1. 如果你同时有多个web项目，可以修改这个文件指向你想调试的web工程：`./rk-offlinedev/user-config.json`，比如设成：`"webProjectPath": "E:/workspaceGerrit/apps-ingage-web"`
 
+------
 
 LISCENSE: 
 
