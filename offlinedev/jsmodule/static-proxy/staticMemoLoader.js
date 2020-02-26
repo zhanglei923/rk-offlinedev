@@ -20,7 +20,7 @@ let isHotUrl = (url)=>{
     else if(load_all_xsy_widgets_css.isMyHotUrl(url)){return true;}
     else if(load_all_bi_widgets_css.isMyHotUrl(url)){return true;}
     else if(load_all_products_userdefinedmeasure_css.isMyHotUrl(url)){return true;}    
-    else if(load_all_lib_css.isMyHotUrl(url)){return true;}    
+    //else if(load_all_lib_css.isMyHotUrl(url)){return true;}    
     return false;
 }
 let loadHotCss = (res, url)=>{
@@ -39,12 +39,13 @@ let loadHotCss = (res, url)=>{
             res.send(content)
         })
         return;
-    }else if(load_all_lib_css.isMyHotUrl(url)){
-        load_all_lib_css.load(webappFolder, (content)=>{
-            res.send(content)
-        })
-        return;
     }
+    // else if(load_all_lib_css.isMyHotUrl(url)){
+    //     load_all_lib_css.load(webappFolder, (content)=>{
+    //         res.send(content)
+    //     })
+    //     return;
+    // }
 }
 let loadHotJs = (res, url)=>{
     if(load_hot_bundle_js.isMyHotUrl(url)){

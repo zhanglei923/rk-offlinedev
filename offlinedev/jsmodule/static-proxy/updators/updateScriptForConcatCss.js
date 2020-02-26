@@ -51,11 +51,11 @@ let updateJs = (info, content, widthDefineHeader)=>{
                 var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
                 content = content.replace(replacereg, `require("${hotpathid}"`) 
             }
-            hotpathid = load_all_lib_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            if(hotpathid){
-                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                content = content.replace(replacereg, `require("${hotpathid}"`) 
-            }                    
+            // hotpathid = load_all_lib_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            // if(hotpathid){
+            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
+            // }                    
               
         });
         //if(content.indexOf('all-xsy-widgets.css')>=0) content = content.replace(/all-xsy-widgets\.css/g, 'all-xsy-widgets_HOT.css')
