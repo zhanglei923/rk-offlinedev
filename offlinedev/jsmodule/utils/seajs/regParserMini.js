@@ -47,6 +47,15 @@ let reduceContent = (raw_jscontent)=>{
     let lines = reduceContentAsLines(raw_jscontent);
     return lines.join('\n');
 }
+let getRequiresAsArray = (jscontent)=>{
+    let deps = getRequires(jscontent);
+    let arr = [];
+    deps.forEach((o)=>{
+        arr.push(o.rawPath);
+    })
+    arr = _.uniq(arr);
+    return arr;
+}
 let getRequires = (jscontent)=>{
     let lines = reduceContentAsLines(jscontent);
     if(lines.length===0) return [];
@@ -79,6 +88,7 @@ let getRequires2 = (jscontent)=>{
 }
 
 module.exports = {
+    getRequiresAsArray,
     getRequires2,
     getRequires
 };
