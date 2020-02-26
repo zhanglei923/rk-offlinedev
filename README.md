@@ -4,8 +4,6 @@ NOTICE:
 
 This is a *PRIVATE* toolkit, to Copy/Integrate/Clone/Mondify/Publish please contact the author. This tookit is *NOT* allowed to be used in Liability/Trademark use/Patent use/Warranty purposes.
 
--------
-
 How to use:
  1. First, make sure you have `git` and `nodejs` installed.
  1. Then, clone `apps-ingage-web` into your local drive.
@@ -18,6 +16,7 @@ How to use:
     Or, if mac/linux, Run `sudo node server.js`
  1. Open your browser and visit [http://localhost:666/](http://localhost:666/) or [https://localhost](https://localhost)
 
+-------
 
 警告：
 这是私有项目，若非团队成员，禁止任何拷贝/集成/修改/发布，若要进行上述行为，请联系作者。本工具不允许用于商务/商标使用/专利使用/授权等用途。
