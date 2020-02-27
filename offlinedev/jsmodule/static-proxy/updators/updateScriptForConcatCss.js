@@ -29,7 +29,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
     if(!rk.isCookedJsPath(fullfilepath) && !rk.isLibJsPath(fullfilepath) && rk.mightBeCmdFile(content)){
     
         //fs.writeFileSync(fullfilepath, newcontent)
-        let thisfileinfo = seajsUtil.getFileDeps(fullfilepath, content)//global.rkFileDepsCache[fullfilepath]
+        let thisfileinfo = seajsUtil.getFileDeps(sourcepath, fullfilepath, content)//global.rkFileDepsCache[fullfilepath]
         let deps = thisfileinfo.deps;
         let sourceDir = getConfig.getSourceFolder();
         deps.forEach((info)=>{

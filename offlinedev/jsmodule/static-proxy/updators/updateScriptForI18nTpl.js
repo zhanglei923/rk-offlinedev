@@ -101,16 +101,12 @@ let updateJs = (info, content)=>{
     if(rk.isCookedJsPath(fullfilepath)){
         return content;
     }
-    if(!isFirstJs(fullfilepath)){
-        let fstate = fs.lstatSync(fullfilepath);
-        let ctime36 = fstate.ctimeMs.toString(36);
-        let mtime36 = fstate.mtimeMs.toString(36);
-        let mc36 = mtime36+'-'+ctime36;
+    if(!isFirstJs(fullfilepath) && !rk.isCookedJsPath(fullfilepath)){
 
         let staticDir = getConfig.getStaticFolder();
         let sourceDir = getConfig.getSourceFolder();
     
-        let deps = seajsUtil.getFileDeps(fullfilepath, content).deps;
+        let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
         if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
             //let t0=new Date()*1;
             let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);

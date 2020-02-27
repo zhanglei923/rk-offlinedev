@@ -1,4 +1,5 @@
 let fs = require('fs')
+let _ = require('lodash')
 let pathutil = require('path')
 let rk = require('../../utils/rk')
 let regParserMini = require('./regParserMini');
@@ -77,8 +78,15 @@ let addJsExt = (req_pathid)=>{
     }
     return req_pathid;
 }
+let isCommonRequirePath = (raw_path)=>{
+    raw_path = _.trim(raw_path);
+    let isnormal = true;
+    if(raw_path.indexOf('{')>=0) isnormal = false;
+    if(raw_path.match(/^http/)) isnormal = false;
+    return isnormal;
+};
 global.rkFileDepsCache = {};//缓存
-let getFileDeps = (fullfilepath, content)=>{
+let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let fstate = fs.lstatSync(fullfilepath);
     let ctime36 = fstate.ctimeMs.toString(36);
     let mtime36 = fstate.mtimeMs.toString(36);
@@ -86,22 +94,43 @@ let getFileDeps = (fullfilepath, content)=>{
     
     let deps = [];
     let cache = global.rkFileDepsCache[fullfilepath];
-    if(cache && cache.mc36 === mc36){
-        deps = cache.deps;
-    }else{
-        deps = regParserMini.getRequires(content);
-        let mightBeCmd = rk.mightBeCmdFile(content)
+    if(rk.isCookedJsPath(fullfilepath)){
         global.rkFileDepsCache[fullfilepath] = {
-            mightBeCmd,
+            mightBeCmd: false,
             mc36,
-            deps
+            deps: []
         }
-    }       
+    }else{
+        if(cache && cache.mc36 === mc36){
+            deps = cache.deps;
+        }else{
+            deps = regParserMini.getRequires(content); 
+            let deps2 = deps;       
+            let mightBeCmd = rk.mightBeCmdFile(content)
+            global.rkFileDepsCache[fullfilepath] = {
+                mightBeCmd,
+                mc36,
+                deps: deps2
+            }
+        }       
+    }
     return global.rkFileDepsCache[fullfilepath];
 }
-let preLoadDeps = (sourcepath, fpath, content)=>{
+let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
+    let deps2 = [];
+    deps.forEach((info)=>{
+        let readpath = resolveRequirePath(sourcefolder, fullfilepath, info.rawPath)
+        if(isCommonRequirePath(readpath) && fs.existsSync(readpath)){
+            deps2.push(info);
+        }else{
+            console.log('[404]', fullfilepath, info.rawPath)
+        }
+    })
+    return deps2;
+}
+let preLoadDeps = (sourcefolder, fpath, content)=>{
     if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
-        getFileDeps(fpath, content);
+        getFileDeps(sourcefolder, fpath, content);
     }
 }
 let me = {
