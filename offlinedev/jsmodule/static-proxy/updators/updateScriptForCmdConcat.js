@@ -25,6 +25,7 @@ let seajsUtil = require('../../utils/seajs/seajsUtil');
  */
 let funprefix = 'rk_offlinedev_debug';
 let updateJs = (info, content, widthDefineHeader)=>{
+    return content;
     if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
     let enable = getConfig.getValue('debug.concatStaticJsRequests')
     if(!enable) return content;
