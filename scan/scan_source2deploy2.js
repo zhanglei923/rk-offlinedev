@@ -38,8 +38,14 @@ eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
     let newdir = pathutil.parse(newpath).dir;
     makeDir.sync(newdir)
 
-    let content2 = util.format('define("%s",%s,%s)', pathid, '[]', content)
-    fs.writeFileSync(newpath, content2) 
+    var isVue = /vue.tpl$/ig.test(fpath);//vue的话，需要预留个空格，否则报错
+    let content2 = content;
+    content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
+    content2 = util.format('define("%s",[],"%s")', fpath, content2)
+    //contentMap[fpath] = content;
+
+    //let content2 = util.format('define("%s",%s,"%s")', pathid, '[]', content)
+    fs.writeFileSync(newpath, content) 
     fs.writeFileSync(newpath+'.js', content2) 
 });
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
