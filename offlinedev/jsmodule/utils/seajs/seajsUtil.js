@@ -105,7 +105,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             deps = cache.deps;
         }else{
             deps = regParserMini.getRequires(content); 
-            let deps2 = deps;       
+            let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);       
             let mightBeCmd = rk.mightBeCmdFile(content)
             global.rkFileDepsCache[fullfilepath] = {
                 mightBeCmd,
@@ -120,10 +120,10 @@ let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
     let deps2 = [];
     deps.forEach((info)=>{
         let readpath = resolveRequirePath(sourcefolder, fullfilepath, info.rawPath)
-        if(isCommonRequirePath(readpath) && fs.existsSync(readpath)){
+        if(!isCommonRequirePath(info.rawPath) || fs.existsSync(readpath)){
             deps2.push(info);
         }else{
-            console.log('[404]', fullfilepath, info.rawPath)
+            console.log('[404]', info.rawPath, readpath,isCommonRequirePath(info.rawPath))
         }
     })
     return deps2;
