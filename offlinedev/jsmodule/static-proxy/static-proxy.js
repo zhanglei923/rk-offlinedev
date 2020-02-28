@@ -14,8 +14,12 @@ let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticRequestsLevel2'
 let level2JsCache = {}//这里缓存处理过的js文本，如果内存消耗过高，建议关闭
 
 let linkToStaticFile = (req, res, next) => {
-    res.set('.rk', 'This is by rk-offlinedev!');
     let req_path = req.path;
+    res.set('.rk', 'This is by rk-offlinedev!');
+    if(/\.js$/.test(req_path)) res.set('Content-Type', 'text/javascript');
+    if(/\.css$/.test(req_path)) res.set('Content-Type', 'text/css');
+    if(/\.tpl$/.test(req_path)) res.set('Content-Type', 'text/html');
+
     //console.log('req_path', req_path)
     //console.log(req.path)
     let webFolder = getConfig.getWebRoot()
@@ -26,7 +30,7 @@ let linkToStaticFile = (req, res, next) => {
     let root = webappFolder;
     if(req_path === '/sw-offlinedev.js'){//如果是根目录/sw.js，默认是访问webapp目录下，因此在static-proxy.js里做了一个转接
         let jscontent = fs.readFileSync(pathutil.resolve(getConfig.getMasterRoot(), './http-console/website/service-worker/sw-offlinedev.js'))
-        res.set('Content-Type', 'text/javascript');
+        //res.set('Content-Type', 'text/javascript');
         res.send(jscontent);
         return;
     }
@@ -53,7 +57,7 @@ let linkToStaticFile = (req, res, next) => {
         //console.log('root', root, filterDef.urlpath, req_path)
     }
     if(/\.js$/.test(req_path)){
-        res.set('Content-Type', 'text/javascript');
+        //res.set('Content-Type', 'text/javascript');
         //console.log(req_path)
         if(staticMemoLoader.isHotUrl(req_path)){
             staticMemoLoader.loadHotJs(res, req_path);
@@ -113,7 +117,7 @@ let linkToStaticFile = (req, res, next) => {
         })
         return;           
     }else if(/\.css$/.test(req_path)){
-        res.set('Content-Type', 'text/css');
+        //res.set('Content-Type', 'text/css');
         if(staticMemoLoader.isHotUrl(req_path)){
             staticMemoLoader.loadHotCss(res, req_path);
             return;
@@ -136,7 +140,7 @@ let linkToStaticFile = (req, res, next) => {
         })
         return;
     }else if(/\.tpl$/.test(req_path)) {
-        res.set('Content-Type', 'text/html');
+        //res.set('Content-Type', 'text/html');
         staticFileLoader.loadTpl(root, req_path, (jscontent, info)=>{
             if(info)info.sourceFolder = sourceFolder;
             if(jscontent === null){
