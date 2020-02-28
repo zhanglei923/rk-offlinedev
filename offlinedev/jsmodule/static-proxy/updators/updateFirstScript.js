@@ -1,6 +1,7 @@
 //动态将代码注入到特定js里
 let fs = require('fs');
 let pathutil = require('path');
+let eachcontentjs = require('eachcontent-js')
 var getConfig = require('../../config/configUtil')
 
 let isFirstJs = (fpath)=>{
@@ -12,6 +13,7 @@ let isFirstJs = (fpath)=>{
 let updateFirstJs = (info, content)=>{        
     let fullfilepath = info.fullfilepath;
     if(isFirstJs(fullfilepath)){
+        let sourceFolder = getConfig.getSourceFolder()
         let userconfig = getConfig.getUserConfig()
         let dir = pathutil.parse(__filename).dir;
         let srcpath = pathutil.resolve(dir, '../../static-injects/inject_global_script.js');
@@ -21,6 +23,16 @@ let updateFirstJs = (info, content)=>{
         defaultjs += `\n//****** END *******//\n`
 
         content = content +';\n'+ defaultjs;
+
+        if(0){
+            let jsHashMap = {}
+            eachcontentjs.eachPath(sourceFolder,/\.(js|tpl|css)$/,(fpath)=>{
+                let pathid = pathutil.relative(sourceFolder, fpath)
+                //console.log(pathid)
+                jsHashMap[pathid] = '666'
+            })
+            content = content +';\n'+ `window.jsHashMap=${JSON.stringify(jsHashMap)}`;
+        }
     }
     return content;
 }

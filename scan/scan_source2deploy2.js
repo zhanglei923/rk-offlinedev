@@ -21,7 +21,9 @@ console.log(seaconfig)
 let t0=new Date()*1;
 
 makeDir.sync(deploypath)
+var seaHeaderReg2 = /^\s*define\s*\([\s\S]*function\s*\(/ig;
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
+
 eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
     let fdir = pathutil.parse(fpath).dir;
     let pathid = pathutil.relative(sourcepath, fpath);
@@ -55,7 +57,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     let newdir = pathutil.parse(newpath).dir;
     makeDir.sync(newdir)
 
-    if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath)){
+    if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath)){
         let deps = parser.getRequiresAsArray(content);
         let depspathid = [];
         deps.forEach((raw_req)=>{
@@ -73,13 +75,12 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             //console.log(deps)
         }
         //console.log(depspathid)
-        if(	seaHeaderReg.test(content) 
+        if(content.match(seaHeaderReg) 
         ){
             let arr = content.split('\n');
             for(let i=0;i<arr.length;i++){
                 let line = arr[i];
                 if(line.match(/^\s*define\s*\(/)){
-                    console.log(line)
                     line = line.replace(/^\s*define\s*\(/, `define("${pathid}",${JSON.stringify(depspathid)},`)
                     arr[i] = line;
                     break;
