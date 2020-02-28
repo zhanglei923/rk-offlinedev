@@ -24,6 +24,9 @@ makeDir.sync(deploypath)
 var seaHeaderReg2 = /^\s*define\s*\([\s\S]*function\s*\(/ig;
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
 
+let definetype1 = /\bdefine\b\s{0,}\(\s{0,}function\s{0,}\(\s{0,}require\s{0,}\,\s{0,}exports\s{0,}\,\s{0,}module\s{0,}\)/g
+
+
 eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
     let fdir = pathutil.parse(fpath).dir;
     let pathid = pathutil.relative(sourcepath, fpath);
@@ -76,13 +79,21 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
             //console.log(deps)
         }
         //console.log(depspathid)
-        if(content.match(seaHeaderReg) 
+
+        if(fpath.match(/biEchartViewUtil\.js$/)) console.log(content)
+        if(fpath.match(/biEchartViewUtil\.js$/)) {
+            console.log(content.match(definetype1))
+        }
+    
+        if(content.match(definetype1) 
         ){
             let arr = content.split('\n');
             for(let i=0;i<arr.length;i++){
                 let line = arr[i];
-                if(line.match(/^\s*define\s*\(/)){
-                    line = line.replace(/^\s*define\s*\(/, `define("${pathid}",${JSON.stringify(depspathid)},`)
+
+
+                if(line.match(definetype1)){
+                    line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
                     arr[i] = line;
                     break;
                 }

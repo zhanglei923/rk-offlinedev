@@ -123,7 +123,7 @@ let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
         if(!isCommonRequirePath(rawPath) || fs.existsSync(readpath)){
             deps2.push(rawPath);
         }else{
-            console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
+            //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
         }
     })
     return deps2;
