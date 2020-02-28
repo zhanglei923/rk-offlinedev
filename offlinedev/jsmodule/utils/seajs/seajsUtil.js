@@ -118,12 +118,12 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
 }
 let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
     let deps2 = [];
-    deps.forEach((info)=>{
-        let readpath = resolveRequirePath(sourcefolder, fullfilepath, info.rawPath)
-        if(!isCommonRequirePath(info.rawPath) || fs.existsSync(readpath)){
-            deps2.push(info);
+    deps.forEach((rawPath)=>{
+        let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath)
+        if(!isCommonRequirePath(rawPath) || fs.existsSync(readpath)){
+            deps2.push(rawPath);
         }else{
-            console.log('[404]', info.rawPath, readpath,isCommonRequirePath(info.rawPath))
+            console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
         }
     })
     return deps2;
@@ -141,6 +141,7 @@ let me = {
     getRequireRegForReplacement,
     setPathVars,
     getFileDeps,
-    preLoadDeps
+    preLoadDeps,
+    cleanDeps
 }
 module.exports = me;

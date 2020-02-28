@@ -60,6 +60,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
     if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath)){
         let deps = parser.getRequiresAsArray(content);
         let depspathid = [];
+        deps = seajsUtil.cleanDeps(sourcepath, fpath, deps)
         deps.forEach((raw_req)=>{
             let req_pathid;
             if(seaconfig[raw_req]) {
