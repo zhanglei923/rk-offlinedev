@@ -4,6 +4,7 @@ let util = require('util')
 let _ = require('lodash')
 let makeDir = require('make-dir')
 let execSh = require('exec-sh')
+let is_path_inside = require('is-path-inside')
 let configUtil = require('../offlinedev/jsmodule/config/configUtil');
 configUtil.reloadConfig();
 let alias = global.rkGlobalConfig
@@ -43,6 +44,25 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
     run()
   });
 
+let tplMergeConfig = {
+    refuseConcatPathid:[
+        'products/bi',
+        'designer'
+    ]
+};
+let okToConcatTpl = (pathid)=>{
+    let ok = true;
+    for(let i=0;i<tplMergeConfig.refuseConcatPathid.length;i++){
+        let defpath = tplMergeConfig.refuseConcatPathid[i];
+        if(is_path_inside(pathid, defpath)){
+            ok = false;
+            break;
+        }
+    }
+    return ok;
+};
+
+
 let run = function (){
     makeDir.sync(autoConcatPath);
     let All_Tpl_Content = '//这是由rk-offlinedev自动聚合'
@@ -51,18 +71,21 @@ let run = function (){
         let pathid = pathutil.relative(sourcepath, fpath);
         let newpath = pathutil.resolve(deploypath, pathid);
         let newdir = pathutil.parse(newpath).dir;
-        makeDir.sync(newdir)
 
-        var isVue = /vue.tpl$/ig.test(fpath);//vue的话，需要预留个空格，否则报错
-        let content2 = content;
-        content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
-        content2 = util.format('define("%s",[],"%s")', pathid, content2)
-        //contentMap[fpath] = content;
+        if(okToConcatTpl(pathid)){
+            makeDir.sync(newdir)
 
-        //let content2 = util.format('define("%s",%s,"%s")', pathid, '[]', content)
-        fs.writeFileSync(newpath, content) 
-        fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
-        All_Tpl_Content += '\n;' + content2
+            var isVue = /vue.tpl$/ig.test(fpath);//vue的话，需要预留个空格，否则报错
+            let content2 = content;
+            content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
+            content2 = util.format('define("%s",[],"%s")', pathid, content2)
+            //contentMap[fpath] = content;
+    
+            //let content2 = util.format('define("%s",%s,"%s")', pathid, '[]', content)
+            fs.writeFileSync(newpath, content) 
+            fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
+            All_Tpl_Content += '\n;' + content2
+        }
     });
     fs.writeFileSync(pathutil.resolve(autoConcatPath, './all_tpl_HOT.js'), All_Tpl_Content);
     console.log('tpl update done.')
