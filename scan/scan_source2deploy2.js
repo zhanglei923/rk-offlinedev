@@ -43,15 +43,6 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
   });
 
 let run = function (){
-    // eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
-    //     let fdir = pathutil.parse(fpath).dir;
-    //     let pathid = pathutil.relative(sourcepath, fpath);
-    //     let newpath = pathutil.resolve(deploypath, pathid);
-    //     let newdir = pathutil.parse(newpath).dir;
-    //     makeDir.sync(newdir)
-
-    //     fs.writeFileSync(newpath, content) 
-    // });
     eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
         let fdir = pathutil.parse(fpath).dir;
         let pathid = pathutil.relative(sourcepath, fpath);
@@ -89,30 +80,18 @@ let run = function (){
                 if(seaconfig[raw_req]) {
                     req_pathid = seaconfig[raw_req];
                 }else{
-                    let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req, false)     
-                    //if(fpath.indexOf('untranslated')>=0) console.log(req_fullpath)
+                    let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req, false)   
                     req_pathid = pathutil.relative(sourcepath, req_fullpath);
                 } 
                 req_pathid = seajsUtil.addJsExt(req_pathid)
                 depspathid.push(req_pathid)
             })
-            if(fpath.indexOf('pageMainCtrl.js')>=0){
-                //console.log(deps)
-            }
             //console.log(depspathid)
-
-            // if(fpath.match(/biEchartViewUtil\.js$/)) console.log(content)
-            // if(fpath.match(/biEchartViewUtil\.js$/)) {
-            //     console.log(content.match(definetype1))
-            // }
-        
             if(content.match(definetype1) 
             ){
                 let arr = content.split('\n');
                 for(let i=0;i<arr.length;i++){
                     let line = arr[i];
-
-
                     if(line.match(definetype1)){
                         line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
                         arr[i] = line;
@@ -120,15 +99,8 @@ let run = function (){
                     }
                 }
                 content = arr.join('\n')
-                //content = content.replace(/\s*define\s*\(/g,)
-                //content = content.trim().replace(/>\s*\r?\n\s*</g, '><').replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
-                //content = content.replace(seaHeaderReg, 'function(require,exports,module)')
-                //content = content.replace(/\)\s*\;?$/g, '');
-                //content = util.format('define("%s",%s,%s)', pathid, JSON.stringify(depspathid), content)
-                //console.log(deps)
             }
         }
-
         //console.log(newpath)
         fs.writeFileSync(newpath, `//${new Date()}\n`+content)
         //fs.writeFileSync(fpath, `//${new Date()}\n`+content)
