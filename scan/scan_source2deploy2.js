@@ -43,15 +43,15 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
   });
 
 let run = function (){
-    eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
-        let fdir = pathutil.parse(fpath).dir;
-        let pathid = pathutil.relative(sourcepath, fpath);
-        let newpath = pathutil.resolve(deploypath, pathid);
-        let newdir = pathutil.parse(newpath).dir;
-        makeDir.sync(newdir)
+    // eachcontentjs.eachContent(sourcepath, /\.css$/, (content, fpath)=>{
+    //     let fdir = pathutil.parse(fpath).dir;
+    //     let pathid = pathutil.relative(sourcepath, fpath);
+    //     let newpath = pathutil.resolve(deploypath, pathid);
+    //     let newdir = pathutil.parse(newpath).dir;
+    //     makeDir.sync(newdir)
 
-        fs.writeFileSync(newpath, content) 
-    });
+    //     fs.writeFileSync(newpath, content) 
+    // });
     eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
         let fdir = pathutil.parse(fpath).dir;
         let pathid = pathutil.relative(sourcepath, fpath);
@@ -69,6 +69,7 @@ let run = function (){
         fs.writeFileSync(newpath, content) 
         fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
     });
+    console.log('tpl update done.')
 
     let t0=new Date()*1;
 
@@ -127,6 +128,7 @@ let run = function (){
                 //console.log(deps)
             }
         }
+        console.log('js update done.')
 
         //console.log(newpath)
         fs.writeFileSync(newpath, `//${new Date()}\n`+content)
