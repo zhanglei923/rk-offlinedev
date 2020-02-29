@@ -63,7 +63,7 @@ let run = function (){
     console.log('tpl update done.')
 
     let t0=new Date()*1;
-
+    let bad_requires = {}
     eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
         let fdir = pathutil.parse(fpath).dir;
         let pathid = pathutil.relative(sourcepath, fpath);
@@ -73,7 +73,9 @@ let run = function (){
 
         if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath)){
             let deps = parser.getRequiresAsArray(content);
-            deps = seajsUtil.cleanDeps(sourcepath, fpath, deps).deps_good;
+            let result = seajsUtil.cleanDeps(sourcepath, fpath, deps)
+            deps = result.deps_good;
+            bad_requires[fpath] = result.deps_bad;
             let depspathid = [];
             deps.forEach((raw_req)=>{
                 let req_pathid;
@@ -107,4 +109,5 @@ let run = function (){
     });
     console.log('js update done.')
     console.log(new Date()*1-t0)
+    fs.writeFileSync('404.json', JSON.stringify(bad_requires))
 }
