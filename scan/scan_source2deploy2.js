@@ -73,7 +73,7 @@ let run = function (){
 
         if(rk.mightBeCmdFile(content) && !rk.isCookedJsPath(fpath)){
             let deps = parser.getRequiresAsArray(content);
-            deps = seajsUtil.cleanDeps(sourcepath, fpath, deps)
+            deps = seajsUtil.cleanDeps(sourcepath, fpath, deps).deps_good;
             let depspathid = [];
             deps.forEach((raw_req)=>{
                 let req_pathid;

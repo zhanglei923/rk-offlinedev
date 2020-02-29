@@ -118,16 +118,21 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     return global.rkFileDepsCache[fullfilepath];
 }
 let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
-    let deps2 = [];
+    let deps_good = [];
+    let deps_bad = [];
     deps.forEach((rawPath)=>{
         let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath)
         if(isCommonRequirePath(rawPath) && !fs.existsSync(readpath)){
+            deps_bad.push(rawPath)
             //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
         }else{
-            deps2.push(rawPath);
+            deps_good.push(rawPath);
         }
     })
-    return deps2;
+    return {
+        deps_good,
+        deps_bad
+    };
 }
 let preLoadDeps = (sourcefolder, fpath, content)=>{
     if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
