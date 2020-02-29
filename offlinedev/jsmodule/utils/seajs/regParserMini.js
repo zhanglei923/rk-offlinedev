@@ -7,7 +7,7 @@ let rk = require('../rk')
 //     return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 // }
 
-var getPath = function(requreResults){
+var getPath2 = function(requreResults){
     var pathReg = reg.PATH_REGEX;
     for(var x = 0, lenx = requreResults.length; x < lenx; x++) {
         var item = requreResults[x];
@@ -26,6 +26,26 @@ var getPath = function(requreResults){
                 rawPath = rawPath.replace(/'/ig, '');//删掉单引号     
             }    
         }
+        if(isobj) {
+            requreResults[x].rawPath = rawPath;
+        }else{
+            requreResults[x] = rawPath;
+        }
+    };
+    requreResults = _.compact(requreResults);
+    requreResults = _.uniq(requreResults);
+    return requreResults;
+};
+var getPath = function(requreResults){
+    var pathReg = reg.PATH_REGEX;
+    let requirefun = (str)=>{return str;}//用于eval中
+    for(var x = 0, lenx = requreResults.length; x < lenx; x++) {
+        var item = requreResults[x];
+        let isobj = (typeof item === 'object');
+        let rawPath = isobj ? item.rawPath : item;
+        rawPath = _.trim(rawPath);
+        //console.log(rawPath)
+        eval(`rawPath = ${rawPath.replace(/^require/, 'requirefun')}`);
         if(isobj) {
             requreResults[x].rawPath = rawPath;
         }else{
