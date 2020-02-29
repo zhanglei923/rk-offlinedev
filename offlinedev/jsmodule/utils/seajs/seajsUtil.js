@@ -84,6 +84,7 @@ let isCommonRequirePath = (raw_path)=>{
     let isnormal = true;
     if(raw_path.indexOf('{')>=0) isnormal = false;
     if(raw_path.match(/^http/)) isnormal = false;
+    if(raw_path.match(/^\//)) isnormal = false;
     return isnormal;
 };
 global.rkFileDepsCache = {};//缓存
