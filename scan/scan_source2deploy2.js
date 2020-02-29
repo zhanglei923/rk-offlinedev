@@ -19,8 +19,6 @@ let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webap
 let seaconfig = seajsUtil.parseSeaConfig(`/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static`)
 console.log(seaconfig)
 
-let t0=new Date()*1;
-
 makeDir.sync(deploypath)
 var seaHeaderReg2 = /^\s*define\s*\([\s\S]*function\s*\(/ig;
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
@@ -40,6 +38,7 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
     }else{
         result = stdout;
     }
+    console.log('deploy copy done.')
     run()
   });
 
@@ -70,6 +69,9 @@ let run = function (){
         fs.writeFileSync(newpath, content) 
         fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
     });
+
+    let t0=new Date()*1;
+
     eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
         let fdir = pathutil.parse(fpath).dir;
         let pathid = pathutil.relative(sourcepath, fpath);
