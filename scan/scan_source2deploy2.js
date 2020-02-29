@@ -98,10 +98,10 @@ let run = function (){
             }
             //console.log(depspathid)
 
-            if(fpath.match(/biEchartViewUtil\.js$/)) console.log(content)
-            if(fpath.match(/biEchartViewUtil\.js$/)) {
-                console.log(content.match(definetype1))
-            }
+            // if(fpath.match(/biEchartViewUtil\.js$/)) console.log(content)
+            // if(fpath.match(/biEchartViewUtil\.js$/)) {
+            //     console.log(content.match(definetype1))
+            // }
         
             if(content.match(definetype1) 
             ){
