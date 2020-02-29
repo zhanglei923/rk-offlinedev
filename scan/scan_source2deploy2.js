@@ -15,6 +15,7 @@ let eachcontentjs = require('eachcontent-js')
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/deploy`
+let autoConcatPath = pathutil.resolve(deploypath, '_autoconcat_')//自动聚合的都放在这里
 
 let seaconfig = seajsUtil.parseSeaConfig(`/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static`)
 console.log(seaconfig)
@@ -43,6 +44,8 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
   });
 
 let run = function (){
+    makeDir.sync(autoConcatPath);
+    let All_Tpl_Content = '//这是由rk-offlinedev自动聚合'
     eachcontentjs.eachContent(sourcepath, /\.tpl$/, (content, fpath)=>{
         let fdir = pathutil.parse(fpath).dir;
         let pathid = pathutil.relative(sourcepath, fpath);
@@ -59,7 +62,9 @@ let run = function (){
         //let content2 = util.format('define("%s",%s,"%s")', pathid, '[]', content)
         fs.writeFileSync(newpath, content) 
         fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
+        All_Tpl_Content += '\n;' + content2
     });
+    fs.writeFileSync(pathutil.resolve(autoConcatPath, './rk_offlinedev_all_tpl.js'), All_Tpl_Content);
     console.log('tpl update done.')
 
     let t0=new Date()*1;
@@ -91,6 +96,7 @@ let run = function (){
             //console.log(depspathid)
             if(content.match(definetype1) 
             ){
+                depspathid.unshift('_autoconcat_/rk_offlinedev_all_tpl')//所有js都追加对tpl的依赖
                 let arr = content.split('\n');
                 for(let i=0;i<arr.length;i++){
                     let line = arr[i];
