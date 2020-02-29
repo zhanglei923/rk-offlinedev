@@ -64,7 +64,7 @@ let run = function (){
         fs.writeFileSync(newpath+'.js', `//${new Date()}\n`+content2) 
         All_Tpl_Content += '\n;' + content2
     });
-    fs.writeFileSync(pathutil.resolve(autoConcatPath, './rk_offlinedev_all_tpl.js'), All_Tpl_Content);
+    fs.writeFileSync(pathutil.resolve(autoConcatPath, './all_tpl_HOT.js'), All_Tpl_Content);
     console.log('tpl update done.')
 
     let t0=new Date()*1;
@@ -96,7 +96,7 @@ let run = function (){
             //console.log(depspathid)
             if(content.match(definetype1) 
             ){
-                depspathid.unshift('_autoconcat_/rk_offlinedev_all_tpl')//所有js都追加对tpl的依赖
+                depspathid.unshift('_autoconcat_/all_tpl_HOT')//所有js都追加对tpl的依赖
                 let arr = content.split('\n');
                 for(let i=0;i<arr.length;i++){
                     let line = arr[i];
