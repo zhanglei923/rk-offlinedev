@@ -10,6 +10,10 @@ global.rk_formatPath = (fpath)=>{
     fpath = fpath.replace(/\\{1,}/g, '/').replace(/\/{1,}/g, '/')
     return fpath;
 }
+global.rk_formatLineBreaker = (content)=>{
+    if(!content) return content;
+    return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+}
 // let old_path_resolve = pathutil.resolve;
 // pathutil.resolve = function(){
 //     let resolved = old_path_resolve.apply(pathutil, arguments)

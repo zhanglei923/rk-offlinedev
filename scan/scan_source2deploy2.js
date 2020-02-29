@@ -127,6 +127,7 @@ let run = function (){
 
         //console.log(newpath)
         fs.writeFileSync(newpath, `//${new Date()}\n`+content)
+        //fs.writeFileSync(fpath, `//${new Date()}\n`+content)
     });
     console.log(new Date()*1-t0)
 }
