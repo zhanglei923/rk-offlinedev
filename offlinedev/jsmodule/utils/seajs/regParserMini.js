@@ -1,5 +1,11 @@
 let _ = require('lodash')
 let reg = require('./reg')
+let rk = require('../rk')
+
+// let rk_formatLineBreaker = (content)=>{
+//     if(!content) return content;
+//     return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+// }
 
 var getPath = function(requreResults){
     var pathReg = reg.PATH_REGEX;
@@ -31,6 +37,24 @@ var getPath = function(requreResults){
     return requreResults;
 };
 let reduceContentAsLines = (raw_jscontent)=>{
+    raw_jscontent = rk_formatLineBreaker(raw_jscontent);
+    /***
+     * 有些require的写法时换行的，比如：
+     *  var a = require(
+     *    'aaa/bbb/ccc.js'
+     *  )
+     *  这样的，就需要整理成一行才能争取解析
+     *  
+     */
+    raw_jscontent = raw_jscontent.replace(/\brequire\b\s{0,}\(\s{1,}('|"|`)/g, (str)=>{ 
+        //console.log('last=', str);
+        let last = str.charAt(str.length-1); 
+        str=str.substring(0, str.length-1);
+        // console.log('last=', last);
+        // console.log('str=', str);
+        return str.replace(/\s{1,}/g, '')+last; 
+    })
+    raw_jscontent = raw_jscontent.replace(/\s{1,}\)/g, ')') //有的require，后半个括号也折行，所以得补一个
     let arr = raw_jscontent.split('\n')
     let lines = [];
     arr.forEach((linetxt)=>{
@@ -83,6 +107,7 @@ let getRequires2 = (jscontent)=>{
     let mincontent = reduceContent(jscontent)
     if(!mincontent) return [];
     let requires = mincontent.match(reg.REQUIRE_REGEX);
+    //console.log('requires', requires)
     if(!requires) requires = []
     return getPath(requires)
 }

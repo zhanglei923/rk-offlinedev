@@ -86,7 +86,8 @@ let run = function (){
                 if(seaconfig[raw_req]) {
                     req_pathid = seaconfig[raw_req];
                 }else{
-                    let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req)     
+                    let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req, false)     
+                    //if(fpath.indexOf('untranslated')>=0) console.log(req_fullpath)
                     req_pathid = pathutil.relative(sourcepath, req_fullpath);
                 } 
                 req_pathid = seajsUtil.addJsExt(req_pathid)

@@ -52,13 +52,14 @@ let setPathVars = (requirePath)=>{
     //console.log('af:', requirePath)
     return requirePath;
 }
-let resolveRequirePath = (sourcePath, ownerFilePath, requirePath)=>{
+let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars)=>{
+    if(typeof replaceVars === 'undefined') replaceVars = true;//在生成deploy时，期望保持请求路径的原生态，不然deploy状态无法工作了
     let realpath;
     let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
     if(alias && alias[requirePath]){
         requirePath = alias[requirePath];
     }
-    requirePath = setPathVars(requirePath);
+    if(replaceVars)requirePath = setPathVars(requirePath);
     if(requirePath.match(/^\./)){
         let fdir = pathutil.parse(ownerFilePath).dir;
         realpath = pathutil.resolve(fdir, requirePath)
@@ -120,10 +121,10 @@ let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
     let deps2 = [];
     deps.forEach((rawPath)=>{
         let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath)
-        if(!isCommonRequirePath(rawPath) || fs.existsSync(readpath)){
-            deps2.push(rawPath);
-        }else{
+        if(isCommonRequirePath(rawPath) && !fs.existsSync(readpath)){
             //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
+        }else{
+            deps2.push(rawPath);
         }
     })
     return deps2;
