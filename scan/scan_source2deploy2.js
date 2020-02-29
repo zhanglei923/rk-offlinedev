@@ -75,7 +75,7 @@ let run = function (){
             let deps = parser.getRequiresAsArray(content);
             let result = seajsUtil.cleanDeps(sourcepath, fpath, deps)
             deps = result.deps_good;
-            if(result.deps_bad.length > 0)bad_requires[fpath] = result.deps_bad;
+            if(result.deps_bad.length > 0)bad_requires[pathid] = result.deps_bad;
             let depspathid = [];
             deps.forEach((raw_req)=>{
                 let req_pathid;
