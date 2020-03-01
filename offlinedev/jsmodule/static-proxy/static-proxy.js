@@ -5,7 +5,7 @@ var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 let staticMemoLoader = require('./staticMemoLoader');
 let updateScript_1st = require('./updators/updateScript_1st')
-let updateScript_I18nTpl = require('./updators/updateScript_I18nTpl')
+let updateScript_Tpl = require('./updators/updateScript_Tpl')
 let updateScript_i18n = require('./updators/updateScript_i18n')
 let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
 let updateScript_CssConcat = require('./updators/updateScript_CssConcat')
@@ -107,7 +107,7 @@ let linkToStaticFile = (req, res, next) => {
                     jscontent = level2JsCache[req_path].jscontent;
                 }
                 //无论如何都要处理的
-                jscontent = updateScript_I18nTpl.updateJs(info, jscontent)
+                jscontent = updateScript_Tpl.updateJs(info, jscontent)
                 jscontent = updateScript_i18n.updateJs(info, jscontent)
 
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
