@@ -51,27 +51,6 @@ let updateJs = (info, content, widthDefineHeader)=>{
                 }
             }
 
-            // hotpathid = load_all_bi_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            // if(hotpathid){
-            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
-            // }
-            // hotpathid = load_all_xsy_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            // if(hotpathid){
-            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
-            // }
-            // hotpathid = load_all_userdefinedmeasure_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            // if(hotpathid){
-            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
-            // }
-            // hotpathid = load_all_lib_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            // if(hotpathid){
-            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
-            // }                    
-              
         });
         //if(content.indexOf('all-xsy-widgets.css')>=0) content = content.replace(/all-xsy-widgets\.css/g, 'all-xsy-widgets_HOT.css')
     }
