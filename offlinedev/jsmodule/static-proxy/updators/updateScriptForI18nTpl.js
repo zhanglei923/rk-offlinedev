@@ -104,37 +104,34 @@ let updateJs = (info, content)=>{
     if(isFirstJs(fullfilepath)){
         return updateFirstJs(info, content);
     }
-    if(!isFirstJs(fullfilepath) && !rk.isCookedJsPath(fullfilepath)){
+    let staticDir = getConfig.getStaticFolder();
+    let sourceDir = getConfig.getSourceFolder();
 
-        let staticDir = getConfig.getStaticFolder();
-        let sourceDir = getConfig.getSourceFolder();
-    
-        let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
-        if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
-            //let t0=new Date()*1;
-            let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
-            CacheOfI18n = c;
-            //console.log(new Date()*1 - t0)
-            return c;
-        }else{
-            deps.forEach((info)=>{
-                let req_path = info.rawPath;
-                let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
-                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                if(req_path.match(/\.tpl$/)){
-                    if(fs.existsSync(req_realpath)){
-                        let split = `,,,`
-                        let pathid = pathutil.relative(sourceDir, req_realpath);
-                        pathid = rk_formatPath(pathid);
-                        content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
-                        // console.log(req_path, staticDir)
-                        // console.log(fdir)
-                        // console.log(req_realpath)
-                        // console.log('pathid',pathid)
-                    }
+    let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
+    if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
+        //let t0=new Date()*1;
+        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
+        CacheOfI18n = c;
+        //console.log(new Date()*1 - t0)
+        return c;
+    }else{
+        deps.forEach((info)=>{
+            let req_path = info.rawPath;
+            let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+            var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+            if(req_path.match(/\.tpl$/)){
+                if(fs.existsSync(req_realpath)){
+                    let split = `,,,`
+                    let pathid = pathutil.relative(sourceDir, req_realpath);
+                    pathid = rk_formatPath(pathid);
+                    content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
+                    // console.log(req_path, staticDir)
+                    // console.log(fdir)
+                    // console.log(req_realpath)
+                    // console.log('pathid',pathid)
                 }
-            });
-        }
+            }
+        });
     }
 
     return content;
