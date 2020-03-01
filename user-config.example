@@ -20,7 +20,7 @@
         gzip: true,//是否开启gzip，但稍微消耗cpu
     },
     debug:{
-        mode: 'concat',//三种模式：source/concat/deploy
+        mode: 'source',//三种模式：source/concat/deploy
         autoCacheStatic: true,//自动缓存静态资源，建议开启
         autoCacheStaticLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启
         

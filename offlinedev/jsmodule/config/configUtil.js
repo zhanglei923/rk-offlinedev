@@ -89,7 +89,7 @@ let reloadConfig = ()=>{
     let txtconfig = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+txtconfig)
     let df = JSON.parse(JSON.stringify(defaultConfig));
-    config = _.assignIn(df, config);
+    config = _.merge(df, config);
     //console.log(JSON.stringify(config))
 
     if(config.debug){

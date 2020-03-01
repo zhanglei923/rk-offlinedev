@@ -36,21 +36,36 @@ let updateJs = (info, content, widthDefineHeader)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
             let hotpathid;
-            hotpathid = load_all_bi_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            if(hotpathid){
-                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                content = content.replace(replacereg, `require("${hotpathid}"`) 
+            let list = [
+                load_all_bi_widgets_css,
+                load_all_xsy_widgets_css,
+                load_all_userdefinedmeasure_css
+            ]
+            for(let i = 0; i < list.length; i++){
+                let loader = list[i];
+                hotpathid = loader.shouldReplacedWithThis(sourceDir, req_realpath)
+                if(hotpathid){
+                    var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                    content = content.replace(replacereg, `require("${hotpathid}"`);
+                    break;
+                }
             }
-            hotpathid = load_all_xsy_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            if(hotpathid){
-                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                content = content.replace(replacereg, `require("${hotpathid}"`) 
-            }
-            hotpathid = load_all_userdefinedmeasure_css.shouldReplacedWithThis(sourceDir, req_realpath)
-            if(hotpathid){
-                var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                content = content.replace(replacereg, `require("${hotpathid}"`) 
-            }
+
+            // hotpathid = load_all_bi_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            // if(hotpathid){
+            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
+            // }
+            // hotpathid = load_all_xsy_widgets_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            // if(hotpathid){
+            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
+            // }
+            // hotpathid = load_all_userdefinedmeasure_css.shouldReplacedWithThis(sourceDir, req_realpath)
+            // if(hotpathid){
+            //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+            //     content = content.replace(replacereg, `require("${hotpathid}"`) 
+            // }
             // hotpathid = load_all_lib_css.shouldReplacedWithThis(sourceDir, req_realpath)
             // if(hotpathid){
             //     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
