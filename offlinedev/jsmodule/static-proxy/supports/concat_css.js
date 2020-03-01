@@ -1,7 +1,9 @@
 let fs = require('fs')
 let pathutil = require('path')
 let _ = require('lodash')
-let CleanCSS = require("clean-css")
+let eachcontentjs = require('eachcontent-js')
+let fs_readFile = require('./fs_readFile')
+var CleanCSS = require('clean-css');
 let parseCssUrls = require("css-url-parser")
 
 let getUrls = (content)=>{
@@ -108,10 +110,41 @@ let testUrls = (webbaseDir, fpath, content)=>{
     }
     return badurls;
 }
+let concatCss = function (config){
+    let csspathlist = [];
+    config.sourceDirList.forEach((dir)=>{
+        //console.log(dir)
+        eachcontentjs.eachPath(dir, /\.css$/, (csspath)=>{
+            //console.log(csspath)
+            csspathlist.push(csspath);
+        })
+    })
+            
+    let len = csspathlist.length;
+    let csscontent = ''
+    csspathlist.forEach((csspath)=>{
+        fs_readFile.fs_readFile(csspath, {encoding:'utf8'}, (err, content) => {
+            len--;
+            if(err){
+                console.log(err)
+            }else{
+                csscontent += `\n/*** ${csspath} ***/\n`+getNewCssContent(csspath, content, config.destFile);
+            }
+            if(len === 0) {
+                if(1){
+                    config.success(csscontent);
+                }else{
+                    var output = new CleanCSS( { /* options */ }).minify(csscontent);
+                    config.success(output.styles);
+                }                
+            }
+        });
+    })
+}
 let me = {
     getUrls,
     parseUrls,
-    concatCss: (targetfolder, filterFun)=>{},
+    concatCss,
     testUrls,
     getNewCssContent
 }

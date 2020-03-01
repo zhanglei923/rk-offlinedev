@@ -3,7 +3,7 @@ var pathutil = require('path');
 let is_path_inside = require('is-path-inside')
 var fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
-let updateCss = require('../updators/updateCss')
+let updateCss = require('../supports/concat_css')
 
 module.exports = {
     isMyHotUrl:(url)=>{
