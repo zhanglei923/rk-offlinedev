@@ -11,7 +11,7 @@ let isFirstJs = (fpath)=>{
     return false;
 }
 let inject_global_script;
-let updateFirstJs = (info, content)=>{        
+let updateJs = (info, content)=>{        
     let fullfilepath = info.fullfilepath;
     if(isFirstJs(fullfilepath)){
         let sourceFolder = getConfig.getSourceFolder()
@@ -40,5 +40,5 @@ let updateFirstJs = (info, content)=>{
     return content;
 }
 module.exports = {
-    updateFirstJs
+    updateJs
 };
