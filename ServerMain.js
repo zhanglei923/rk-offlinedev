@@ -230,7 +230,7 @@ var record404Actions = function(originalUrl){
 let preloaded = false;
 let afterStart = ()=>{
     if(preloaded) return;
-    if(getConfig.getValue('debug.autoCacheStaticRequests')) {
+    if(getConfig.getValue('debug.autoCacheStatic')) {
         fpowerUtil.startTimer();
         console.log('[File-Power] On')
         setTimeout(()=>{

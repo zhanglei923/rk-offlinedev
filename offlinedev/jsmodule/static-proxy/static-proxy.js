@@ -10,7 +10,7 @@ let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
 let updateScriptForConcatCss = require('./updators/updateScriptForConcatCss')
 let scanner = require('../../codeScan/scan')
 
-let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticRequestsLevel2');
+let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticLevel2');
 let level2JsCache = {}//这里缓存处理过的js文本，如果内存消耗过高，建议关闭
 
 let linkToStaticFile = (req, res, next) => {
