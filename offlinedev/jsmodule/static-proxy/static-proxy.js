@@ -7,7 +7,7 @@ let staticMemoLoader = require('./staticMemoLoader');
 let updateFirstScript = require('./updators/updateFirstScript')
 let updateScriptForI18nTpl = require('./updators/updateScriptForI18nTpl')
 let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
-let updateScriptForConcatCss = require('./updators/updateScriptForConcatCss')
+let updateScript_CssConcat = require('./updators/updateScript_CssConcat')
 let scanner = require('../../codeScan/scan')
 
 let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticLevel2');
@@ -96,7 +96,7 @@ let linkToStaticFile = (req, res, next) => {
                     jscontent = updateFirstScript.updateJs(info, jscontent)
                     jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                     jscontent = updateScript_CmdConcat.updateJs(info, jscontent)
-                    jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
+                    jscontent = updateScript_CssConcat.updateJs(info, jscontent)
     
                     level2JsCache[req_path] = {
                         mc36: newMC36,
