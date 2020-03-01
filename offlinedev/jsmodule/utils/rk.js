@@ -36,6 +36,8 @@ var rk = {
         ){
             return true;
         }
+        //一些特殊名字处理
+        if(fpath.indexOf(`handsontable.full`)>=0) return true;
         return false;
     },
     isLibJsPath: function(fpath){

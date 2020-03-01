@@ -19,14 +19,12 @@ let isFirstJs = (fpath)=>{
     return false;
 }
 let CacheOfAllTpl;
-let CacheOfI18n;
 let canWatch = platform.toLowerCase() !== 'linux';
 let tplWatched = false;
 let updateAllTplJson = ()=>{
     let sourceDir = getConfig.getSourceFolder();
     if(!canWatch) {//无法watch，只好每次都加载
         CacheOfAllTpl = null;
-        CacheOfI18n = null;
     }
     if(!CacheOfAllTpl){
         CacheOfAllTpl = {}
@@ -53,7 +51,7 @@ let updateAllTplJson = ()=>{
         // })
     }
     if(canWatch && !tplWatched){
-        console.log('[RK]Watching tpl/i18n files...')
+        console.log('[RK]Watching tpl files...')
         watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
             persistent:true,
             recursive:true,
@@ -72,9 +70,6 @@ let updateAllTplJson = ()=>{
                     }else{
                         delete CacheOfAllTpl[pathid]
                     }
-                }else
-                if(filename.match(/core\/i18n\//g)){
-                    CacheOfI18n = null;//置空，重新加载
                 }
             }
         })
@@ -112,11 +107,7 @@ let updateJs = (info, content)=>{
 
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
-        //let t0=new Date()*1;
-        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
-        CacheOfI18n = c;
-        //console.log(new Date()*1 - t0)
-        return c;
+        //ignor i18n
     }else{
         deps.forEach((info)=>{
             let req_path = info.rawPath;
@@ -139,22 +130,6 @@ let updateJs = (info, content)=>{
 
     return content;
 }
-let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
-    deps.forEach((info)=>{
-        //console.log('raw:', info.rawPath)
-        let req_path = info.rawPath;
-        var replacereg = seajsUtil.getRequireRegForReplacement(req_path, true);
-        let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path)
-        if(fs.existsSync(req_realpath)){
-            let json = seajsUtil.loadJsonFromFile(req_realpath);
-            if(json){
-                let jsonstr = JSON.stringify(json);
-                content = content.replace(replacereg, jsonstr)
-            }
-        }
-    });
-    return content;
-};
 module.exports = {
     isFirstJs,
     updateFirstJs,
