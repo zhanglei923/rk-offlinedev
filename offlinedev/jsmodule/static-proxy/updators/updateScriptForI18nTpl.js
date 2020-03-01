@@ -101,6 +101,9 @@ let updateJs = (info, content)=>{
     if(rk.isCookedJsPath(fullfilepath)){
         return content;
     }
+    if(isFirstJs(fullfilepath)){
+        return updateFirstJs(info, content);
+    }
     if(!isFirstJs(fullfilepath) && !rk.isCookedJsPath(fullfilepath)){
 
         let staticDir = getConfig.getStaticFolder();

@@ -94,7 +94,6 @@ let linkToStaticFile = (req, res, next) => {
                 let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== newMC36))
                 if(!enableLevel2Cache || level2needsupdate){
                     jscontent = updateFirstScript.updateJs(info, jscontent)
-                    jscontent = updateScriptForI18nTpl.updateFirstJs(info, jscontent)
                     jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
                     jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
                     jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
