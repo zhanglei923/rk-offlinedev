@@ -16,6 +16,13 @@ let load_all_xsy_widgets_css = require('../staticMemo/load_all_xsy_widgets_css')
 let load_all_userdefinedmeasure_css = require('../staticMemo/load_all_userdefinedmeasure_css')
 let load_all_lib_css = require('../staticMemo/load_all_lib_css')
 
+let css_loaders = [
+    load_all_xsy_widgets_css,
+    load_all_bi_widgets_css,
+    load_all_productscommon_css,
+    load_all_userdefinedmeasure_css
+]
+
 let updateJs = (info, content, widthDefineHeader)=>{
     if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
     let enable = getConfig.getValue('debug.concatStaticCssRequests')
@@ -37,14 +44,9 @@ let updateJs = (info, content, widthDefineHeader)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
             let hotpathid;
-            let list = [
-                load_all_bi_widgets_css,
-                load_all_xsy_widgets_css,
-                load_all_productscommon_css,
-                load_all_userdefinedmeasure_css
-            ]
-            for(let i = 0; i < list.length; i++){
-                let loader = list[i];
+            
+            for(let i = 0; i < css_loaders.length; i++){
+                let loader = css_loaders[i];
                 hotpathid = loader.shouldReplacedWithThis(sourceDir, req_realpath)
                 if(hotpathid){
                     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
