@@ -4,7 +4,7 @@ let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 let staticMemoLoader = require('./staticMemoLoader');
-let updateFirstScript = require('./updators/updateFirstScript')
+let updateScript_1st = require('./updators/updateScript_1st')
 let updateScript_I18nTpl = require('./updators/updateScript_I18nTpl')
 let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
 let updateScript_CssConcat = require('./updators/updateScript_CssConcat')
@@ -93,7 +93,7 @@ let linkToStaticFile = (req, res, next) => {
                 let newMC36 = info.fileinfo.mc36;
                 let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== newMC36))
                 if(!enableLevel2Cache || level2needsupdate){
-                    jscontent = updateFirstScript.updateJs(info, jscontent)
+                    jscontent = updateScript_1st.updateJs(info, jscontent)
                     jscontent = updateScript_I18nTpl.updateJs(info, jscontent)
                     jscontent = updateScript_CmdConcat.updateJs(info, jscontent)
                     jscontent = updateScript_CssConcat.updateJs(info, jscontent)
