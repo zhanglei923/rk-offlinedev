@@ -10,6 +10,7 @@ let isFirstJs = (fpath)=>{
     }
     return false;
 }
+let inject_global_script;
 let updateFirstJs = (info, content)=>{        
     let fullfilepath = info.fullfilepath;
     if(isFirstJs(fullfilepath)){
@@ -17,7 +18,8 @@ let updateFirstJs = (info, content)=>{
         let userconfig = getConfig.getUserConfig()
         let dir = pathutil.parse(__filename).dir;
         let srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script.js');
-        let defaultjs = fs.readFileSync(srcpath, 'utf8')
+        if(!inject_global_script) inject_global_script = fs.readFileSync(srcpath, 'utf8')
+        let defaultjs = inject_global_script;
 
         defaultjs += `\n;${getConfig.getValue('debug.mode')!=='source'?'SESSION.isDev = false;console.warn("[rk-offlinedev]切换到非dev状态")':''};`;
         defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
