@@ -24,7 +24,10 @@ let canWatch = platform.toLowerCase() !== 'linux';
 let tplWatched = false;
 let updateAllTplJson = ()=>{
     let sourceDir = getConfig.getSourceFolder();
-    if(!canWatch) CacheOfAllTpl = null;//无法watch，只好每次都加载
+    if(!canWatch) {//无法watch，只好每次都加载
+        CacheOfAllTpl = null;
+        CacheOfI18n = null;
+    }
     if(!CacheOfAllTpl){
         CacheOfAllTpl = {}
         //console.log('[RK]Load all tpl')
