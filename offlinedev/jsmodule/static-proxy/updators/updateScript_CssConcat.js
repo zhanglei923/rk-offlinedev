@@ -11,6 +11,7 @@ var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
 let load_all_bi_widgets_css = require('../staticMemo/load_all_bi_widgets_css')
+let load_all_productscommon_css = require('../staticMemo/load_all_productscommon_css')
 let load_all_xsy_widgets_css = require('../staticMemo/load_all_xsy_widgets_css')
 let load_all_userdefinedmeasure_css = require('../staticMemo/load_all_userdefinedmeasure_css')
 let load_all_lib_css = require('../staticMemo/load_all_lib_css')
@@ -39,6 +40,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
             let list = [
                 load_all_bi_widgets_css,
                 load_all_xsy_widgets_css,
+                load_all_productscommon_css,
                 load_all_userdefinedmeasure_css
             ]
             for(let i = 0; i < list.length; i++){

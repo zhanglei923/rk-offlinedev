@@ -7,11 +7,13 @@ let load_hot_bundle_js = require('./staticMemo/load_hot_bundle_js')
 let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
 let load_all_bi_widgets_css = require('./staticMemo/load_all_bi_widgets_css')
 let load_all_userdefinedmeasure_css = require('./staticMemo/load_all_userdefinedmeasure_css')
+let load_all_productscommon_css = require('./staticMemo/load_all_productscommon_css')
 let load_all_lib_css = require('./staticMemo/load_all_lib_css')
 
 let css_loaders = [
     load_all_xsy_widgets_css,
     load_all_bi_widgets_css,
+    load_all_productscommon_css,
     load_all_userdefinedmeasure_css
 ]
 
@@ -22,11 +24,15 @@ var webappFolder = getConfig.getWebAppFolder()
 
 let isHotUrl = (url)=>{
     if(load_hot_bundle_js.isMyHotUrl(url)) {return true;}
-    else if(load_all_xsy_widgets_css.isMyHotUrl(url)){return true;}
-    else if(load_all_bi_widgets_css.isMyHotUrl(url)){return true;}
-    else if(load_all_userdefinedmeasure_css.isMyHotUrl(url)){return true;}    
-    //else if(load_all_lib_css.isMyHotUrl(url)){return true;}    
-    return false;
+    let is = false;
+    for(let i=0;i<css_loaders.length;i++){
+        let loader = css_loaders[i];
+        if(loader.isMyHotUrl(url)){
+            is = true;
+            break;
+        }
+    }
+    return is;
 }
 let loadHotCss = (res, url)=>{
     for(let i=0;i<css_loaders.length;i++){
