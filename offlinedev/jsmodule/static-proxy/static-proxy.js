@@ -95,7 +95,6 @@ let linkToStaticFile = (req, res, next) => {
                 let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== newMC36))
                 if(!enableLevel2Cache || level2needsupdate){
                     jscontent = updateScript_1st.updateJs(info, jscontent)
-                    jscontent = updateScript_I18nTpl.updateJs(info, jscontent)
                     //jscontent = updateScript_CmdConcat.updateJs(info, jscontent)
                     jscontent = updateScript_CssConcat.updateJs(info, jscontent)
     
@@ -108,6 +107,7 @@ let linkToStaticFile = (req, res, next) => {
                     jscontent = level2JsCache[req_path].jscontent;
                 }
                 //无论如何都要处理的
+                jscontent = updateScript_I18nTpl.updateJs(info, jscontent)
                 jscontent = updateScript_i18n.updateJs(info, jscontent)
 
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
