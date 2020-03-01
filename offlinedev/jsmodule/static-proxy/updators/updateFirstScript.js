@@ -16,7 +16,7 @@ let updateFirstJs = (info, content)=>{
         let sourceFolder = getConfig.getSourceFolder()
         let userconfig = getConfig.getUserConfig()
         let dir = pathutil.parse(__filename).dir;
-        let srcpath = pathutil.resolve(dir, '../../static-injects/interceptFile/inject_global_script.js');
+        let srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script.js');
         let defaultjs = fs.readFileSync(srcpath, 'utf8')
 
         defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
