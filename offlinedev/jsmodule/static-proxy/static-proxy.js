@@ -6,7 +6,7 @@ var staticFileLoader = require('./staticFileLoader')
 let staticMemoLoader = require('./staticMemoLoader');
 let updateFirstScript = require('./updators/updateFirstScript')
 let updateScriptForI18nTpl = require('./updators/updateScriptForI18nTpl')
-let updateScriptForCmdConcat = require('./updators/updateScriptForCmdConcat')
+let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
 let updateScriptForConcatCss = require('./updators/updateScriptForConcatCss')
 let scanner = require('../../codeScan/scan')
 
@@ -95,7 +95,7 @@ let linkToStaticFile = (req, res, next) => {
                 if(!enableLevel2Cache || level2needsupdate){
                     jscontent = updateFirstScript.updateJs(info, jscontent)
                     jscontent = updateScriptForI18nTpl.updateJs(info, jscontent)
-                    jscontent = updateScriptForCmdConcat.updateJs(info, jscontent)
+                    jscontent = updateScript_CmdConcat.updateJs(info, jscontent)
                     jscontent = updateScriptForConcatCss.updateJs(info, jscontent)
     
                     level2JsCache[req_path] = {

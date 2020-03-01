@@ -45,7 +45,7 @@ module.exports = {
                     let fromSubPrj = {};
                     let cmdinfo = {};
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
-                    jsContent = updateScriptForCmdConcat.updateJs(info, jsContent, false)
+                    jsContent = updateScript_CmdConcat.updateJs(info, jsContent, false)
                     fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
                 }
                 if(len === 0){
