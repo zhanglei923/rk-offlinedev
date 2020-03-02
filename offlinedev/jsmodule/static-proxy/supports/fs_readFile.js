@@ -43,7 +43,8 @@ let fs_readFile = (fpath, opt, cb)=>{
                 cb(null, global.FileMemoCache[cachekey].content, {
                     isCached: true,
                     mc36: memo.mc36,
-                    mightBeCmd: memo.mightBeCmd
+                    mightBeCmd: memo.mightBeCmd,
+                    isCmd: memo.isCmd
                 });
                 return;
             }
@@ -51,6 +52,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         // let content;
         // let read_err;
         fs.readFile(fpath, opt, (read_err, content)=>{
+            let isCmd = rk.isCmdFile(content)
             let mightBeCmd = rk.mightBeCmdFile(content)
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.autoCacheStatic')){
@@ -58,13 +60,15 @@ let fs_readFile = (fpath, opt, cb)=>{
                 global.FileMemoCache[cachekey] = {
                     mc36,
                     content,
-                    mightBeCmd
+                    mightBeCmd,
+                    isCmd
                 };
             }
             cb(read_err, content, {
                 isCached: false,
                 mc36,
-                mightBeCmd
+                mightBeCmd,
+                isCmd
             });
         });
     });
@@ -84,6 +88,7 @@ let preloadCache = (onFileRead)=>{
             let mtime36 = fstate.mtimeMs.toString(36);
             let mc36 = mtime36+'-'+ctime36;
             let cache = {
+                isCmd: rk.isCmdFile(content),
                 mightBeCmd: rk.mightBeCmdFile(content),
                 mc36,
                 content

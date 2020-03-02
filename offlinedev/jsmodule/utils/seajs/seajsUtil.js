@@ -100,6 +100,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let cache = global.rkFileDepsCache[fullfilepath];
     if(rk.isCookedJsPath(fullfilepath)){
         global.rkFileDepsCache[fullfilepath] = {
+            isCmd: false,
             mightBeCmd: false,
             mc36,
             deps: []
@@ -109,9 +110,11 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             deps = cache.deps;
         }else{
             deps = regParserMini.getRequires(content); 
-            let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);       
+            let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);   
+            let isCmd = rk.isCmdFile(content);    
             let mightBeCmd = rk.mightBeCmdFile(content)
             global.rkFileDepsCache[fullfilepath] = {
+                isCmd,
                 mightBeCmd,
                 mc36,
                 deps: deps2
