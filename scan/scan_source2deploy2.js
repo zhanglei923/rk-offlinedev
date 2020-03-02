@@ -45,15 +45,15 @@ execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
   });
 
 let tplMergeConfig = {
-    refuseConcatPathid:[
+    doNotConcatPathid:[
         'products/bi',
         'designer'
     ]
 };
 let okToConcatTpl = (pathid)=>{
     let ok = true;
-    for(let i=0;i<tplMergeConfig.refuseConcatPathid.length;i++){
-        let defpath = tplMergeConfig.refuseConcatPathid[i];
+    for(let i=0;i<tplMergeConfig.doNotConcatPathid.length;i++){
+        let defpath = tplMergeConfig.doNotConcatPathid[i];
         if(is_path_inside(pathid, defpath)){
             ok = false;
             break;
