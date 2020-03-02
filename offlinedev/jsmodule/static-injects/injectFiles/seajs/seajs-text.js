@@ -205,7 +205,10 @@
     define("seajs/seajs-text/1.1.1/seajs-text-debug", [], {});
     
     })();
-//rk-offlinedev 初始化
+
+//*********************************************************************************/
+//   rk-offlinedev 注入一些辅助性代码
+//*********************************************************************************/
 (function(){
   var initRkOfflineDev = function(){
       var div = document.createElement('div');

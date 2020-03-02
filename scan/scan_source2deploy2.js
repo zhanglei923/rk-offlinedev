@@ -119,7 +119,7 @@ let run = function (){
 
                 let depsFolder = pathutil.parse(req_pathid).dir;
                 let depsFolderHot = depsFolder + '/concat_HOT.js'
-                hotlist.push(depsFolderHot)
+                //hotlist.push(depsFolderHot)
                 //console.log(depsFolder, depsFolderHot)
             })
             //console.log(depspathid)

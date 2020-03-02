@@ -63,7 +63,7 @@ module.exports = {
         if(fullfilepath.match(/\/seajs\-text\.js$/)){
             fullfilepath = pathutil.resolve(__filename, '../../../static-injects/injectFiles/seajs/seajs-text.js');
         }else 
-        if(fullfilepath.match(/seajs\/sea\.js$/)){
+        if(false && fullfilepath.match(/seajs\/sea\.js$/)){
             fullfilepath = pathutil.resolve(__filename, '../../../static-injects/injectFiles/seajs/sea.js');
         }
         fullfilepath = rk_formatPath(fullfilepath)

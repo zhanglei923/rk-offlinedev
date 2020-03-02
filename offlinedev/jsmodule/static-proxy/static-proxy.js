@@ -109,6 +109,7 @@ let linkToStaticFile = (req, res, next) => {
                 //无论如何都要处理的
                 jscontent = updateScript_Tpl.updateJs(info, jscontent)
                 jscontent = updateScript_i18n.updateJs(info, jscontent)
+                jscontent = require('../static-injects/injectContents/injectSeaConfig').updateJs(info, jscontent);
 
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${is_rk_cached?'[cached]':'[read]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
