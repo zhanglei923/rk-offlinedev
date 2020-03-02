@@ -132,13 +132,14 @@ let reloadConfig = ()=>{
     staticFilter.loadFilterDef(webroot);
 
     global.rkGlobalConfig = config;
-    console.log('[user-config]=', JSON.stringify(config))
-    console.log('[web-root]=', webroot)
-    console.log('[web-branch]=', webProjectBranch)
-    console.log('[static-root]=', static_project_root)
-    console.log('[debug-mode]=', config.debug.mode)
-    console.log('[deploy]=', config.deployStaticPath_val)
-    console.log('[platform]=', os.platform())
+    console.log('[User-Config]=', JSON.stringify(config))
+    console.log('---')
+    console.log('   [Web-Root]=', webroot)
+    console.log(' [Web-Branch]=', webProjectBranch)
+    console.log('[Static-Root]=', static_project_root)
+    console.log(' [Debug-Mode]=', '"'+config.debug.mode+'"')
+    console.log('     [Deploy]=', config.deployStaticPath_val)
+    console.log('   [Platform]=', os.platform())
     console.log('---')
 }
 reloadConfig();
