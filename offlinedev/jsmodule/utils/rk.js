@@ -26,7 +26,7 @@ global.rk_formatLineBreaker = (content)=>{
 
 var rk = {    
     mightBeCmdFile: function(content){
-        return /define\s{0,}\(/.test(content);
+        return !!content.match(/define\s{0,}\(/);
     },
     isCookedJsPath: function(fpath){
         if(fpath.match(/\.min\.js/) || 
