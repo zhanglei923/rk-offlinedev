@@ -19,6 +19,16 @@ let canCache = (fullpath)=>{
     return true;
 }
 me.canCache = canCache;
+let getMC36 = (fstate)=>{
+    let ctime36 = fstate.ctimeMs.toString(36);
+    let mtime36 = fstate.mtimeMs.toString(36);
+    let mc36 = mtime36+'-'+ctime36;
+    return mc36;
+};
+let removeCache = (fpath)=>{
+    let cachekey = getKey(fpath);
+    delete global.FileMemoCache[cachekey]
+};
 let fs_readFile = (fpath, opt, cb)=>{
     if(typeof cb === 'undefined') cb = ()=>{};
     if(!fs.existsSync(fpath)){
@@ -30,9 +40,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             cb({error: 'file stat error'}, null);
             return;
         }
-        let ctime36 = fstate.ctimeMs.toString(36);
-        let mtime36 = fstate.mtimeMs.toString(36);
-        let mc36 = mtime36+'-'+ctime36;
+        let mc36 = getMC36(fstate);
         let cachekey = getKey(fpath);
         //console.log(cachekey)
         if(global.FileMemoCache[cachekey] && configUtil.getValue('debug.autoCacheStatic')){
@@ -84,9 +92,7 @@ let preloadCache = (onFileRead)=>{
         if(fs.existsSync(fpath)){
             let fstate = fs.lstatSync(fpath)
             let content = fs.readFileSync(fpath, 'utf8')
-            let ctime36 = fstate.ctimeMs.toString(36);
-            let mtime36 = fstate.mtimeMs.toString(36);
-            let mc36 = mtime36+'-'+ctime36;
+            let mc36 = getMC36(fstate);
             let cache = {
                 isCmd: rk.isCmdFile(content),
                 mightBeCmd: rk.mightBeCmdFile(content),
@@ -103,4 +109,5 @@ let preloadCache = (onFileRead)=>{
 }
 me.fs_readFile = fs_readFile;
 me.preloadCache = preloadCache;
+me.removeCache = removeCache;
 module.exports = me;
