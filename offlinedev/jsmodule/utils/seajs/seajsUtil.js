@@ -20,6 +20,8 @@ let parseSeaConfig2 = (seaPath)=>{
     return SeaConfig;
     
 };
+let definetype1 = /\bdefine\b\s{0,}\(\s{0,}function\s{0,}\(\s{0,}require\s{0,}\,\s{0,}exports\s{0,}\,\s{0,}module\s{0,}\)/g
+
 let parseSeaConfig = (seaPath)=>{
     var SeaConfigPath = seaPath + '/sea-config.js';
     let content = fs.readFileSync(SeaConfigPath,'utf8');
@@ -141,6 +143,7 @@ let preLoadDeps = (sourcefolder, fpath, content)=>{
     }
 }
 let me = {
+    definetype1,
     addJsExt,
     parseSeaConfig,
     loadJsonFromFile: jsonFileLoader.loadJsonFromFile,

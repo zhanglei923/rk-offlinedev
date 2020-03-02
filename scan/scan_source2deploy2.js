@@ -25,7 +25,7 @@ makeDir.sync(deploypath)
 var seaHeaderReg2 = /^\s*define\s*\([\s\S]*function\s*\(/ig;
 var seaHeaderReg = /^\s*define\s*\([\s\S]*function\s*\(\s*r[\w]+\s*\,\s*e[\w]+\s*\,\s*m[\w]+\s*\)/ig;
 
-let definetype1 = /\bdefine\b\s{0,}\(\s{0,}function\s{0,}\(\s{0,}require\s{0,}\,\s{0,}exports\s{0,}\,\s{0,}module\s{0,}\)/g
+let definetype1 = seajsUtil.definetype1;
 
 let command = [
     `rm -rf ${deploypath}`,
@@ -105,6 +105,7 @@ let run = function (){
             deps = result.deps_good;
             if(result.deps_bad.length > 0)bad_requires[pathid] = result.deps_bad;
             let depspathid = [];
+            let hotlist = [];
             deps.forEach((raw_req)=>{
                 let req_pathid;
                 if(seaconfig[raw_req]) {
@@ -115,10 +116,16 @@ let run = function (){
                 } 
                 req_pathid = seajsUtil.addJsExt(req_pathid)
                 depspathid.push(req_pathid)
+
+                let depsFolder = pathutil.parse(req_pathid).dir;
+                let depsFolderHot = depsFolder + '/concat_HOT.js'
+                hotlist.push(depsFolderHot)
+                //console.log(depsFolder, depsFolderHot)
             })
             //console.log(depspathid)
             if(content.match(definetype1) 
             ){
+                depspathid = hotlist.concat(depspathid)
                 depspathid.unshift('_autoconcat_/all_tpl_HOT')//所有js都追加对tpl的依赖
                 let arr = content.split('\n');
                 for(let i=0;i<arr.length;i++){
