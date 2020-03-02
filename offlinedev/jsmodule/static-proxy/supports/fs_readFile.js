@@ -84,6 +84,7 @@ let preloadCache = (onFileRead)=>{
             let mtime36 = fstate.mtimeMs.toString(36);
             let mc36 = mtime36+'-'+ctime36;
             let cache = {
+                mightBeCmd: rk.mightBeCmdFile(content),
                 mc36,
                 content
             }
