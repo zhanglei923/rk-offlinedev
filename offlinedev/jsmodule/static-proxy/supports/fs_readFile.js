@@ -120,17 +120,9 @@ let preloadCache = (onFileRead)=>{
         let cachekey = getKey(fpath)
         if(fs.existsSync(fpath)){
             let fstate = fs.lstatSync(fpath)
-            let content = fs.readFileSync(fpath, 'utf8')
-            let mc36 = getMC36(fstate);
-            let cache = {
-                isCmd: rk.isCmdFile(content),
-                mightBeCmd: rk.mightBeCmdFile(content),
-                mc36,
-                content
-            }
-            //console.log(content)
-            global.FileMemoCache[cachekey] = cache;
-            onFileRead(fpath, content)
+            fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {                
+                onFileRead(fpath, content)
+            });
         }else{
             console.log('unknown error: power cache not found' + fpath)
         }
