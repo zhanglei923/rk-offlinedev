@@ -64,7 +64,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         return null;
     }
     if(typeof opt.be_sync === 'undefined') opt.be_sync = false;
-    fs.lstat(fpath, (err, fstate)=>{
+    (opt.be_sync?my_lstatSync:my_lstat)(fpath, (err, fstate)=>{
         if(err){ 
             cb({error: 'file stat error'}, null);
             return;
@@ -88,7 +88,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         }
         // let content;
         // let read_err;
-        fs.readFile(fpath, opt, (read_err, content)=>{
+        (opt.be_sync?my_readFileSync:my_readFile)(fpath, opt, (read_err, content)=>{
             let isCmd = rk.isCmdFile(content)
             let mightBeCmd = rk.mightBeCmdFile(content)
             if(canCache(fpath))
