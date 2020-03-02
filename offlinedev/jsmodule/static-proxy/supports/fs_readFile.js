@@ -110,25 +110,6 @@ let fs_readFile = (fpath, opt, cb)=>{
         });
     });
 }
-let preloadCache = (onFileRead)=>{
-    let webapproot = configUtil.getWebAppFolder()
-    let roots = [webapproot]
-    fpowerUtil.loadPower(roots);
-    let powers = fpowerUtil.getPowerData();
-    ///console.log(powers)
-    for(let fpath in powers){
-        let cachekey = getKey(fpath)
-        if(fs.existsSync(fpath)){
-            let fstate = fs.lstatSync(fpath)
-            fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {                
-                onFileRead(fpath, content)
-            });
-        }else{
-            console.log('unknown error: power cache not found' + fpath)
-        }
-    }
-}
 me.fs_readFile = fs_readFile;
-me.preloadCache = preloadCache;
 me.removeCache = removeCache;
 module.exports = me;

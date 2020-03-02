@@ -236,13 +236,10 @@ let afterStart = ()=>{
         setTimeout(()=>{
             let t0 = new Date()*1;
             console.log(`[Pre-Load] Loading files...`)
-            let sourcefolder = getConfig.getSourceFolder();
-            fs_readFile.preloadCache((fpath, content)=>{
-                seajsUtil.preLoadDeps(sourcefolder, fpath, content)
-                
+            require('./support').preloadStaticFiles(()=>{
+                console.log(`[Pre-Load] Cost:`, ((new Date()*1)-t0)+'ms');    
+                console.log(`[Pre-Load] Done.`);    
             });
-            console.log(`[Pre-Load] Cost:`, ((new Date()*1)-t0)+'ms');    
-            console.log(`[Pre-Load] Done.`);    
         },1)
     }
     preloaded = true;
