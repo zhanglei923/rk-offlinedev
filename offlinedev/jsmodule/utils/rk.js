@@ -24,7 +24,11 @@ global.rk_formatLineBreaker = (content)=>{
 //     return resolved;
 // }
 
-var rk = {    
+var rk = {      
+    isCmdFile: function(content){
+        let definetype1 = /\bdefine\b\s{0,}\(\s{0,}function\s{0,}\(\s{0,}require\s{0,}\,\s{0,}exports\s{0,}\,\s{0,}module\s{0,}\)/;//没有g参数，不是用来查找所有
+        return !!content.match(definetype1);
+    },
     mightBeCmdFile: function(content){
         return !!content.match(/define\s{0,}\(/);
     },
