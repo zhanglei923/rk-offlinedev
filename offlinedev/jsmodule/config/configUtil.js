@@ -136,6 +136,7 @@ let reloadConfig = ()=>{
     console.log('[web-root]=', webroot)
     console.log('[web-branch]=', webProjectBranch)
     console.log('[static-root]=', static_project_root)
+    console.log('[debug-mode]=', config.debug.mode)
     console.log('[deploy]=', config.deployStaticPath_val)
     console.log('[platform]=', os.platform())
     console.log('---')

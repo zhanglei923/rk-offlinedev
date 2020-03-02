@@ -21,7 +21,7 @@ let updateJs = (info, content)=>{
         if(!inject_global_script) inject_global_script = fs.readFileSync(srcpath, 'utf8')
         let defaultjs = inject_global_script;
 
-        defaultjs += `\n;${getConfig.getValue('debug.mode')!=='source'?'SESSION.isDev = false;console.warn("[rk-offlinedev]切换到非dev状态：SESSION.isDev = false")':''};`;
+        //defaultjs += `\n;${getConfig.getValue('debug.mode')!=='source'?'SESSION.isDev = false;console.warn("[rk-offlinedev]切换到非dev状态：SESSION.isDev = false")':''};`;
         defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
         defaultjs += `\n//****** END *******//\n`
 
