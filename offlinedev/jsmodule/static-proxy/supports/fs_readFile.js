@@ -29,12 +29,41 @@ let removeCache = (fpath)=>{
     let cachekey = getKey(fpath);
     delete global.FileMemoCache[cachekey]
 };
+let my_lstat = (fpath, callback)=>{//屏蔽同步和异步
+    return fs.lstat(fpath, callback);
+};
+let my_lstatSync = (fpath, callback)=>{//屏蔽同步和异步
+    let fstate;
+    let isok = true;
+    try{
+        fstate = fs.lstatSync(fpath);
+        callback(null, fstate)
+    }catch(e){
+        isok = false;
+        callback(e, null);
+    }
+};
+let my_readFile = (fpath, opt, callback)=>{//屏蔽同步和异步
+    return fs.readFile(fpath, opt, callback);
+};
+let my_readFileSync = (fpath, opt, callback)=>{//屏蔽同步和异步
+    let content;
+    let isok = true;
+    try{
+        content = fs.readFileSync(fpath, opt);
+        callback(null, content)
+    }catch(e){
+        isok = false;
+        callback(e, null);
+    }
+};
 let fs_readFile = (fpath, opt, cb)=>{
     if(typeof cb === 'undefined') cb = ()=>{};
     if(!fs.existsSync(fpath)){
         cb({error: 'file not found'}, null);
         return null;
     }
+    if(typeof opt.be_sync === 'undefined') opt.be_sync = false;
     fs.lstat(fpath, (err, fstate)=>{
         if(err){ 
             cb({error: 'file stat error'}, null);
