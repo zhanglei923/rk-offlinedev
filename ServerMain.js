@@ -228,17 +228,17 @@ var record404Actions = function(originalUrl){
     console.log('no-file', originalUrl)
 }
 let preloaded = false;
-let afterStart = ()=>{
+let afterStart = (callback)=>{
     if(preloaded) return;
     if(getConfig.getValue('debug.autoCacheStatic')) {
         fpowerUtil.startTimer();
         console.log('[File-Power] On')
         setTimeout(()=>{
             let t0 = new Date()*1;
-            console.log(`[Pre-Load] Loading files...`)
+            console.log(`[Pre-Load] Loading files:`)
             require('./support').preloadStaticFiles(()=>{
-                console.log(`[Pre-Load] Cost:`, ((new Date()*1)-t0)+'ms');    
-                console.log(`[Pre-Load] Done.`);    
+                console.log(`[Pre-Load] cost:`, ((new Date()*1)-t0)+'ms');    
+                callback() 
             });
         },1)
     }
@@ -250,15 +250,19 @@ module.exports = {
         var server = httpServer.listen(PORT, function() {
             var host = server.address().address;
             var port = server.address().port;
-            
             console.log('[HTTP] http://localhost:%s', port);
-            afterStart()
+            
+            afterStart(()=>{
+                console.log('ready...');
+            })
         });
     }, 
     startHttps:()=>{
-        httpsServer.listen(SSLPORT, function() {
+        httpsServer.listen(SSLPORT, function() {            
             console.log('[HTTPS] https://localhost:%s', SSLPORT);
-            afterStart()
+            afterStart(()=>{
+                console.log('ready...');
+            })
         });
     }
 }
