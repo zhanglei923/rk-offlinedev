@@ -1,6 +1,7 @@
 let fs = require('fs')
 let _ = require('lodash')
 let pathutil = require('path')
+let util = require('util')
 let rk = require('../../utils/rk')
 let regParserMini = require('./regParserMini');
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
@@ -153,8 +154,15 @@ let preLoadDeps = (sourcefolder, fpath, content)=>{
         getFileDeps(sourcefolder, fpath, content);
     }
 }
-let changeTplToDeploy = (content)=>{
+let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
+    let fdir = pathutil.parse(fullfilepath).dir;
+    let pathid = pathutil.relative(sourcepath, fullfilepath);
 
+    let content2 = content;
+    content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
+    content2 = util.format('define("%s",[],"%s")', pathid, content2)
+
+    return content2;
 }
 let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
     let fdir = pathutil.parse(fullfilepath).dir;
