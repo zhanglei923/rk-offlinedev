@@ -26,10 +26,15 @@ module.exports = {
             //console.log(masterFolders)
             //fs.writeFileSync('./masters.json', masterFolders.join('\n'))    
         }
+        //if(fullfilepath.indexOf('untranslated.js')>=0) console.log(pathidList)
         let new_pathList = []
         for(let i=0;i<pathidList.length;i++){
             let pathid = pathidList[i];
             if(rk.isCookedJsPath(pathid)) continue;
+            if(!rk.isCommonRequirePath(pathid)){
+                new_pathList.push(pathid)
+                continue;
+            }
             let hotpathid;
             let realfullpath = pathutil.resolve(sourcepath, pathid);
             for(let j=0;j<masterFolders.length;j++){
@@ -41,7 +46,7 @@ module.exports = {
                     break;
                 }
             }
-            new_pathList.push(hotpathid?hotpathid:pathid);
+            new_pathList.push(hotpathid ? hotpathid : pathid);
         }
         new_pathList = _.uniq(new_pathList);
         return new_pathList;

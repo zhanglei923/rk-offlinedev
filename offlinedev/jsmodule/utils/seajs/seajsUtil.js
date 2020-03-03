@@ -83,14 +83,7 @@ let addJsExt = (req_pathid)=>{
     }
     return req_pathid;
 }
-let isCommonRequirePath = (raw_path)=>{
-    raw_path = _.trim(raw_path);
-    let isnormal = true;
-    if(raw_path.indexOf('{')>=0) isnormal = false;
-    if(raw_path.match(/^http/)) isnormal = false;
-    if(raw_path.match(/^\//)) isnormal = false;
-    return isnormal;
-};
+let isCommonRequirePath = rk.isCommonRequirePath;
 global.rkFileDepsCache = {};//缓存
 let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
     let depsinfo = getFileDeps(sourcefolder, fullfilepath, content)

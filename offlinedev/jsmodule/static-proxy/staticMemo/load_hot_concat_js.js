@@ -49,8 +49,10 @@ module.exports = {
                     let fromSubPrj = {};
                     let cmdinfo = {};
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
-                    jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
-                    fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
+                    if(jsContent.match(seajsUtil.definetype1)){
+                        jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
+                        fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
+                    }
                 }
                 if(len === 0){
                     onall(fullcontent)

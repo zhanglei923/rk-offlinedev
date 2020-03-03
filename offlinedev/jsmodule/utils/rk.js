@@ -46,6 +46,14 @@ var rk = {
         if(fpath.indexOf(`handsontable.full`)>=0) return true;
         return false;
     },
+    isCommonRequirePath: (raw_path)=>{
+        raw_path = _.trim(raw_path);
+        let isnormal = true;
+        if(raw_path.indexOf('{')>=0) isnormal = false;
+        if(raw_path.match(/^http/)) isnormal = false;
+        if(raw_path.match(/^\//)) isnormal = false;
+        return isnormal;
+    },
     isLibJsPath: function(fpath){
         fpath = rk_formatPath(fpath)
         if(fpath.match(/\/lib\//g)
