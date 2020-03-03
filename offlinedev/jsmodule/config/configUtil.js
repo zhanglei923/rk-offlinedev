@@ -134,8 +134,7 @@ let reloadConfig = (printinfo)=>{
 
     global.rkGlobalConfig = config;
     if(printinfo){
-        console.log('[User-Config]=', JSON.stringify(config))
-        console.log('---')
+        console.log('\n******** [User-Config] ********\n', jsonformat(config),'\n******** [User-Config] ********\n')
         console.log('   [Web-Root]=', webroot)
         console.log(' [Web-Branch]=', webProjectBranch)
         console.log('[Static-Root]=', static_project_root)

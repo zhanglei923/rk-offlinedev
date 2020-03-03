@@ -6,7 +6,9 @@ let makeDir = require('make-dir')
 let eachcontentjs = require('eachcontent-js')
 
 module.exports = {
-    getMajorFolders:(sourcefolder)=>{
-        
+    updateToHotUrls:(pathidList)=>{
+
+
+        return pathidList;
     }
 }
