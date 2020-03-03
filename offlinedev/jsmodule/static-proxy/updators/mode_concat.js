@@ -9,9 +9,10 @@ let level2JsCache = {}//这里缓存处理过的js文本，如果内存消耗过
 
 let updateSource = function (req_path, info, jscontent){
     jscontent = updateScript_1st.updateJs(info, jscontent)
+    jscontent = updateScript_cmd_HOT.updateJs(info, jscontent)//必须在其他update之前，不然无法更改依赖数组里的值
+    jscontent = updateScript_CssUrl.updateJs(info, jscontent)
     jscontent = require('../../static-injects/injectContents/injectSeaConfig').updateJs(info, jscontent);
     jscontent = updateScript_i18n.updateJs(info, jscontent)
-    jscontent = updateScript_cmd_HOT.updateJs(info, jscontent)
     return jscontent;
 }
 module.exports = {
