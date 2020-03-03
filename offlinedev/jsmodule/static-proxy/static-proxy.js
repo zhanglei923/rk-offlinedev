@@ -3,7 +3,7 @@ let pathutil = require('path')
 let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
-let staticMemoLoader = require('./staticMemoLoader');
+let staticHotUrlLoader = require('./staticHotUrlLoader');
 
 let scanner = require('../../codeScan/scan')
 
@@ -54,8 +54,8 @@ let linkToStaticFile = (req, res, next) => {
     if(/\.js$/.test(req_path)){
         //res.set('Content-Type', 'text/javascript');
         //console.log(req_path)
-        if(staticMemoLoader.isHotUrl(req_path)){
-            staticMemoLoader.loadHotJs(res, req_path);
+        if(staticHotUrlLoader.isHotUrl(req_path)){
+            staticHotUrlLoader.loadHotJs(res, req_path);
             return;
         }
         staticFileLoader.loadJs(root, req_path, (jscontent, info)=>{
@@ -103,8 +103,8 @@ let linkToStaticFile = (req, res, next) => {
         return;           
     }else if(/\.css$/.test(req_path)){
         //res.set('Content-Type', 'text/css');
-        if(staticMemoLoader.isHotUrl(req_path)){
-            staticMemoLoader.loadHotCss(res, req_path);
+        if(staticHotUrlLoader.isHotUrl(req_path)){
+            staticHotUrlLoader.loadHotCss(res, req_path);
             return;
         }
         staticFileLoader.loadCss(root, req_path, (jscontent, info)=>{
