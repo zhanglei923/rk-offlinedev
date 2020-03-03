@@ -54,10 +54,10 @@ let setPathVars = (requirePath)=>{
     //console.log('af:', requirePath)
     return requirePath;
 }
-let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars)=>{
+let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars, alias)=>{
     if(typeof replaceVars === 'undefined') replaceVars = true;//在生成deploy时，期望保持请求路径的原生态，不然deploy状态无法工作了
+    if(typeof alias === 'undefined') alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
     let realpath;
-    let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
     if(alias && alias[requirePath]){
         requirePath = alias[requirePath];
     }
@@ -90,6 +90,14 @@ let isCommonRequirePath = (raw_path)=>{
     return isnormal;
 };
 global.rkFileDepsCache = {};//缓存
+let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
+    let depsinfo = getFileDeps(sourcefolder, fullfilepath, content)
+    let array = [];
+    depsinfo.deps.forEach((info)=>{
+        array.push(info.rawPath);
+    })
+    return array;
+};
 let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let fstate = fs.lstatSync(fullfilepath);
     let ctime36 = fstate.ctimeMs.toString(36);
@@ -123,11 +131,11 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     }
     return global.rkFileDepsCache[fullfilepath];
 }
-let cleanDeps = (sourcefolder, fullfilepath, deps)=>{
+let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
     let deps_good = [];
     let deps_bad = [];
     deps.forEach((rawPath)=>{
-        let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath)
+        let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false, alias)
         if(isCommonRequirePath(rawPath) && !fs.existsSync(readpath)){
             deps_bad.push(rawPath)
             //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
@@ -145,6 +153,44 @@ let preLoadDeps = (sourcefolder, fpath, content)=>{
         getFileDeps(sourcefolder, fpath, content);
     }
 }
+let changeTplToDeploy = (content)=>{
+
+}
+let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
+    let fdir = pathutil.parse(fullfilepath).dir;
+    let pathid = pathutil.relative(sourcepath, fullfilepath);
+    let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
+    let bad_requires = [];
+    let result = cleanDeps(sourcepath, fullfilepath, deps, sea_alias)
+    deps = result.deps_good;
+    if(result.deps_bad.length > 0)bad_requires[pathid] = result.deps_bad;
+    let depspathid = [];
+    let hotlist = [];
+    deps.forEach((raw_req)=>{
+        let req_pathid;
+        let req_fullpath = resolveRequirePath(sourcepath, fullfilepath, raw_req, false, sea_alias)   
+        req_pathid = pathutil.relative(sourcepath, req_fullpath);
+        req_pathid = addJsExt(req_pathid)
+        depspathid.push(req_pathid)
+
+        let depsFolder = pathutil.parse(req_pathid).dir;
+    })
+    //console.log(depspathid)
+    if(content.match(definetype1) 
+    ){
+        let arr = content.split('\n');
+        for(let i=0;i<arr.length;i++){
+            let line = arr[i];
+            if(line.match(definetype1)){
+                line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
+                arr[i] = line;
+                break;
+            }
+        }
+        content = arr.join('\n')
+    }
+    return content;
+}
 let me = {
     definetype1,
     addJsExt,
@@ -154,7 +200,10 @@ let me = {
     getRequireRegForReplacement,
     setPathVars,
     getFileDeps,
+    getFileDepsAsArray,
     preLoadDeps,
-    cleanDeps
+    cleanDeps,
+    changeJsToDeploy,
+    changeTplToDeploy
 }
 module.exports = me;
