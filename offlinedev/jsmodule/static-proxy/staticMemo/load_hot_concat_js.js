@@ -39,6 +39,9 @@ module.exports = {
         //callback(jslist.join('<br>'))
         let len = jslist.length;
         len += tpllist.length;
+
+        if(len===0) callback('')
+
         let fullcontent = ''
         let onall = (fullcontent)=>{
             callback(fullcontent);
@@ -51,6 +54,7 @@ module.exports = {
                     let cmdinfo = {};
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
                     if(jsContent.match(seajsUtil.definetype1)){
+                        info.thispathid = thispathid;
                         jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
                         fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
                     }
