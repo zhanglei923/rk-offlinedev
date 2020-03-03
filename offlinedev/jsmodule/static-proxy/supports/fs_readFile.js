@@ -112,4 +112,5 @@ let fs_readFile = (fpath, opt, cb)=>{
 }
 me.fs_readFile = fs_readFile;
 me.removeCache = removeCache;
+me.getAllCache = ()=>{ return global.FileMemoCache; }
 module.exports = me;
