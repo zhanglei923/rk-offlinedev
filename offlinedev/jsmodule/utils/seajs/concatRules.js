@@ -10,6 +10,7 @@ let masterFolders;
 
 module.exports = {
     updateToHotUrls: (pathidList, sourcepath, fullfilepath, sea_alias, content)=>{
+        //if(!pathidList) console.log(fullfilepath)
         if(!masterFolders) {
             masterFolders = []
             let folders = eachcontentjs.getAllFolders(sourcepath)
@@ -22,7 +23,7 @@ module.exports = {
                 }
             })
             masterFolders = _.uniq(masterFolders);
-            console.log(masterFolders)
+            //console.log(masterFolders)
             //fs.writeFileSync('./masters.json', masterFolders.join('\n'))    
         }
         let new_pathList = []
