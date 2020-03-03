@@ -158,9 +158,10 @@ let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
 
     return content2;
 }
-let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
+let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     if(rk.isCookedJsPath(fullfilepath)) return content;
     if(!content.match(definetype1)) return content;
+    if(typeof info==='undefined') info = {}
 
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = pathutil.relative(sourcepath, fullfilepath);
@@ -181,7 +182,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
         let depsFolder = pathutil.parse(req_pathid).dir;
     });
     depspathid = _.uniq(depspathid)
-    depspathid = concatRules.updateToHotUrls(depspathid, sourcepath, fullfilepath, sea_alias, content);//切换到hot url模式
+    if(!info.no_hot_url)depspathid = concatRules.updateToHotUrls(depspathid, sourcepath, fullfilepath, sea_alias, content);//切换到hot url模式
     let arr = content.split('\n');
     for(let i=0;i<arr.length;i++){
         let line = arr[i];

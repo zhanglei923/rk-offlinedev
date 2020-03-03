@@ -17,7 +17,7 @@ let updateJs = (info, content)=>{
     let sourcepath = info.sourceFolder;
 
     let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
-    let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, content)
+    let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, content, info)
     return deploycontent;
 }
 let updateTpl = (info, content)=>{

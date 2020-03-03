@@ -48,16 +48,16 @@ let loadHotCss = (res, url)=>{
     }
 }
 let loadHotJs = (res, url)=>{
-    if(load_hot_bundle_js.isMyHotUrl(url)){
-        load_hot_bundle_js.load({sourceFolder, webappFolder}, url, (content)=>{
-            if(content === null) {
-                res.sendStatus(404).send(`Not Found: ${dir}`)
-            }else{
-                res.send(content)
-            }
-        })
-        return;
-    }else 
+    // if(load_hot_bundle_js.isMyHotUrl(url)){
+    //     load_hot_bundle_js.load({sourceFolder, webappFolder}, url, (content)=>{
+    //         if(content === null) {
+    //             res.sendStatus(404).send(`Not Found: ${dir}`)
+    //         }else{
+    //             res.send(content)
+    //         }
+    //     })
+    //     return;
+    // }else 
     if(load_hot_concat_js.isMyHotUrl(url)){
         load_hot_concat_js.load({sourceFolder, webappFolder}, url, (content)=>{
             if(content === null) {

@@ -55,8 +55,12 @@ module.exports = {
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
                     if(jsContent.match(seajsUtil.definetype1)){
                         info.thispathid = thispathid;
-                        jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
-                        fullcontent += `;\n//${fullfilepath}\n;${jsContent}`
+                        info.no_hot_url = true;
+                        let sourcepath = info.sourceFolder;
+                        let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
+                        let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, jsContent, info)
+                        //jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
+                        fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                     }
                 }
                 if(len === 0){
@@ -71,8 +75,10 @@ module.exports = {
                     let fromSubPrj = {};
                     let cmdinfo = {};
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
-                    tplContent = updateScript_cmd_HOT.updateTpl(info, tplContent)
-                    fullcontent += `;\n//${fullfilepath}\n;${tplContent}`
+                    let sourcepath = info.sourceFolder;                
+                    let deploycontent = seajsUtil.changeTplToDeploy(sourcepath, fullfilepath, tplContent)
+                    //tplContent = updateScript_cmd_HOT.updateTpl(info, tplContent)
+                    fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                 }
                 if(len === 0){
                     onall(fullcontent)
