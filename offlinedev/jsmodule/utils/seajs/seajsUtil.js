@@ -165,6 +165,7 @@ let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
     return content2;
 }
 let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
+    if(rk.isCookedJsPath(fullfilepath)) return content;
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = pathutil.relative(sourcepath, fullfilepath);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
