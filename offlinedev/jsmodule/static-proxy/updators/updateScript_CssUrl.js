@@ -10,11 +10,11 @@ let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
-let load_all_bi_widgets_css = require('../staticMemo/load_all_bi_widgets_css')
-let load_all_productscommon_css = require('../staticMemo/load_all_productscommon_css')
-let load_all_xsy_widgets_css = require('../staticMemo/load_all_xsy_widgets_css')
-let load_all_userdefinedmeasure_css = require('../staticMemo/load_all_userdefinedmeasure_css')
-let load_all_lib_css = require('../staticMemo/load_all_lib_css')
+let load_all_bi_widgets_css = require('../staticHot/load_all_bi_widgets_css')
+let load_all_productscommon_css = require('../staticHot/load_all_productscommon_css')
+let load_all_xsy_widgets_css = require('../staticHot/load_all_xsy_widgets_css')
+let load_all_userdefinedmeasure_css = require('../staticHot/load_all_userdefinedmeasure_css')
+let load_all_lib_css = require('../staticHot/load_all_lib_css')
 
 let css_loaders = [
     load_all_xsy_widgets_css,

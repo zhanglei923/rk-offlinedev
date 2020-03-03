@@ -2,6 +2,7 @@ var fs = require('fs');
 var pathutil = require('path');
 var fs_readFile = require('../supports/fs_readFile')
 let eachcontentjs = require('eachcontent-js')
+let makeDir = require('make-dir')
 let rk = require('../../utils/rk')
 let seajsUtil = require('../../utils/seajs/seajsUtil')
 var getConfig = require('../../config/configUtil')
@@ -44,6 +45,20 @@ module.exports = {
 
         let fullcontent = ''
         let onall = (fullcontent)=>{
+            if(0){
+                let debugFolder = pathutil.parse(__filename).dir;
+                debugFolder = pathutil.resolve(debugFolder, './debug')
+                let debugFilePath = rk_formatPath(debugFolder+'/'+url);
+                let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
+                // console.log('debugFilePath=',debugFilePath)
+                // console.log('debugFileFolder=', debugFileFolder)
+                makeDir.sync(debugFileFolder)
+                try{
+                    fs.writeFileSync(debugFilePath, fullcontent)
+                }catch(e){
+
+                }
+            }
             callback(fullcontent);
         }
         jslist.forEach((fullfilepath)=>{

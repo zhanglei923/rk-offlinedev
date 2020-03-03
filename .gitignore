@@ -12,3 +12,5 @@ offlinedev/codeScan/rpt.json
 modules/paas/layoutValidator/test/_rpt_mustfix.json
 modules/paas/layoutValidator/test/_rpt.json
 yarn.lock
+offlinedev/jsmodule/static-proxy/staticHot/debug/
+offlinedev/jsmodule/static-proxy/staticMemo/debug/

@@ -3,13 +3,13 @@ var pathutil = require('path');
 var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
 let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
-let load_hot_bundle_js = require('./staticMemo/load_hot_bundle_js')
-let load_hot_concat_js = require('./staticMemo/load_hot_concat_js')
-let load_all_xsy_widgets_css = require('./staticMemo/load_all_xsy_widgets_css')
-let load_all_bi_widgets_css = require('./staticMemo/load_all_bi_widgets_css')
-let load_all_userdefinedmeasure_css = require('./staticMemo/load_all_userdefinedmeasure_css')
-let load_all_productscommon_css = require('./staticMemo/load_all_productscommon_css')
-let load_all_lib_css = require('./staticMemo/load_all_lib_css')
+let load_hot_bundle_js = require('./staticHot/load_hot_bundle_js')
+let load_hot_concat_js = require('./staticHot/load_hot_concat_js')
+let load_all_xsy_widgets_css = require('./staticHot/load_all_xsy_widgets_css')
+let load_all_bi_widgets_css = require('./staticHot/load_all_bi_widgets_css')
+let load_all_userdefinedmeasure_css = require('./staticHot/load_all_userdefinedmeasure_css')
+let load_all_productscommon_css = require('./staticHot/load_all_productscommon_css')
+let load_all_lib_css = require('./staticHot/load_all_lib_css')
 
 let css_loaders = [
     load_all_xsy_widgets_css,
