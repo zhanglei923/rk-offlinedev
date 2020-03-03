@@ -34,7 +34,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fullfilepath, states)=>
         let content2 = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, sea_alias, content)
         let deploypath = fullfilepath.replace(/\/\bsource\b\//g, '/deploy/');
         //console.log(deploypath)
-        fs.writeFileSync(deploypath, content2)
-        fs.writeFileSync(fullfilepath, content2)
+        // fs.writeFileSync(deploypath, content2)
+        // fs.writeFileSync(fullfilepath, content2)
     }
 })
