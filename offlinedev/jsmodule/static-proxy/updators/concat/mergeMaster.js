@@ -15,29 +15,7 @@ var configUtil = require('../../../config/configUtil')
 
 let prepareMergeStrategy = function (sourcepath, seaconfig){
 
-    let children = eachcontentjs.getAllFolders(sourcepath);
-    children.forEach((folder)=>{
-        let js_list = []
-        let tpl_list1 = []
-        eachcontentjs.eachPath(sourcepath, /(\.js|\.tpl)$/,(fpath)=>{
-            if(!rk.isCookedJsPath(fpath)){
-                if(fpath.match(/\.js$/)) js_list.push(fpath)
-                if(fpath.match(/\.tpl$/)) tpl_list1.push(fpath)
-            }
-        })
-    })
-    console.log(children)
 
-    let js_list = []
-    let tpl_list1 = []
-    eachcontentjs.eachPath(sourcepath, /(\.js|\.tpl)$/,(fpath)=>{
-        if(!rk.isCookedJsPath(fpath)){
-            if(fpath.match(/\.js$/)) js_list.push(fpath)
-            if(fpath.match(/\.tpl$/)) tpl_list1.push(fpath)
-        }
-    })
-
-    console.log(tpl_list1.length, tpl_list2.length)
 }
 let getMergeStrategy = function (sourcepath){
     //
