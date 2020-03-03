@@ -64,7 +64,7 @@ module.exports = {
             })
         }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
-            configUtil.reloadConfig()
+            configUtil.reloadConfig(false)
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
             let parentFolder = pathutil.resolve(masterFolder,'../').replace(/\\{1,}/g, '/')
             var webpath = configUtil.getWebRoot()

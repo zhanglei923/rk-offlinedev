@@ -81,7 +81,8 @@ let getDeployDebugWebPath = (branchname)=>{
     let nginxDeployFolder = auxiliaryUtil.nginxDeployFolder;
     return pathutil.resolve(nginxDeployFolder, nickname+'/apps-ingage-web');
 }
-let reloadConfig = ()=>{    
+let reloadConfig = (printinfo)=>{
+    if(typeof printinfo === 'undefined') printinfo = true;
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
         fs.writeFileSync(configFilePath, jsonformat(config));
@@ -132,15 +133,17 @@ let reloadConfig = ()=>{
     staticFilter.loadFilterDef(webroot);
 
     global.rkGlobalConfig = config;
-    console.log('[User-Config]=', JSON.stringify(config))
-    console.log('---')
-    console.log('   [Web-Root]=', webroot)
-    console.log(' [Web-Branch]=', webProjectBranch)
-    console.log('[Static-Root]=', static_project_root)
-    console.log(' [Debug-Mode]=', '"'+config.debug.mode+'"')
-    console.log('     [Deploy]=', config.deployStaticPath_val)
-    console.log('   [Platform]=', os.platform())
-    console.log('---')
+    if(printinfo){
+        console.log('[User-Config]=', JSON.stringify(config))
+        console.log('---')
+        console.log('   [Web-Root]=', webroot)
+        console.log(' [Web-Branch]=', webProjectBranch)
+        console.log('[Static-Root]=', static_project_root)
+        console.log(' [Debug-Mode]=', '"'+config.debug.mode+'"')
+        console.log('     [Deploy]=', config.deployStaticPath_val)
+        console.log('   [Platform]=', os.platform())
+        console.log('---')
+    }
 }
 reloadConfig();
 
