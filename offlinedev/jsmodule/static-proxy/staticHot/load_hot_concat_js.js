@@ -45,12 +45,14 @@ module.exports = {
 
         let fullcontent = ''
 
-        let debugFolder = pathutil.resolve(pathutil.parse(__filename).dir, './debug');
+        let myfolder = pathutil.parse(__filename).dir
+        let debugFolder = pathutil.resolve(myfolder, './debug');
         let debugFilePath = rk_formatPath(debugFolder+'/'+url);
         let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
 
         let onall = (fullcontent)=>{
-            if(0){
+            if(fs.existsSync(pathutil.resolve(myfolder, './dodebug'))){//新建一个debug的文件，启动debug模式
+                console.log('debug模式，写入debug目录备查')
                 // console.log('debugFilePath=',debugFilePath)
                 // console.log('debugFileFolder=', debugFileFolder)
                 makeDir.sync(debugFileFolder)
