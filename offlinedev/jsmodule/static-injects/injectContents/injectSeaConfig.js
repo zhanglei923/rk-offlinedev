@@ -22,7 +22,7 @@ let updateJs = (info, content)=>{
     fs_readFile.fs_readFile(jspath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
         jscontent = content;
     });
-    content += jscontent;
+    content += '\n'+jscontent;
     return content;
 }
 module.exports = {
