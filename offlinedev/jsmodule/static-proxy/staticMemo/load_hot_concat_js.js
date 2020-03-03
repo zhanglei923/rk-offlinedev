@@ -16,6 +16,7 @@ module.exports = {
         // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
         let sourceFolder = config.sourceFolder;
         let webappFolder = config.webappFolder;
+        let thispathid = pathutil.relative('/static/source', url)
         let dir = pathutil.parse(url).dir;
         dir = dir.replace(/^\/{1,}/, './')
         dir = pathutil.resolve(webappFolder, dir);
