@@ -26,7 +26,7 @@ let showInfomation = (result)=>{
             <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right" valign="top">配置：</td><td>
-            <span title="user-config.json: debug.mode" class="${userConfig.debug && userConfig.debug.mode === 'source'?'status_is_on status_is_neutral':'status_is_off status_is_warn'}">"${userConfig.debug.mode}"</span>
+            <span title="user-config.json: debug.mode" class="${userConfig.debug && userConfig.debug.mode === 'source'?'status_is_on status_is_neutral':'status_is_on status_is_warn'}">"${userConfig.debug.mode}"</span>
             <span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
             <span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
             <span title="user-config.json: debug.autoCacheStatic" class="${userConfig.debug && userConfig.debug.autoCacheStatic?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache L1</span>
