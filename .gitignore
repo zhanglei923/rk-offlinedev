@@ -14,3 +14,4 @@ modules/paas/layoutValidator/test/_rpt.json
 yarn.lock
 offlinedev/jsmodule/static-proxy/staticHot/debug/
 offlinedev/jsmodule/static-proxy/staticMemo/debug/
+offlinedev/jsmodule/static-proxy/staticHot/.dodebug
