@@ -32,6 +32,9 @@
   .infotable *{
       color: #d5e5ff;
   }
+  .infotable td{
+      height: 18px;
+  }
   .table_title{
     /* background-color: #010101c2; */
     background-color: #0101014d;
