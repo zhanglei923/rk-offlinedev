@@ -85,8 +85,12 @@ let linkToStaticFile = (req, res, next) => {
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 res.set('.rk-cached', is_rk_cached);
 
-                jscontent = require('./updators/mode_source').updateSource(req_path, info, jscontent);
-                jscontent = require('../static-injects/injectContents/injectSeaConfig').updateJs(info, jscontent);
+                if(getConfig.getValue('debug.mode') === 'source'){
+                    jscontent = require('./updators/mode_source').updateSource(req_path, info, jscontent);
+                }else
+                if(getConfig.getValue('debug.mode') === 'concat'){
+                    jscontent = require('./updators/mode_concat').updateSource(req_path, info, jscontent);
+                }
 
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
                                     `//[rk][real-path]${is_rk_cached?'[cached]':'[read]'}${info.fromSubPrj?'[sub]':''}${info.fullfilepath}\n`+
