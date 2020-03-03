@@ -5,6 +5,7 @@ let util = require('util')
 let rk = require('../../utils/rk')
 let regParserMini = require('./regParserMini');
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
+let concatRules = require('./concatRules')
 let parseSeaConfig2 = (seaPath)=>{
     var HashFilePath = seaPath + '/hash.js';
     var SeaConfigPath = seaPath + '/sea-config.js';
@@ -166,6 +167,8 @@ let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
 }
 let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
     if(rk.isCookedJsPath(fullfilepath)) return content;
+    if(!content.match(definetype1)) return content;
+
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = pathutil.relative(sourcepath, fullfilepath);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
@@ -183,21 +186,17 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content)=>{
         depspathid.push(req_pathid)
 
         let depsFolder = pathutil.parse(req_pathid).dir;
-    })
-    //console.log(depspathid)
-    if(content.match(definetype1) 
-    ){
-        let arr = content.split('\n');
-        for(let i=0;i<arr.length;i++){
-            let line = arr[i];
-            if(line.match(definetype1)){
-                line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
-                arr[i] = line;
-                break;
-            }
+    });
+    let arr = content.split('\n');
+    for(let i=0;i<arr.length;i++){
+        let line = arr[i];
+        if(line.match(definetype1)){
+            line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
+            arr[i] = line;
+            break;
         }
-        content = arr.join('\n')
     }
+    content = arr.join('\n')
     return content;
 }
 let me = {
