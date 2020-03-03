@@ -46,7 +46,7 @@ module.exports = {
         let fullcontent = ''
 
         let myfolder = pathutil.parse(__filename).dir
-        let debugFolder = pathutil.resolve(myfolder, './debug');
+        let debugFolder = webappFolder;
         let debugFilePath = rk_formatPath(debugFolder+'/'+url);
         let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
 
