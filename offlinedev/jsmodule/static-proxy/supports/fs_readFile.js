@@ -66,7 +66,7 @@ let fs_readFile = (fpath, opt, cb)=>{
     if(typeof opt.be_sync === 'undefined') opt.be_sync = false;
     (opt.be_sync?my_lstatSync:my_lstat)(fpath, (err, fstate)=>{
         if(err){ 
-            cb({error: 'file stat error'}, null);
+            cb({error: err}, null);
             return;
         }
         let mc36 = getMC36(fstate);
