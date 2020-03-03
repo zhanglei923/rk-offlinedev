@@ -4,7 +4,6 @@ var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFi
 var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
 var configUtil = require('./offlinedev/jsmodule/config/configUtil')
-var mergeMaster = require('./offlinedev/jsmodule/static-proxy/updators/concat/mergeMaster') 
 
 var format = function(bytes, tail) { 
     return (bytes/1024/1024).toFixed(tail); 
@@ -33,7 +32,6 @@ let preloadStaticFiles = (callback)=>{
             seajsUtil.preLoadDeps(sourcefolder, fpath, content)
         });
     }
-    mergeMaster.prepareMergeStrategy(sourcefolder)
     console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
     callback()
 }
