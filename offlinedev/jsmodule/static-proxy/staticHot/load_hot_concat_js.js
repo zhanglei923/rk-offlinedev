@@ -11,7 +11,7 @@ let updateScript_cmd_HOT = require('../updators/updateScript_cmd_HOT')
 
 module.exports = {
     isMyHotUrl:(url)=>{
-        return /autoconcat\_HOT\.js$/.test(url);
+        return url.match(/autoconcat\_HOT\.js$/);
     },
     load:(config, url, callback)=>{
         // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js

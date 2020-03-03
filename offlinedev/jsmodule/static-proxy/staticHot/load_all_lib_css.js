@@ -7,7 +7,7 @@ let updateCss = require('../supports/concat_css')
 
 module.exports = {
     isMyHotUrl:(url)=>{
-        return /all\-lib\_HOT\.css$/.test(url);
+        return url.match(/all\-lib\_HOT\.css$/);
     },
     shouldReplacedWithThis:(sourceDir, req_realpath)=>{
         if(req_realpath.match(/\.css$/)){

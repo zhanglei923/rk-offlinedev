@@ -6,7 +6,7 @@ let updateCss = require('../supports/concat_css')
 
 module.exports = {
     isMyHotUrl:(url)=>{
-        return /all\-xsy\-widgets\_HOT\.css$/.test(url);
+        return url.match(/all\-xsy\-widgets\_HOT\.css$/);
     },
     shouldReplacedWithThis:(sourceDir, req_realpath)=>{
         if(req_realpath.match(/all\-xsy\-widgets.css$/)){

@@ -5,7 +5,7 @@ var getConfig = require('../../config/configUtil')
 
 module.exports = {
     isMyHotUrl:(url)=>{
-        return /\_hotresponse\_\.js$/.test(url);
+        return url.match(/\_hotresponse\_\.js$/);
     },
     load:(webappFolder, url, callback)=>{
         // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js

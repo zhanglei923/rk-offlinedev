@@ -31,6 +31,7 @@ module.exports = {
         for(let i=0;i<pathidList.length;i++){
             let pathid = pathidList[i];
             if(rk.isCookedJsPath(pathid)) continue;
+            if(rk.isLibJsPath(pathid)) continue;
             if(!rk.isCommonRequirePath(pathid)){
                 new_pathList.push(pathid)
                 continue;
