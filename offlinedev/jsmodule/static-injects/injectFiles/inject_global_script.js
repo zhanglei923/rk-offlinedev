@@ -69,10 +69,10 @@ window.rk_offlinedev_shouldDoOriginalSeajsReturn = (pathid)=>{
 }
 let rk_offlinedev_Original_seause = seajs.use;
 seajs.use = function(srcs, callback, a0,a1,a2,a3,a4,a5,a6,a7){
-    console.warn('[rk-offlinedev]已拦截seajs.use方法')
     let fun2 = function(){
         let args = arguments;
         callback.apply(seajs, args)
     }
     return rk_offlinedev_Original_seause.call(seajs, srcs, fun2, a0,a1,a2,a3,a4,a5,a6,a7)
 }
+console.warn('[rk-offlinedev]已拦截seajs.use方法')
