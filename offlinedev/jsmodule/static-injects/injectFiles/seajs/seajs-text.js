@@ -222,8 +222,10 @@
       div.style.padding='0';
       div.style['z-index']='999998765';
 
-      let webbranch = rk_offlinedev.userConfig.webProjectInfo.branch
-      div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev, on branch ('+webbranch+')</a>'
+      let webbranch = rk_offlinedev.userConfig.webProjectInfo.branch;
+      let debugmode = rk_offlinedev.userConfig.debug.mode;
+      debugmode = debugmode?debugmode:'?'
+      div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">rk-offlinedev['+debugmode+'], on branch ('+webbranch+')</a>'
       console.warn('[rk-offlinedev]seajs-text注入成功')
   };
   initRkOfflineDev()

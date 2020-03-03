@@ -8,10 +8,10 @@ let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticLevel2');
 let level2JsCache = {}//这里缓存处理过的js文本，如果内存消耗过高，建议关闭
 
 let updateSource = function (req_path, info, jscontent){
+    jscontent = updateScript_1st.updateJs(info, jscontent)
     let newMC36 = info.fileinfo.mc36;
     let level2needsupdate = (!level2JsCache[req_path] || (level2JsCache[req_path].mc36 !== newMC36))
     if(!enableLevel2Cache || level2needsupdate){
-        jscontent = updateScript_1st.updateJs(info, jscontent)
         //jscontent = updateScript_CmdConcat.updateJs(info, jscontent)
         jscontent = updateScript_CssUrl.updateJs(info, jscontent)
 
