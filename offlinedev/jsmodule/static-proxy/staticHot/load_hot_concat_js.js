@@ -29,7 +29,7 @@ module.exports = {
         }
         let jslist = []
         eachcontentjs.eachPath(dir, /\.js$/, (fpath)=>{
-            if(!rk.isCookedJsPath(fpath)){
+            if(!rk.isCookedJsPath(fpath) && !rk.isLibJsPath(fpath)){
                 jslist.push(fpath)
             }
         })
@@ -46,7 +46,7 @@ module.exports = {
         let fullcontent = ''
 
         let myfolder = pathutil.parse(__filename).dir
-        let debugFolder = webappFolder;
+        let debugFolder = pathutil.resolve(myfolder, './debug');
         let debugFilePath = rk_formatPath(debugFolder+'/'+url);
         let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
 
