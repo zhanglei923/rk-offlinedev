@@ -41,7 +41,10 @@ module.exports = {
         let len = jslist.length;
         len += tpllist.length;
 
-        if(len===0) callback('')
+        if(len===0) {
+            callback('')
+            return;
+        }
 
         let fullcontent = ''
 
