@@ -20,6 +20,14 @@ let updateJs = (info, content)=>{
     let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, content)
     return deploycontent;
 }
+let updateTpl = (info, content)=>{
+    let fullfilepath = info.fullfilepath;
+    let sourcepath = info.sourceFolder;
+
+    let deploycontent = seajsUtil.changeTplToDeploy(sourcepath, fullfilepath, content)
+    return deploycontent;
+}
 module.exports = {
-    updateJs
+    updateJs,
+    updateTpl
 };
