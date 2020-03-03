@@ -44,12 +44,13 @@ module.exports = {
         if(len===0) callback('')
 
         let fullcontent = ''
+
+        let debugFolder = pathutil.resolve(pathutil.parse(__filename).dir, './debug');
+        let debugFilePath = rk_formatPath(debugFolder+'/'+url);
+        let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
+
         let onall = (fullcontent)=>{
             if(0){
-                let debugFolder = pathutil.parse(__filename).dir;
-                debugFolder = pathutil.resolve(debugFolder, './debug')
-                let debugFilePath = rk_formatPath(debugFolder+'/'+url);
-                let debugFileFolder = rk_formatPath(pathutil.parse(debugFilePath).dir);
                 // console.log('debugFilePath=',debugFilePath)
                 // console.log('debugFileFolder=', debugFileFolder)
                 makeDir.sync(debugFileFolder)
@@ -60,6 +61,14 @@ module.exports = {
                 }
             }
             callback(fullcontent);
+        }
+        if(fs.existsSync(debugFilePath)){
+            console.log('从debug目录读取的', debugFilePath)
+            let txt = fs.readFileSync(debugFilePath, 'utf8')
+            txt = `//这是从debug目录读取的文件，并非内存里的hot\n//这是从debug目录读取的文件，并非内存里的hot\n//这是从debug目录读取的文件，并非内存里的hot\n`+txt;
+            //console.log(txt)
+            callback(txt)
+            return;
         }
         jslist.forEach((fullfilepath)=>{
             fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {  
