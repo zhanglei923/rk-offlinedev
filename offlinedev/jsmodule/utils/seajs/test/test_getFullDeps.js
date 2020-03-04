@@ -1,5 +1,9 @@
+let fs=require('fs')
+let pathutil = require('path')
 let _ = require('lodash')
-let deps = {
+let eachcontentjs = require('eachcontent-js')
+
+let deps1 = {
     '0':['1','2','3'],
     '1':['a', 'b'],
     '2':['a', 'c'],
@@ -21,28 +25,43 @@ let deps = {
 
 let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0,11,12'
 
-let fulldeps = []
 
 
 
 
-let getAllDepsFiles = (pathid)=>{
+let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
     //console.log(pid, pathid)
     let arr = deps[pathid];
-    arr.forEach((fpath)=>{
-        getAllDepsFiles(fpath);
-        fulldeps.push(fpath)
-    })
-    fulldeps.push(pathid)
+    if(arr){
+        arr.forEach((fpath)=>{
+            do_getAllDepsFiles(deps, fulldeps, fpath);
+            fulldeps.push(fpath)
+        })
+        fulldeps.push(pathid)
+    }
 }
-getAllDepsFiles('0')
+let getAllDepsFiles = (deps, initId)=>{
+    let fulldeps = []
+    do_getAllDepsFiles(deps, fulldeps, initId)
 
-for(let pathid in deps){
-    fulldeps.push(pathid)
+    for(let pathid in deps){
+        fulldeps.push(pathid)
+    }
+    fulldeps = _.uniq(fulldeps)
+    return fulldeps;
 }
+let output = getAllDepsFiles(deps1, '0')
 
-fulldeps = _.uniq(fulldeps)
-let fulldepsstr = fulldeps.join(',')
+let fulldepsstr = output.join(',')
 console.log(fulldepsstr)
 console.log(expect)
 console.log(fulldepsstr === expect)
+
+let thisdir = pathutil.parse(__filename).dir
+
+let json = fs.readFileSync(thisdir+'/dependencyMap.json');
+json = JSON.parse(json)
+
+let fullarr = getAllDepsFiles(json, "core/rkloader.js")
+fs.writeFileSync(thisdir+'/full_dependencylist.txt', fullarr.join('\n'))
+//console.log(json)

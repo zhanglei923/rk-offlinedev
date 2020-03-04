@@ -15,3 +15,5 @@ yarn.lock
 offlinedev/jsmodule/static-proxy/staticHot/debug_hot_urls/
 offlinedev/jsmodule/static-proxy/staticMemo/debug_hot_urls/
 offlinedev/jsmodule/static-proxy/staticHot/.dodebug
+offlinedev/jsmodule/utils/seajs/test/dependencyMap.json
+offlinedev/jsmodule/utils/seajs/test/full_dependencylist.txt
