@@ -1,3 +1,6 @@
+let fs = require('fs')
+var _ = require('lodash')
+var pathutil = require('path');
 let eachcontentjs = require('eachcontent-js')
 let rk = require('./offlinedev/jsmodule/utils/rk')
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
@@ -32,6 +35,27 @@ let preloadStaticFiles = (callback)=>{
             seajsUtil.preLoadDeps(sourcefolder, fpath, content)
         });
     }
+    let alldepsmap = seajsUtil.getAllDepsAsMap()
+    //fs.writeFileSync(pathutil.parse(__filename).dir+'/alldepsmap.json', JSON.stringify(alldepsmap))
+
+    let arr1 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "core/rkloader.js")
+    arr1 = _.uniq(arr1)
+    console.log(arr1.length)
+    let arr2 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, 'page/js/frame/pageMainCtrl.js')
+    arr2 = _.uniq(arr2)
+    console.log(arr2.length)
+    let arr3 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, 'oldcrm/js/core/common-crm.js')
+    arr3 = _.uniq(arr3)
+    console.log(arr3.length)
+
+    fullarr = [];
+    fullarr = _.uniq(fullarr.concat(arr1))
+    fullarr = _.uniq(fullarr.concat(arr2))
+    fullarr = _.uniq(fullarr.concat(arr3))
+
+    //fs.writeFileSync(pathutil.parse(__filename).dir+'/allpathidlist.txt', fullarr.join('\n'))
+
+
     console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
     callback()
 }

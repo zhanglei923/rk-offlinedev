@@ -85,6 +85,24 @@ let addJsExt = (req_pathid)=>{
 }
 let isCommonRequirePath = rk.isCommonRequirePath;
 global.rkFileDepsCache = {};//缓存
+let getAllDeps = ()=>{
+    return global.rkFileDepsCache;
+}
+let getAllDepsAsMap = ()=>{
+    let map = {}
+    for(let fullfilepath in global.rkFileDepsCache){
+        let info = global.rkFileDepsCache[fullfilepath]
+        let pathid = info.pathid;
+        let deps = info.deps;
+        let depsarr = []
+        deps.forEach((dep)=>{
+            depsarr.push(dep.pathid);
+        })
+        depsarr = _.uniq(depsarr);
+        map[pathid] = depsarr;
+    }
+    return map;
+}
 let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
     let depsinfo = getFileDeps(sourcefolder, fullfilepath, content)
     let array = [];
@@ -99,10 +117,13 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let mtime36 = fstate.mtimeMs.toString(36);
     let mc36 = mtime36+'-'+ctime36;
     
+    let pathid = pathutil.relative(sourcefolder, fullfilepath)
+    //console.log(pathid)
     let deps = [];
     let cache = global.rkFileDepsCache[fullfilepath];
     if(rk.isCookedJsPath(fullfilepath)){
         global.rkFileDepsCache[fullfilepath] = {
+            pathid,
             isCmd: false,
             mightBeCmd: false,
             mc36,
@@ -114,9 +135,17 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
         }else{
             deps = regParserMini.getRequires(content); 
             let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);   
+            for(let i=0;i<deps2.length;i++){
+                let rawPath = deps2[i].rawPath;
+                let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
+                let thispathid = pathutil.relative(sourcefolder, fullpath);
+                deps2[i].fullpath = fullpath;
+                deps2[i].pathid = thispathid;
+            }
             let isCmd = rk.isCmdFile(content);    
             let mightBeCmd = rk.mightBeCmdFile(content)
             global.rkFileDepsCache[fullfilepath] = {
+                pathid,
                 isCmd,
                 mightBeCmd,
                 mc36,
@@ -195,22 +224,22 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     content = arr.join('\n')
     return content;
 }
-let getAllDepsFiles = (deps, initId)=>{
+let reduceAllDepsIntoArray = (deps, initId)=>{
     //私有函数
     let _push = (array, pathid)=>{
-        if(!global.seajs_parser_getAllDepsFiles_hitedId[pathid]){
-            global.seajs_parser_getAllDepsFiles_hitedId[pathid] = true;
+        if(!global.seajs_parser_reduceAllDepsIntoArray_hitedId[pathid]){
+            global.seajs_parser_reduceAllDepsIntoArray_hitedId[pathid] = true;
             array.push(pathid)
         }
         return array;
     }
     //私有函数
-    let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
+    let do_reduceAllDepsIntoArray = (deps, fulldeps,pathid)=>{
         //console.log(pid, pathid)
         let arr = deps[pathid];
         if(arr){
             arr.forEach((fpath)=>{
-                if(!global.seajs_parser_getAllDepsFiles_hitedId[pathid])do_getAllDepsFiles(deps, fulldeps, fpath);
+                if(!global.seajs_parser_reduceAllDepsIntoArray_hitedId[pathid])do_reduceAllDepsIntoArray(deps, fulldeps, fpath);
                 fulldeps = _push(fulldeps, fpath)
                 //fulldeps.push(fpath)
             })
@@ -218,9 +247,9 @@ let getAllDepsFiles = (deps, initId)=>{
         }
     }
     //正文
-    global.seajs_parser_getAllDepsFiles_hitedId = {}
+    global.seajs_parser_reduceAllDepsIntoArray_hitedId = {}
     let fulldeps = []
-    do_getAllDepsFiles(deps, fulldeps, initId)
+    do_reduceAllDepsIntoArray(deps, fulldeps, initId)
     for(let pathid in deps){
         //fulldeps.push(pathid)
         fulldeps = _push(fulldeps, pathid)
@@ -242,6 +271,8 @@ let me = {
     cleanDeps,
     changeJsToDeploy,
     changeTplToDeploy,
-    getAllDepsFiles
+    reduceAllDepsIntoArray,
+    getAllDeps,
+    getAllDepsAsMap
 }
 module.exports = me;

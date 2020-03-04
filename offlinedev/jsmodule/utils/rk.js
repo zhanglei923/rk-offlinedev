@@ -93,9 +93,16 @@ var rk = {
     cleanCommentsFast: function(str){
         if(typeof str !== 'string') return str;
         if(!str) return str;
+        let marker =  'httttttttttp';
+        let markers = 'httttttttttps';
+        str = str.replace(/(http\:\/\/)/g, marker)
+        str = str.replace(/(https\:\/\/)/g, markers)
         //可能不是javascript，比如tpl什么的
         //by: http://upshots.org/javascript/javascript-regexp-to-remove-comments
-        return str.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
+        let newstr = str.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');
+        newstr = newstr.replace(new RegExp(marker, 'g'), 'http://')
+        newstr = newstr.replace(new RegExp(markers, 'g'), 'https://')
+        return newstr;
     },
     cleanComments: function(str){
         let cachekey = 'rk_cleanComments';
