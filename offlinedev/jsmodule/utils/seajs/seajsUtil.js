@@ -195,6 +195,39 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     content = arr.join('\n')
     return content;
 }
+let getAllDepsFiles = (deps, initId)=>{
+    //私有函数
+    let _push = (array, pathid)=>{
+        if(!global.seajs_parser_getAllDepsFiles_hitedId[pathid]){
+            global.seajs_parser_getAllDepsFiles_hitedId[pathid] = true;
+            array.push(pathid)
+        }
+        return array;
+    }
+    //私有函数
+    let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
+        //console.log(pid, pathid)
+        let arr = deps[pathid];
+        if(arr){
+            arr.forEach((fpath)=>{
+                if(!global.seajs_parser_getAllDepsFiles_hitedId[pathid])do_getAllDepsFiles(deps, fulldeps, fpath);
+                fulldeps = _push(fulldeps, fpath)
+                //fulldeps.push(fpath)
+            })
+            fulldeps = _push(fulldeps, pathid)
+        }
+    }
+    //正文
+    global.seajs_parser_getAllDepsFiles_hitedId = {}
+    let fulldeps = []
+    do_getAllDepsFiles(deps, fulldeps, initId)
+    for(let pathid in deps){
+        //fulldeps.push(pathid)
+        fulldeps = _push(fulldeps, pathid)
+    }
+    fulldeps = _.uniq(fulldeps)
+    return fulldeps;
+}
 let me = {
     definetype1,
     addJsExt,
@@ -208,6 +241,7 @@ let me = {
     preLoadDeps,
     cleanDeps,
     changeJsToDeploy,
-    changeTplToDeploy
+    changeTplToDeploy,
+    getAllDepsFiles
 }
 module.exports = me;
