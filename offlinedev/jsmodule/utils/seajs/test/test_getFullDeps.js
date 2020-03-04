@@ -25,33 +25,32 @@ let deps1 = {
 
 let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0,11,12'
 
-
-
-
-let hitedId = {}
-let _push = (array, pathid)=>{
-    if(!hitedId[pathid]){
-        hitedId[pathid] = true;
-        array.push(pathid)
-    }
-    return array;
-}
-let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
-    //console.log(pid, pathid)
-    let arr = deps[pathid];
-    if(arr){
-        arr.forEach((fpath)=>{
-            if(!hitedId[pathid])do_getAllDepsFiles(deps, fulldeps, fpath);
-            fulldeps = _push(fulldeps, fpath)
-            //fulldeps.push(fpath)
-        })
-        fulldeps = _push(fulldeps, pathid)
-    }
-}
 let getAllDepsFiles = (deps, initId)=>{
+    //私有函数
+    let _push = (array, pathid)=>{
+        if(!global.hitedId[pathid]){
+            global.hitedId[pathid] = true;
+            array.push(pathid)
+        }
+        return array;
+    }
+    //私有函数
+    let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
+        //console.log(pid, pathid)
+        let arr = deps[pathid];
+        if(arr){
+            arr.forEach((fpath)=>{
+                if(!global.hitedId[pathid])do_getAllDepsFiles(deps, fulldeps, fpath);
+                fulldeps = _push(fulldeps, fpath)
+                //fulldeps.push(fpath)
+            })
+            fulldeps = _push(fulldeps, pathid)
+        }
+    }
+    //正文
+    global.hitedId = {}
     let fulldeps = []
     do_getAllDepsFiles(deps, fulldeps, initId)
-
     for(let pathid in deps){
         //fulldeps.push(pathid)
         fulldeps = _push(fulldeps, pathid)
@@ -82,9 +81,9 @@ arr3 = _.uniq(arr3)
 console.log(arr3.length)
 
 fullarr = [];
-fullarr = fullarr.concat(arr1);fullarr = _.uniq(fullarr)
-fullarr = fullarr.concat(arr1);fullarr = _.uniq(fullarr)
-fullarr = fullarr.concat(arr1);fullarr = _.uniq(fullarr)
+fullarr = _.uniq(fullarr.concat(arr1))
+fullarr = _.uniq(fullarr.concat(arr2))
+fullarr = _.uniq(fullarr.concat(arr3))
 
 fs.writeFileSync(thisdir+'/full_dependencylist.txt', fullarr.join('\n'))
 
