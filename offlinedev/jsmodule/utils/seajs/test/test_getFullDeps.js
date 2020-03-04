@@ -41,7 +41,7 @@ let do_getAllDepsFiles = (deps, fulldeps,pathid)=>{
     let arr = deps[pathid];
     if(arr){
         arr.forEach((fpath)=>{
-            do_getAllDepsFiles(deps, fulldeps, fpath);
+            if(!hitedId[pathid])do_getAllDepsFiles(deps, fulldeps, fpath);
             fulldeps = _push(fulldeps, fpath)
             //fulldeps.push(fpath)
         })
