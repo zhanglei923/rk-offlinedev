@@ -14,10 +14,12 @@ let deps = {
     'v':[],
     'x':[],
     'y':['z'],
-    'z':[]
+    'z':[],
+    '11':[],
+    '12':[]
 }
 
-let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0'
+let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0,11,12'
 
 let fulldeps = []
 
@@ -35,6 +37,12 @@ let parse = (pid, pathid)=>{
 }
 parse(null, '0')
 
+for(let pathid in deps){
+    fulldeps.push(pathid)
+}
+
 fulldeps = _.uniq(fulldeps)
 let fulldepsstr = fulldeps.join(',')
+console.log(fulldepsstr)
+console.log(expect)
 console.log(fulldepsstr === expect)
