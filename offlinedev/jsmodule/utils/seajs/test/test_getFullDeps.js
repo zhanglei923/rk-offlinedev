@@ -56,7 +56,10 @@ fullarr = _.uniq(fullarr.concat(arr3))
 
 fs.writeFileSync(thisdir+'/full_dependencylist.txt', fullarr.join('\n'))
 
+// for(let i=0;i<2000;i++){
+//     let pathid = fullarr[i];
 
+// }
 
 
 //console.log(json)

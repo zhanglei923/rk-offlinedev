@@ -19,6 +19,7 @@ var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
 var fpowerUtil = require('./offlinedev/jsmodule/utils/fpowerUtil')
+let mysupport = require('./support');
 var credentials = {key: privateKey, cert: certificate};
 
 let userConfig = getConfig.getUserConfig();
@@ -236,7 +237,7 @@ let afterStart = (callback)=>{
         setTimeout(()=>{
             let t0 = new Date()*1;
             console.log(`[Pre-Load] Loading files:`)
-            require('./support').preloadStaticFiles(()=>{
+            mysupport.preloadStaticFiles(()=>{
                 console.log(`[Pre-Load] cost:`, ((new Date()*1)-t0)+'ms');    
                 callback() 
             });
