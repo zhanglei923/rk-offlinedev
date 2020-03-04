@@ -26,16 +26,16 @@ let fulldeps = []
 
 
 
-let parse = (pid, pathid)=>{
+let getAllDepsFiles = (pathid)=>{
     //console.log(pid, pathid)
     let arr = deps[pathid];
     arr.forEach((fpath)=>{
-        parse(pathid, fpath);
+        getAllDepsFiles(fpath);
         fulldeps.push(fpath)
     })
     fulldeps.push(pathid)
 }
-parse(null, '0')
+getAllDepsFiles('0')
 
 for(let pathid in deps){
     fulldeps.push(pathid)
