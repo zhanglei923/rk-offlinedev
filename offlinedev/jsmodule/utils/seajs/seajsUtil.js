@@ -133,6 +133,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
         if(cache && cache.mc36 === mc36){
             deps = cache.deps;
         }else{
+            content = rk.cleanCommentsFast(content);
             deps = regParserMini.getRequires(content); 
             let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);   
             for(let i=0;i<deps2.length;i++){
