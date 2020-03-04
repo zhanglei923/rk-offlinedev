@@ -1,4 +1,6 @@
+let _ = require('lodash')
 let deps = {
+    '0':['1','2','3'],
     '1':['a', 'b'],
     '2':['a', 'c'],
     '3':['b', 'd'],
@@ -15,7 +17,24 @@ let deps = {
     'z':[]
 }
 
-let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3'
+let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0'
+
+let fulldeps = []
 
 
-console.log(deps)
+
+
+let parse = (pid, pathid)=>{
+    //console.log(pid, pathid)
+    let arr = deps[pathid];
+    arr.forEach((fpath)=>{
+        parse(pathid, fpath);
+        fulldeps.push(fpath)
+    })
+    fulldeps.push(pathid)
+}
+parse(null, '0')
+
+fulldeps = _.uniq(fulldeps)
+let fulldepsstr = fulldeps.join(',')
+console.log(fulldepsstr === expect)
