@@ -3,6 +3,7 @@ var pathutil = require('path');
 var blueimp_md5 = require("blueimp-md5")
 var babel = require("@babel/core");
 var makeDir = require('make-dir');
+let rk = require('../utils/rk')
 let projectFileSearch = require('./supports/projectFileSearch')
 var getConfig = require('../config/configUtil')
 let pathfinder = require('./supports/pathfinder')
@@ -32,7 +33,7 @@ let thisUtil = {
             if(jsContent === ''){
                 callback('');
             }else if(jsContent){            
-                if(!fullfilepath.match(/sea\.js/g)&&!fullfilepath.match(/\/lib\//g)){
+                if(!fullfilepath.match(/sea\.js/g)&& !rk.isLibJsPath(fullfilepath) && !rk.isCookedJsPath(fullfilepath)){
                     let md5 = blueimp_md5(jsContent)
                     //let md5b = blueimp_md5(new Date()*1)
                     let fullfilepathname2 = md5;
