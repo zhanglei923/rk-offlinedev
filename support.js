@@ -47,7 +47,9 @@ let preloadStaticFiles = (callback)=>{
             }
         });
     }
-    generateHotFiles(staticfolder, sourcefolder)
+    if(shouldParseDeps){
+        generateHotFiles(staticfolder, sourcefolder)
+    }
     console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
     callback()
 }
