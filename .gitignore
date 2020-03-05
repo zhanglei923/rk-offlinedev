@@ -1,5 +1,6 @@
 node_modules/
 tmp/
+logs/
 offlinedev/.localstatus
 offlinedev/mocking/actions/
 offlinedev/mocking/

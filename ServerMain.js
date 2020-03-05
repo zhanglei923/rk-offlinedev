@@ -11,6 +11,7 @@ var bodyParser = require('body-parser')
 var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
+let makeDir = require('make-dir')
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
 var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
@@ -31,6 +32,7 @@ if(!fs.existsSync(webPath)){
 } 
 //
 let masterFolder = pathutil.resolve(__dirname, './');
+makeDir.sync(pathutil.resolve(masterFolder, './logs'))
 let httpConsoleFolder = pathutil.resolve(masterFolder, './http-console/website');
 
 let mockingPath = [];

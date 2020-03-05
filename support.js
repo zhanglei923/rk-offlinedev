@@ -8,6 +8,9 @@ var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
 var configUtil = require('./offlinedev/jsmodule/config/configUtil')
 
+let thisfolder = pathutil.parse(__filename).dir;
+let logfolder = pathutil.resolve(thisfolder, './logs')
+
 var format = function(bytes, tail) { 
     return (bytes/1024/1024).toFixed(tail); 
 };
@@ -48,7 +51,7 @@ let preloadStaticFiles = (callback)=>{
 let generateHotFiles = (staticfolder, sourcefolder)=>{
 
     let alldepsmap = seajsUtil.getAllDepsAsMap()
-    fs.writeFileSync('./alldepsmap.json', JSON.stringify(alldepsmap))
+    fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
     alldepsmap['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
 
     let arr1 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
@@ -81,14 +84,14 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 currentContent += '\n;'+content;
                 currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
-                    fs.writeFileSync(`./output_${currentFileNum}.js`, currentPathids);
+                    fs.writeFileSync(`${logfolder}/output_${currentFileNum}.js`, currentPathids);
                     currentFileNum++;
                     currentSize=0;
                     currentContent='';
                     currentPathids='';
                 }
                 if(count===len){
-                    fs.writeFileSync(`./output_${currentFileNum}.js`, currentPathids);
+                    fs.writeFileSync(`${logfolder}/output_${currentFileNum}.js`, currentPathids);
                 }
             }
         });
@@ -96,7 +99,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     console.log(count)
     console.log(currentSize)
 
-    fs.writeFileSync('./allpathidlist.txt', allpathid.join('\n'))
+    fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
 }
 
