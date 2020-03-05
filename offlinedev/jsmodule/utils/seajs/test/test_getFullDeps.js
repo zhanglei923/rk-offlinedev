@@ -6,6 +6,7 @@ let eachcontentjs = require('eachcontent-js')
 let seajsUtil = require('../seajsUtil')
 
 let deps1 = {
+    'root':['0','11','12'],
     '0':['1','2','3'],
     '1':['a', 'b'],
     '2':['a', 'c'],
@@ -25,9 +26,9 @@ let deps1 = {
     '12':[]
 }
 
-let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0,11,12'
+let expect= 'x,z,y,a,u,v,b,1,c,2,e,f,d,3,0,11,12,root'
 
-let output = seajsUtil.reduceAllDepsIntoArray(deps1, '0')
+let output = seajsUtil.reduceAllDepsIntoArray(deps1, 'root')
 
 let fulldepsstr = output.join(',')
 console.log(fulldepsstr)
@@ -39,7 +40,15 @@ let thisdir = pathutil.parse(__filename).dir
 let json = fs.readFileSync(thisdir+'/dependencyMap.json');
 json = JSON.parse(json)
 
-json['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
+if(0){
+    json['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
+}else{
+    let root = []
+    for(let pathid in json){
+        root.push(pathid)
+    }
+    json['root'] = root;
+}
 
 let arr1 = seajsUtil.reduceAllDepsIntoArray(json, 'root')
 // arr1 = _.uniq(arr1)

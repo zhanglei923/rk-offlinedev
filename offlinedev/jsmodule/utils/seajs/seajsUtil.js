@@ -225,6 +225,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     content = arr.join('\n')
     return content;
 }
+//【注意】，这里的依赖关系，必须汇总在一个根结点，而且这个根结点的孩子必须是所有节点，这样才能确保不会有遗漏
 let reduceAllDepsIntoArray = (alldeps, initId)=>{
     //私有函数
     let _push = (array, pathid)=>{
@@ -251,10 +252,10 @@ let reduceAllDepsIntoArray = (alldeps, initId)=>{
     global.seajs_parser_reduceAllDepsIntoArray_hitedId = {}
     let fulldeps = []
     do_reduceAllDepsIntoArray(alldeps, fulldeps, initId)
-    for(let pathid in alldeps){
-        //fulldeps.push(pathid)
-        fulldeps = _push(fulldeps, pathid)
-    }
+    // for(let pathid in alldeps){
+    //     //fulldeps.push(pathid)
+    //     fulldeps = _push(fulldeps, pathid)
+    // }
     global.seajs_parser_reduceAllDepsIntoArray_hitedId = {}
     fulldeps = _.uniq(fulldeps)
     return fulldeps;
