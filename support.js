@@ -48,7 +48,7 @@ let preloadStaticFiles = (callback)=>{
 let generateHotFiles = (staticfolder, sourcefolder)=>{
 
     let alldepsmap = seajsUtil.getAllDepsAsMap()
-    //fs.writeFileSync(pathutil.parse(__filename).dir+'/alldepsmap.json', JSON.stringify(alldepsmap))
+    fs.writeFileSync('./alldepsmap.json', JSON.stringify(alldepsmap))
     alldepsmap['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
 
     let arr1 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
@@ -58,27 +58,45 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     allpathid = _.uniq(allpathid.concat(arr1))
     let tmparr = []
     allpathid.forEach((pathid)=>{
-        if(rk.isCommonRequirePath(pathid)) tmparr.push(pathid);
+        if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
 
     let maxSize = 5*1024*1024;
-    let content = ''
+    let currentFileNum = 0;
+    let currentSize = 0;
+    let currentContent = ''
+    let currentPathids = ''
+    let count=0;
+    let len = allpathid.length;
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
-        //console.log(sourcefolder, pathid)
+        count++;
         let fpath = pathutil.resolve(sourcefolder, pathid)
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
             }else{
-                //console.log(content.length)
-
+                currentSize += content.length;
+                currentContent += '\n;'+content;
+                currentPathids += '\n'+pathid
+                if(currentSize > maxSize){
+                    fs.writeFileSync(`./output_${currentFileNum}.js`, currentPathids);
+                    currentFileNum++;
+                    currentSize=0;
+                    currentContent='';
+                    currentPathids='';
+                }
+                if(count===len){
+                    fs.writeFileSync(`./output_${currentFileNum}.js`, currentPathids);
+                }
             }
         });
     }
+    console.log(count)
+    console.log(currentSize)
 
-    //fs.writeFileSync(pathutil.parse(__filename).dir+'/allpathidlist.txt', allpathid.join('\n'))
+    fs.writeFileSync('./allpathidlist.txt', allpathid.join('\n'))
 
 }
 
