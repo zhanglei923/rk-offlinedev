@@ -39,20 +39,20 @@ let thisdir = pathutil.parse(__filename).dir
 let json = fs.readFileSync(thisdir+'/dependencyMap.json');
 json = JSON.parse(json)
 
-let arr1 = seajsUtil.reduceAllDepsIntoArray(json, "core/rkloader.js")
-arr1 = _.uniq(arr1)
-console.log(arr1.length)
-let arr2 = seajsUtil.reduceAllDepsIntoArray(json, 'page/js/frame/pageMainCtrl.js')
-arr2 = _.uniq(arr2)
-console.log(arr2.length)
-let arr3 = seajsUtil.reduceAllDepsIntoArray(json, 'oldcrm/js/core/common-crm.js')
-arr3 = _.uniq(arr3)
-console.log(arr3.length)
+json['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
+
+let arr1 = seajsUtil.reduceAllDepsIntoArray(json, 'root')
+// arr1 = _.uniq(arr1)
+// console.log(arr1.length)
+// let arr2 = seajsUtil.reduceAllDepsIntoArray(json, 'page/js/frame/pageMainCtrl.js')
+// arr2 = _.uniq(arr2)
+// console.log(arr2.length)
+// let arr3 = seajsUtil.reduceAllDepsIntoArray(json, 'oldcrm/js/core/common-crm.js')
+// arr3 = _.uniq(arr3)
+// console.log(arr3.length)
 
 fullarr = [];
 fullarr = _.uniq(fullarr.concat(arr1))
-fullarr = _.uniq(fullarr.concat(arr2))
-fullarr = _.uniq(fullarr.concat(arr3))
 
 fs.writeFileSync(thisdir+'/full_dependencylist.txt', fullarr.join('\n'))
 
