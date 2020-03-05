@@ -103,6 +103,20 @@ let getAllDepsAsMap = ()=>{
     }
     return map;
 }
+let cleanNoOneRequired = (alldeps)=>{//去掉没有人require的废文件
+    let required = {}
+    for(let pathid in alldeps){
+        alldeps[pathid].forEach((subpathid)=>{
+            required[subpathid]=true;
+        })
+    }
+    let badlist = []
+    for(let pathid in alldeps){
+        if(!required[pathid]) badlist.push(pathid);
+    }
+    console.log(badlist)
+    return badlist;
+};
 let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
     let depsinfo = getFileDeps(sourcefolder, fullfilepath, content)
     let array = [];
@@ -276,6 +290,7 @@ let me = {
     changeTplToDeploy,
     reduceAllDepsIntoArray,
     getAllDeps,
-    getAllDepsAsMap
+    getAllDepsAsMap,
+    cleanNoOneRequired
 }
 module.exports = me;

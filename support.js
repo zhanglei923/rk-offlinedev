@@ -56,12 +56,16 @@ let preloadStaticFiles = (callback)=>{
 let generateHotFiles = (staticfolder, sourcefolder)=>{
     let timetxt = moment().format('YYYY-MM-DD HH:mm')
     let alldepsmap = seajsUtil.getAllDepsAsMap()
+    //seajsUtil.cleanNoOneRequired(alldepsmap)
     fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
-    alldepsmap['root'] = ["core/rkloader.js",
-                          'page/js/frame/pageMainCtrl.js',
-                          'oldcrm/js/core/common-crm.js',
-                          "platform/page/index/widget.js"
-                        ];
+    // alldepsmap['root'] = ["core/rkloader.js",
+    //                       'page/js/frame/pageMainCtrl.js',
+    //                       'oldcrm/js/core/common-crm.js',
+    //                       "platform/page/index/widget.js"
+    //                     ];
+    let root = [];
+    for(let pathid in alldepsmap) root.push(pathid);
+    alldepsmap['root'] = root;
 
     let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
@@ -87,12 +91,16 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
-            }else{
+            }
+            let ok = true;
+            if(!rk.mightBeCmdFile(content)) ok=false;
+            if(rk.isLibJsPath(fullfilepath)) ok=false;
+            if(ok){
                 let deployContent = '';
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 currentSize += content.length;
-                currentContent += '\n;'+deployContent;
+                currentContent += `;\n//${pathid}\n;`+deployContent;
                 currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
