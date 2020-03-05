@@ -255,6 +255,7 @@ let reduceAllDepsIntoArray = (alldeps, initId)=>{
         //fulldeps.push(pathid)
         fulldeps = _push(fulldeps, pathid)
     }
+    global.seajs_parser_reduceAllDepsIntoArray_hitedId = {}
     fulldeps = _.uniq(fulldeps)
     return fulldeps;
 }
