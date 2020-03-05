@@ -1,6 +1,7 @@
 let fs = require('fs')
 var _ = require('lodash')
 var pathutil = require('path');
+let moment = require('moment')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('./offlinedev/jsmodule/utils/rk')
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
@@ -10,6 +11,8 @@ var configUtil = require('./offlinedev/jsmodule/config/configUtil')
 
 let thisfolder = pathutil.parse(__filename).dir;
 let logfolder = pathutil.resolve(thisfolder, './logs')
+
+let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
 var format = function(bytes, tail) { 
     return (bytes/1024/1024).toFixed(tail); 
@@ -49,16 +52,12 @@ let preloadStaticFiles = (callback)=>{
     callback()
 }
 let generateHotFiles = (staticfolder, sourcefolder)=>{
-
+    let timetxt = moment().format('YYYY-MM-DD HH:mm')
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
     alldepsmap['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
 
-    let arr1 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
-    arr1 = _.uniq(arr1)
-
-    allpathid = [];
-    allpathid = _.uniq(allpathid.concat(arr1))
+    let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
     allpathid.forEach((pathid)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
@@ -74,24 +73,30 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let len = allpathid.length;
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
+        let fullfilepath = pathutil.resolve(sourcefolder, pathid)
+        let isJs = pathid.match(/\.js$/);
+        let isTpl = pathid.match(/\.tpl$/);
         count++;
         let fpath = pathutil.resolve(sourcefolder, pathid)
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
             }else{
+                let deployContent = '';
+                if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
+                if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 currentSize += content.length;
-                currentContent += '\n;'+content;
+                currentContent += '\n;'+deployContent;
                 currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
-                    fs.writeFileSync(`${logfolder}/output_${currentFileNum}.js`, currentPathids);
+                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
                     currentFileNum++;
                     currentSize=0;
                     currentContent='';
                     currentPathids='';
                 }
                 if(count===len){
-                    fs.writeFileSync(`${logfolder}/output_${currentFileNum}.js`, currentPathids);
+                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
                 }
             }
         });

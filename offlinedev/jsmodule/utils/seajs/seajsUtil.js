@@ -212,7 +212,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
         let depsFolder = pathutil.parse(req_pathid).dir;
     });
     depspathid = _.uniq(depspathid)
-    if(!info.no_hot_url)depspathid = concatRules.updateToHotUrls(depspathid, sourcepath, fullfilepath, sea_alias, content);//切换到hot url模式
+    //if(!info.no_hot_url)depspathid = concatRules.updateToHotUrls(depspathid, sourcepath, fullfilepath, sea_alias, content);//切换到hot url模式
     let arr = content.split('\n');
     for(let i=0;i<arr.length;i++){
         let line = arr[i];
