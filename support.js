@@ -6,6 +6,7 @@ let eachcontentjs = require('eachcontent-js')
 let rk = require('./offlinedev/jsmodule/utils/rk')
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
 var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
+var webprojectUtil = require('./offlinedev/jsmodule/config/webprojectUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
 var configUtil = require('./offlinedev/jsmodule/config/configUtil')
 
@@ -54,6 +55,13 @@ let preloadStaticFiles = (callback)=>{
     callback()
 }
 let generateHotFiles = (staticfolder, sourcefolder)=>{
+    let webroot = configUtil.getWebRoot();
+    let allrouters = webprojectUtil.loadRouter(webroot)
+    let allPageEntrancePathId = [];
+    for(let url in allrouters){
+        allPageEntrancePathId = allPageEntrancePathId.concat(allrouters[url].scripts)
+    }
+
     let timetxt = moment().format('YYYY-MM-DD HH:mm')
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
@@ -73,6 +81,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
+    fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
     let maxSize = 5*1024*1024;
     let currentFileNum = 0;
@@ -117,10 +126,9 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
             }
         });
     }
-    console.log(count)
-    console.log(currentSize)
+    // console.log(count)
+    // console.log(currentSize)
 
-    fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
 }
 
