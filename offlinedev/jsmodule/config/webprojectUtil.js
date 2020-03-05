@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 var _ = require('lodash')
+let stripcomments = require('strip-comments')
 let eachcontentjs = require('eachcontent-js')
 var execSh = require("exec-sh");
 let statusUtil = require('./statusUtil')
@@ -11,6 +12,41 @@ var configpath;
 
 let currentSeaConfig;
 module.exports = {
+    loadRouter:(webpath)=>{
+        let routerjs = pathutil.resolve(webpath, './src/main/webapp/static/router.js')
+        let routerjsondir = pathutil.parse(routerjs).dir;
+        let routertxt = fs.readFileSync(routerjs, 'utf8')
+        routertxt = stripcomments(routertxt)
+        routertxt = rk_formatLineBreaker(routertxt)
+        let lines = routertxt.split('\n');
+
+        let jsonpathlist = []
+        let isPrm = false;
+        let fetchRouter = (jsonpath)=>{
+            console.log('[loaded router]', jsonpath)
+            jsonpathlist.push(jsonpath);
+        }
+        lines.forEach((line)=>{
+            if(line.match(/fetchRouter/g) && line.indexOf('function')<0){
+                eval(line)
+            }
+        })
+        let allRouter={};
+        jsonpathlist.forEach((jsonpath)=>{
+            let jsonfullpath = pathutil.resolve(routerjsondir, jsonpath)
+            let jsontxt = fs.readFileSync(jsonfullpath, 'utf8');
+            let lines = rk_formatLineBreaker(jsontxt).split('\n');
+            // let tmp = []
+            // lines.forEach((ln)=>{
+            //     if()
+            // })
+            let kwd={}, newVersion=true;
+            let subjson;
+            eval(`subjson = ${jsontxt}`);
+            for(let url in subjson) allRouter[url] = subjson[url];
+        })
+        return allRouter;
+    },
     loadSeaConfig:(webpath)=>{
         console.log('[load sea-config]' + webpath)
         let seapath = pathutil.resolve(webpath, './src/main/webapp/static')
