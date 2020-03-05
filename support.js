@@ -66,14 +66,17 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
     fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
-    alldepsmap['root'] = ["core/rkloader.js",
-                          'page/js/frame/pageMainCtrl.js',
-                          'oldcrm/js/core/common-crm.js',
-                          "platform/page/index/widget.js"
-                        ];
-    // let root = [];
-    // for(let pathid in alldepsmap) root.push(pathid);
-    // alldepsmap['root'] = root;
+    // alldepsmap['root'] = ["core/rkloader.js",
+    //                       'page/js/frame/pageMainCtrl.js',
+    //                       'oldcrm/js/core/common-crm.js',
+    //                       "platform/page/index/widget.js"
+    //                     ];
+    let root = [];
+    for(let pathid in alldepsmap) root.push(pathid);
+    alldepsmap['root'] = root;
+
+    //        for(let i=0;i<7;i++) srcs.push(`hot/output_${i}.bundle`)
+
 
     let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
