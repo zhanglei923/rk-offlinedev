@@ -225,7 +225,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     content = arr.join('\n')
     return content;
 }
-let reduceAllDepsIntoArray = (deps, initId)=>{
+let reduceAllDepsIntoArray = (alldeps, initId)=>{
     //私有函数
     let _push = (array, pathid)=>{
         if(!global.seajs_parser_reduceAllDepsIntoArray_hitedId[pathid]){
@@ -250,8 +250,8 @@ let reduceAllDepsIntoArray = (deps, initId)=>{
     //正文
     global.seajs_parser_reduceAllDepsIntoArray_hitedId = {}
     let fulldeps = []
-    do_reduceAllDepsIntoArray(deps, fulldeps, initId)
-    for(let pathid in deps){
+    do_reduceAllDepsIntoArray(alldeps, fulldeps, initId)
+    for(let pathid in alldeps){
         //fulldeps.push(pathid)
         fulldeps = _push(fulldeps, pathid)
     }
