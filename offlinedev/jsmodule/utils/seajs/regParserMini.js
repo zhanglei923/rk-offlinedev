@@ -46,11 +46,11 @@ var getPath = function(requreResults){
         rawPath = _.trim(rawPath);
         //console.log(rawPath)
         eval(`rawPath = ${rawPath.replace(/^require/, 'requirefun')}`);
-        if(isobj) {
-            requreResults[x].rawPath = rawPath;
-        }else{
-            requreResults[x] = rawPath;
-        }
+        isobj?(
+            requreResults[x].rawPath = rawPath
+        ):(
+            requreResults[x] = rawPath
+            )
     };
     requreResults = _.compact(requreResults);
     requreResults = _.uniq(requreResults);
@@ -83,7 +83,8 @@ let reduceContentAsLines = (raw_jscontent)=>{
         // if(!linetxt.match(/^\s?\/{2,}/))//不要注释的
         // if(linetxt.match(/require/)) lines.push(linetxt);
 
-        if(!/^\s{0,}\/{2,}/.test(linetxt) && /require(\s|\()/.test(linetxt)) lines.push(linetxt);
+        linetxt = linetxt.replace(/\.require/g, 'xxxxxx');//不要 sth.require() 的形式，seajs没这种语法
+        if(!/^\s{0,}\/{2,}/.test(linetxt) && /\brequire\b(\s|\()/.test(linetxt)) lines.push(linetxt);
     })
     return lines;
 }
