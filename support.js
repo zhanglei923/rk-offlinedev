@@ -12,7 +12,8 @@ var format = function(bytes, tail) {
     return (bytes/1024/1024).toFixed(tail); 
 };
 let preloadStaticFiles = (callback)=>{
-    let webapproot = configUtil.getWebAppFolder()
+    let webapproot = configUtil.getWebAppFolder();
+    let staticfolder = configUtil.getStaticFolder();
     let sourcefolder = configUtil.getSourceFolder();
     let roots = [webapproot]
     // fpowerUtil.loadPower(roots);
@@ -40,6 +41,12 @@ let preloadStaticFiles = (callback)=>{
             }
         });
     }
+    generateHotFiles(staticfolder, sourcefolder)
+    console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
+    callback()
+}
+let generateHotFiles = (staticfolder, sourcefolder)=>{
+
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //fs.writeFileSync(pathutil.parse(__filename).dir+'/alldepsmap.json', JSON.stringify(alldepsmap))
     alldepsmap['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
@@ -47,14 +54,32 @@ let preloadStaticFiles = (callback)=>{
     let arr1 = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     arr1 = _.uniq(arr1)
 
-    fullarr = [];
-    fullarr = _.uniq(fullarr.concat(arr1))
+    allpathid = [];
+    allpathid = _.uniq(allpathid.concat(arr1))
+    let tmparr = []
+    allpathid.forEach((pathid)=>{
+        if(rk.isCommonRequirePath(pathid)) tmparr.push(pathid);
+    })
+    allpathid = tmparr;
 
-    //fs.writeFileSync(pathutil.parse(__filename).dir+'/allpathidlist.txt', fullarr.join('\n'))
+    let maxSize = 5*1024*1024;
+    let content = ''
+    for(let i=0;i<allpathid.length;i++){
+        let pathid = allpathid[i];
+        //console.log(sourcefolder, pathid)
+        let fpath = pathutil.resolve(sourcefolder, pathid)
+        fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+            if(content===null || typeof content === 'undefined'){
+                console.log('404:',fpath)
+            }else{
+                //console.log(content.length)
 
+            }
+        });
+    }
 
-    console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
-    callback()
+    //fs.writeFileSync(pathutil.parse(__filename).dir+'/allpathidlist.txt', allpathid.join('\n'))
+
 }
 
 module.exports = {

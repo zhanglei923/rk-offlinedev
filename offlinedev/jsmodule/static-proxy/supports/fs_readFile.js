@@ -8,7 +8,7 @@ global.FileMemoCache = {};
 
 let me = {}
 let getKey = (fullpath)=>{
-    return pathutil.normalize(fullpath);//.replace(/\/{1,}/g,',,,').replace(/\\{1,}/g,',,,');
+    return rk_formatPath(fullpath);//.replace(/\/{1,}/g,',,,').replace(/\\{1,}/g,',,,');
 }
 let loadAllFiles = (rootpath)=>{
 
@@ -26,6 +26,7 @@ let getMC36 = (fstate)=>{
     return mc36;
 };
 let removeCache = (fpath)=>{
+    fpath = rk_formatPath(fpath);
     let cachekey = getKey(fpath);
     delete global.FileMemoCache[cachekey]
 };
@@ -63,6 +64,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         cb({error: 'file not found'}, null);
         return null;
     }
+    fpath = rk_formatPath(fpath);
     if(typeof opt.be_sync === 'undefined') opt.be_sync = false;
     (opt.be_sync?my_lstatSync:my_lstat)(fpath, (err, fstate)=>{
         if(err){ 
