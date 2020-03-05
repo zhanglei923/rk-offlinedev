@@ -26,13 +26,18 @@ let preloadStaticFiles = (callback)=>{
     })
     let filesize = 0;
     let len = loadpathlist.length;
-    let p = Math.round(len / 7);
+    let p = Math.round(len / 4);
+    let mode = configUtil.getValue('debug.mode');
+    let shouldParseDeps = mode!=='source';
+    if(shouldParseDeps) console.log(`[Parsing Dependencies] for "${mode}" mode.`)
     for(let i=0;i<loadpathlist.length;i++){
         let fpath = loadpathlist[i];
         if(i % p === 0) console.log('>', ((i/len)*100).toFixed(1) + `% loaded, ${format(filesize, 1)}MB` );
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             filesize += content.length; 
-            seajsUtil.preLoadDeps(sourcefolder, fpath, content)
+            if(shouldParseDeps){
+                seajsUtil.preLoadDeps(sourcefolder, fpath, content)
+            }
         });
     }
     let alldepsmap = seajsUtil.getAllDepsAsMap()
