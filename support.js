@@ -57,7 +57,11 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let timetxt = moment().format('YYYY-MM-DD HH:mm')
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
-    alldepsmap['root'] = ["core/rkloader.js",'page/js/frame/pageMainCtrl.js','oldcrm/js/core/common-crm.js']
+    alldepsmap['root'] = ["core/rkloader.js",
+                          'page/js/frame/pageMainCtrl.js',
+                          'oldcrm/js/core/common-crm.js',
+                          "platform/page/index/widget.js"
+                        ];
 
     let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
@@ -92,6 +96,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
+                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
                     currentFileNum++;
                     currentSize=0;
                     currentContent='';
@@ -99,6 +104,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 }
                 if(count===len){
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
+                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
                 }
             }
         });
