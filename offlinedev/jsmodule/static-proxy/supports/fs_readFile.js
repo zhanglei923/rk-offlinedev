@@ -110,6 +110,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         });
     });
 }
+me.getMC36 = getMC36;
 me.fs_readFile = fs_readFile;
 me.removeCache = removeCache;
 me.getAllCache = ()=>{ return global.FileMemoCache; }
