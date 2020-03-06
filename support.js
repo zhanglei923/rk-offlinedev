@@ -92,6 +92,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let currentContent = ''
     let currentPathids = ''
     let count=0;
+    global.FileHotConcatBundlesCache = [];
     let len = allpathid.length;
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
@@ -115,6 +116,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 currentContent += `;\n//${pathid}\n;`+deployContent;
                 currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
+                    global.FileHotConcatBundlesCache[`hot/output_${currentFileNum}.bundle.js`] = currentContent;
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
                     currentFileNum++;
@@ -123,6 +125,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                     currentPathids='';
                 }
                 if(count===len){
+                    global.FileHotConcatBundlesCache[`hot/output_${currentFileNum}.bundle.js`] = currentContent;
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
                     fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
                 }
@@ -131,7 +134,6 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     }
     // console.log(count)
     // console.log(currentSize)
-
 
 }
 

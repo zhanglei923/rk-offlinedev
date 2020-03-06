@@ -27,14 +27,12 @@ let updateJs = (info, content)=>{
 
         content = content +';\n'+ defaultjs;
 
-        if(0){
-            let jsHashMap = {}
-            eachcontentjs.eachPath(sourceFolder,/\.(js|tpl|css)$/,(fpath)=>{
-                let pathid = pathutil.relative(sourceFolder, fpath)
-                //console.log(pathid)
-                jsHashMap[pathid] = '666'
-            })
-            content = content +';\n'+ `window.jsHashMap=${JSON.stringify(jsHashMap)}`;
+        if(global.FileHotConcatBundlesCache){//如果是concat聚合模式，那么生成聚合js的文件列表
+            let concat_bundles = [];
+            for(let pathid in global.FileHotConcatBundlesCache){
+                concat_bundles.push(pathid)
+            }
+            content = content +';\n'+ `window.rk_offlinedev.concat_bundles=${JSON.stringify(concat_bundles)}`;
         }
     }
     return content;
