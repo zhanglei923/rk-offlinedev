@@ -17,12 +17,18 @@ let updateJs = (info, content)=>{
         let sourceFolder = getConfig.getSourceFolder()
         let userconfig = getConfig.getUserConfig()
         let dir = pathutil.parse(__filename).dir;
-        let srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script.js');
-        if(!inject_global_script) inject_global_script = fs.readFileSync(srcpath, 'utf8')
-        let defaultjs = inject_global_script;
 
+        let defaultjs = `;
+        console.warn('[rk-offlinedev]离线开发模式');
+        window.rk_offlinedev = {};
+        `
         //defaultjs += `\n;${getConfig.getValue('debug.mode')!=='source'?'SESSION.isDev = false;console.warn("[rk-offlinedev]切换到非dev状态：SESSION.isDev = false")':''};`;
         defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
+
+        let srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script.js');
+        if(!inject_global_script) inject_global_script = fs.readFileSync(srcpath, 'utf8')
+        defaultjs += inject_global_script;
+
         defaultjs += `\n//****** END *******//\n`
 
         content = content +';\n'+ defaultjs;
