@@ -17,7 +17,7 @@ let updateJs = (info, content)=>{
     if(getConfig.getValue('debug.mode') !== 'concat') return content;
 
     let dir = pathutil.parse(__filename).dir;
-    let jspath = pathutil.resolve(dir, './tmp/injectSeaConfig_script_content.js')
+    let jspath = pathutil.resolve(dir, './injectSeaConfig_script_content.js')
     let jscontent;
     fs_readFile.fs_readFile(jspath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
         jscontent = content;
