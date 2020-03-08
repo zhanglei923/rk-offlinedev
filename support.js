@@ -85,6 +85,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     })
     allpathid = tmparr;
     fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
+    global.FileHotConcatBundlesCache = [];
 
     let maxSize = 5*1024*1024;
     let currentFileNum = 0;
@@ -145,6 +146,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
             currentContent += `;\n//${pathid}\n;`+finfo.deployContent;
             currentPathids += '\n'+pathid;
         }
+        global.FileHotConcatBundlesCache[`hot/output_${i}.bundle.js`]=true;
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.bundle.js`, `//${timetxt}\n`+currentContent);
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.id.txt`, `//${timetxt}\n`+currentPathids);
     }
