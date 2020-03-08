@@ -27,8 +27,8 @@ let showInfomation = (result)=>{
         </td></tr>
         <tr><td align="right" valign="top">配置：</td><td>
             <span title="user-config.json: debug.mode" class="status_group">
-            <span class="${userConfig.debug && userConfig.debug.mode === 'source'?'status_is_on ':'status_is_off '}">"${"source"}</span><span style="color:#7c7e82;">/</span><span
-             class="${userConfig.debug && userConfig.debug.mode === 'concat'?'status_is_on ':'status_is_off '}">${"concat"}"</span>
+            <span style="color:#d1d2d46e;">[</span><span class="${userConfig.debug && userConfig.debug.mode === 'source'?'status_is_on ':'status_is_off '}">${"source"}</span><span style="color:#7c7e82;">/</span><span
+             class="${userConfig.debug && userConfig.debug.mode === 'concat'?'status_is_on ':'status_is_off '}">${"concat"}</span><span style="color:#d1d2d46e;">]</span>
             </span>
             <span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
             <span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
