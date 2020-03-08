@@ -14,6 +14,10 @@ global.rk_formatLineBreaker = (content)=>{
     if(!content) return content;
     return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 }
+global.rk_formatMB = function(bytes, tail) {
+    if(typeof tail === 'undefined') tail = 1;
+    return (bytes/1024/1024).toFixed(tail); 
+};
 // let old_path_resolve = pathutil.resolve;
 // pathutil.resolve = function(){
 //     let resolved = old_path_resolve.apply(pathutil, arguments)

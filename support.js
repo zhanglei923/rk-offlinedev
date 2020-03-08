@@ -101,6 +101,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         let isTpl = pathid.match(/\.tpl$/);
         count++;
         let fpath = pathutil.resolve(sourcefolder, pathid)
+        fpath = rk_formatPath(fpath);
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
