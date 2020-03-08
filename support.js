@@ -90,6 +90,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let maxSize = 5*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
+    let totalSize = 0;
     let count=0;
     let len = allpathid.length;
     let concatPlan = {}
@@ -114,6 +115,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 currentSize += content.length;
+                totalSize += content.length;
                 if(currentSize > maxSize){
                     currentFileNum++;
                     currentSize=0;
@@ -136,6 +138,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         });
     }
     console.log('concat files=',currentFileNum)
+    console.log('concat totalSize=', rk_formatMB(totalSize)+'MB')
     for(let i=0;i<(currentFileNum+1);i++){
         let files = concatPlan[i+''];
         let currentContent = ''
