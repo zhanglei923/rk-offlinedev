@@ -89,11 +89,9 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let maxSize = 5*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
-    let currentContent = ''
-    let currentPathids = ''
     let count=0;
-    global.FileHotConcatBundlesCache = [];
     let len = allpathid.length;
+    let concatPlan = {}
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
@@ -102,36 +100,53 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         count++;
         let fpath = pathutil.resolve(sourcefolder, pathid)
         fpath = rk_formatPath(fpath);
+
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
             }
             let ok = true;
-            if(!rk.mightBeCmdFile(content)) ok=false;
+            if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
             if(ok){
                 let deployContent = '';
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 currentSize += content.length;
-                currentContent += `;\n//${pathid}\n;`+deployContent;
-                currentPathids += '\n'+pathid
                 if(currentSize > maxSize){
-                    global.FileHotConcatBundlesCache[`hot/output_${currentFileNum}.bundle.js`] = currentContent;
-                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
-                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
                     currentFileNum++;
                     currentSize=0;
-                    currentContent='';
-                    currentPathids='';
                 }
+                //currentContent += `;\n//${pathid}\n;`+deployContent;
+                if(!concatPlan[currentFileNum+''])concatPlan[currentFileNum+'']={};
+                //currentPathids += '\n'+pathid
+                concatPlan[currentFileNum+''][pathid] = {
+                    deployContent,
+                    pathid,
+                    fpath,
+                    mc36: fileinfo.mc36,
+                    mightBeCmd: fileinfo.mightBeCmd,
+                    isCmd: fileinfo.isCmd
+                };
                 if(count===len){
-                    global.FileHotConcatBundlesCache[`hot/output_${currentFileNum}.bundle.js`] = currentContent;
-                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.bundle.js`, `//${timetxt}\n`+currentContent);
-                    fs.writeFileSync(`${sourcefolder}/hot/output_${currentFileNum}.id.txt`, `//${timetxt}\n`+currentPathids);
+                    //last
                 }
             }
         });
+    }
+    console.log('concat files=',currentFileNum)
+    for(let i=0;i<(currentFileNum+1);i++){
+        let files = concatPlan[i+''];
+        let currentContent = ''
+        let currentPathids = '';
+        //console.log(i, 'pathid=',files)
+        for(let pathid in files){
+            let finfo = files[pathid]; 
+            currentContent += `;\n//${pathid}\n;`+finfo.deployContent;
+            currentPathids += '\n'+pathid;
+        }
+        fs.writeFileSync(`${sourcefolder}/hot/output_${i}.bundle.js`, `//${timetxt}\n`+currentContent);
+        fs.writeFileSync(`${sourcefolder}/hot/output_${i}.id.txt`, `//${timetxt}\n`+currentPathids);
     }
     // console.log(count)
     // console.log(currentSize)
