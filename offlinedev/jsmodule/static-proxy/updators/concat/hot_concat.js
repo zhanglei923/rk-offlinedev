@@ -66,15 +66,46 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     let fcount=0;
     let len = allpathid.length;
     global.rkCacheOf_autoConcat = {}
+
+    currentFileNum++;
+    let tplbundleid = getBundlePathid('tpl')
+    global.rkCacheOf_autoConcat[tplbundleid]={
+        idx: currentFileNum,
+        files:{}
+    };
+    for(let i=0;i<allpathid.length;i++){
+        let pathid = allpathid[i];
+        let fullfilepath = pathutil.resolve(sourcefolder, pathid)
+        let isTpl = pathid.match(/\.tpl$/);
+        let fpath = fullfilepath;
+        if(isTpl){
+            fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+                if(content===null || typeof content === 'undefined'){
+                    console.log('404:',fpath)
+                }
+                let deployContent = '';
+                deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
+                global.rkCacheOf_autoConcat[tplbundleid].files[pathid] = {
+                    deployContent,
+                    pathid,
+                    fpath,
+                    mc36: fileinfo.mc36,
+                    mightBeCmd: fileinfo.mightBeCmd,
+                    isCmd: fileinfo.isCmd
+                };
+            });
+        }
+    }
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
         let isJs = pathid.match(/\.js$/);
         let isTpl = pathid.match(/\.tpl$/);
         fcount++;
-        let fpath = pathutil.resolve(sourcefolder, pathid)
+        let fpath = fullfilepath;
         fpath = rk_formatPath(fpath);
 
+        if(isJs)
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
@@ -86,7 +117,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
                 fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
                 let deployContent = '';
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
-                if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
+                //if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 //混淆实验
                 if(0 && !rk.isCookedJsPath(fullfilepath))
                 deployContent = es6.minify(deployContent, {        
@@ -132,7 +163,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
         //console.log(i, 'pathid=',files)
         for(let pathid in files){
             let finfo = files[pathid]; 
-            currentContent += `;\n//${pathid}\n;`+finfo.deployContent;
+            currentContent += `\n;`+finfo.deployContent;
             currentPathids += '\n'+pathid;
         }
         //global.rkNameOf_HotConcatBundle[bundleid]=true;
