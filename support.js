@@ -72,7 +72,13 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     //                       'oldcrm/js/core/common-crm.js',
     //                       "platform/page/index/widget.js"
     //                     ];
-    let root = [];
+    let root = [
+                // "core/rkloader.js",
+                // 'page/js/frame/pageMainCtrl.js',
+                // 'oldcrm/js/core/common-crm.js',
+                // "platform/page/index/widget.js"
+    ];
+    //root = root.concat(allPageEntrancePathId)
     for(let pathid in alldepsmap) root.push(pathid);
     alldepsmap['root'] = root;
 
