@@ -14,6 +14,12 @@ let logfolder = pathutil.resolve(thisfolder, '../../../../../logs')
 
 let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
+/**
+ *  注意！不要缓存合并后的大文本，低配机内存扛不住，也没必要。
+ *       只需缓存每个文件的文本即可，搭配mc36
+ * 
+ */
+
 let generateHotFiles = (staticfolder, sourcefolder)=>{
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
@@ -43,7 +49,6 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
 
     //        for(let i=0;i<7;i++) srcs.push(`hot/output_${i}.bundle`)
 
-
     let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
     allpathid.forEach((pathid)=>{
@@ -51,9 +56,9 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     })
     allpathid = tmparr;
     fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
-    global.FileHotConcatBundlesCache = [];
+    global.rkCacheOf_HotConcatBundles = [];
 
-    let maxSize = 5*1024*1024;
+    let maxBundleSize = 5*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
     let totalContentSize = 0;
@@ -91,7 +96,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 });
                 currentSize += content.length;
                 totalContentSize += content.length;
-                if(currentSize > maxSize){
+                if(currentSize > maxBundleSize){
                     currentFileNum++;
                     currentSize=0;
                 }
@@ -124,7 +129,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
             currentContent += `;\n//${pathid}\n;`+finfo.deployContent;
             currentPathids += '\n'+pathid;
         }
-        global.FileHotConcatBundlesCache[`hot/output_${i}.bundle.js`]=true;
+        global.rkCacheOf_HotConcatBundles[`hot/output_${i}.bundle.js`]=true;
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.bundle.js`, `//${timetxt}\n`+currentContent);
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.id.txt`, `//${timetxt}\n`+currentPathids);
     }
