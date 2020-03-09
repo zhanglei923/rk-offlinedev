@@ -67,8 +67,10 @@ define(function(require, exports, module) {
 
 `
 code2 = es6.minify(code, {        
-    mangle:{
-        reserved:['require' ,'exports' ,'module' ,'$']
+    uglifyOpt:{
+        mangle:{
+            reserved:['require' ,'exports' ,'module' ,'$']
+        }
     }
 });
 console.log(code2)

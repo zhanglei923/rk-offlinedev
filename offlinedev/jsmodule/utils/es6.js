@@ -2,13 +2,14 @@ var babel = require("@babel/core");
 var UglifyJS = require("uglify-js");
 
 let minify = (jsContent, opt)=>{
-    if(typeof opt === 'undefined') opt = {
+    if(typeof opt === 'undefined') opt = {};
+    if(!opt.uglifyOpt) opt.uglifyOpt = {
         // mangle:{
         //     reserved:['require' ,'exports' ,'module' ,'$']
         // }
-    }
+    };
     jsContent = transform(jsContent);
-    var result = UglifyJS.minify(jsContent, opt);
+    var result = UglifyJS.minify(jsContent, opt.uglifyOpt);
     var minContent = result.code;
     if(result.error) {
         console.log(result.error); 

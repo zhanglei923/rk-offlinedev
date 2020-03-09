@@ -4,6 +4,7 @@ var pathutil = require('path');
 let moment = require('moment')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('./offlinedev/jsmodule/utils/rk')
+let es6 = require('./offlinedev/jsmodule/utils/es6')
 var fs_readFile = require('./offlinedev/jsmodule/static-proxy/supports/fs_readFile')
 var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var webprojectUtil = require('./offlinedev/jsmodule/config/webprojectUtil')
@@ -114,6 +115,15 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 let deployContent = '';
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
+                //混淆实验
+                if(0 && !rk.isCookedJsPath(fullfilepath))
+                deployContent = es6.minify(deployContent, {        
+                    uglifyConfig:{
+                        mangle:{
+                            reserved:['require' ,'exports' ,'module' ,'$']
+                        }
+                    }
+                });
                 currentSize += content.length;
                 totalContentSize += content.length;
                 if(currentSize > maxSize){
