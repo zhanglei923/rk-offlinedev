@@ -36,9 +36,9 @@ let updateJs = (info, content)=>{
 
         content = content +';\n'+ defaultjs;
 
-        if(global.rkCacheOf_HotConcatBundles){//如果是concat聚合模式，那么生成聚合js的文件列表
+        if(global.rkNameOf_HotConcatBundle){//如果是concat聚合模式，那么生成聚合js的文件列表
             let concat_bundle_files = [];
-            for(let pathid in global.rkCacheOf_HotConcatBundles){
+            for(let pathid in global.rkNameOf_HotConcatBundle){
                 concat_bundle_files.push(pathid)
             }
             content = content +';\n'+ `window.rk_offlinedev.concat_bundle_files=${JSON.stringify(concat_bundle_files)}`;
