@@ -66,7 +66,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     let totalContentSize = 0;
     let fcount=0;
     let len = allpathid.length;
-    let concatPlan = {}
+    global.rkCacheOf_autoConcat = {}
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
@@ -84,6 +84,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
             if(ok){
+                fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
                 let deployContent = '';
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
@@ -104,9 +105,12 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
                 }
                 //currentContent += `;\n//${pathid}\n;`+deployContent;
                 let bundlePathid = getBundlePathid(currentFileNum)
-                if(!concatPlan[bundlePathid])concatPlan[bundlePathid]={};
+                if(!global.rkCacheOf_autoConcat[bundlePathid])global.rkCacheOf_autoConcat[bundlePathid]={
+                    idx: currentFileNum,
+                    files:{}
+                };
                 //currentPathids += '\n'+pathid
-                concatPlan[bundlePathid][pathid] = {
+                global.rkCacheOf_autoConcat[bundlePathid].files[pathid] = {
                     deployContent,
                     pathid,
                     fpath,
@@ -124,7 +128,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     for(let i=0;i<(currentFileNum+1);i++){
         let bundleid = getBundlePathid(i);
-        let files = concatPlan[bundleid];
+        let files = global.rkCacheOf_autoConcat[bundleid].files;
         let currentContent = ''
         let currentPathids = '';
         //console.log(i, 'pathid=',files)
