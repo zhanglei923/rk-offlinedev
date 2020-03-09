@@ -26,19 +26,19 @@ let showInfomation = (result)=>{
             <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right" valign="top">配置：</td><td>
-            <span title="user-config.json: debug.mode" class="status_group">
+            <span title="更改user-config里的: debug.mode" class="status_group">
             <span style="color:#d1d2d46e;">[</span><span class="${userConfig.debug && userConfig.debug.mode === 'source'?'status_is_on ':'status_is_off '}">${"source"}</span><span style="color:#7c7e82;">/</span><span
              class="${userConfig.debug && userConfig.debug.mode === 'concat'?'status_is_on ':'status_is_off '}">${"concat"}</span><span style="color:#d1d2d46e;">]</span>
             </span>
-            <span title="user-config.json: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
-            <span title="user-config.json: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
-            <span title="user-config.json: debug.autoCacheStatic" class="${userConfig.debug && userConfig.debug.autoCacheStatic?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache L1</span>
-            <span title="user-config.json: debug.autoCacheStaticLevel2" class="${userConfig.debug && userConfig.debug.autoCacheStaticLevel2?'status_is_on status_is_positive':'status_is_off status_is_negative'}">L2</span>
-            <span title="user-config.json: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
-            <span title="user-config.json: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
-            <span title="user-config.json: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
-            <span title="user-config.json: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
-            <span title="user-config.json: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
+            <span title="更改user-config里的: httpConfig.http2" class="${userConfig.httpConfig && userConfig.httpConfig.http2?'status_is_on status_is_positive':'status_is_off status_is_neutral'}">h2</span>
+            <span title="更改user-config里的: httpConfig.gzip" class="${userConfig.httpConfig && userConfig.httpConfig.gzip?'status_is_on status_is_positive':'status_is_off status_is_negative'}">gzip</span>
+            <span title="更改user-config里的: debug.autoCacheStatic" class="${userConfig.debug && userConfig.debug.autoCacheStatic?'status_is_on status_is_positive':'status_is_off status_is_negative'}">Cache L1</span>
+            <span title="更改user-config里的: debug.autoCacheStaticLevel2" class="${userConfig.debug && userConfig.debug.autoCacheStaticLevel2?'status_is_on status_is_positive':'status_is_off status_is_negative'}">L2</span>
+            <span title="更改user-config里的: debug.concatStaticTplRequests" class="${userConfig.debug && userConfig.debug.concatStaticTplRequests?'status_is_on status_is_positive':'status_is_off status_is_negative'}">+Tpl</span>
+            <span title="更改user-config里的: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Js</span>
+            <span title="更改user-config里的: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">+Css</span>
+            <span title="更改user-config里的: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
+            <span title="更改user-config里的: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
         <tr><td align="right" valign="top">状态：</td><td>
             <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}% Used</span>
