@@ -19,8 +19,10 @@ let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
  *       只需缓存每个文件的文本即可，搭配mc36
  * 
  */
-
-let generateHotFiles = (staticfolder, sourcefolder)=>{
+let getBundlePathid = (i)=>{
+    return `hot/output_${i}.bundle.js`;
+};
+let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
     let allPageEntrancePathId = [];
@@ -101,9 +103,10 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                     currentSize=0;
                 }
                 //currentContent += `;\n//${pathid}\n;`+deployContent;
-                if(!concatPlan[currentFileNum+''])concatPlan[currentFileNum+'']={};
+                let bundlePathid = getBundlePathid(currentFileNum)
+                if(!concatPlan[bundlePathid])concatPlan[bundlePathid]={};
                 //currentPathids += '\n'+pathid
-                concatPlan[currentFileNum+''][pathid] = {
+                concatPlan[bundlePathid][pathid] = {
                     deployContent,
                     pathid,
                     fpath,
@@ -120,7 +123,8 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     for(let i=0;i<(currentFileNum+1);i++){
-        let files = concatPlan[i+''];
+        let bundleid = getBundlePathid(i);
+        let files = concatPlan[bundleid];
         let currentContent = ''
         let currentPathids = '';
         //console.log(i, 'pathid=',files)
@@ -129,14 +133,14 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
             currentContent += `;\n//${pathid}\n;`+finfo.deployContent;
             currentPathids += '\n'+pathid;
         }
-        global.rkNameOf_HotConcatBundle[`hot/output_${i}.bundle.js`]=true;
-        fs.writeFileSync(`${sourcefolder}/hot/output_${i}.bundle.js`, `//${timetxt}\n`+currentContent);
-        fs.writeFileSync(`${sourcefolder}/hot/output_${i}.id.txt`, `//${timetxt}\n`+currentPathids);
+        global.rkNameOf_HotConcatBundle[bundleid]=true;
+        fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent);
+        fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids);
     }
     // console.log(fcount)
     // console.log(currentSize)
 
 }
 module.exports = {
-    generateHotFiles
+    loadHotFileConcatPlan
 };
