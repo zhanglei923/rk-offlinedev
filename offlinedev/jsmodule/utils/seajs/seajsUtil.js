@@ -187,7 +187,7 @@ let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
         deps_bad
     };
 }
-let preLoadDeps = (sourcefolder, fpath, content)=>{
+let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
     if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
         getFileDeps(sourcefolder, fpath, content);
     }
@@ -284,7 +284,7 @@ let me = {
     setPathVars,
     getFileDeps,
     getFileDepsAsArray,
-    preLoadDeps,
+    loadAndCacheDeps,
     cleanDeps,
     changeJsToDeploy,
     changeTplToDeploy,
