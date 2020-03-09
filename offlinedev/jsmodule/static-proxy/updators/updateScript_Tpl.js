@@ -32,11 +32,9 @@ let updateAllTplJson = ()=>{
         //let t0=new Date()*1
         eachcontentjs.eachPath(sourceDir, [/\.tpl$/], (path)=>{
             let content;
-            if(global.FileMemoCache[path]){
-                content = global.FileMemoCache[path].content;
-            }else{
-                content = fs.readFileSync(path, 'utf8')
-            }
+            fs_readFile.fs_readFile(path, {encoding:'utf8', be_sync: true}, (err, content2, fileinfo) => {   
+                content = content2;
+            });
             let pathid = pathutil.relative(sourceDir, path);
             pathid = rk_formatPath(pathid)
             //console.log(pathid)

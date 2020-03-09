@@ -4,7 +4,7 @@ let rk = require('../../utils/rk')
 let fpowerUtil = require('../../utils/fpowerUtil')
 let configUtil = require('../../config/configUtil')
 
-global.FileMemoCache = {};
+global.rkCacheOf_File = {};
 
 let me = {}
 let getKey = (fullpath)=>{
@@ -28,7 +28,7 @@ let getMC36 = (fstate)=>{
 let removeCache = (fpath)=>{
     fpath = rk_formatPath(fpath);
     let cachekey = getKey(fpath);
-    delete global.FileMemoCache[cachekey]
+    delete global.rkCacheOf_File[cachekey]
 };
 let my_lstat = (fpath, callback)=>{//屏蔽同步和异步
     return fs.lstat(fpath, callback);
@@ -74,12 +74,12 @@ let fs_readFile = (fpath, opt, cb)=>{
         let mc36 = getMC36(fstate);
         let cachekey = getKey(fpath);
         //console.log(cachekey)
-        if(global.FileMemoCache[cachekey] && configUtil.getValue('debug.autoCacheStatic')){
-            let memo = global.FileMemoCache[cachekey];
+        if(global.rkCacheOf_File[cachekey] && configUtil.getValue('debug.autoCacheStatic')){
+            let memo = global.rkCacheOf_File[cachekey];
             if(memo.mc36 === mc36){
-                //console.log('cc', global.FileMemoCache[cachekey])
+                //console.log('cc', global.rkCacheOf_File[cachekey])
                 fpowerUtil.plusFilePower(fpath)
-                cb(null, global.FileMemoCache[cachekey].content, {
+                cb(null, global.rkCacheOf_File[cachekey].content, {
                     isCached: true,
                     mc36: memo.mc36,
                     mightBeCmd: memo.mightBeCmd,
@@ -96,7 +96,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             if(canCache(fpath))
             if(!read_err && configUtil.getValue('debug.autoCacheStatic')){
                 fpowerUtil.plusFilePower(fpath)
-                global.FileMemoCache[cachekey] = {
+                global.rkCacheOf_File[cachekey] = {
                     mc36,
                     content,
                     mightBeCmd,
@@ -115,5 +115,5 @@ let fs_readFile = (fpath, opt, cb)=>{
 me.getMC36 = getMC36;
 me.fs_readFile = fs_readFile;
 me.removeCache = removeCache;
-me.getAllCache = ()=>{ return global.FileMemoCache; }
+me.getAllCache = ()=>{ return global.rkCacheOf_File; }
 module.exports = me;
