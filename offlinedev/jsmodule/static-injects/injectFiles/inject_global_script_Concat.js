@@ -53,7 +53,7 @@ window.rk_offlinedev_debug_define = (fun)=>{
                  if(a.match(/\.tpl$/)) {
                      let tplid = seajs.resolve(a,pathid)
                      tplid = tplid.replace(/\.tpl\.js$/, '.tpl')
-                     console.log(tplid);
+                     //console.log(tplid);
                  }
                  return oldreq(a,b,c,d,e,f,g)
              }
