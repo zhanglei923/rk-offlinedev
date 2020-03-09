@@ -26,7 +26,7 @@ let updateJs = (info, content)=>{
         defaultjs += `\n;window.rk_offlinedev.userConfig=`+JSON.stringify(userconfig);
 
         let srcpath;
-        if(getConfig.getValue('debug.mode')==='source') srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script.js');
+        if(getConfig.getValue('debug.mode')==='source') srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script_Source.js');
         if(getConfig.getValue('debug.mode')==='concat') srcpath = pathutil.resolve(dir, '../../static-injects/injectFiles/inject_global_script_Concat.js');
         
         if(!inject_global_script) inject_global_script = fs.readFileSync(srcpath, 'utf8')
