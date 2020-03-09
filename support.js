@@ -90,8 +90,8 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
     let maxSize = 5*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
-    let totalSize = 0;
-    let count=0;
+    let totalContentSize = 0;
+    let fcount=0;
     let len = allpathid.length;
     let concatPlan = {}
     for(let i=0;i<allpathid.length;i++){
@@ -99,7 +99,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
         let isJs = pathid.match(/\.js$/);
         let isTpl = pathid.match(/\.tpl$/);
-        count++;
+        fcount++;
         let fpath = pathutil.resolve(sourcefolder, pathid)
         fpath = rk_formatPath(fpath);
 
@@ -115,7 +115,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                 if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
                 if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 currentSize += content.length;
-                totalSize += content.length;
+                totalContentSize += content.length;
                 if(currentSize > maxSize){
                     currentFileNum++;
                     currentSize=0;
@@ -131,14 +131,14 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
                     mightBeCmd: fileinfo.mightBeCmd,
                     isCmd: fileinfo.isCmd
                 };
-                if(count===len){
+                if(fcount===len){
                     //last
                 }
             }
         });
     }
     console.log('concat files=',currentFileNum)
-    console.log('concat totalSize=', rk_formatMB(totalSize)+'MB')
+    console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     for(let i=0;i<(currentFileNum+1);i++){
         let files = concatPlan[i+''];
         let currentContent = ''
@@ -153,7 +153,7 @@ let generateHotFiles = (staticfolder, sourcefolder)=>{
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.bundle.js`, `//${timetxt}\n`+currentContent);
         fs.writeFileSync(`${sourcefolder}/hot/output_${i}.id.txt`, `//${timetxt}\n`+currentPathids);
     }
-    // console.log(count)
+    // console.log(fcount)
     // console.log(currentSize)
 
 }
