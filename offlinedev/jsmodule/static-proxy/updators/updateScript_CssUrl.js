@@ -35,8 +35,7 @@ let changeToHotPath = (fullfilepath, req_path)=>{
             break;
         }
     }
-    if(!hotpathid) hotpathid = req_pathid;
-    return req_path;
+    return hotpathid;
 };
 let updateJs = (info, content, widthDefineHeader)=>{
     if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
@@ -59,19 +58,14 @@ let updateJs = (info, content, widthDefineHeader)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
             let req_pathid = pathutil.relative(sourceDir, req_realpath)
-            let hotpathid;
+            let hotpathid = changeToHotPath(fullfilepath, req_path);
             
-            for(let i = 0; i < css_loaders.length; i++){
-                let loader = css_loaders[i];
-                hotpathid = loader.shouldReplacedWithThis(sourceDir, req_realpath)
-                if(hotpathid){
-                    let replacereg = seajsUtil.getRequireRegForReplacement(req_path);
-                    content = content.replace(replacereg, `require("${hotpathid}"`);
-                    if(getConfig.getValue('debug.mode') === 'concat'){
-                        replacereg = new RegExp('"'+req_pathid+'"', 'g');
-                        content = content.replace(replacereg, `"${hotpathid}"`);
-                    }
-                    break;
+            if(hotpathid){
+                let replacereg = seajsUtil.getRequireRegForReplacement(req_path);
+                content = content.replace(replacereg, `require("${hotpathid}"`);
+                if(getConfig.getValue('debug.mode') === 'concat'){
+                    replacereg = new RegExp('"'+req_pathid+'"', 'g');
+                    content = content.replace(replacereg, `"${hotpathid}"`);
                 }
             }
 
