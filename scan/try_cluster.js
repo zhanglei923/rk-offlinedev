@@ -52,7 +52,7 @@ if (cluster.isMaster) {
           console.log('finished=',totalFilesFinish)
           if(!isEnd && totalFilesFinish === totalFilesCount) {
             isEnd = true;
-            console.log('Quit!')
+            console.log(' -All Finished-!')
           }
           if(taskStack.length > 0){   
             let taskinfo = taskStack.shift();
@@ -61,7 +61,7 @@ if (cluster.isMaster) {
             })
           }else{
             worker.kill()
-            console.log('no files', process.pid)
+            console.log(process.pid, ' killed')
           }
         }      
       });
