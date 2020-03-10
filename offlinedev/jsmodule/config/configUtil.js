@@ -95,10 +95,13 @@ let reloadConfig = (printinfo)=>{
 
     if(config.debug){
         if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
-        if(config.debug.mode === 'concat') {
-            config.debug.concatStaticTplRequests= true;//自动聚合tpl静态资源请求
-            config.debug.concatStaticJsRequests= true;//自动聚合js静态资源请求
-        }
+        let modeconfig = config.debug[`mode_${config.debug.mode}`];
+        let keys = ['concatStaticTplRequests',
+                    'concatStaticJsRequests',
+                    'concatStaticCssRequests'];
+        keys.forEach((key)=>{
+            config.debug[key] = !!modeconfig[key]
+        })
     }
  
     config.auxiliaryFolder = auxiliaryFolder;

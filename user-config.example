@@ -24,13 +24,17 @@
         //  mode="source"，原生态的源代码模式，不对js做任何改动和优化
         //  mode="concat"，自动合并模式，实际是启用了seajs的线上模式，所有cmd格式的js文件，也会被切换到线上状态
         mode: 'source',
+        mode_source:{
+            concatStaticTplRequests: true,//自动聚合tpl静态资源请求
+            concatStaticCssRequests: true,//自动聚合css静态资源请求
+        },
+        mode_concat:{
+            concatStaticTplRequests: true,//自动聚合tpl静态资源请求
+            concatStaticJsRequests: true,//自动聚合js静态资源请求
+            concatStaticCssRequests: true,//自动聚合css静态资源请求
+        },
         autoCacheStatic: true,//自动缓存静态资源，建议开启。一级缓存由fs_readFile支持，主要缓存文件层，节省io
-        autoCacheStaticLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启。二级缓存由static-proxy支持，主要缓存处理过的代码文本，节省cpu计算
-        
-        concatStaticTplRequests: true,//自动聚合tpl静态资源请求
-        concatStaticJsRequests: false,//自动聚合js静态资源请求
-        concatStaticCssRequests: true,//自动聚合css静态资源请求
-
+        autoCacheStaticLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启。二级缓存由static-proxy支持，主要缓存处理过的代码文本，节省cpu计算    
         detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
     },
     runtime:{//这里定义一些运行时的状态，约定于jsp里的SESSION变量
