@@ -12,9 +12,6 @@ let seajsUtil = require('../../../utils/seajs/seajsUtil')
 
 let updateScript_CssUrl = require('../updateScript_CssUrl')
 
-let thisfolder = pathutil.parse(__filename).dir;
-let logfolder = pathutil.resolve(thisfolder, '../../../../../logs')
-
 let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
 /**
@@ -28,7 +25,7 @@ let getBundlePathid = (i)=>{
 let allpathid;
 let timetxt;
 let loadHotFileConcatPlan = (sourcefolder)=>{
-    makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
+    let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
     let allPageEntrancePathId = [];
@@ -39,7 +36,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     timetxt = moment().format('YYYY-MM-DD HH:mm');
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
-    fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
+    fs.writeFileSync(hotfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
     // alldepsmap['root'] = ["core/rkloader.js",
     //                       'page/js/frame/pageMainCtrl.js',
     //                       'oldcrm/js/core/common-crm.js',
@@ -63,7 +60,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
-    fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
+    fs.writeFileSync(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
     let maxBundleSize = 7*1024*1024;
     let currentFileNum = 0;
