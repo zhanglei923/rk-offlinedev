@@ -51,7 +51,8 @@ let preloadStaticFiles = (callback)=>{
         });
     }
     if(shouldParseDeps){
-        hot_concat.loadHotFileConcatPlan(staticfolder, sourcefolder)
+        hot_concat.loadHotFileConcatPlan(sourcefolder);
+        hot_concat.loadHotFileConcats(sourcefolder)
     }
     console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
     callback()

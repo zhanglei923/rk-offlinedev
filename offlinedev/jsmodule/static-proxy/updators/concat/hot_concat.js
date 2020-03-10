@@ -25,7 +25,9 @@ let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 let getBundlePathid = (i)=>{
     return `_hot/output_${i}.bundle.js`;
 };
-let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
+let allpathid;
+let timetxt;
+let loadHotFileConcatPlan = (sourcefolder)=>{
     makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
@@ -34,7 +36,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
         allPageEntrancePathId = allPageEntrancePathId.concat(allrouters[url].scripts)
     }
 
-    let timetxt = moment().format('YYYY-MM-DD HH:mm')
+    timetxt = moment().format('YYYY-MM-DD HH:mm');
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
     fs.writeFileSync(logfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
@@ -55,7 +57,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
 
     //        for(let i=0;i<7;i++) srcs.push(`_hot/output_${i}.bundle`)
 
-    let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
+    allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root");
     let tmparr = []
     allpathid.forEach((pathid)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
@@ -174,6 +176,9 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     }
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
+
+}
+let loadHotFileConcats = (sourcefolder)=>{
     for(let bundleid in global.rkCacheOf_autoConcat){
         let files = global.rkCacheOf_autoConcat[bundleid].files;
         let currentContent = [];
@@ -194,5 +199,6 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
 
 }
 module.exports = {
-    loadHotFileConcatPlan
+    loadHotFileConcatPlan,
+    loadHotFileConcats
 };
