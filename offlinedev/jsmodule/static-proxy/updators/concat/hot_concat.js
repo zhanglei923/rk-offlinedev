@@ -61,7 +61,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     allpathid = tmparr;
     fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
-    let maxBundleSize = 5*1024*1024;
+    let maxBundleSize = 4*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
     let totalContentSize = 0;
@@ -173,17 +173,17 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     for(let bundleid in global.rkCacheOf_autoConcat){
         let files = global.rkCacheOf_autoConcat[bundleid].files;
-        let currentContent = ''
-        let currentPathids = '';
+        let currentContent = [];
+        let currentPathids = [];
         //console.log(i, 'pathid=',files)
         for(let pathid in files){
             let finfo = files[pathid]; 
-            currentContent += `\n;`+finfo.deployContent;
-            currentPathids += '\n'+pathid;
+            currentContent.push(finfo.deployContent);
+            currentPathids.push(pathid);
         }
         //global.rkNameOf_HotConcatBundle[bundleid]=true;
-        fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent);
-        fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids);
+        fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent.join('\n;'));
+        fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids.join('\n'));
     }
     // console.log(fcount)
     // console.log(currentSize)

@@ -71,6 +71,7 @@ let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars, a
         realpath = pathutil.resolve(sourcePath, requirePath)
     }
     if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';
+    realpath = rk_formatPath(realpath);
     return realpath;
 };
 let getRequireRegForReplacement = (req_path, closeright)=>{
@@ -132,6 +133,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let mc36 = mtime36+'-'+ctime36;
     
     let pathid = pathutil.relative(sourcefolder, fullfilepath)
+    pathid = rk_formatPath(pathid);
     //console.log(pathid)
     let deps = [];
     let cache = global.rkFileDepsCache[fullfilepath];
@@ -154,6 +156,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
                 let thispathid = pathutil.relative(sourcefolder, fullpath);
+                thispathid = rk_formatPath(thispathid)
                 deps2[i].fullpath = fullpath;
                 deps2[i].pathid = thispathid;
             }
