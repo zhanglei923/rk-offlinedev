@@ -185,6 +185,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
         fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent.join('\n;'));
         fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids.join('\n'));
     }
+    fs.writeFileSync(`${sourcefolder}/hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
     // console.log(fcount)
     // console.log(currentSize)
 
