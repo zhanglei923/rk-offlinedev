@@ -125,6 +125,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
                                                                     {
                                                                         no_hot_url:true,
                                                                         depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。
+                                                                            if(!configUtil.getValue('debug.concatStaticCssRequests')) return;
                                                                             depspathid.forEach((pid, idx)=>{
                                                                                 let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
                                                                                 depspathid[idx] = hotid ? hotid : pid;
