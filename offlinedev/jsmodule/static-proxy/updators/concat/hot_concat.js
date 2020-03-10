@@ -63,7 +63,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     allpathid = tmparr;
     fs.writeFileSync(logfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
-    let maxBundleSize = 4*1024*1024;
+    let maxBundleSize = 7*1024*1024;
     let currentFileNum = 0;
     let currentSize = 0;
     let totalContentSize = 0;
@@ -108,7 +108,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
         fcount++;
         let fpath = fullfilepath;
         fpath = rk_formatPath(fpath);
-
+        //if(currentFileNum >= 3)break;
         if(isJs)
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
