@@ -195,7 +195,7 @@ let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
 let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = pathutil.relative(sourcepath, fullfilepath);
-
+    pathid = rk_formatPath(pathid)
     let content2 = content;
     content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
     content2 = util.format('define("%s",[],"%s")', pathid, content2)
@@ -209,6 +209,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
 
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = pathutil.relative(sourcepath, fullfilepath);
+    pathid = rk_formatPath(pathid);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
     let bad_requires = [];
     let result = cleanDeps(sourcepath, fullfilepath, deps, sea_alias)
@@ -221,6 +222,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
         let req_fullpath = resolveRequirePath(sourcepath, fullfilepath, raw_req, false, sea_alias)   
         req_pathid = pathutil.relative(sourcepath, req_fullpath);
         req_pathid = addJsExt(req_pathid)
+        req_pathid = rk_formatPath(req_pathid)
         depspathid.push(req_pathid)
 
         let depsFolder = pathutil.parse(req_pathid).dir;
