@@ -2,6 +2,7 @@ let fs = require('fs');
 let moment = require('moment')
 let _ = require('lodash')
 let pathutil = require('path')
+let makeDir = require("make-dir")
 
 let rk = require('../../../utils/rk')
 let fs_readFile = require('../../supports/fs_readFile')
@@ -22,9 +23,10 @@ let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
  * 
  */
 let getBundlePathid = (i)=>{
-    return `hot/output_${i}.bundle.js`;
+    return `_hot/output_${i}.bundle.js`;
 };
 let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
+    makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
     let allPageEntrancePathId = [];
@@ -51,7 +53,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
     for(let pathid in alldepsmap) root.push(pathid);
     alldepsmap['root'] = root;
 
-    //        for(let i=0;i<7;i++) srcs.push(`hot/output_${i}.bundle`)
+    //        for(let i=0;i<7;i++) srcs.push(`_hot/output_${i}.bundle`)
 
     let allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root")
     let tmparr = []
@@ -186,7 +188,7 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
         fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent.join('\n;'));
         fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids.join('\n'));
     }
-    fs.writeFileSync(`${sourcefolder}/hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
+    fs.writeFileSync(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
     // console.log(fcount)
     // console.log(currentSize)
 
