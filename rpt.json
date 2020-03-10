@@ -1,1 +1,0 @@
-[{"level":"info","errorType":"needs_i18n","errorInfo":{"jsonid":957141679865518},"errorMsg":"有未国际化的字符串，id=957141679865518"},{"errorType":"no_widget_define","errorInfo":{"jsonid":957141679865518},"errorMsg":"layout里的控件在widgets段里无定义：uuid=1325"}]
