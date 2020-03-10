@@ -260,6 +260,9 @@ button{
 .status_group {
 
 }
+.underline {
+    text-decoration: underline;
+}
 .url_pattern{
     background-color: #c8d82f;
 }
