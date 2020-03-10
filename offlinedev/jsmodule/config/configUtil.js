@@ -94,7 +94,6 @@ let reloadConfig = (printinfo)=>{
     //console.log(JSON.stringify(config))
 
     if(config.debug){
-        if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
         let modeconfig = config.debug[`mode_${config.debug.mode}`];
         let keys = ['concatStaticTplRequests',
                     'concatStaticJsRequests',
@@ -102,6 +101,7 @@ let reloadConfig = (printinfo)=>{
         keys.forEach((key)=>{
             config.debug[key] = !!modeconfig[key]
         })
+        if(config.debug.concatStaticTplRequests) config.debug.concatStaticRequests = true;
     }
  
     config.auxiliaryFolder = auxiliaryFolder;
