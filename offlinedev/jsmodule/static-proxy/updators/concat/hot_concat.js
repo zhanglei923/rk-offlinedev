@@ -9,6 +9,8 @@ let configUtil = require('../../../config/configUtil')
 let webprojectUtil = require('../../../config/webprojectUtil')
 let seajsUtil = require('../../../utils/seajs/seajsUtil')
 
+let updateScript_CssUrl = require('../updateScript_CssUrl')
+
 let thisfolder = pathutil.parse(__filename).dir;
 let logfolder = pathutil.resolve(thisfolder, '../../../../../logs')
 
@@ -116,7 +118,20 @@ let loadHotFileConcatPlan = (staticfolder, sourcefolder)=>{
             if(ok){
                 fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
                 let deployContent = '';
-                if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, {no_hot_url:true})
+                if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, 
+                                                                    fullfilepath, 
+                                                                    sea_alias, 
+                                                                    content, 
+                                                                    {
+                                                                        no_hot_url:true,
+                                                                        depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。
+                                                                            depspathid.forEach((pid, idx)=>{
+                                                                                let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
+                                                                                depspathid[idx] = hotid;
+                                                                            })
+                                                                            return depspathid;
+                                                                        }
+                                                                    })
                 //if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
                 //混淆实验
                 if(0 && !rk.isCookedJsPath(fullfilepath))

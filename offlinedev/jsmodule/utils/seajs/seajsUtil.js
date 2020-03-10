@@ -231,6 +231,9 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     for(let i=0;i<arr.length;i++){
         let line = arr[i];
         if(line.match(definetype1)){
+            if(info.depsPathIdUpdate) {
+                depspathid = info.depsPathIdUpdate(depspathid);//可能要更新为hot url
+            }
             line = line.replace(definetype1, `define("${pathid}",${JSON.stringify(depspathid)},function (require,exports,module)`)
             arr[i] = line;
             break;

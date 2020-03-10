@@ -22,7 +22,22 @@ let css_loaders = [
     load_all_productscommon_css,
     load_all_userdefinedmeasure_css
 ]
-
+let changeToHotPath = (fullfilepath, req_path)=>{
+    let sourceDir = getConfig.getSourceFolder();
+    let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+    let req_pathid = pathutil.relative(sourceDir, req_realpath)
+    let hotpathid;
+    
+    for(let i = 0; i < css_loaders.length; i++){
+        let loader = css_loaders[i];
+        hotpathid = loader.shouldReplacedWithThis(sourceDir, req_realpath)
+        if(hotpathid){
+            break;
+        }
+    }
+    if(!hotpathid) hotpathid = req_pathid;
+    return req_path;
+};
 let updateJs = (info, content, widthDefineHeader)=>{
     if(typeof widthDefineHeader === 'undefined') widthDefineHeader = true;
     let enable = getConfig.getValue('debug.concatStaticCssRequests')
@@ -68,5 +83,6 @@ let updateJs = (info, content, widthDefineHeader)=>{
     return content;
 }
 module.exports = {
-    updateJs
+    updateJs,
+    changeToHotPath
 };
