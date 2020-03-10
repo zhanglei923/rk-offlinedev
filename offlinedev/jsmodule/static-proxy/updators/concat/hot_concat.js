@@ -131,6 +131,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                                                                                 let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
                                                                                 depspathid[idx] = hotid ? hotid : pid;
                                                                             })
+                                                                            depspathid = _.uniq(depspathid);
                                                                             return depspathid;
                                                                         }
                                                                     })
