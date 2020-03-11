@@ -139,6 +139,13 @@ let excuteConcatPlan = (sourcefolder)=>{
     for(let pathid in global.rkCacheOf_autoConcatPlan[tplbundleid].files){
         let fpath = pathutil.resolve(sourcefolder, pathid);
         fpath = rk_formatPath(fpath)
+        let shouldread = true;
+        if(global.rkCacheOf_Deployfilesinfo[pathid]){
+            let old_mc36 = global.rkCacheOf_Deployfilesinfo[pathid].mc36;
+            let new_mc36 = fs_readFile.getFileMC36(fpath);
+            if(old_mc36 === new_mc36) shouldread = false;
+        }
+        if(shouldread)
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
@@ -165,6 +172,13 @@ let excuteConcatPlan = (sourcefolder)=>{
                 let fpath = pathutil.resolve(sourcefolder, pathid);
                 fpath = rk_formatPath(fpath)
                 let fullfilepath = fpath;
+                let shouldread = true;
+                if(global.rkCacheOf_Deployfilesinfo[pathid]){
+                    let old_mc36 = global.rkCacheOf_Deployfilesinfo[pathid].mc36;
+                    let new_mc36 = fs_readFile.getFileMC36(fpath);
+                    if(old_mc36 === new_mc36) shouldread = false;
+                }
+                if(shouldread)
                 fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
                     if(content===null || typeof content === 'undefined'){
                         console.log('404:',fpath)
