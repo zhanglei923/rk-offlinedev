@@ -50,6 +50,7 @@ let preloadStaticFiles = (callback)=>{
             }
         });
     }
+    if(0)
     if(shouldParseDeps){
         let t0 = new Date()*1;
         hot_concat.loadHotFileConcatPlan(sourcefolder);

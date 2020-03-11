@@ -40,14 +40,6 @@ let updateJs = (info, content)=>{
         defaultjs += `\n//****** END *******//\n`
 
         content = content +';\n'+ defaultjs;
-
-        if(global.rkCacheOf_autoConcatPlan){//如果是concat聚合模式，那么生成聚合js的文件列表
-            let concat_bundle_files = [];
-            for(let pathid in global.rkCacheOf_autoConcatPlan){
-                concat_bundle_files.push(pathid)
-            }
-            content = content +';\n'+ `window.rk_offlinedev.concat_bundle_files=${JSON.stringify(concat_bundle_files)}`;
-        }
     }
     return content;
 }
