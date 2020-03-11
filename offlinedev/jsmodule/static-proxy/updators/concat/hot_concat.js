@@ -67,7 +67,10 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     allpathid = tmparr;
     if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'), ()=>{});
 
-    let maxBundleSize = 7*1024*1024;
+    let maxMB = configUtil.getValue('debug.mode_concat.maxConcatFileSizeMB');
+    maxMB = maxMB ? maxMB : 6;//default
+    console.log('concat size=', maxMB+'MB')
+    let maxBundleSize = maxMB * 1024 * 1024;
     let currentFileNum = 0;
     let currentSize = 0;
     let totalContentSize = 0;
