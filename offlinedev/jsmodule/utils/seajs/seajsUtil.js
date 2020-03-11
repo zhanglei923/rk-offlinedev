@@ -87,9 +87,9 @@ let addJsExt = (req_pathid)=>{
     return req_pathid;
 }
 let isCommonRequirePath = rk.isCommonRequirePath;
-global.rkFileDepsCache = {};//缓存
+global.rkCacheOf_seajsFileDeps = {};//缓存
 let getAllDeps = ()=>{
-    return global.rkFileDepsCache;
+    return global.rkCacheOf_seajsFileDeps;
 };
 let cleanAll404 = (sourcefolder, alldeps)=>{
     for(let fullfilepath in alldeps){
@@ -112,8 +112,8 @@ let refreshAllDeps = (sourcefolder)=>{
             getFileDeps(sourcefolder, fullfilepath, content);
         });
     })    
-    for(let fpath in global.rkFileDepsCache){
-        if(!keep[fpath]) delete global.rkFileDepsCache[fpath];//有些文件可能被删除，因此也要做清除
+    for(let fpath in global.rkCacheOf_seajsFileDeps){
+        if(!keep[fpath]) delete global.rkCacheOf_seajsFileDeps[fpath];//有些文件可能被删除，因此也要做清除
     }
 };
 let getAllDepsAsMap = ()=>{
@@ -161,9 +161,9 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     pathid = rk_formatPath(pathid);
     //console.log(pathid)
     let deps = [];
-    let cache = global.rkFileDepsCache[fullfilepath];
+    let cache = global.rkCacheOf_seajsFileDeps[fullfilepath];
     if(rk.isCookedJsPath(fullfilepath)){
-        global.rkFileDepsCache[fullfilepath] = {
+        global.rkCacheOf_seajsFileDeps[fullfilepath] = {
             pathid,
             isCmd: false,
             mightBeCmd: false,
@@ -187,7 +187,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             }
             let isCmd = rk.isCmdFile(content);    
             let mightBeCmd = rk.mightBeCmdFile(content)
-            global.rkFileDepsCache[fullfilepath] = {
+            global.rkCacheOf_seajsFileDeps[fullfilepath] = {
                 pathid,
                 isCmd,
                 mightBeCmd,
@@ -196,7 +196,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             }
         }       
     }
-    return global.rkFileDepsCache[fullfilepath];
+    return global.rkCacheOf_seajsFileDeps[fullfilepath];
 }
 let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
     let deps_good = [];
