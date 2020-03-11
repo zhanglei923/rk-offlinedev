@@ -81,77 +81,36 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     //tpl
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
-        let fullfilepath = pathutil.resolve(sourcefolder, pathid)
         let isTpl = pathid.match(/\.tpl$/);
-        let fpath = fullfilepath;
         if(isTpl){
-            fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
-                if(content===null || typeof content === 'undefined'){
-                    console.log('404:',fpath)
-                }
-                let deployContent = '';
-                deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
-                global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
-                global.rkCacheOf_Deployfilesinfo[pathid] = {
-                    deployContent,
-                    pathid,
-                    fpath,
-                    mc36: fileinfo.mc36,
-                    mightBeCmd: fileinfo.mightBeCmd,
-                    isCmd: fileinfo.isCmd
-                };
-            });
+            global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
         }
     }
     //js
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
+        fullfilepath = rk_formatPath(fullfilepath)
         let isJs = pathid.match(/\.js$/);
-        let isTpl = pathid.match(/\.tpl$/);
         fcount++;
         let fpath = fullfilepath;
         fpath = rk_formatPath(fpath);
         //if(currentFileNum >= 3)break;
-        if(isJs)
+
+        let ok = true;
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
             }
-            let ok = true;
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
-            if(ok){
-                fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
-                let deployContent = '';
-                if(isJs) deployContent = seajsUtil.changeJsToDeploy(sourcefolder, 
-                                                                    fullfilepath, 
-                                                                    sea_alias, 
-                                                                    content, 
-                                                                    {
-                                                                        no_hot_url:true,
-                                                                        depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。
-                                                                            if(!configUtil.getValue('debug.concatStaticCssRequests')) return depspathid;
-                                                                            depspathid.forEach((pid, idx)=>{
-                                                                                let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
-                                                                                depspathid[idx] = hotid ? hotid : pid;
-                                                                            })
-                                                                            depspathid = _.uniq(depspathid);
-                                                                            return depspathid;
-                                                                        }
-                                                                    })
-                //if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
-                // //混淆实验
-                // if(0 && !rk.isCookedJsPath(fullfilepath))
-                // deployContent = es6.minify(deployContent, {        
-                //     uglifyConfig:{
-                //         mangle:{
-                //             reserved:['require' ,'exports' ,'module' ,'$']
-                //         }
-                //     }
-                // });
-                currentSize += content.length;
-                totalContentSize += content.length;
+        });
+        if(isJs && ok){
+            try{
+                let fstats = fs.lstatSync(fullfilepath);
+                let fsize = fstats.size;
+                currentSize += fsize;
+                totalContentSize += fsize;
                 if(currentSize > maxBundleSize){
                     currentFileNum++;
                     currentSize=0;
@@ -164,23 +123,83 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                 };
                 //currentPathids += '\n'+pathid
                 global.rkCacheOf_autoConcatPlan[bundlePathid].files[pathid] = 1;
-                global.rkCacheOf_Deployfilesinfo[pathid] = {
-                    deployContent,
-                    pathid,
-                    fpath,
-                    mc36: fileinfo.mc36,
-                    mightBeCmd: fileinfo.mightBeCmd,
-                    isCmd: fileinfo.isCmd
-                };
-                if(fcount===len){
-                    //last
-                }
+            }catch(err){
+                throw err;
             }
-        });
+        }
+        
     }
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
-
+    console.log('concat plan generated.');
+    fs.writeFileSync(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan))
+}
+let excuteConcatPlan = (sourcefolder)=>{
+    //tpl文件
+    let tplbundleid = getBundlePathid('tpl')
+    for(let pathid in global.rkCacheOf_autoConcatPlan[tplbundleid].files){
+        let fpath = pathutil.resolve(sourcefolder, pathid);
+        fpath = rk_formatPath(fpath)
+        fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+            if(content===null || typeof content === 'undefined'){
+                console.log('404:',fpath)
+            }
+            let deployContent = '';
+            deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fpath, content)
+            global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
+            global.rkCacheOf_Deployfilesinfo[pathid] = {
+                deployContent,
+                pathid,
+                fpath,
+                mc36: fileinfo.mc36,
+                mightBeCmd: fileinfo.mightBeCmd,
+                isCmd: fileinfo.isCmd
+            };
+        });
+    }
+    global.rkCacheOf_autoConcatPlan[tplbundleid];//丢弃tpl plan
+    //javascript文件
+    for(let bundlePathid in global.rkCacheOf_autoConcatPlan){
+        if(bundlePathid !== tplbundleid){
+            let files = global.rkCacheOf_autoConcatPlan[bundlePathid].files;
+            for(let pathid in files){
+                let fpath = pathutil.resolve(sourcefolder, pathid);
+                fpath = rk_formatPath(fpath)
+                let fullfilepath = fpath;
+                fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+                    if(content===null || typeof content === 'undefined'){
+                        console.log('404:',fpath)
+                    }
+                    fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
+                    let deployContent = '';
+                    deployContent = seajsUtil.changeJsToDeploy(sourcefolder, 
+                                                            fullfilepath, 
+                                                            sea_alias, 
+                                                            content, 
+                                                            {
+                                                                no_hot_url:true,
+                                                                depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。
+                                                                    if(!configUtil.getValue('debug.concatStaticCssRequests')) return depspathid;
+                                                                    depspathid.forEach((pid, idx)=>{
+                                                                        let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
+                                                                        depspathid[idx] = hotid ? hotid : pid;
+                                                                    })
+                                                                    depspathid = _.uniq(depspathid);
+                                                                    return depspathid;
+                                                                }
+                                                            })
+                    global.rkCacheOf_Deployfilesinfo[pathid] = {
+                        deployContent,
+                        pathid,
+                        fpath,
+                        mc36: fileinfo.mc36,
+                        mightBeCmd: fileinfo.mightBeCmd,
+                        isCmd: fileinfo.isCmd
+                    };
+                });
+            }
+        }
+    }
 }
 let loadHotFileConcats = (sourcefolder)=>{
     for(let bundleid in global.rkCacheOf_autoConcatPlan){
@@ -204,5 +223,6 @@ let loadHotFileConcats = (sourcefolder)=>{
 }
 module.exports = {
     loadHotFileConcatPlan,
+    excuteConcatPlan,
     loadHotFileConcats
 };
