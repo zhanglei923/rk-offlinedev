@@ -41,7 +41,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     timetxt = moment().format('YYYY-MM-DD HH:mm');
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
-    if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
+    if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', JSON.stringify(alldepsmap), ()=>{});
     // alldepsmap['root'] = ["core/rkloader.js",
     //                       'page/js/frame/pageMainCtrl.js',
     //                       'oldcrm/js/core/common-crm.js',
@@ -65,7 +65,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
-    if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
+    if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'), ()=>{});
 
     let maxBundleSize = 7*1024*1024;
     let currentFileNum = 0;
@@ -132,7 +132,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     console.log('concat plan generated.');
-    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan))
+    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan), ()=>{});
 };
 //执行合并计划，加入缓存层
 let excuteConcatPlan = (sourcefolder)=>{
@@ -232,10 +232,10 @@ let loadHotFileConcats = (sourcefolder)=>{
         let files = global.rkCacheOf_autoConcatPlan[bundleid].files;
         let info = getConcatContent(files);
         //global.rkNameOf_HotConcatBundle[bundleid]=true;
-        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+info.currentContent);
-        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+info.currentPathids);
+        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+info.currentContent, ()=>{});
+        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+info.currentPathids, ()=>{});
     }
-    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
+    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'), ()=>{});
     // console.log(fcount)
     // console.log(currentSize)
 
