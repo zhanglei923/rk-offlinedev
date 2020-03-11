@@ -26,6 +26,7 @@ let allpathid;
 let timetxt;
 global.rkCacheOf_autoConcatPlan = {};
 global.rkCacheOf_Deployfilesinfo = {};
+//生成合并计划，这里不用理会缓存，只是将合并计划生成
 let loadHotFileConcatPlan = (sourcefolder)=>{
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
@@ -98,45 +99,40 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         //if(currentFileNum >= 3)break;
 
         let ok = true;
+        let fstats;
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
+                ok = false;
             }
+            fstats = fileinfo.fstate;
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
         });
         if(isJs && ok){
-            let fstats;
-            try{
-                fstats = fs.lstatSync(fullfilepath);
-            }catch(err){
-                console.log('404:',fullfilepath)
-                throw err;
+            let fsize = fstats.size;
+            currentSize += fsize;
+            totalContentSize += fsize;
+            if(currentSize > maxBundleSize){
+                currentFileNum++;
+                currentSize=0;
             }
-            if(fstats){
-                let fsize = fstats.size;
-                currentSize += fsize;
-                totalContentSize += fsize;
-                if(currentSize > maxBundleSize){
-                    currentFileNum++;
-                    currentSize=0;
-                }
-                //currentContent += `;\n//${pathid}\n;`+deployContent;
-                let bundlePathid = getBundlePathid(currentFileNum)
-                if(!global.rkCacheOf_autoConcatPlan[bundlePathid])global.rkCacheOf_autoConcatPlan[bundlePathid]={
-                    idx: currentFileNum,
-                    files:{}
-                };
-                //currentPathids += '\n'+pathid
-                global.rkCacheOf_autoConcatPlan[bundlePathid].files[pathid] = 1;
-            }
+            //currentContent += `;\n//${pathid}\n;`+deployContent;
+            let bundlePathid = getBundlePathid(currentFileNum)
+            if(!global.rkCacheOf_autoConcatPlan[bundlePathid])global.rkCacheOf_autoConcatPlan[bundlePathid]={
+                idx: currentFileNum,
+                files:{}
+            };
+            //currentPathids += '\n'+pathid
+            global.rkCacheOf_autoConcatPlan[bundlePathid].files[pathid] = 1;
         }        
     }
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     console.log('concat plan generated.');
     fs.writeFileSync(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan))
-}
+};
+//执行合并计划，加入缓存层
 let excuteConcatPlan = (sourcefolder)=>{
     //tpl文件
     let tplbundleid = getBundlePathid('tpl')
