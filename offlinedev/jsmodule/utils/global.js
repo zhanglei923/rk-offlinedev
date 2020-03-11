@@ -24,7 +24,8 @@ let getFileMC36 = (fullpath)=>{
 let getStatMC36 = (fstate)=>{
     let ctime36 = fstate.ctimeMs.toString(36);
     let mtime36 = fstate.mtimeMs.toString(36);
-    let mc36 = mtime36+'-'+ctime36;
+    let fsize36 = fstate.size.toString(36);
+    let mc36 = mtime36+'-'+ctime36+'-'+fsize36;
     return mc36;
 };
 global.getFileMC36 = getFileMC36;
