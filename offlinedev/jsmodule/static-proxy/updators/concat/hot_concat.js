@@ -12,6 +12,8 @@ let seajsUtil = require('../../../utils/seajs/seajsUtil')
 
 let updateScript_CssUrl = require('../updateScript_CssUrl')
 
+let backupfiles = configUtil.getValue('debug.mode_concat.backupConcatFiles')
+
 let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
 /**
@@ -39,7 +41,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     timetxt = moment().format('YYYY-MM-DD HH:mm');
     let alldepsmap = seajsUtil.getAllDepsAsMap()
     //seajsUtil.cleanNoOneRequired(alldepsmap)
-    fs.writeFileSync(hotfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
+    if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', JSON.stringify(alldepsmap))
     // alldepsmap['root'] = ["core/rkloader.js",
     //                       'page/js/frame/pageMainCtrl.js',
     //                       'oldcrm/js/core/common-crm.js',
@@ -63,7 +65,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
-    fs.writeFileSync(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
+    if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', allpathid.join('\n'))
 
     let maxBundleSize = 7*1024*1024;
     let currentFileNum = 0;
@@ -130,7 +132,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     console.log('concat plan generated.');
-    fs.writeFileSync(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan))
+    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, JSON.stringify(global.rkCacheOf_autoConcatPlan))
 };
 //执行合并计划，加入缓存层
 let excuteConcatPlan = (sourcefolder)=>{
@@ -211,22 +213,29 @@ let excuteConcatPlan = (sourcefolder)=>{
         }
     }
 }
+let getConcatContent = (files)=>{
+    let currentContent = [];
+    let currentPathids = [];
+    //console.log(i, 'pathid=',files)
+    for(let pathid in files){
+        let finfo = global.rkCacheOf_DeployfilesData[pathid]; 
+        currentContent.push(finfo.deployContent);
+        currentPathids.push(pathid);
+    }
+    return {
+        currentContent: currentContent.join('\n;'),
+        currentPathids: currentPathids.join('\n;')
+    }
+}
 let loadHotFileConcats = (sourcefolder)=>{
     for(let bundleid in global.rkCacheOf_autoConcatPlan){
         let files = global.rkCacheOf_autoConcatPlan[bundleid].files;
-        let currentContent = [];
-        let currentPathids = [];
-        //console.log(i, 'pathid=',files)
-        for(let pathid in files){
-            let finfo = global.rkCacheOf_DeployfilesData[pathid]; 
-            currentContent.push(finfo.deployContent);
-            currentPathids.push(pathid);
-        }
+        let info = getConcatContent(files);
         //global.rkNameOf_HotConcatBundle[bundleid]=true;
-        fs.writeFileSync(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+currentContent.join('\n;'));
-        fs.writeFileSync(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+currentPathids.join('\n'));
+        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+info.currentContent);
+        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+info.currentPathids);
     }
-    fs.writeFileSync(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
+    if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'));
     // console.log(fcount)
     // console.log(currentSize)
 
@@ -234,5 +243,6 @@ let loadHotFileConcats = (sourcefolder)=>{
 module.exports = {
     loadHotFileConcatPlan,
     excuteConcatPlan,
-    loadHotFileConcats
+    loadHotFileConcats,
+    getConcatContent
 };
