@@ -141,15 +141,15 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                                                                         }
                                                                     })
                 //if(isTpl)deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
-                //混淆实验
-                if(0 && !rk.isCookedJsPath(fullfilepath))
-                deployContent = es6.minify(deployContent, {        
-                    uglifyConfig:{
-                        mangle:{
-                            reserved:['require' ,'exports' ,'module' ,'$']
-                        }
-                    }
-                });
+                // //混淆实验
+                // if(0 && !rk.isCookedJsPath(fullfilepath))
+                // deployContent = es6.minify(deployContent, {        
+                //     uglifyConfig:{
+                //         mangle:{
+                //             reserved:['require' ,'exports' ,'module' ,'$']
+                //         }
+                //     }
+                // });
                 currentSize += content.length;
                 totalContentSize += content.length;
                 if(currentSize > maxBundleSize){
