@@ -69,7 +69,6 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         console.log('no change')
         return;
     }
-
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
@@ -176,11 +175,14 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     console.log('concat plan generated.');
-    global.rkStatOf_concatPlanNeedsUpdate = false;
     if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, `//${timetxt}\n`+JSON.stringify(global.rkCacheOf_autoConcatPlan), ()=>{});
 };
 //执行合并计划，加入缓存层
 let excuteConcatPlan = (sourcefolder)=>{
+    if(canWatch && !global.rkStatOf_concatPlanNeedsUpdate){
+        console.log('no change2')
+        return;
+    }
     //tpl文件
     let tplbundleid = getBundlePathid('tpl')
     for(let pathid in global.rkCacheOf_autoConcatPlan[tplbundleid].files){
@@ -257,6 +259,7 @@ let excuteConcatPlan = (sourcefolder)=>{
             }
         }
     }
+    global.rkStatOf_concatPlanNeedsUpdate = false;//配合watch
 }
 let getConcatContent = (hotpathid, files)=>{
     let currentContent = [];
