@@ -78,7 +78,9 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     }
 
     timetxt = moment().format('YYYY-MM-DD HH:mm');
+    seajsUtil.refreshAllDeps()
     let alldepsmap = seajsUtil.getAllDepsAsMap()
+    //fs.writeFileSync('./d.json', JSON.stringify(alldepsmap))
     //seajsUtil.cleanNoOneRequired(alldepsmap)
     if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', `//${timetxt}\n`+JSON.stringify(alldepsmap), ()=>{});
     // alldepsmap['root'] = ["core/rkloader.js",
@@ -145,12 +147,16 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
 
         let ok = true;
         let fstats;
-        fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+        fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
+            if(err || !fileinfo){
+                console.log('err:',fpath)
+                ok = false;
+            }
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
                 ok = false;
             }
-            fstats = fileinfo.fstate;
+            if(ok)fstats = fileinfo.fstate;
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
         });

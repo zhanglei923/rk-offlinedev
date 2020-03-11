@@ -2,7 +2,9 @@ let fs = require('fs')
 let _ = require('lodash')
 let pathutil = require('path')
 let util = require('util')
+let eachcontentjs = require('eachcontent-js')
 let rk = require('../../utils/rk')
+let fs_readFile = require('../fs_readFile')
 let regParserMini = require('./regParserMini');
 let jsonFileLoader = require('./sub-api/jsonFileLoader')
 let concatRules = require('./concatRules')
@@ -88,11 +90,27 @@ let isCommonRequirePath = rk.isCommonRequirePath;
 global.rkFileDepsCache = {};//缓存
 let getAllDeps = ()=>{
     return global.rkFileDepsCache;
-}
+};
+let refreshAllDeps = (sourcefolder)=>{
+    // (sourcefolder, fullfilepath, content)
+    // fs_readFile
+    let keep = {}
+    eachcontentjs.eachPath(sourcefolder, /\.js$/, (fullfilepath)=>{
+        fullfilepath = rk_formatPath(fullfilepath)
+        keep[fullfilepath] = 1;
+        fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+            getFileDeps(sourcefolder, fullfilepath, content);
+        });
+    })    
+    for(let fpath in global.rkFileDepsCache){
+        if(!keep[fpath]) delete global.rkFileDepsCache[fpath];//有些文件可能被删除，因此也要做清除
+    }
+};
 let getAllDepsAsMap = ()=>{
-    let map = {}
-    for(let fullfilepath in global.rkFileDepsCache){
-        let info = global.rkFileDepsCache[fullfilepath]
+    let map = {};
+    let alldeps = getAllDeps();
+    for(let fullfilepath in alldeps){
+        let info = alldeps[fullfilepath]
         let pathid = info.pathid;
         let deps = info.deps;
         let depsarr = []
@@ -294,6 +312,7 @@ let me = {
     changeJsToDeploy,
     changeTplToDeploy,
     reduceAllDepsIntoArray,
+    refreshAllDeps,
     getAllDeps,
     getAllDepsAsMap,
     cleanNoOneRequired
