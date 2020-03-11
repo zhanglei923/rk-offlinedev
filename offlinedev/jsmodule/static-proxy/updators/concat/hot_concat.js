@@ -76,6 +76,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     let totalContentSize = 0;
     let fcount=0;
     let len = allpathid.length;
+    for(let k in global.rkCacheOf_autoConcatPlan) delete global.rkCacheOf_autoConcatPlan[k];//清除内存
     global.rkCacheOf_autoConcatPlan = {}
 
     currentFileNum++;
