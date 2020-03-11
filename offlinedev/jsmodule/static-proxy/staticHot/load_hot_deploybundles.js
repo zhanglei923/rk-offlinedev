@@ -9,7 +9,8 @@ module.exports = {
         return url.match(/\_hot\//g);
     },
     load:(config, url, callback)=>{
-        // https://crm-dev61rs.ingageapp.com/static/source/products/bi/common/service/_hotresponse_.js
+        // https://crm-devapplicationrs.ingageapp.com/static/source/_hot/output_tpl.bundle.js
+        // https://crm-devapplicationrs.ingageapp.com/static/source/_hot/output_1.bundle.js
         let webappFolder = config.webappFolder;
         let dir = pathutil.parse(url).dir;
         dir = dir.replace(/^\/{1,}/, './')
