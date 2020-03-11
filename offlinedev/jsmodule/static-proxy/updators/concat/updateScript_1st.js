@@ -20,6 +20,7 @@ let updateJs = (info, content)=>{
         let t0 = new Date()*1;
         hot_concat.loadHotFileConcatPlan(sourcefolder);
         hot_concat.excuteConcatPlan(sourcefolder);
+        console.log('plan cost:')
         console.log(new Date()*1 - t0)
         //hot_concat.loadHotFileConcats(sourcefolder)
 
