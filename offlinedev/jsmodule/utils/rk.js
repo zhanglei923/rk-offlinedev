@@ -102,10 +102,11 @@ var rk = {
     cleanCommentsFast: function(str){
         if(typeof str !== 'string') return str;
         if(!str) return str;
-        let marker =  'httttttttttp';
-        let markers = 'httttttttttps';
+        let marker =  'httt'+Math.random()+'tttttp'.replace(/\./g,'');
+        let markers = 'htttttt'+Math.random()+'ttttps'.replace(/\./g,'');
         str = str.replace(/(http\:\/\/)/g, marker)
         str = str.replace(/(https\:\/\/)/g, markers)
+        //console.log(str)
         //可能不是javascript，比如tpl什么的
         //by: http://upshots.org/javascript/javascript-regexp-to-remove-comments
         let newstr = str.replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '');

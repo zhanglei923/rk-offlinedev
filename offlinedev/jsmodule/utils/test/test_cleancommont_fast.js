@@ -5,6 +5,14 @@ let rk = require('../rk')
 // define(function(require, exports, module) {
 let sourcepath=`/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source`
 
+let content = `
+//a
+require('https://xxx.com')
+b;
+`
+content = rk.cleanCommentsFast(content);
+console.log(content)
+return;
 
 let t0 = new Date()*1;    
 eachcontentjs.eachContent(sourcepath, /\.js$/,(content, fpath, states)=>{
