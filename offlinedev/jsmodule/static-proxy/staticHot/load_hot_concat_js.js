@@ -7,8 +7,6 @@ let rk = require('../../utils/rk')
 let seajsUtil = require('../../utils/seajs/seajsUtil')
 var getConfig = require('../../config/configUtil')
 
-let updateScript_cmd_HOT = require('../updators/updateScript_cmd_HOT')
-
 module.exports = {
     isMyHotUrl:(url)=>{
         return url.match(/autoconcat\_HOT\.js$/);
@@ -88,7 +86,6 @@ module.exports = {
                         let sourcepath = info.sourceFolder;
                         let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
                         let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, jsContent, info)
-                        //jsContent = updateScript_cmd_HOT.updateJs(info, jsContent)
                         fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                     }
                 }
@@ -106,7 +103,6 @@ module.exports = {
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
                     let sourcepath = info.sourceFolder;                
                     let deploycontent = seajsUtil.changeTplToDeploy(sourcepath, fullfilepath, tplContent)
-                    //tplContent = updateScript_cmd_HOT.updateTpl(info, tplContent)
                     fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                 }
                 if(len === 0){

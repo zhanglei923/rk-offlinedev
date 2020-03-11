@@ -3,7 +3,6 @@ let updateScript_1st = require('./updateScript_1st')
 let updateMyScript_1st = require('./concat/updateScript_1st')
 let updateScript_Tpl = require('./updateScript_Tpl')
 let updateScript_i18n = require('./updateScript_i18n')
-let updateScript_cmd_HOT = require('./updateScript_cmd_HOT')
 let updateScript_CssUrl = require('./updateScript_CssUrl')
 let injectSeaConfig = require('../../static-injects/injectContents/injectSeaConfig')
 let enableLevel2Cache = getConfig.getValue('debug.autoCacheStaticLevel2');
@@ -13,7 +12,6 @@ let updateSource = function (req_path, info, jscontent){
     jscontent = updateScript_1st.updateJs(info, jscontent)
     jscontent = updateMyScript_1st.updateJs(info, jscontent)
     jscontent = injectSeaConfig.updateJs(info, jscontent);
-    jscontent = updateScript_cmd_HOT.updateJs(info, jscontent)//必须在其他update之前，不然无法更改依赖数组里的值
     jscontent = updateScript_CssUrl.updateJs(info, jscontent)
     jscontent = updateScript_i18n.updateJs(info, jscontent)
     return jscontent;
