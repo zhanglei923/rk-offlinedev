@@ -24,7 +24,8 @@ let getBundlePathid = (i)=>{
 };
 let allpathid;
 let timetxt;
-global.rkCacheOf_Deployfilesinfo = []
+global.rkCacheOf_autoConcatPlan = {};
+global.rkCacheOf_Deployfilesinfo = {};
 let loadHotFileConcatPlan = (sourcefolder)=>{
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
@@ -69,11 +70,11 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     let totalContentSize = 0;
     let fcount=0;
     let len = allpathid.length;
-    global.rkCacheOf_autoConcat = {}
+    global.rkCacheOf_autoConcatPlan = {}
 
     currentFileNum++;
     let tplbundleid = getBundlePathid('tpl')
-    global.rkCacheOf_autoConcat[tplbundleid]={
+    global.rkCacheOf_autoConcatPlan[tplbundleid]={
         idx: currentFileNum,
         files:{}
     };
@@ -90,7 +91,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                 }
                 let deployContent = '';
                 deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
-                global.rkCacheOf_autoConcat[tplbundleid].files[pathid] = 1;
+                global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
                 global.rkCacheOf_Deployfilesinfo[pathid] = {
                     deployContent,
                     pathid,
@@ -157,12 +158,12 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                 }
                 //currentContent += `;\n//${pathid}\n;`+deployContent;
                 let bundlePathid = getBundlePathid(currentFileNum)
-                if(!global.rkCacheOf_autoConcat[bundlePathid])global.rkCacheOf_autoConcat[bundlePathid]={
+                if(!global.rkCacheOf_autoConcatPlan[bundlePathid])global.rkCacheOf_autoConcatPlan[bundlePathid]={
                     idx: currentFileNum,
                     files:{}
                 };
                 //currentPathids += '\n'+pathid
-                global.rkCacheOf_autoConcat[bundlePathid].files[pathid] = 1;
+                global.rkCacheOf_autoConcatPlan[bundlePathid].files[pathid] = 1;
                 global.rkCacheOf_Deployfilesinfo[pathid] = {
                     deployContent,
                     pathid,
@@ -182,8 +183,8 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
 
 }
 let loadHotFileConcats = (sourcefolder)=>{
-    for(let bundleid in global.rkCacheOf_autoConcat){
-        let files = global.rkCacheOf_autoConcat[bundleid].files;
+    for(let bundleid in global.rkCacheOf_autoConcatPlan){
+        let files = global.rkCacheOf_autoConcatPlan[bundleid].files;
         let currentContent = [];
         let currentPathids = [];
         //console.log(i, 'pathid=',files)

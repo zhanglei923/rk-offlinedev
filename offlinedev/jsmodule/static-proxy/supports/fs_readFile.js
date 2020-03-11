@@ -19,7 +19,12 @@ let canCache = (fullpath)=>{
     return true;
 }
 me.canCache = canCache;
-let getMC36 = (fstate)=>{
+let getFileMC36 = (fullpath)=>{
+    fstate = fs.lstatSync(fullpath);
+    let mc36 = getStatMC36(fstate);
+    return mc36;
+};
+let getStatMC36 = (fstate)=>{
     let ctime36 = fstate.ctimeMs.toString(36);
     let mtime36 = fstate.mtimeMs.toString(36);
     let mc36 = mtime36+'-'+ctime36;
@@ -71,7 +76,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             cb({error: err}, null);
             return;
         }
-        let mc36 = getMC36(fstate);
+        let mc36 = getStatMC36(fstate);
         let cachekey = getKey(fpath);
         //console.log(cachekey)
         if(global.rkCacheOf_File[cachekey] && configUtil.getValue('debug.autoCacheStatic')){
@@ -112,7 +117,8 @@ let fs_readFile = (fpath, opt, cb)=>{
         });
     });
 }
-me.getMC36 = getMC36;
+me.getFileMC36 = getFileMC36;
+me.getStatMC36 = getStatMC36;
 me.fs_readFile = fs_readFile;
 me.removeCache = removeCache;
 me.getAllCache = ()=>{ return global.rkCacheOf_File; }
