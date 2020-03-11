@@ -25,7 +25,7 @@ let getBundlePathid = (i)=>{
 let allpathid;
 let timetxt;
 global.rkCacheOf_autoConcatPlan = {};
-global.rkCacheOf_Deployfilesinfo = {};
+global.rkCacheOf_DeployfilesData = {};
 //生成合并计划，这里不用理会缓存，只是将合并计划生成
 let loadHotFileConcatPlan = (sourcefolder)=>{
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
@@ -140,8 +140,8 @@ let excuteConcatPlan = (sourcefolder)=>{
         let fpath = pathutil.resolve(sourcefolder, pathid);
         fpath = rk_formatPath(fpath)
         let shouldread = true;
-        if(global.rkCacheOf_Deployfilesinfo[pathid]){
-            let old_mc36 = global.rkCacheOf_Deployfilesinfo[pathid].mc36;
+        if(global.rkCacheOf_DeployfilesData[pathid]){
+            let old_mc36 = global.rkCacheOf_DeployfilesData[pathid].mc36;
             let new_mc36 = fs_readFile.getFileMC36(fpath);
             if(old_mc36 === new_mc36) shouldread = false;
         }
@@ -153,7 +153,7 @@ let excuteConcatPlan = (sourcefolder)=>{
             let deployContent = '';
             deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fpath, content)
             global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
-            global.rkCacheOf_Deployfilesinfo[pathid] = {
+            global.rkCacheOf_DeployfilesData[pathid] = {
                 deployContent,
                 pathid,
                 fpath,
@@ -173,8 +173,8 @@ let excuteConcatPlan = (sourcefolder)=>{
                 fpath = rk_formatPath(fpath)
                 let fullfilepath = fpath;
                 let shouldread = true;
-                if(global.rkCacheOf_Deployfilesinfo[pathid]){
-                    let old_mc36 = global.rkCacheOf_Deployfilesinfo[pathid].mc36;
+                if(global.rkCacheOf_DeployfilesData[pathid]){
+                    let old_mc36 = global.rkCacheOf_DeployfilesData[pathid].mc36;
                     let new_mc36 = fs_readFile.getFileMC36(fpath);
                     if(old_mc36 === new_mc36) shouldread = false;
                 }
@@ -198,7 +198,7 @@ let excuteConcatPlan = (sourcefolder)=>{
                                                                     return depspathid;
                                                                 }
                                                             })
-                    global.rkCacheOf_Deployfilesinfo[pathid] = {
+                    global.rkCacheOf_DeployfilesData[pathid] = {
                         deployContent,
                         pathid,
                         fpath,
@@ -218,7 +218,7 @@ let loadHotFileConcats = (sourcefolder)=>{
         let currentPathids = [];
         //console.log(i, 'pathid=',files)
         for(let pathid in files){
-            let finfo = global.rkCacheOf_Deployfilesinfo[pathid]; 
+            let finfo = global.rkCacheOf_DeployfilesData[pathid]; 
             currentContent.push(finfo.deployContent);
             currentPathids.push(pathid);
         }
