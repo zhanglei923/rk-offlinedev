@@ -4,6 +4,7 @@ var _ = require('lodash')
 let stripcomments = require('strip-comments')
 let eachcontentjs = require('eachcontent-js')
 var execSh = require("exec-sh");
+let fs_readFile = require('../static-proxy/supports/fs_readFile')
 let statusUtil = require('./statusUtil')
 let seajsUtil = require('../utils/seajs/seajsUtil')
 var rootpath = pathutil.resolve(__dirname, '../../../');
@@ -33,9 +34,12 @@ module.exports = {
         })
         let allRouter={};
         jsonpathlist.forEach((jsonpath)=>{
-            let jsonfullpath = pathutil.resolve(routerjsondir, jsonpath)
-            let jsontxt = fs.readFileSync(jsonfullpath, 'utf8');
-            let lines = rk_formatLineBreaker(jsontxt).split('\n');
+            let jsonfullpath = pathutil.resolve(routerjsondir, jsonpath);
+            let jsontxt;
+            fs_readFile.fs_readFile(jsonfullpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+                jsontxt = content;
+            });
+            //let lines = rk_formatLineBreaker(jsontxt).split('\n');
             // let tmp = []
             // lines.forEach((ln)=>{
             //     if()

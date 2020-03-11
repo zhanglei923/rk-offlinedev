@@ -2,7 +2,7 @@ let fs = require('fs-extra');
 let pathutil = require('path')
 let rk = require('../../utils/rk')
 let fpowerUtil = require('../../utils/fpowerUtil')
-let configUtil = require('../../config/configUtil')
+//let configUtil = require('../../config/configUtil')
 
 global.rkCacheOf_File = {};
 
@@ -74,7 +74,7 @@ let fs_readFile = (fpath, opt, cb)=>{
         let mc36 = getStatMC36(fstate);
         let cachekey = getKey(fpath);
         //console.log(cachekey)
-        if(global.rkCacheOf_File[cachekey] && configUtil.getValue('debug.autoCacheStatic')){
+        if(global.rkCacheOf_File[cachekey] && 1){
             let memo = global.rkCacheOf_File[cachekey];
             if(memo.mc36 === mc36){
                 //console.log('cc', global.rkCacheOf_File[cachekey])
@@ -95,7 +95,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             let isCmd = rk.isCmdFile(content)
             let mightBeCmd = rk.mightBeCmdFile(content)
             if(canCache(fpath))
-            if(!read_err && configUtil.getValue('debug.autoCacheStatic')){
+            if(!read_err && 1){
                 fpowerUtil.plusFilePower(fpath)
                 global.rkCacheOf_File[cachekey] = {
                     mc36,
