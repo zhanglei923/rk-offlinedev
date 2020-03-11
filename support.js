@@ -55,7 +55,7 @@ let preloadStaticFiles = (callback)=>{
         hot_concat.loadHotFileConcatPlan(sourcefolder);
         hot_concat.excuteConcatPlan(sourcefolder);
         console.log(new Date()*1 - t0)
-        hot_concat.loadHotFileConcats(sourcefolder)
+        //hot_concat.loadHotFileConcats(sourcefolder)
     }
     console.log('>', `100% loaded, ${format(filesize, 1)}MB.` );
     callback()
