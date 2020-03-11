@@ -21,7 +21,8 @@
     },
     debug:{
         //三种模式：
-        //  mode="source"，原生态的源代码模式，不对js做任何改动和优化
+        //  mode="raw"，纯原生态的源代码
+        //  mode="source"，源代码模式，可以对i18n和tpl，css等做少量聚合优化
         //  mode="concat"，自动合并模式，实际是启用了seajs的线上模式，所有cmd格式的js文件，也会被切换到线上状态
         mode: 'source',
         mode_source:{
