@@ -52,7 +52,7 @@ let doWatch = ()=>{
             filename = rk_formatPath(filename);
             if(filename.indexOf('/_hot/')<=0)//不关注_hot文件夹
             if(!/Dir$/.test(e)){//不关注文件夹
-                if(filename.match(/\.(js|tpl|css)$/)){
+                if(filename.match(/\.(js|tpl)$/)){
                     //console.log(filename)
                     global.rkStatOf_concatPlanNeedsUpdate = true;
                 }
