@@ -106,8 +106,14 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
             if(rk.isLibJsPath(fullfilepath)) ok=false;
         });
         if(isJs && ok){
+            let fstats;
             try{
-                let fstats = fs.lstatSync(fullfilepath);
+                fstats = fs.lstatSync(fullfilepath);
+            }catch(err){
+                console.log('404:',fullfilepath)
+                throw err;
+            }
+            if(fstats){
                 let fsize = fstats.size;
                 currentSize += fsize;
                 totalContentSize += fsize;
@@ -123,11 +129,8 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                 };
                 //currentPathids += '\n'+pathid
                 global.rkCacheOf_autoConcatPlan[bundlePathid].files[pathid] = 1;
-            }catch(err){
-                throw err;
             }
-        }
-        
+        }        
     }
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
