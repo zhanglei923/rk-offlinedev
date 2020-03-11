@@ -61,10 +61,10 @@ let doWatch = ()=>{
         isWatched = true;
     }
 }
-doWatch();
 
 //生成合并计划，这里不用理会缓存，只是将合并计划生成
 let loadHotFileConcatPlan = (sourcefolder)=>{
+    doWatch();
     if(canWatch && !global.rkStatOf_concatPlanNeedsUpdate){
         console.log('no change')
         return;
