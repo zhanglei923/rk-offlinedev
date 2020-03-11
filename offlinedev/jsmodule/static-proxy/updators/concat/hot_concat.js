@@ -162,6 +162,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
             fstats = fileinfo.fstate;
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
+            if(rk.isCookedJsPath(fullfilepath)) ok=false;
         });
         if(isJs && ok){
             let fsize = fstats.size;
