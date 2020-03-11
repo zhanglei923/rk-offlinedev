@@ -24,6 +24,7 @@ let getBundlePathid = (i)=>{
 };
 let allpathid;
 let timetxt;
+global.rkCacheOf_Deployfilesinfo = []
 let loadHotFileConcatPlan = (sourcefolder)=>{
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
@@ -76,6 +77,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         idx: currentFileNum,
         files:{}
     };
+    //tpl
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
@@ -88,7 +90,8 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                 }
                 let deployContent = '';
                 deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fullfilepath, content)
-                global.rkCacheOf_autoConcat[tplbundleid].files[pathid] = {
+                global.rkCacheOf_autoConcat[tplbundleid].files[pathid] = 1;
+                global.rkCacheOf_Deployfilesinfo[pathid] = {
                     deployContent,
                     pathid,
                     fpath,
@@ -99,6 +102,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
             });
         }
     }
+    //js
     for(let i=0;i<allpathid.length;i++){
         let pathid = allpathid[i];
         let fullfilepath = pathutil.resolve(sourcefolder, pathid)
@@ -158,7 +162,8 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
                     files:{}
                 };
                 //currentPathids += '\n'+pathid
-                global.rkCacheOf_autoConcat[bundlePathid].files[pathid] = {
+                global.rkCacheOf_autoConcat[bundlePathid].files[pathid] = 1;
+                global.rkCacheOf_Deployfilesinfo[pathid] = {
                     deployContent,
                     pathid,
                     fpath,
@@ -183,7 +188,7 @@ let loadHotFileConcats = (sourcefolder)=>{
         let currentPathids = [];
         //console.log(i, 'pathid=',files)
         for(let pathid in files){
-            let finfo = files[pathid]; 
+            let finfo = global.rkCacheOf_Deployfilesinfo[pathid]; 
             currentContent.push(finfo.deployContent);
             currentPathids.push(pathid);
         }
