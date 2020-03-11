@@ -1,6 +1,5 @@
 var fs = require('fs');
 var pathutil = require('path');
-var fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let hot_concat = require('../updators/concat/hot_concat')
 

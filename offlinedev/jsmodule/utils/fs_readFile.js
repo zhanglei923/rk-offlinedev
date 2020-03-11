@@ -1,7 +1,7 @@
 let fs = require('fs-extra');
 let pathutil = require('path')
-let rk = require('../../utils/rk')
-let fpowerUtil = require('../../utils/fpowerUtil')
+let rk = require('./rk')
+let fpowerUtil = require('./fpowerUtil')
 //let configUtil = require('../../config/configUtil')
 
 global.rkCacheOf_File = {};

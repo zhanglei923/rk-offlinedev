@@ -1,6 +1,6 @@
 var fs = require('fs');
 var pathutil = require('path');
-var fs_readFile = require('../supports/fs_readFile')
+var fs_readFile = require('../../utils/fs_readFile')
 let eachcontentjs = require('eachcontent-js')
 let makeDir = require('make-dir')
 let rk = require('../../utils/rk')

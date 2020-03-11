@@ -2,7 +2,7 @@ let fs = require('fs')
 let pathutil = require('path')
 let _ = require('lodash')
 let eachcontentjs = require('eachcontent-js')
-let fs_readFile = require('./fs_readFile')
+let fs_readFile = require('../../utils/fs_readFile')
 var CleanCSS = require('clean-css');
 let parseCssUrls = require("css-url-parser")
 

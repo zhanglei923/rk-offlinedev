@@ -13,7 +13,7 @@ let my_tmp_folder = pathutil.resolve(tmp_folder, './es6_downgrading')
 makeDir.sync(my_tmp_folder);
 var cache = {}
 
-let fs_readFile = require('./supports/fs_readFile').fs_readFile;
+let fs_readFile = require('../utils/fs_readFile').fs_readFile;
 
 let thisUtil = {
     md5Map:{},

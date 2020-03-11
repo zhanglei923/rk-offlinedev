@@ -1,4 +1,4 @@
-let fs_readFile = require('../supports/fs_readFile')
+let fs_readFile = require('../../utils/fs_readFile')
 
 let fpath = `/Users/zhanglei/workspaces/apps-ingage-web/src/main/webapp/static/source/core/i18n/untranslated.js`
 //默认走异步读取

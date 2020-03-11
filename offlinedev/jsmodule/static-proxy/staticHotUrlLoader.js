@@ -1,6 +1,5 @@
 var fs = require('fs');
 var pathutil = require('path');
-var fs_readFile = require('./supports/fs_readFile')
 var getConfig = require('../config/configUtil')
 let updateScript_CmdConcat = require('./updators/updateScript_CmdConcat')
 let load_hot_bundle_js = require('./staticHot/load_hot_bundle_js')

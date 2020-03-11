@@ -5,7 +5,7 @@ let pathutil = require('path')
 let makeDir = require("make-dir")
 
 let rk = require('../../../utils/rk')
-let fs_readFile = require('../../supports/fs_readFile')
+let fs_readFile = require('../../../utils/fs_readFile')
 let configUtil = require('../../../config/configUtil')
 let webprojectUtil = require('../../../config/webprojectUtil')
 let seajsUtil = require('../../../utils/seajs/seajsUtil')

@@ -10,7 +10,7 @@ let userConfig = getConfig.getUserConfig();
 var cache = {}
 let cachedCmdInfo = {}
 
-let fs_readFile = require('./supports/fs_readFile').fs_readFile;
+let fs_readFile = require('../utils/fs_readFile').fs_readFile;
 
 module.exports = {
     loadCss: function(rootFolder, path, callback){

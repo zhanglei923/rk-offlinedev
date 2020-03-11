@@ -2,7 +2,7 @@
 let fs = require('fs');
 let pathutil = require('path');
 let eachcontentjs = require('eachcontent-js')
-let fs_readFile = require('../../static-proxy/supports/fs_readFile')
+let fs_readFile = require('../../utils/fs_readFile')
 var getConfig = require('../../config/configUtil')
 
 let isMe = (fpath)=>{ //src/main/webapp/static/router.js

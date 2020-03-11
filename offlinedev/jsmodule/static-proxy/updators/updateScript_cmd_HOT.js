@@ -5,7 +5,6 @@ let os = require('os');
 let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('../../utils/rk')
-let fs_readFile = require('../supports/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
 let seajsUtil = require('../../utils/seajs/seajsUtil');
