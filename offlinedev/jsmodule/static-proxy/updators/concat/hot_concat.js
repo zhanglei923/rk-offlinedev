@@ -13,6 +13,7 @@ let fs_readFile = require('../../../utils/fs_readFile')
 let configUtil = require('../../../config/configUtil')
 let webprojectUtil = require('../../../config/webprojectUtil')
 let seajsUtil = require('../../../utils/seajs/seajsUtil')
+let exclude = require('./exclude')
 
 let updateScript_CssUrl = require('../updateScript_CssUrl')
 
@@ -104,7 +105,10 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     allpathid = seajsUtil.reduceAllDepsIntoArray(alldepsmap, "root");
     let tmparr = []
     allpathid.forEach((pathid)=>{
-        if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
+        let isok = false;
+        if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) isok = true;
+        if(exclude.isExcludePathid(pathid)) isok = false;
+        if(isok) tmparr.push(pathid);
         // let fullpath = pathutil.resolve(sourcefolder, pathid);
         // let exist = fs.existsSync(fullpath)
         // if(!exist) {
