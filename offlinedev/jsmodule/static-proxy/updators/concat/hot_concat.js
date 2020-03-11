@@ -53,7 +53,7 @@ let doWatch = ()=>{
             if(filename.indexOf('/_hot/')<=0)//不关注_hot文件夹
             if(!/Dir$/.test(e)){//不关注文件夹
                 if(filename.match(/\.(js|tpl|json)$/)){
-                    //console.log(filename)
+                    //console.log(e, filename)
                     global.rkStatOf_concatPlanNeedsUpdate = true;
                 }
             }
@@ -78,8 +78,9 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     }
 
     timetxt = moment().format('YYYY-MM-DD HH:mm');
-    seajsUtil.refreshAllDeps()
+    seajsUtil.refreshAllDeps(sourcefolder)
     let alldepsmap = seajsUtil.getAllDepsAsMap()
+    alldepsmap = seajsUtil.cleanAll404(sourcefolder, alldepsmap);
     //fs.writeFileSync('./d.json', JSON.stringify(alldepsmap))
     //seajsUtil.cleanNoOneRequired(alldepsmap)
     if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', `//${timetxt}\n`+JSON.stringify(alldepsmap), ()=>{});
@@ -104,6 +105,12 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     let tmparr = []
     allpathid.forEach((pathid)=>{
         if(rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
+        // let fullpath = pathutil.resolve(sourcefolder, pathid);
+        // let exist = fs.existsSync(fullpath)
+        // if(!exist) {
+        //     console.log(`404:`, pathid)
+        // }
+        // if(exist && rk.isCommonRequirePath(pathid) && pathid.match(/\.(js|tpl)$/)) tmparr.push(pathid);
     })
     allpathid = tmparr;
     if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', `//${timetxt}\n`+allpathid.join('\n'), ()=>{});
@@ -148,15 +155,11 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
         let ok = true;
         let fstats;
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
-            if(err || !fileinfo){
-                console.log('err:',fpath)
-                ok = false;
-            }
             if(content===null || typeof content === 'undefined'){
                 console.log('404:',fpath)
                 ok = false;
             }
-            if(ok)fstats = fileinfo.fstate;
+            fstats = fileinfo.fstate;
             if(isJs && !rk.mightBeCmdFile(content)) ok=false;
             if(rk.isLibJsPath(fullfilepath)) ok=false;
         });

@@ -91,7 +91,17 @@ global.rkFileDepsCache = {};//缓存
 let getAllDeps = ()=>{
     return global.rkFileDepsCache;
 };
+let cleanAll404 = (sourcefolder, alldeps)=>{
+    for(let fullfilepath in alldeps){
+        let deps = alldeps[fullfilepath];
+        let cleaned = cleanDeps(sourcefolder, fullfilepath, deps);
+        alldeps[fullfilepath] = cleaned.deps_good;
+        //if(cleaned.deps_bad.length>0) console.log(fullfilepath, cleaned.deps_bad)
+    }
+    return alldeps;
+}
 let refreshAllDeps = (sourcefolder)=>{
+    if(typeof sourcefolder === 'undefined') throw "error: need sourcefolder!"
     // (sourcefolder, fullfilepath, content)
     // fs_readFile
     let keep = {}
@@ -312,6 +322,7 @@ let me = {
     changeJsToDeploy,
     changeTplToDeploy,
     reduceAllDepsIntoArray,
+    cleanAll404,
     refreshAllDeps,
     getAllDeps,
     getAllDepsAsMap,
