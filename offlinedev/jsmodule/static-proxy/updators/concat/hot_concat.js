@@ -216,7 +216,7 @@ let excuteConcatPlan = (sourcefolder)=>{
         }
     }
 }
-let getConcatContent = (files)=>{
+let getConcatContent = (hotpathid, files)=>{
     let currentContent = [];
     let currentPathids = [];
     //console.log(i, 'pathid=',files)
@@ -225,18 +225,23 @@ let getConcatContent = (files)=>{
         currentContent.push(finfo.deployContent);
         currentPathids.push(pathid);
     }
+    currentContent = currentContent.join('\n;');
+    currentPathids = currentPathids.join('\n;');
+    if(backupfiles){
+        let sourcefolder = configUtil.getSourceFolder();
+        fs.writeFile(`${sourcefolder}/${hotpathid}`, `//${timetxt}\n`+currentContent, ()=>{});
+        fs.writeFile(`${sourcefolder}/${hotpathid}.txt`, `//${timetxt}\n`+currentPathids, ()=>{});
+    }
     return {
-        currentContent: currentContent.join('\n;'),
-        currentPathids: currentPathids.join('\n;')
+        currentContent,
+        currentPathids
     }
 }
 let loadHotFileConcats = (sourcefolder)=>{
     for(let bundleid in global.rkCacheOf_autoConcatPlan){
         let files = global.rkCacheOf_autoConcatPlan[bundleid].files;
-        let info = getConcatContent(files);
+        let info = getConcatContent(bundleid, files);
         //global.rkNameOf_HotConcatBundle[bundleid]=true;
-        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}`, `//${timetxt}\n`+info.currentContent, ()=>{});
-        if(backupfiles)fs.writeFile(`${sourcefolder}/${bundleid}.txt`, `//${timetxt}\n`+info.currentPathids, ()=>{});
     }
     if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/${'allpathid'}.txt`, `//${timetxt}\n`+allpathid.join('\n'), ()=>{});
     // console.log(fcount)
