@@ -94,7 +94,7 @@ let reloadConfig = (printinfo)=>{
     //console.log(JSON.stringify(config))
 
     if(config.debug){
-        let modeconfig = config.debug[`mode_${config.debug.mode}`];
+        let modeconfig = config.debug[`${config.debug.mode}`];
         let keys = ['concatStaticTplRequests',
                     'concatStaticJsRequests',
                     'concatStaticCssRequests'];
