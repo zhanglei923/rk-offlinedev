@@ -2,7 +2,11 @@ let fs = require('fs');
 let moment = require('moment')
 let _ = require('lodash')
 let pathutil = require('path')
+let os = require('os');
+let watcher = require('chokidar')
 let makeDir = require("make-dir")
+
+let platform = os.platform();
 
 let rk = require('../../../utils/rk')
 let fs_readFile = require('../../../utils/fs_readFile')
@@ -28,8 +32,44 @@ let allpathid;
 let timetxt;
 global.rkCacheOf_autoConcatPlan = {};
 global.rkCacheOf_DeployfilesData = {};
+
+global.rkStatOf_concatPlanNeedsUpdate = true;
+
+let canWatch = platform.toLowerCase() !== 'linux';
+let isWatched = false;
+let doWatch = ()=>{
+    if(!canWatch) {//无法watch，只好每次都加载
+        CacheOfI18n = null;
+    }
+    if(canWatch && !isWatched){
+        console.log('[RK]Watching source folder...')
+        let sourceDir = configUtil.getSourceFolder();
+        watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
+            persistent:true,
+            recursive:true,
+            ignored:/node\_modules/g
+        }).on('all',(e, filename)=>{
+            filename = rk_formatPath(filename);
+            if(filename.indexOf('/_hot/')<=0)//不关注_hot文件夹
+            if(!/Dir$/.test(e)){//不关注文件夹
+                if(filename.match(/\.(js|tpl|css)$/)){
+                    //console.log(filename)
+                    global.rkStatOf_concatPlanNeedsUpdate = true;
+                }
+            }
+        })
+        isWatched = true;
+    }
+}
+doWatch();
+
 //生成合并计划，这里不用理会缓存，只是将合并计划生成
 let loadHotFileConcatPlan = (sourcefolder)=>{
+    if(canWatch && !global.rkStatOf_concatPlanNeedsUpdate){
+        console.log('no change')
+        return;
+    }
+
     let hotfolder = makeDir.sync(pathutil.resolve(sourcefolder, './_hot'))
     let webroot = configUtil.getWebRoot();
     let allrouters = webprojectUtil.loadRouter(webroot)
@@ -136,6 +176,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     console.log('concat files=',currentFileNum)
     console.log('concat totalContentSize=', rk_formatMB(totalContentSize)+'MB')
     console.log('concat plan generated.');
+    global.rkStatOf_concatPlanNeedsUpdate = false;
     if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, `//${timetxt}\n`+JSON.stringify(global.rkCacheOf_autoConcatPlan), ()=>{});
 };
 //执行合并计划，加入缓存层
