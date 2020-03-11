@@ -1,4 +1,4 @@
-
+require('./offlinedev/jsmodule/utils/global')
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
 getConfig.initFiles();//初始化配置

@@ -127,10 +127,7 @@ let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
     return array;
 };
 let getFileDeps = (sourcefolder, fullfilepath, content)=>{
-    let fstate = fs.lstatSync(fullfilepath);
-    let ctime36 = fstate.ctimeMs.toString(36);
-    let mtime36 = fstate.mtimeMs.toString(36);
-    let mc36 = mtime36+'-'+ctime36;
+    let mc36 = global.getFileMC36(fullfilepath);
     
     let pathid = pathutil.relative(sourcefolder, fullfilepath)
     pathid = rk_formatPath(pathid);

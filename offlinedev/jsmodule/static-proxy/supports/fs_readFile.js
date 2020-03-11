@@ -20,15 +20,10 @@ let canCache = (fullpath)=>{
 }
 me.canCache = canCache;
 let getFileMC36 = (fullpath)=>{
-    fstate = fs.lstatSync(fullpath);
-    let mc36 = getStatMC36(fstate);
-    return mc36;
+    return global.getFileMC36(fullpath);
 };
 let getStatMC36 = (fstate)=>{
-    let ctime36 = fstate.ctimeMs.toString(36);
-    let mtime36 = fstate.mtimeMs.toString(36);
-    let mc36 = mtime36+'-'+ctime36;
-    return mc36;
+    return global.getStatMC36(fstate);
 };
 let removeCache = (fpath)=>{
     fpath = rk_formatPath(fpath);

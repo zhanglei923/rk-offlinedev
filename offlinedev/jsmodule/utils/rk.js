@@ -5,19 +5,6 @@ var decomment = require('decomment');
 var stripcomments = require('strip-comments')
 let cacheUtil = require('./cacheUtil')
 
-//用到的地方太多，直接注册到global了
-global.rk_formatPath = (fpath)=>{
-    fpath = fpath.replace(/\\{1,}/g, '/').replace(/\/{1,}/g, '/')
-    return fpath;
-}
-global.rk_formatLineBreaker = (content)=>{
-    if(!content) return content;
-    return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-}
-global.rk_formatMB = function(bytes, tail) {
-    if(typeof tail === 'undefined') tail = 1;
-    return (bytes/1024/1024).toFixed(tail); 
-};
 // let old_path_resolve = pathutil.resolve;
 // pathutil.resolve = function(){
 //     let resolved = old_path_resolve.apply(pathutil, arguments)
