@@ -85,6 +85,7 @@ let fs_readFile = (fpath, opt, cb)=>{
                 //console.log('cc', global.rkCacheOf_File[cachekey])
                 fpowerUtil.plusFilePower(fpath)
                 cb(null, global.rkCacheOf_File[cachekey].content, {
+                    fstate,
                     isCached: true,
                     mc36: memo.mc36,
                     mightBeCmd: memo.mightBeCmd,
@@ -109,6 +110,7 @@ let fs_readFile = (fpath, opt, cb)=>{
                 };
             }
             cb(read_err, content, {
+                fstate,
                 isCached: false,
                 mc36,
                 mightBeCmd,
