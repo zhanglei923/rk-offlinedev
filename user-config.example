@@ -35,7 +35,11 @@
             concatStaticCssRequests: true,//自动聚合css静态资源请求
             backupConcatFiles: false,
             maxConcatFileSizeMB: 6,
-            filesToExclude:[]//不期望被合并的文件路径，用seajs的pathid，比如'products/bi'或'oa/workreport'
+            filesToExclude:[//不期望被合并的文件路径，用seajs的pathid，支持通配符
+                        //'platform',
+                        //'oa/**/*.js',
+                        //'products/bi/**'
+            ]
         },
         autoCacheStatic: true,//自动缓存静态资源，建议开启。一级缓存由fs_readFile支持，主要缓存文件层，节省io
         autoCacheStaticLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启。二级缓存由static-proxy支持，主要缓存处理过的代码文本，节省cpu计算    
