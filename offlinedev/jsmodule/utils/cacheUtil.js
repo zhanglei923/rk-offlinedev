@@ -36,7 +36,9 @@ let setCache = (cacheType, id, content)=>{
     if(!folder) return;
     id = encodeURIComponent(id);
     let fpath = `${folder}/${id}.cache`;
-    fs.writeFileSync(fpath, content);
+    fs.writeFile(fpath, content, (err)=>{
+        if (err) console.log(err);
+    });
 }
 let getCache = (cacheType, id)=>{
     let folder = getFolder(cacheType)
