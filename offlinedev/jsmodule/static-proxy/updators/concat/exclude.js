@@ -21,7 +21,7 @@ let isExcludePathid = (pathid)=>{
     let is = false;
     for(let i=0;i<excludePathList.length;i++){
         let excludepath = excludePathList[i]
-        if(isPathInside(pathid, excludepath)) {
+        if(false && isPathInside(pathid, excludepath)) {
             //console.log(pathid, excludepath)
             is=true;
             break;
