@@ -78,7 +78,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             let memo = global.rkCacheOf_File[cachekey];
             if(memo.mc36 === mc36){
                 //console.log('cc', global.rkCacheOf_File[cachekey])
-                fpowerUtil.plusFilePower(fpath)
+                //fpowerUtil.plusFilePower(fpath)
                 cb(null, global.rkCacheOf_File[cachekey].content, {
                     fstate,
                     isCached: true,
@@ -96,7 +96,7 @@ let fs_readFile = (fpath, opt, cb)=>{
             let mightBeCmd = rk.mightBeCmdFile(content)
             if(canCache(fpath))
             if(!read_err && 1){
-                fpowerUtil.plusFilePower(fpath)
+                //fpowerUtil.plusFilePower(fpath)
                 global.rkCacheOf_File[cachekey] = {
                     mc36,
                     content,

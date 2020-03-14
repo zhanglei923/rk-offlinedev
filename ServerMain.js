@@ -232,7 +232,7 @@ let preloaded = false;
 let afterStart = (callback)=>{
     if(preloaded) return;
     if(getConfig.getValue('debug.autoCacheStatic')) {
-        fpowerUtil.startTimer();
+        //fpowerUtil.startTimer();
         console.log('[File-Power] On')
         setTimeout(()=>{
             let t0 = new Date()*1;
