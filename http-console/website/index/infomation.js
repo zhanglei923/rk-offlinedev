@@ -41,10 +41,10 @@ let showInfomation = (result)=>{
             <span title="更改user-config里的: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
         <tr><td align="right" valign="top">状态：</td><td>
-            <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}% Used</span>
+            <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
             <span>,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
             <br>
-            <span>Tmp=&nbsp;${cacheStatus.cache_folder} (${cacheStatus.totalCacheSizeMB}MB Used)</span>
+            <span>Tmp=&nbsp;${cacheStatus.cache_folder} (${cacheStatus.totalCacheSizeMB}MB In Use)</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right"></td><td colspan="999"><hr></td></tr>
