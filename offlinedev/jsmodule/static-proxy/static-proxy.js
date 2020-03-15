@@ -38,7 +38,8 @@ let linkToStaticFile = (req, res, next) => {
         //console.log('deploy!', webappFolder, req_path)
         //console.log('deploy!', fs.existsSync(fulldeploypath),fulldeploypath)
         if(fs.existsSync(fulldeploypath)){
-            jscontent = fs.readFileSync(fulldeploypath, 'utf8')
+            jscontent = fs.readFileSync(fulldeploypath, 'utf8');
+            jscontent = `//[rk-offlinedev]\n` + jscontent;
             res.send(jscontent);
         }else{
             res.status(404).send(`Can not find:${fulldeploypath}`)
