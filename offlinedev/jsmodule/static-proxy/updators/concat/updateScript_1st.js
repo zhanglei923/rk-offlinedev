@@ -25,11 +25,11 @@ let updateJs = (info, content)=>{
         //hot_concat.loadHotFileConcats(sourcefolder)
 
         if(global.rkCacheOf_autoConcatPlan){//如果是concat聚合模式，那么生成聚合js的文件列表
-            let concat_bundle_files = [];
+            let hot_concat_bundle_files = [];
             for(let pathid in global.rkCacheOf_autoConcatPlan){
-                concat_bundle_files.push(pathid)
+                hot_concat_bundle_files.push(pathid)
             }
-            content = content +';\n'+ `window.rk_offlinedev.concat_bundle_files=${JSON.stringify(concat_bundle_files)}`;
+            content = content +';\n'+ `window.rk_offlinedev.hot_concat_bundle_files=${JSON.stringify(hot_concat_bundle_files)}`;
         }
     }
     return content;
