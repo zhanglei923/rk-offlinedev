@@ -1,5 +1,7 @@
 {
     webProjectPath: '',//你的web工程的路径，如果为空，则默认找平级目录下的web工程
+    webProjectPathOfDeploy: '',//打包状态的web工程路径，可以从144下载到tar包
+    
     staticProjectPath: '',//【不开放】
     deployWebProjectPath:'',//从144下载的deploy包【不开放】
     http:{

@@ -34,8 +34,12 @@ let linkToStaticFile = (req, res, next) => {
         return;
     }
     if(req_path.match(/^\/static\/deploy\//)){
+        let deploywebpath = getConfig.getValue('webProjectPathOfDeploy')
+        if(deploywebpath) {
+            webappFolder = pathutil.resolve(deploywebpath, './src/main/webapp');
+        }
         let fulldeploypath = pathutil.resolve(webappFolder, '.'+req_path)
-        //console.log('deploy!', webappFolder, req_path)
+        //console.log('deploy!', deploywebpath, webappFolder, req_path)
         //console.log('deploy!', fs.existsSync(fulldeploypath),fulldeploypath)
         if(fs.existsSync(fulldeploypath)){
             jscontent = fs.readFileSync(fulldeploypath, 'utf8');
