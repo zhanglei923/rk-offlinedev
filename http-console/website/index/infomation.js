@@ -108,8 +108,17 @@ let showInfomation = (result)=>{
                     <a class="url" target="_blank" href="${'https://localhost:444/admin/js/core/global.js'}">${'https://localhost:444/admin/js/core/global.js'}</a>
                     <span class="comment">//如果https的443端口被占用了，可以访问444这个替代端口<span>
                 </td></tr>
+        
         <tr>
             <td align="right" valign="top">调试Deploy：</td>
+            <td><span class="${userConfig.webProjectPathOfDeploy?'projectpath status_positive':''}">${userConfig.webProjectPathOfDeploy?userConfig.webProjectPathOfDeploy:'未定义'}</span></td>
+        </tr>
+        <tr><td align="right"><span class="comment">URLs：</span></td><td>
+                <a class="url" target="_blank" href="${'http://localhost:666/static/hash.js'}">${'http://localhost:666/static/hash.js'}</a>
+           </td></tr>
+        <tr><td align="right"></td><td colspan="999"><hr></td></tr>
+        <tr>
+            <td align="right" valign="top">实验Deploy<br>(不成熟)：</td>
             <td>
                 <span id="deploydebug000abtn" style="${!userConfig.deployStaticPath_val_exist?'':'display:none;'}">
                     <span>Not-Found</span> 
