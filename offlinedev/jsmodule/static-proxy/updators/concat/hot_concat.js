@@ -17,7 +17,7 @@ let exclude = require('./exclude')
 
 let updateScript_CssUrl = require('../updateScript_CssUrl')
 
-let backupfiles = configUtil.getValue('debug.mode_concat.backupConcatFiles')
+let backupfiles = configUtil.getValue('debug.concat.backupConcatFiles')
 
 let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
@@ -119,7 +119,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     allpathid = tmparr;
     if(backupfiles)fs.writeFile(hotfolder+'/dependency.powerlist.txt', `//${timetxt}\n`+allpathid.join('\n'), ()=>{});
 
-    let maxMB = configUtil.getValue('debug.mode_concat.maxConcatFileSizeMB');
+    let maxMB = configUtil.getValue('debug.concat.maxConcatFileSizeMB');
     maxMB = maxMB ? maxMB : 6;//default
     console.log('each concat file <=', maxMB+'MB')
     let maxBundleSize = maxMB * 1024 * 1024;
