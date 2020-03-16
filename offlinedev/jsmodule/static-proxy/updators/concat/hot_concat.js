@@ -262,7 +262,7 @@ let excuteConcatPlan = (sourcefolder)=>{
                                                                     depspathid = _.uniq(depspathid);
                                                                     return depspathid;
                                                                 }
-                                                            })
+                                                            });
                     global.rkCacheOf_DeployfilesData[pathid] = {
                         deployContent,
                         pathid,
