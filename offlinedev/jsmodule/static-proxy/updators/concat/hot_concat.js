@@ -254,8 +254,10 @@ let excuteConcatPlan = (sourcefolder)=>{
                                                                 depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。
                                                                     if(!configUtil.getValue('debug.concatStaticCssRequests')) return depspathid;
                                                                     depspathid.forEach((pid, idx)=>{
-                                                                        let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
-                                                                        depspathid[idx] = hotid ? hotid : pid;
+                                                                        if(!exclude.isExcludePathid(pid)){
+                                                                            let hotid = updateScript_CssUrl.changeToHotPath(fullfilepath, pid)
+                                                                            depspathid[idx] = hotid ? hotid : pid;
+                                                                        }
                                                                     })
                                                                     depspathid = _.uniq(depspathid);
                                                                     return depspathid;
