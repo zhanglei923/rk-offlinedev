@@ -47,6 +47,9 @@
         autoCacheStaticLevel2: true,//自动缓存处理过的js文本，内存富余的话建议开启。二级缓存由static-proxy支持，主要缓存处理过的代码文本，节省cpu计算    
         detect404RequireUrls: false  //自动侦测404require，这个比较消耗cpu，慎用
     },
+    breeze:{
+
+    },
     runtime:{//这里定义一些运行时的状态，约定于jsp里的SESSION变量
         seajsConfig: {//这里是sea-config.js里的同名配置
                 vars: {
