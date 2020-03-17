@@ -29,6 +29,22 @@ let linkToStaticFile = (req, res, next) => {
         res.send(jscontent);
         return;
     }
+    if(0 && req_path.indexOf('breeze') >= 0){ //breeze请求
+        let map = {
+            // "/static/source/lib/breeze/breeze.lib.min.js.map": "https://127.0.0.1:3000/static/js/bundle.js.map",
+            // "/static/source/breeze/sfa_runtime.min.js.map":"https://127.0.0.1:3000/static/js/bundle.js.map",
+            "/static/source/lib/breeze/breeze.lib.min.js":"https://127.0.0.1:3000/static/js/bundle.js",
+            "/static/source/breeze/sfa_runtime.min.js":"https://127.0.0.1:3000/static/js/bundle.js"
+        }
+        let dest = map[req_path]
+        if(dest){
+            console.log('301', req_path, dest)
+            res.redirect(301, `${dest}`)
+            return;
+        }else{
+            //console.log('>', req_path, dest)
+        }
+    }
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
         next();
         return;
