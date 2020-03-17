@@ -288,10 +288,14 @@ let getConcatContent = (hotpathid, files)=>{
     }
     currentContent = currentContent.join('\n;');
     currentPathids = currentPathids.join('\n;');
+
+    currentContent = `//${timetxt}, hot-concat\n`+currentContent;
+    currentPathids = `//${timetxt}, hot-concat\n`+currentPathids;
+
     if(backupfiles){
         let sourcefolder = configUtil.getSourceFolder();
-        fs.writeFile(`${sourcefolder}/${hotpathid}`, `//${timetxt}\n`+currentContent, ()=>{});
-        fs.writeFile(`${sourcefolder}/${hotpathid}.txt`, `//${timetxt}\n`+currentPathids, ()=>{});
+        fs.writeFile(`${sourcefolder}/${hotpathid}`, currentContent, ()=>{});
+        fs.writeFile(`${sourcefolder}/${hotpathid}.txt`, currentPathids, ()=>{});
     }
     return {
         currentContent,
