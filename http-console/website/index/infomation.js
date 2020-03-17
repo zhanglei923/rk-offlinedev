@@ -118,7 +118,7 @@ let showInfomation = (result)=>{
             <td><span class="${userConfig.webProjectPathOfDeploy?'projectpath status_positive':''}">${userConfig.webProjectPathOfDeploy?userConfig.webProjectPathOfDeploy:'未定义'}</span></td>
         </tr>
         <tr><td align="right"><span class="comment">URLs：</span></td><td>
-                <a class="url" target="_blank" href="${'http://localhost:666/static/hash.js'}">${'http://localhost:666/static/hash.js'}</a>
+                <a class="url" target="_blank" href="${'https://localhost/static/hash.js'}">${'https://localhost/static/hash.js'}</a><span class="comment">//把线上rs资源通过hosts映射到这个路径</span>
            </td></tr>
         <tr><td align="right"></td><td colspan="999"><hr></td></tr>
         <tr>
