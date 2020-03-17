@@ -11,7 +11,7 @@ let scanner = require('../../codeScan/scan')
 let linkToStaticFile = (req, res, next) => {
     let req_path = req.path;
     res.set('.rk', 'This is by rk-offlinedev!');
-    if(/\.js$/.test(req_path)) res.set('Content-Type', 'text/javascript');
+    if(/\.js$/.test(req_path)) res.set('Content-Type', 'application/javascript');
     if(/\.css$/.test(req_path)) res.set('Content-Type', 'text/css');
     if(/\.tpl$/.test(req_path)) res.set('Content-Type', 'text/html');
 
