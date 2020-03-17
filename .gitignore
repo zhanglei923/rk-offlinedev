@@ -5,6 +5,7 @@ offlinedev/.localstatus
 offlinedev/mocking/actions/
 offlinedev/mocking/
 offlinedev/jsmodule/i18n/.save
+yarn.lock
 .config
 .user-config.json
 user-config.json
