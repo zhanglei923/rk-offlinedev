@@ -254,7 +254,7 @@ module.exports = {
             console.log('[HTTP] http://localhost:%s', port);
             
             afterStart(()=>{
-                console.log('ready...');
+                console.log('[SUCCESS] Visit http://localhost:666 to Use.')
             })
         });
     }, 
