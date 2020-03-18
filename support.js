@@ -38,7 +38,7 @@ let preloadStaticFiles = (callback)=>{
     let len = loadpathlist.length;
     let p = Math.round(len / 4);
     let mode = configUtil.getValue('debug.mode');
-    let shouldParseDeps = mode!=='source';
+    let shouldParseDeps = mode==='concat';
     if(shouldParseDeps) console.log(`[Parsing Dependencies] for "${mode}" mode.`)
     for(let i=0;i<loadpathlist.length;i++){
         let fpath = loadpathlist[i];
@@ -50,6 +50,17 @@ let preloadStaticFiles = (callback)=>{
             }
         });
     }
+    fs_readFile.fs_readFile(pathutil.resolve(staticfolder, './router.js'), {encoding:'utf8'}, (err, content, fileinfo) => {   
+        if(!err){
+            if(content.indexOf('rk_offlinedev.hot_concat_bundle_files') >= 0){
+                //console.log(`"concat" mode activited`)
+            }else{
+                console.log(`注意，您的web工程尚未更新，不完全支持"concat"代码聚合模式`)
+                console.log(`注意，您的web工程尚未更新，不完全支持"concat"代码聚合模式`)
+                console.log(`注意，您的web工程尚未更新，不完全支持"concat"代码聚合模式`)                
+            }
+        }
+    });
     if(0)
     if(shouldParseDeps){
         let t0 = new Date()*1;
