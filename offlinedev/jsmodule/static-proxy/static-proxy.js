@@ -30,6 +30,7 @@ let linkToStaticFile = (req, res, next) => {
         return;
     }
     if(0 && req_path.indexOf('breeze') >= 0){ //breeze请求
+        let url_redirect = require('./redirects/url_redirect')
         let map = {
             // "/static/source/lib/breeze/breeze.lib.min.js.map": "https://127.0.0.1:3000/static/js/bundle.js.map",
             // "/static/source/breeze/sfa_runtime.min.js.map":"https://127.0.0.1:3000/static/js/bundle.js.map",
