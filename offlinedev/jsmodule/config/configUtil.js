@@ -142,13 +142,14 @@ let reloadConfig = (printinfo)=>{
     global.rkGlobalConfig = config;
     if(printinfo){
         console.log('\n>>>>>>>> [User-Config] >>>>>>>>\n', JSON.stringify(config),'\n<<<<<<<< [User-Config] <<<<<<<<\n')
-        console.log('   [Web-Root]=', webroot)
-        console.log(' [Web-Branch]=', webProjectBranch)
-        console.log('[Static-Root]=', static_project_root)
-        console.log(' [Debug-Mode]=', '"'+config.debug.mode+'"')
-        console.log('     [Deploy]=', config.deployStaticPath_val)
-        console.log('   [Platform]=', os.platform())
-        console.log('---')
+        console.log('----------')
+        console.log('     [Web]=', `"${webroot}"(${webProjectBranch})`)
+        //console.log(' [Web-Branch]=', `""`)
+        console.log('  [Static]=', `"${static_project_root}"`)
+        console.log('  [Deploy]=', `"${config.deployStaticPath_val}"`)
+        console.log('[Platform]=', `"${os.platform()}"`)
+        console.log('    [Mode]=', '"'+config.debug.mode+'"')
+        console.log('----------')
     }
 }
 reloadConfig();
