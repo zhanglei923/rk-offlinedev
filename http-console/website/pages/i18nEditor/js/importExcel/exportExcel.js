@@ -1,3 +1,7 @@
+let nobreaks = (txt)=>{
+    if(!txt) return txt;
+    return txt.replace(/\n/g,'\\n')
+}
 export_popupExport = ()=>{
     do_popupWindow('Import Excels', (content, footer)=>{
         let contentHtml = `
@@ -39,7 +43,7 @@ export_popupExport = ()=>{
         let cn_str='';
         nullEnItems.forEach((key)=>{
             key_str = key_str + key + '\n'
-            cn_str = cn_str + OriginSuperJson[key].cn + '\n'
+            cn_str = cn_str + nobreaks(OriginSuperJson[key].cn) + '\n'
         })
         $('#ex_texts_keys').val(key_str);
         $('#ex_texts_main_vals').val(cn_str);
