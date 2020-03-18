@@ -57,6 +57,7 @@ $.ajax({
           $('#webpath').html(`${result.isCustomizedWebRoot?'自定义:':''} ${result.webpath}`)
           if(result.isCustomizedWebRoot)$('#webpath').addClass('user-config')
           showInfomation(result);
+          load_cacheInfo();
           showDupCheck();
         },
         error:function(ajaxObj,msg,err){
@@ -112,6 +113,18 @@ let saveWebProjectPath = (prjpath)=>{
         error:function(ajaxObj,msg,err){
         }
     });
+}
+load_cacheInfo = ()=>{
+    $.ajax({
+        url: '/offlinedev/api/getCacheFolderInfo/',
+        cache: false,
+        method: 'POST',
+        success:(data)=>{
+            console.log('load_cacheInfo', data)
+            data = data.result.status;
+            $('#cacheinfo').html(`<span id="cacheinfo">Tmp=&nbsp;${data.cache_folder} (${data.totalCacheSizeMB}MB In Use)</span>`)            
+        }
+    })
 }
 var visithistoryKey = 'offlinedev_visithistory'
 var visithistory = localStorage.getItem(visithistoryKey) ? localStorage.getItem(visithistoryKey).split(',') : []

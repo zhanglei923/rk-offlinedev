@@ -66,6 +66,13 @@ module.exports = {
                 status
             })
         }
+        else if(/^\/offlinedev\/api\/getCacheFolderInfo/.test(req.url)){
+            let status = cacheUtil.reportStatus();
+            callback({
+                status
+            })
+            return 'done'
+        }
         else if(/^\/offlinedev\/api\/getWebProjectInfo/.test(req.url)){
             configUtil.reloadConfig(false)
             let masterFolder = pathutil.resolve(__dirname,'../../').replace(/\\{1,}/g, '/')
@@ -79,7 +86,7 @@ module.exports = {
                 return 'done'
             }
             let sysStatus = systemUtil.reportStatus()
-            let cacheStatus = cacheUtil.reportStatus()
+            //let cacheStatus = cacheUtil.reportStatus()
             var allpathinfo = configUtil.getAllPathInfo()
             var adminInfo = adminprojectUtil.getInfo(allpathinfo.adminFolder)
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
@@ -101,7 +108,7 @@ module.exports = {
                 filters,
                 adminInfo,
                 sysStatus,
-                cacheStatus
+                //cacheStatus
             })
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){

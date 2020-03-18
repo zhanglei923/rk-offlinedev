@@ -9,7 +9,7 @@ let showInfomation = (result)=>{
     let hostname = window.location.hostname;
     let userConfig = result.userConfig;
     let sysStatus = result.sysStatus;
-    let cacheStatus = result.cacheStatus;
+    //let cacheStatus = result.cacheStatus;
     console.log(userConfig)
     let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
     let httpsurl = `https://${hostname}:${userConfig.https.port}/static/sea-config.js`;
@@ -48,7 +48,7 @@ let showInfomation = (result)=>{
             <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
             <span>,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
             <br>
-            <span>Tmp=&nbsp;${cacheStatus.cache_folder} (${cacheStatus.totalCacheSizeMB}MB In Use)</span>
+            <span id="cacheinfo">Loading cache status...</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right"></td><td colspan="999"><hr></td></tr>
