@@ -1,15 +1,15 @@
-let dwnProject = require('../dwnProject');
+let cloneProject = require('../cloneProject');
 
 let targetFolder = `/Users/zhanglei/workspaces/subprojects/`;
 let projectName = `xsy-static-creekflow`;
 let branchName = `test/master`;
 
-dwnProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
+cloneProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
 
 })
 
 projectName = `xsy-static-breeze`;
 branchName = `test/master`;
-dwnProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
+cloneProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
 
 })
