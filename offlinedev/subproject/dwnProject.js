@@ -9,7 +9,7 @@ let cloneProject = (targetFolder, projectName, branchName, opt, callback)=>{
     let command = [
         `cd ${targetFolder}`,
         `rm -rf ${projectName}`,
-        `git clone http://gerrit.ingageapp.com/${projectName}`,
+        `git clone http://gerrit.in${'gagea'}pp.com/${projectName}`,
         `cd ${projectName}`,
         `git checkout ${branchName}`,
         `echo "done"`
