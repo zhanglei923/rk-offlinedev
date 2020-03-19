@@ -65,19 +65,29 @@ let updateJs = (info, content)=>{
     return content;
 }
 let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
+    //将untranslate.js里require的json文件的内容，替换进untranslate.js的require语句里，变成一个文件    
+    content = rk.onlyCleanLineComment(content);
+    let arr = content.split('\n');
     deps.forEach((info)=>{
         //console.log('raw:', info.rawPath)
         let req_path = info.rawPath;
-        var replacereg = seajsUtil.getRequireRegForReplacement(req_path, true);
+        //var replacereg = seajsUtil.getRequireRegForReplacement(req_path, true);
         let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path)
         if(fs.existsSync(req_realpath)){
             let json = seajsUtil.loadJsonFromFile(req_realpath);
             if(json){
                 let jsonstr = JSON.stringify(json);
-                content = content.replace(replacereg, jsonstr)
+                arr.forEach((line, i)=>{
+                    if(line.indexOf(req_path)>=0 && line.indexOf('require')>=0 && line.indexOf('{')<0){
+                        let leftside = line.split('require')[0];
+                        line = leftside + jsonstr + ')';//警告：不能直接replace正则，会发生不明原因的$1,$2丢失问题
+                    }
+                    arr[i] = line;
+                });
             }
         }
     });
+    content = arr.join('\n');
     return content;
 };
 module.exports = {
