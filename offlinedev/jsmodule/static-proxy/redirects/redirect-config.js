@@ -21,6 +21,7 @@ let init = ()=>{
     console.log(`[Redirect-config]:`);
     fs_readFile.fs_readFile(configfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
         //console.log('content=', content)
+        if(_.trim(content))
         try{
             eval(`config = ${content}`);
             for(let key in config){
