@@ -4,9 +4,10 @@ let staticFilter = require('../static-filter/filter')
 var getConfig = require('../config/configUtil')
 var staticFileLoader = require('./staticFileLoader')
 let staticHotUrlLoader = require('./staticHotUrlLoader');
+let redirect_config = require('./redirects/redirect-config')
 
 let scanner = require('../../codeScan/scan')
-
+redirect_config.init();
 
 let linkToStaticFile = (req, res, next) => {
     let req_path = req.path;
@@ -17,11 +18,11 @@ let linkToStaticFile = (req, res, next) => {
 
     //console.log('req_path', req_path)
     //console.log(req.path)
-    let webFolder = getConfig.getWebRoot()
-    let staticFolder = getConfig.getStaticFolder()
-    let sourceFolder = getConfig.getSourceFolder()
-    let deployFolder = getConfig.getDeployFolder()
-    var webappFolder = getConfig.getWebAppFolder()
+    let webFolder = getConfig.getWebRoot();
+    let staticFolder = getConfig.getStaticFolder();
+    let sourceFolder = getConfig.getSourceFolder();
+    let deployFolder = getConfig.getDeployFolder();
+    var webappFolder = getConfig.getWebAppFolder();
     let root = webappFolder;
     if(req_path === '/sw-offlinedev.js'){//如果是根目录/sw.js，默认是访问webapp目录下，因此在static-proxy.js里做了一个转接
         let jscontent = fs.readFileSync(pathutil.resolve(getConfig.getMasterRoot(), './http-console/website/service-worker/sw-offlinedev.js'))
@@ -29,14 +30,10 @@ let linkToStaticFile = (req, res, next) => {
         res.send(jscontent);
         return;
     }
-    if(0 && req_path.indexOf('breeze') >= 0){ //breeze请求
-        let url_redirect = require('./redirects/url_redirect')
-        let map = {
-            // "/static/source/lib/breeze/breeze.lib.min.js.map": "https://127.0.0.1:3000/static/js/bundle.js.map",
-            // "/static/source/breeze/sfa_runtime.min.js.map":"https://127.0.0.1:3000/static/js/bundle.js.map",
-            "/static/source/lib/breeze/breeze.lib.min.js":"https://127.0.0.1:3000/static/js/bundle.js",
-            "/static/source/breeze/sfa_runtime.min.js":"https://127.0.0.1:3000/static/js/bundle.js"
-        }
+    if(1){ //breeze请求
+        let cfg = redirect_config.loadRedirectConfig()
+        //console.log(cfg);
+        let map = cfg;
         let dest = map[req_path]
         if(dest){
             console.log('301', req_path, dest)
@@ -45,7 +42,7 @@ let linkToStaticFile = (req, res, next) => {
         }else{
             //console.log('>', req_path, dest)
         }
-    }
+    };
     if(req_path.match(/^\/offlinedev-/)){ //内部请求
         next();
         return;

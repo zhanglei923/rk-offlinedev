@@ -11,8 +11,9 @@ var bodyParser = require('body-parser')
 var _ = require('lodash')
 var pathutil = require('path');
 var Handlebars = require('handlebars');
-let makeDir = require('make-dir')
-var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
+let makeDir = require('make-dir');
+let redirect_config = require('./offlinedev/jsmodule/static-proxy/redirects/redirect-config.js');
+var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl');
 var privateKey = fs.readFileSync('./offlinedev/sslKey/v2/private.pem','utf8');
 var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
@@ -23,6 +24,7 @@ var credentials = {key: privateKey, cert: certificate};
 
 let userConfig = getConfig.getUserConfig();
 var webPath = getConfig.getWebAppFolder();
+redirect_config.init();
 if(!fs.existsSync(webPath)){
     console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webPath)
     console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
