@@ -18,10 +18,14 @@ let init = ()=>{
     }
     //console.log('[redirect-config]=', configfilepath)
     let succ = true;
+    console.log(`[Redirect-config]:`);
     fs_readFile.fs_readFile(configfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {
         //console.log('content=', content)
         try{
             eval(`config = ${content}`);
+            for(let key in config){
+                console.log('  >[Redirect]', key, '->', config[key])
+            }
         }catch(e){
             succ = false;
             console.log(e)
@@ -31,7 +35,6 @@ let init = ()=>{
     if(!succ) {
         process.exit(0);
     }else{
-        console.log(`[Redirect-config] ${configfilepath}, loaded.`);
     }
 }
 
