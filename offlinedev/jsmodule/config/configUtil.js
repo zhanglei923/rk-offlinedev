@@ -143,6 +143,14 @@ let reloadConfig = (printinfo)=>{
     config.runtime.seajsConfig.alias = webprojectUtil.loadSeaConfig(webroot)
     staticFilter.loadFilterDef(webroot);
 
+    let modestatbrief = '';
+    (()=>{
+        modestatbrief += config.debug.concatStaticCssRequests?'o':'x'
+        modestatbrief += config.debug.concatStaticTplRequests?'o':'x'
+        modestatbrief += config.debug.concatStaticJsRequests?'o':'x'
+        config.debug.modestatbrief = modestatbrief;
+    })();
+
     global.rkGlobalConfig = config;
     if(printinfo){
         console.log('\n>>>>>>>> [User-Config] >>>>>>>>\n', JSON.stringify(config),'\n<<<<<<<< [User-Config] <<<<<<<<\n')
@@ -153,7 +161,7 @@ let reloadConfig = (printinfo)=>{
         console.log('[Static]=', `"${static_project_root}"`)
         console.log('[Deploy]=', `"${config.deployStaticPath_val}"`)
         console.log('    [OS]=', `"${os.platform()}"`)
-        console.log('  [Mode]=', '"'+config.debug.mode+'"')
+        console.log('  [Mode]=', '"'+config.debug.mode+'"'+':'+modestatbrief)
         console.log('----------')
     }
 }

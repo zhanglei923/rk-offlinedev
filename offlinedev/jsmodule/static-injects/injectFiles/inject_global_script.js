@@ -20,14 +20,16 @@
          let webbranch = rk_offlinedev.userConfig.webProjectInfo.branch;
          let offlinedevbranch = rk_offlinedev.userConfig.offlineDevInfo.branch;
          let debugmode = rk_offlinedev.userConfig.debug.mode;
+         let modestatbrief = rk_offlinedev.userConfig.debug.modestatbrief;
          debugmode = debugmode?debugmode:'?'
          let debugcolor = (debugmode==='concat'?'color:#3497ff;':'')
          div.setAttribute('about', 'mini-console')
          div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">'+
-                        'rk-offlinedev'+
+                        'rk'+
                         '</a>'+
                         '=('+offlinedevbranch+')'+
-                        ',&nbsp;"<span style="'+debugcolor+'">'+debugmode+'</span>",&nbsp;web=('+
+                        ',&nbsp;"<span style="'+debugcolor+'">'+debugmode+'</span>"'+
+                        '[<span title="css/tpl/js">'+modestatbrief+'<span>],&nbsp;web=('+
                         webbranch+')'
          console.warn('[rk-offlinedev]seajs-text注入成功')
      };
