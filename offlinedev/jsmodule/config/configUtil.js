@@ -125,10 +125,14 @@ let reloadConfig = (printinfo)=>{
     config.deployStaticPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp/static')
     config.deployStaticPath_val_exist = fs.existsSync(config.deployStaticPath_val)
     let allpathinfo = getAllPathInfo(webroot);
+    let offlineDevBranch = gitUtil.getBranchName(projectFolder)
     let webProjectBranch = gitUtil.getBranchName(webroot)
     config.webProjectInfo = {
         branch: webProjectBranch
-    }
+    };
+    config.offlineDevInfo = {
+        branch: offlineDevBranch
+    };
     webparent = allpathinfo.webparent;
     webappFolder = allpathinfo.webappFolder;
 
@@ -143,12 +147,13 @@ let reloadConfig = (printinfo)=>{
     if(printinfo){
         console.log('\n>>>>>>>> [User-Config] >>>>>>>>\n', JSON.stringify(config),'\n<<<<<<<< [User-Config] <<<<<<<<\n')
         console.log('----------')
-        console.log('     [Web]=', `"${webroot}"(${webProjectBranch})`)
+        console.log(' [RkDev]=',`"${projectFolder}"(${offlineDevBranch})`)
+        console.log('   [Web]=', `"${webroot}"(${webProjectBranch})`)
         //console.log(' [Web-Branch]=', `""`)
-        console.log('  [Static]=', `"${static_project_root}"`)
-        console.log('  [Deploy]=', `"${config.deployStaticPath_val}"`)
-        console.log('[Platform]=', `"${os.platform()}"`)
-        console.log('    [Mode]=', '"'+config.debug.mode+'"')
+        console.log('[Static]=', `"${static_project_root}"`)
+        console.log('[Deploy]=', `"${config.deployStaticPath_val}"`)
+        console.log('    [OS]=', `"${os.platform()}"`)
+        console.log('  [Mode]=', '"'+config.debug.mode+'"')
         console.log('----------')
     }
 }
