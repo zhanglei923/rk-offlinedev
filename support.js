@@ -55,10 +55,14 @@ let preloadStaticFiles = (callback)=>{
             if(content.indexOf('rk_offlinedev.hot_concat_bundle_files') >= 0){
                 //console.log(`"concat" mode activited`)
             }else if(mode==='concat'){
+                console.log(``)
+                console.log(`>>>>>>>>>>>>>>>>>>`)
                 console.log(`注意，您的web工程尚未更新，不完全支持"concat"代码聚合模式`)
                 console.log(`注意，您的web工程尚未更新，不完全支持"concat"代码聚合模式`)
                 console.log(`Notice: Your web project is not new, will *NOT* fully support mode "concat".`)
-                console.log(`Notice: Your web project is not new, will *NOT* fully support mode "concat".`)                
+                console.log(`Notice: Your web project is not new, will *NOT* fully support mode "concat".`)   
+                console.log(`<<<<<<<<<<<<<<<<<<`)    
+                console.log(``)         
             }
         }
     });
