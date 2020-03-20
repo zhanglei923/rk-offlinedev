@@ -29,7 +29,8 @@ let findDupFiles = (root1, root2, allfiles)=>{
     let files = eachcontent.getAllFiles(root1)
     let dupfiles = [];
     files.forEach((fpath1)=>{
-        if(fpath1.indexOf('node_modules')<0 && fpath1.indexOf('.git')<0){
+        let fname = pathutil.parse(fpath1).name;
+        if(fpath1.indexOf('node_modules')<0 && fpath1.indexOf('.git')<0 && !fname.match(/^\./)){
             let relativepath = pathutil.relative(root1, fpath1)
             allfiles.push({
                 root1, relativepath
