@@ -145,9 +145,9 @@ let reloadConfig = (printinfo)=>{
 
     let modestatbrief = '';
     (()=>{
-        modestatbrief += config.debug.concatStaticCssRequests?'o':'x'
-        modestatbrief += config.debug.concatStaticTplRequests?'o':'x'
-        modestatbrief += config.debug.concatStaticJsRequests?'o':'x'
+        modestatbrief += config.debug.concatStaticCssRequests?'y':'n'
+        modestatbrief += config.debug.concatStaticTplRequests?'y':'n'
+        modestatbrief += config.debug.concatStaticJsRequests?'y':'n'
         config.debug.modestatbrief = modestatbrief;
     })();
 
