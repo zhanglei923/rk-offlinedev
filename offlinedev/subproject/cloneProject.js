@@ -15,13 +15,17 @@ let cloneProject = (targetFolder, projectName, branchName, opt, callback)=>{
         `echo "done"`
     ];
     execSh(`${command.join(' && ')}`, true, function(err, stdout, stderr){
-        let result = ''
+        let result = '';
+        let succ = true;
         if (err) {
+            succ = false;
+            console.log(projectName, 'clone failed.')
             result = stderr;
         }else{
+            console.log(projectName, 'cloned.')
             result = stdout;
         }
-        callback(stdout)
+        callback(succ, stdout)
     });
 };
 
