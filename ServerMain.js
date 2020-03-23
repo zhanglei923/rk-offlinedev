@@ -19,17 +19,20 @@ var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
 var fpowerUtil = require('./offlinedev/jsmodule/utils/fpowerUtil')
+let multiProjectsMgr = require('./offlinedev/multi_projects/multiProjectsMgr')
 let mysupport = require('./support');
 var credentials = {key: privateKey, cert: certificate};
 
 let userConfig = getConfig.getUserConfig();
-var webPath = getConfig.getWebAppFolder();
+var webPath = getConfig.getWebRoot();
+var webappPath = getConfig.getWebAppFolder();
 redirect_config.init();
-if(!fs.existsSync(webPath)){
-    console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webPath)
+if(!fs.existsSync(webappPath)){
+    console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webappPath)
     console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
     return;
-} 
+}
+multiProjectsMgr.loadConfig(webPath);
 //
 let masterFolder = pathutil.resolve(__dirname, './');
 makeDir.sync(pathutil.resolve(masterFolder, './logs'))
@@ -86,7 +89,7 @@ app.use(function (req, res, next) {
     static_proxy.linkToStaticFile(req, res, next)
 });
 //静态资源转接到web
-app.use('/', express.static(webPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
+app.use('/', express.static(webappPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
 app.use('/offlinedev-http-console', express.static(httpConsoleFolder));
 app.use('/offlinedev-inject-script', express.static(pathutil.resolve(masterFolder, './offlinedev/injectScript')));
 app.use('/static/gcss', express.static(pathutil.resolve(userConfig.deployStaticPath_val, './gcss')));
