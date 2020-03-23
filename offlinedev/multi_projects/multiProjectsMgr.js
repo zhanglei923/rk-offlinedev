@@ -36,6 +36,9 @@ let loadConfig = (webprojectPath)=>{
         console.log('[MultiPrj]: no.');
     }
 };
+let findRealFilePath = (fullfilepath)=>{
+    return ;
+};
 let findDupFiles = (webprojectPath)=>{
     if(!global.rk_configOfStatic) return {
         has: false,

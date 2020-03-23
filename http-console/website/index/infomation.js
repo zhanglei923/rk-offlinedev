@@ -164,6 +164,12 @@ let showSubProjects = (result)=>{
     }
     if(result.projects && result.projects.length > 0){   
         has = true;   
+        html += `<tr>
+                    <td>工程名</td>
+                    <td>地址</td>
+                    <td><a class="" href="javascript:void(0)">全部下载</a></td>
+                    <td>状态</td>
+                </tr>`;
         result.projects.forEach((item)=>{
             let branchMatch = (item.def_branchname === item.branchname)
             html += `<tr>
@@ -173,20 +179,23 @@ let showSubProjects = (result)=>{
                             </span>
                         </td>
                         <td>
-                        <span class="projectpath ${!item.branchname?'status_negative':'status_positive'}" style="${!item.branchname?'text-decoration:line-through;':''}">
-                            ${item.projectPath}
-                        </span>
+                            <span class="projectpath ${!item.branchname?'status_negative':'status_positive'}" style="${!item.branchname?'text-decoration:line-through;':''}">
+                                ${item.projectPath}
+                            </span>
                         </td>
                         <td>
-                        <span git_project_info="true" git_path="${encodeURIComponent(item.projectPath)}"></span>
-                        ${item.def_branchname?``:'<span class="status_negative_fill">没有指定分支</span>'}
-                        ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
-                        ${item.branchname?
-                            `${branchMatch?
-                                `<span class="status_positive">as-required</span>`:
-                                `<span class="status_negative_fill">!=${item.branchname}</span>`}`:
-                            '<span class="status_negative_fill">不是git工程</span>'}
-                        ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
+                            <a class="" href="javascript:void(0)">重新下载</a>
+                        </td>
+                        <td>
+                            <span git_project_info="true" git_path="${encodeURIComponent(item.projectPath)}"></span>
+                            ${item.def_branchname?``:'<span class="status_negative_fill">没有指定分支</span>'}
+                            ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
+                            ${item.branchname?
+                                `${branchMatch?
+                                    `<span class="status_positive">as-required</span>`:
+                                    `<span class="status_negative_fill">!=${item.branchname}</span>`}`:
+                                '<span class="status_negative_fill">不是git工程</span>'}
+                            ${branchMatch?'':`<span class="status_negative_fill">期望分支为：${item.def_branchname}</span>`}
                         </td>
                     </tr>`
         })
