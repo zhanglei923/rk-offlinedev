@@ -20,7 +20,8 @@ let showDupCheck = ()=>{
                         let zebra = pathcount%2;
                         rowhtml += `
                                 <tr class="row_${zebra}">
-                                    <td align="center">${i+1}</td>
+                                    ${i===0?`<td rowspan="${owners.length}" class="">${pathcount}</td>`:''}
+                                    <td align="center" style="display:none;">${i+1}</td>
                                     ${i===0?`<td rowspan="${owners.length}" class="">/${pathid}</td>`:''}
                                     <td align="right">${ownerfolder}</td>
                                 </tr>`
