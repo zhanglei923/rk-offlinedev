@@ -172,7 +172,7 @@ let showSubProjects = (result)=>{
                 </tr>`;
         result.projects.forEach((item)=>{
             let branchMatch = (item.def_branchname === item.branchname)
-            html += `<tr>
+            html += `<tr is_subprj_row="true" project="${item.project}" def_branchname="${item.def_branchname}">
                         <td align="left">
                             -<span class="projectname ">
                                 <a target="_blank" class="${!item.projectExist?'status_negative':''}" href="http://gerrit.ingageapp.com/#/admin/projects/${item.project}">${item.project}</a>
@@ -184,7 +184,7 @@ let showSubProjects = (result)=>{
                             </span>
                         </td>
                         <td>
-                            <a class="" act="clone_sub_projects" project="${item.project}" branch="${item.def_branchname}" href="javascript:void(0)">重新下载</a>
+                            <a class="" act="clone_sub_projects" project="${item.project}" def_branchname="${item.def_branchname}" href="javascript:void(0)">重新下载</a>
                         </td>
                         <td>
                             <span git_project_info="true" git_path="${encodeURIComponent(item.projectPath)}"></span>

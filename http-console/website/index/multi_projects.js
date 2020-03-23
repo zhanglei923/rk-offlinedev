@@ -3,12 +3,13 @@ let initMultiProjectEvents = ()=>{
         let btn = $(this);
         if(btn.hasClass('is_working')) return;
         let project = btn.attr('project');
-        let branch = btn.attr('branch');
+        let branch = btn.attr('def_branchname');
         beWorkingBtn(btn);
         if(confirm(`确认重新下载${project}工程么，当前文件会被清除。`)){
             cloneProject(project, branch, (status)=>{
                 //alert('done, '+status)
                 unWorkingBtn(btn);
+                showGitStatus($('#subproject_list'));
             })
         }
     })
@@ -26,7 +27,7 @@ let cloneAllSubProjects = (masterbtn)=>{
     let _do_clone = (buttonlist)=>{
         let btn = buttonlist.shift();
         let project = btn.attr('project');
-        let branch = btn.attr('branch');
+        let branch = btn.attr('def_branchname');
         beWorkingBtn(btn);
         cloneProject(project, branch, (status)=>{
             unWorkingBtn(btn);
