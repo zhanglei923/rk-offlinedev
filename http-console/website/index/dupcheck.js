@@ -23,7 +23,7 @@ let showDupCheck = ()=>{
                                     ${i===0?`<td rowspan="${owners.length}" class="">${pathcount}</td>`:''}
                                     <td align="center" style="display:none;">${i+1}</td>
                                     ${i===0?`<td rowspan="${owners.length}" class="">/${pathid}</td>`:''}
-                                    <td align="right">${ownerfolder}</td>
+                                    <td align="left">${ownerfolder}</td>
                                 </tr>`
                     });
                 }
