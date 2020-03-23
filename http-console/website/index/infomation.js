@@ -167,8 +167,8 @@ let showSubProjects = (result)=>{
         html += `<tr>
                     <td>工程名</td>
                     <td>地址</td>
-                    <td><a class="" href="javascript:void(0)" onclick="javascript:cloneAllSubProjects(this);">全部下载</a></td>
-                    <td>状态</td>
+                    <td><a class="" href="javascript:void(0)" onclick="javascript:cloneAllSubProjects(this);">全下载</a></td>
+                    <td></td>
                 </tr>`;
         result.projects.forEach((item)=>{
             let branchMatch = (item.def_branchname === item.branchname)
