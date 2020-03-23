@@ -33,12 +33,19 @@ let cloneAllSubProjects = (masterbtn)=>{
             if(buttonlist.length > 0){
                 _do_clone(buttonlist);
             }else{
-                //done
+                //finally Done
                 unWorkingBtn(masterbtn)
+                reloadSubProjectInfo()
             }
         })
     };
     _do_clone(btns);
+}
+let reloadSubProjectInfo = ()=>{
+    loadWebProjectData(function( result ) {    
+        showSubProjects(result);
+        showGitStatus($('#subproject_list'));
+    });
 }
 let cloneProject = (project, branch, callback)=>{
     $.ajax({

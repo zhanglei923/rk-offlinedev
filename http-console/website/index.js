@@ -39,7 +39,8 @@ $('#webpath').on('change', function(){
           
 //         }
 //     });
-$.ajax({
+let loadWebProjectData = (succ, fail)=>{
+    $.ajax({
         url: '/offlinedev/api/getWebProjectInfo/',
         cache: false,
         method: 'POST',
@@ -47,7 +48,17 @@ $.ajax({
         success: function( response ) {
           console.log(response)
           let result = response.result;
-          
+          succ(result);
+        },
+        error:function(ajaxObj,msg,err){
+          if(typeof fail === 'undefined') fail = ()=>{};
+          fail()
+        }
+    });
+
+};
+let loadWebProjectInfo = ()=>{
+  loadWebProjectData(function( result ) {          
           if(result && result.err){
             $('#infomation').css({
               'font-size': '20px',
@@ -62,9 +73,11 @@ $.ajax({
           load_cacheInfo();
           showDupCheck();
         },
-        error:function(ajaxObj,msg,err){
+        function(ajaxObj,msg,err){
         }
-    });
+    );
+};
+loadWebProjectInfo();
 var save = function(){
   $.ajax({
         url: '/offlinedev/api/saveUserConfig/',

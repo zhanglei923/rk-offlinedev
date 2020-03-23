@@ -204,9 +204,15 @@ let showSubProjects = (result)=>{
     if(!has) html = `<tr><td align="right">无</td></tr>`
     $('#subproject_list').html(html)
 }
-let showGitStatus = ()=>{
-    let loadingCss = 'status_loading'
-    $('span[git_project_info="true"]').each((i, span)=>{
+let showGitStatus = (elem)=>{
+    let loadingCss = 'status_loading';
+    let targetelem;
+    if(typeof elem === 'undefined'){
+        targetelem = $('span[git_project_info="true"]')
+    }else{
+        targetelem = elem.find('span[git_project_info="true"]')
+    }
+    targetelem.each((i, span)=>{
         span = $(span);
         span.html('[?]')
         let time = Math.random()*10;
