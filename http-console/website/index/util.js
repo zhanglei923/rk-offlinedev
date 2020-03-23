@@ -13,13 +13,14 @@ let beWorkingBtn = (btn)=>{
 let showWorkingCounting = (btn)=>{
     let randomid = btn.attr('working_timer')
     clearTimeout(window[randomid])
+    let newtime = 1000+Math.random()*500;
     window[randomid] = setTimeout(()=>{
         let working_timer_val = btn.attr('working_timer_val')*1;
-        working_timer_val++;
+        working_timer_val = working_timer_val + newtime;
         btn.attr('working_timer_val', working_timer_val)
-        btn.html(`working...(${working_timer_val}s)`);
+        btn.html(`working...(${Math.round(working_timer_val/1000)}s)`);
         showWorkingCounting(btn);
-    }, 1000+Math.random()*500)
+    }, newtime)
 }
 let unWorkingBtn = (btn)=>{
     let orignal_html = btn.attr('orignal_html');
