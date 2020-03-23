@@ -16,6 +16,8 @@ let getBranchStatus = (prjPath)=>{
     let isGit = git.isGitSync(prjPath)
     if(!isGit) return null;
     let result = git.checkSync(prjPath);
+    let isSSHClone = fs.existsSync(pathutil.resolve(prjPath, './.git/hooks/commit-msg'))
+    result.isSSHClone = isSSHClone;
     return result;
 }
 module.exports = {
