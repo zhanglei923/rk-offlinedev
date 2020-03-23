@@ -241,8 +241,8 @@ let showGitStatus = (elem)=>{
                     let isDirty = !isClean;
                     let isSSHClone = !!status.isSSHClone;
                     if(gitpath.indexOf('offlinedev')>=0) isSSHClone = true;//忽略，只检测gerrit的工程
-                    let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch?status.branch:'?'}</span>
-                                ${isSSHClone?`<span class="status_positive">ssh</span>`:'<span class="status_warn">anonymous-cloned</span>'}
+                    let html = `<span class="${isDirty?'status_warn':'status_positive'}">(${status.branch?status.branch:'?'})</span>
+                                ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
                                 `;
