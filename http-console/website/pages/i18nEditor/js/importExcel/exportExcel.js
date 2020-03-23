@@ -45,6 +45,17 @@ export_popupExport = ()=>{
             key_str = key_str + key + '\n'
             cn_str = cn_str + nobreaks(OriginSuperJson[key].cn) + '\n'
         })
+        // for(let key in OriginSuperJson){
+        //     if(OriginSuperJson[key].en){
+        //         key_arr.push(key);
+        //     }
+        // }
+        // key_arr.sort();
+        // key_arr.forEach((key)=>{
+        //     key_str = key_str + key + '\n'
+        //     cn_str = cn_str + nobreaks(OriginSuperJson[key].cn) + '\n'
+        //     en_str = en_str + nobreaks(OriginSuperJson[key].en) + '\n'
+        // })
         $('#ex_texts_keys').val(key_str);
         $('#ex_texts_main_vals').val(cn_str);
         console.log(nullEnItems, nullEnItems.length)
