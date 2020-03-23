@@ -7,7 +7,7 @@ let initMultiProjectEvents = ()=>{
         beWorkingBtn(btn);
         if(confirm(`确认重新下载${project}工程么，当前文件会被清除。`)){
             cloneProject(project, branch, (status)=>{
-                alert('done, '+status)
+                //alert('done, '+status)
                 unWorkingBtn(btn);
             })
         }
