@@ -13,14 +13,14 @@ let showDupCheck = ()=>{
                 for(let pathid in result.dupReport.dupFilesInfo){
                     count++;
                     let owners = result.dupReport.dupFilesInfo[pathid];
-                    console.log(owners)
+                    //console.log(owners)
                     owners.forEach((ownerfolder, i)=>{
                         let zebra = i%2;
                         rowhtml += `
                                 <tr class="row_${zebra}">
-                                    <td align="center">${i}</td>
-                                    <td align="right">${ownerfolder}</td>
+                                    <td align="center">${i+1}</td>
                                     ${i===0?`<td rowspan="${owners.length}" class="">/${pathid}</td>`:''}
+                                    <td align="right">${ownerfolder}</td>
                                 </tr>`
                     });
                 }
