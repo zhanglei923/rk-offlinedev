@@ -9,13 +9,15 @@ let showDupCheck = ()=>{
             let html = '<span class="status_positive">None</span>'
             if(result.dupReport && result.dupReport.has){
                 let count = 0;
-                let rowhtml = ''
+                let rowhtml = '';
+                let pathcount = 0;
                 for(let pathid in result.dupReport.dupFilesInfo){
                     count++;
+                    pathcount++;
                     let owners = result.dupReport.dupFilesInfo[pathid];
                     //console.log(owners)
                     owners.forEach((ownerfolder, i)=>{
-                        let zebra = i%2;
+                        let zebra = pathcount%2;
                         rowhtml += `
                                 <tr class="row_${zebra}">
                                     <td align="center">${i+1}</td>
