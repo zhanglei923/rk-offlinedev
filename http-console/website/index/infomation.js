@@ -234,7 +234,7 @@ let showGitStatus = (elem)=>{
                     console.log(response.result)
                     let result = response.result;
                     let status = result.status;
-                    if(!status) status = {}
+                    if(!status) return;
                     let isClean = status && (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
                     let txt = 'file-dirty'
                     if(status.ahead===1) txt += ', unfresh'
