@@ -20,6 +20,7 @@ let cloneAllSubProjects = (masterbtn)=>{
     let btns = [];
     $('a[act="clone_sub_projects"]').each(function(){
         let btn = $(this)
+        beWorkingBtn(btn);
         btns.push(btn);
     });
     let _do_clone = (buttonlist)=>{
