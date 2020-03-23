@@ -13,13 +13,6 @@
     es6:{
         autoTransformJs: false //自动将es6以上的语法，降级为普通js
     },
-    git:{
-        username:'',//你的git账号名
-    },
-    jira:{
-        username:'',//你的jira用户名
-        password:'' //你的jira密码
-    },
     httpConfig:{
         http2: false,//是否开启http2协议
         gzip: true,//是否开启gzip，但稍微消耗cpu
