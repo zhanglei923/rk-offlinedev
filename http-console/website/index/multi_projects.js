@@ -9,7 +9,8 @@ let initMultiProjectEvents = ()=>{
         cloneProject(project, branch, (status)=>{
             //alert('done, '+status)
             unWorkingBtn(btn);
-            showGitStatus($(`tr[is_subprj_row][project="${project}"][def_branchname="${branch}"]`));
+            //showGitStatus($(`tr[is_subprj_row][project="${project}"][def_branchname="${branch}"]`));
+            reloadSubProjectInfo();
         })
     })
 }
