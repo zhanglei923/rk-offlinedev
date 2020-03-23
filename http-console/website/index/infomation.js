@@ -184,7 +184,7 @@ let showSubProjects = (result)=>{
                             </span>
                         </td>
                         <td>
-                            <a class="" href="javascript:void(0)">重新下载</a>
+                            <a class="" act="clone_sub_projects" project="${item.project}" branch="${item.def_branchname}" href="javascript:void(0)">重新下载</a>
                         </td>
                         <td>
                             <span git_project_info="true" git_path="${encodeURIComponent(item.projectPath)}"></span>
@@ -228,11 +228,12 @@ let showGitStatus = ()=>{
                     console.log(response.result)
                     let result = response.result;
                     let status = result.status;
-                    let isClean = (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
+                    if(!status) status = {}
+                    let isClean = status && (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
                     let txt = 'file-dirty'
                     if(status.ahead===1) txt += ', unfresh'
                     let isDirty = !isClean;
-                    let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch}</span>
+                    let html = `<span class="${isDirty?'status_warn_fill':'status_positive_fill'}">${status.branch?status.branch:'?'}</span>
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
                                 `;

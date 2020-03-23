@@ -17,6 +17,7 @@ var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
 let watch_subProjectFiles = require('../../offlinedev/watchdog/watch_subProjectFiles')
 let multiProjectsMgr = require('../../offlinedev/multi_projects/multiProjectsMgr')
+let cloneProject = require('../../offlinedev/multi_projects/cloneProject')
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
@@ -37,15 +38,22 @@ module.exports = {
                 ok
             })
         }
-        else if(/^\/offlinedev\/api\/webpath\/cloneProject\//.test(req.originalUrl)){
-            // var result = watch_subProjectFiles.watch();
-            // callback(result)
-            // return 'done'
-        }
         else if(/^\/offlinedev\/api\/self_check\/findDupFilesBetweenProjects\//.test(req.originalUrl)){
             var webpath = configUtil.getWebRoot()
             var result = multiProjectsMgr.reportStatus(webpath);
             callback(result)
+            return 'done'
+        }
+        else if(/^\/offlinedev\/api\/cloneProject\//.test(req.originalUrl)){
+            var webpath = configUtil.getWebRoot()
+            var projectName = req.body.project;
+            var branchName = req.body.branch;
+            console.log(projectName, branchName)
+            let targetFolder = configUtil.getWebParentRoot();
+            cloneProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
+                var result = {};
+                callback(result)
+            })            
             return 'done'
         }
         else if(/^\/offlinedev\/api\/self_check\/isGitDirty\//.test(req.originalUrl)){

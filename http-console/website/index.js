@@ -1,5 +1,7 @@
 var ls_key = 'offlinedev_casename'
-
+$(()=>{
+    initMultiProjectEvents();
+})
 $('#caseselect').on('change', function(){
   var casename = $(this).val();
   localStorage.setItem(ls_key, casename);
