@@ -16,6 +16,7 @@ var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
 let watch_subProjectFiles = require('../../offlinedev/watchdog/watch_subProjectFiles')
+let multiProjectsMgr = require('../../offlinedev/multi_projects/multiProjectsMgr')
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
@@ -42,7 +43,8 @@ module.exports = {
             // return 'done'
         }
         else if(/^\/offlinedev\/api\/self_check\/findDupFilesBetweenProjects\//.test(req.originalUrl)){
-            var result = watch_subProjectFiles.watch();
+            var webpath = configUtil.getWebRoot()
+            var result = multiProjectsMgr.reportStatus(webpath);
             callback(result)
             return 'done'
         }

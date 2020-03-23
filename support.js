@@ -10,6 +10,7 @@ var seajsUtil = require('./offlinedev/jsmodule/utils/seajs/seajsUtil')
 var webprojectUtil = require('./offlinedev/jsmodule/config/webprojectUtil')
 var updateStaticsUrl = require('./offlinedev/jsmodule/static-proxy/updators/updateStaticsUrl')
 var configUtil = require('./offlinedev/jsmodule/config/configUtil')
+let multiProjectsMgr = require('./offlinedev/multi_projects/multiProjectsMgr')
 let hot_concat = require('./offlinedev/jsmodule/static-proxy/updators/concat/hot_concat')
 
 let thisfolder = pathutil.parse(__filename).dir;
@@ -21,19 +22,35 @@ var format = function(bytes, tail) {
     return (bytes/1024/1024).toFixed(tail); 
 };
 let preloadStaticFiles = (callback)=>{
+    let webroot = configUtil.getWebRoot();
     let webapproot = configUtil.getWebAppFolder();
     let staticfolder = configUtil.getStaticFolder();
     let sourcefolder = configUtil.getSourceFolder();
+
+    let allsourcefolders = multiProjectsMgr.eachSubSourceFolder(sourcefolder);
+    //console.log(`allsourcefolders`, allsourcefolders)
+
     let roots = [webapproot]
     // fpowerUtil.loadPower(roots);
     // let powers = fpowerUtil.getPowerData();
     ///console.log(powers)
-    let loadpathlist = []
-    eachcontentjs.eachPath(sourcefolder, /(\.js|\.tpl)$/,(fpath)=>{
-        if(!rk.isCookedJsPath(fpath)){
-            loadpathlist.push(fpath);
-        }
-    })
+    let loaded_pathid = {}
+    let loadpathlist = [];
+    allsourcefolders.forEach((sourcefd)=>{
+        loadpathlist = []
+        eachcontentjs.eachPath(sourcefd, /(\.js|\.tpl)$/,(fpath)=>{
+            if(!rk.isCookedJsPath(fpath)){
+                let pathid = rk_formatPath(pathutil.relative(sourcefd, fpath));
+                if(loaded_pathid[pathid]){
+                    console.log('  -Conflict!', pathid);//在这里做一个简单的冗余检查
+                }
+                loaded_pathid[pathid] = {
+                    sourcefd
+                };
+                loadpathlist.push(fpath);
+            }
+        })
+    });
     let filesize = 0;
     let len = loadpathlist.length;
     let p = Math.round(len / 4);

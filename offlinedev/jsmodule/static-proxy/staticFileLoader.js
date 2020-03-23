@@ -1,7 +1,6 @@
 var fs = require('fs-extra');
 var pathutil = require('path');
 var getConfig = require('../config/configUtil')
-let projectFileSearch = require('./supports/projectFileSearch')
 let loadCmdInfo = require('../static-proxy/supports/loadCmdInfo')
 let staticFileLoader_es6 = require('./staticFileLoader_es6')
 let pathfinder = require('./supports/pathfinder')

@@ -7,24 +7,25 @@ let showDupCheck = ()=>{
         success: function( response ) {
             let result = response.result;
             let html = '<span class="status_positive">None</span>'
-            if(result.dupfiles && result.dupfiles.length > 0){
-                html = `<div><div class="status_negative_fill">发现${result.dupfiles.length}个重复文件：</div><table class="subproject_dup_table"><tbody>`
-                result.dupfiles.forEach((dup, i)=>{
-                    let zebra = i%2;
-                    // {root1: "E:\workspaceGerrit\_sub_separation_test\apps-ingage-web\src\main\webapp", 
-                    // root2: "E:\workspaceGerrit\_sub_separation_test\xsy-static-breeze", 
-                    // relativepath: "embeded\breeze\breeze.lib.min.css"}
-                    html += `
-                            <tr class="row_${zebra}">
-                                <td align="center">A</td>
-                                <td align="right">${dup.root1}</td>
-                                <td rowspan="2" class="">/${dup.relativepath}</td>
-                            </tr>
-                            <tr class="row_${zebra}">
-                                <td align="center">B</td>
-                                <td align="right">${dup.root2}</td>
-                            </tr>`;
-                })
+            if(result.dupReport && result.dupReport.has){
+                let count = 0;
+                let rowhtml = ''
+                for(let pathid in result.dupReport.dupFilesInfo){
+                    count++;
+                    let owners = result.dupReport.dupFilesInfo[pathid];
+                    console.log(owners)
+                    owners.forEach((ownerfolder, i)=>{
+                        let zebra = i%2;
+                        rowhtml += `
+                                <tr class="row_${zebra}">
+                                    <td align="center">${i}</td>
+                                    <td align="right">${ownerfolder}</td>
+                                    ${i===0?`<td rowspan="${owners.length}" class="">/${pathid}</td>`:''}
+                                </tr>`
+                    });
+                }
+                html = `<div><div class="status_negative_fill">发现${count}个重复文件：</div><table class="subproject_dup_table"><tbody>`
+                html += rowhtml;
                 html += '</tbody></table></div>'
             }
             $('#subproject_verify').html(html)
