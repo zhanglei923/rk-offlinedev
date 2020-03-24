@@ -64,10 +64,13 @@ let parseUserAccounts = ()=>{
     let arr = rk_formatLineBreaker(content).split('\n');
     let accounts = {}
     arr.forEach((line)=>{
-        let linearr = line.split('=');
-        let key = _.trim(linearr[0])
-        let val = _.trim(linearr[1])
-        accounts[key] = val;
+        line = _.trim(line);
+        if(line && !line.match(/^\#/) && line.indexOf('=')>=0){
+            let linearr = line.split('=');
+            let key = _.trim(linearr[0])
+            let val = _.trim(linearr[1])
+            accounts[key] = val;
+        }
     })
     //console.log(accounts)
     return accounts;
