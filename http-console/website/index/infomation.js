@@ -11,6 +11,12 @@ let showInfomation = (result)=>{
     let sysStatus = result.sysStatus;
     //let cacheStatus = result.cacheStatus;
     console.log(userConfig)
+    if(userConfig.$userAccounts){
+        let acc = userConfig.$userAccounts;
+        if(acc['gerrit.username']){
+            $('#gerrit_username').text(' '+acc['gerrit.username'])
+        }        
+    }
     let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
     let httpsurl = `https://${hostname}:${userConfig.https.port}/static/sea-config.js`;
     let html = `<table border=0 class="infotable">
