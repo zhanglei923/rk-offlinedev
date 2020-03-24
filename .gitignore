@@ -22,3 +22,4 @@ offlinedev/jsmodule/utils/seajs/test/dependencyMap.json
 offlinedev/jsmodule/utils/seajs/test/full_dependencylist.txt
 offlinedev/jsmodule/utils/seajs/test/full_dependencylist2.txt
 account.settings
+user-accounts.cfg
