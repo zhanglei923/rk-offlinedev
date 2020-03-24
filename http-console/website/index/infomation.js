@@ -63,7 +63,7 @@ let showInfomation = (result)=>{
                     <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>
                 </span>
                 <span style="margin-left:0px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
-                    ${result.webpath}
+                    ${highlightProjectPath(result.webpath, "apps-ingage-web")}
                 </span>
                 <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}"></span>
             </td>
@@ -186,7 +186,7 @@ let showSubProjects = (result)=>{
                         </td>
                         <td>
                             <span class="projectpath ${!item.branchname?'status_negative':'status_positive'}" style="${!item.branchname?'text-decoration:line-through;':''}">
-                                ${item.projectPath}
+                                ${highlightProjectPath(item.projectPath, item.project)}
                             </span>
                         </td>
                         <td>
@@ -209,7 +209,12 @@ let showSubProjects = (result)=>{
     }
     if(!has) html = `<tr><td align="right">无</td></tr>`
     $('#subproject_list').html(html)
-}
+};
+let highlightProjectPath = (prjpath, prjname)=>{
+    let reg = new RegExp(prjname);
+    prjpath = prjpath.replace(reg, `<span class="prjname_in_path">${prjname}</span>`)
+    return prjpath;
+};
 let showGitStatus = (elem)=>{
     let loadingCss = 'status_loading';
     let targetelem;

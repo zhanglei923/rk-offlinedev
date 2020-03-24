@@ -287,3 +287,6 @@ button{
     background-color: #c5233f;
 
 }
+.prjname_in_path{
+    text-decoration:underline;
+}
