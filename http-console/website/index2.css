@@ -273,8 +273,8 @@ button{
     color:blue;
 }
 .subproject_verify{
-    width:980px;
-    max-height: 200px;
+    /* width:980px; */
+    max-height: 400px;
     overflow-y: auto;
 }
 .subproject_dup_table {
