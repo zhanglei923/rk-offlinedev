@@ -36,7 +36,7 @@ if(fs.existsSync(fpath)){
 }else{
     console.log('Can not find:', fpath)
 }
-let configFileExamplePath = pathutil.resolve(projectFolder, './user-config.example')
+let configFileExamplePath = pathutil.resolve(projectFolder, './user-config.json.example')
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
 let defaultConfig;
 eval(`defaultConfig = `+fs.readFileSync(configFileExamplePath, 'utf8'));
