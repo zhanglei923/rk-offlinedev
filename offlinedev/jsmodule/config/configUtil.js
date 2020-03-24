@@ -38,6 +38,7 @@ if(fs.existsSync(fpath)){
 }
 let configFileExamplePath = pathutil.resolve(projectFolder, './user-config.json.example')
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
+let accountFilePath = pathutil.resolve(projectFolder, './user-accounts.cfg')
 let defaultConfig;
 eval(`defaultConfig = `+fs.readFileSync(configFileExamplePath, 'utf8'));
 let config={};
@@ -46,7 +47,27 @@ var webparent;
 var webroot;
 var webappFolder;
 var static_project_root;
-
+let parseUserAccounts = (accountFilePath)=>{
+    if(!fs.existsSync(accountFilePath)) {
+        console.log('[user-account]: not-found')
+        return {};
+    }
+    let content = fs.readFileSync(accountFilePath, 'utf8');
+    if(!content){
+        console.log('[user-account]: is-empty')
+        return {};
+    }
+    let arr = rk_formatLineBreaker(content).split('\n');
+    let accounts = {}
+    arr.forEach((line)=>{
+        let linearr = line.split('=');
+        let key = _.trim(linearr[0])
+        let val = _.trim(linearr[1])
+        accounts[key] = val;
+    })
+    //console.log(accounts)
+    return accounts;
+};
 let getAllPathInfo = (_webroot)=>{
     if(typeof _webroot === 'undefined') _webroot = webroot;
     let webparent = pathutil.resolve(_webroot, '../')
@@ -92,6 +113,9 @@ let reloadConfig = (printinfo)=>{
     let df = JSON.parse(JSON.stringify(defaultConfig));
     config = _.merge(df, config);
     //console.log(JSON.stringify(config))
+    let accounts = parseUserAccounts(accountFilePath);
+    config.$userAccounts = accounts;
+    if(accounts['gerrit.username']) console.log('hello: ', accounts['gerrit.username'])
 
     if(config.debug){
         let modeconfig = config.debug[`${config.debug.mode}`];

@@ -137,7 +137,7 @@ load_cacheInfo = ()=>{
         success:(data)=>{
             console.log('load_cacheInfo', data)
             data = data.result.status;
-            $('#cacheinfo').html(`<span id="cacheinfo">Tmp=&nbsp;${data.cache_folder} (${data.totalCacheSizeMB}MB In Use)</span>`)            
+            $('#cacheinfo').html(`<span id="cacheinfo">Tmp=&nbsp;${data.cache_folder} (${data.totalCacheSizeMB}MB in-use)</span>`)            
         }
     })
 }
