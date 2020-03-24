@@ -11,10 +11,12 @@ let showInfomation = (result)=>{
     let sysStatus = result.sysStatus;
     //let cacheStatus = result.cacheStatus;
     console.log(userConfig)
+    let gerritUserName;
     if(userConfig.$userAccounts){
         let acc = userConfig.$userAccounts;
         if(acc['gerrit.username']){
-            $('#gerrit_username').text(' '+acc['gerrit.username'])
+            gerritUserName = acc['gerrit.username'];
+            $('#gerrit_username').text(' ' + gerritUserName)
         }        
     }
     let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
@@ -26,6 +28,11 @@ let showInfomation = (result)=>{
         </tr>
     </thead>
     <tbody>
+        <tr><td align="right">Gerrit：</td>
+        <td>
+            ${gerritUserName?`<span>${gerritUserName}</span>`:
+                            '<span class="status_warn_fill" title="">匿名开发者，请在/user-accounts.cfg文件里指定gerrit账号名。</span>'}
+        </td></tr>
         <tr><td align="right">工具地址：</td>
         <td>
             <span>${result.masterFolder}</span>
