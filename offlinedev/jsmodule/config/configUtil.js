@@ -38,7 +38,6 @@ if(fs.existsSync(fpath)){
 }
 let configFileExamplePath = pathutil.resolve(projectFolder, './user-config.json.example')
 let configFilePath = pathutil.resolve(projectFolder, './user-config.json')
-let accountFilePath = pathutil.resolve(projectFolder, './user-accounts.cfg')
 let defaultConfig;
 eval(`defaultConfig = `+fs.readFileSync(configFileExamplePath, 'utf8'));
 let config={};
@@ -47,12 +46,17 @@ var webparent;
 var webroot;
 var webappFolder;
 var static_project_root;
-let parseUserAccounts = (accountFilePath)=>{
+let parseUserAccounts = ()=>{
+    let accountExamplePath = pathutil.resolve(projectFolder, './user-accounts.cfg.example')
+    let accountFilePath = pathutil.resolve(projectFolder, './user-accounts.cfg')
+    let content;
     if(!fs.existsSync(accountFilePath)) {
-        console.log('[user-account]: not-found')
-        return {};
+        let example = fs.readFileSync(accountExamplePath, 'utf8')
+        fs.writeFileSync(accountFilePath, example);
+        content = example;
+    }else{
+        content = fs.readFileSync(accountFilePath, 'utf8');
     }
-    let content = fs.readFileSync(accountFilePath, 'utf8');
     if(!content){
         console.log('[user-account]: is-empty')
         return {};
@@ -113,7 +117,7 @@ let reloadConfig = (printinfo)=>{
     let df = JSON.parse(JSON.stringify(defaultConfig));
     config = _.merge(df, config);
     //console.log(JSON.stringify(config))
-    let accounts = parseUserAccounts(accountFilePath);
+    let accounts = parseUserAccounts();
     config.$userAccounts = accounts;
     if(accounts['gerrit.username']) console.log('hello: ', accounts['gerrit.username'])
 
