@@ -11,7 +11,7 @@ let masterRoot = pathutil.resolve(thisFolder, `../../../../`)
 // }
 let config = {}
 let init = ()=>{
-    let configfilepath = pathutil.resolve(masterRoot, './redirect-config.json');
+    let configfilepath = pathutil.resolve(masterRoot, './user-redirect.json');
     if(!fs.existsSync(configfilepath)){
         fs.writeFileSync(configfilepath, '{\n}')
         return null;
