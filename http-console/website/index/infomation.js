@@ -165,7 +165,7 @@ let showSubProjects = (result)=>{
     if(result.projects && result.projects.length > 0){   
         has = true;   
         html += `<tr>
-                    <td>工程名</td>
+                    <td style="display:none;">工程名</td>
                     <td>地址</td>
                     <td><a class="" href="javascript:void(0)" onclick="javascript:cloneAllSubProjects(this);">全下载</a></td>
                     <td></td>
@@ -173,7 +173,7 @@ let showSubProjects = (result)=>{
         result.projects.forEach((item)=>{
             let branchMatch = (item.def_branchname === item.branchname)
             html += `<tr is_subprj_row="true" project="${item.project}" def_branchname="${item.def_branchname}">
-                        <td align="left">
+                        <td style="display:none;" align="left">
                             -<span class="projectname ">
                                 <a target="_blank" class="${!item.projectExist?'status_negative':''}" href="http://gerrit.ingageapp.com/#/admin/projects/${item.project}">${item.project}</a>
                             </span>
