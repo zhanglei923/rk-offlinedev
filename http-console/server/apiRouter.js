@@ -46,7 +46,7 @@ module.exports = {
             var webpath = configUtil.getWebRoot()
             var projectName = req.body.project;
             var branchName = req.body.branch;
-            console.log(projectName, branchName)
+            //console.log(projectName, branchName)
             let targetFolder = configUtil.getWebParentRoot();
             cloneProject.cloneProject(targetFolder, projectName, branchName, {}, ()=>{
                 var result = {};
@@ -57,9 +57,9 @@ module.exports = {
         else if(/^\/offlinedev\/api\/self_check\/isGitDirty\//.test(req.originalUrl)){
             var prjpath = decodeURIComponent(req.body.prjpath)
             var prjname = req.body.prjname;
-            console.log(prjpath, prjname)
+            //console.log(prjpath, prjname)
             webprojectUtil.isGitDirty(prjpath, (dirty)=>{
-                console.log(dirty)
+                //console.log(dirty)
                 callback({
                     dirty,
                     prjname
@@ -100,7 +100,7 @@ module.exports = {
             let webParentPath = pathutil.resolve(webpath,'../').replace(/\\{1,}/g, '/')
             let masterBranchName = gitUtil.getBranchName(masterFolder)
             var branchName = gitUtil.getBranchName(webpath)
-            console.log(webpath, branchName)
+            //console.log(webpath, branchName)
             let projects = filter.getProjectsDef();
             let filters = filter.getFilterDef()
             callback({
@@ -121,7 +121,7 @@ module.exports = {
         }
         else if(/^\/offlinedev\/api\/saveUserConfig/.test(req.url)){
             var caseName = req.body.caseName
-            console.log(caseName)
+            //console.log(caseName)
             return 'done'
 
         }

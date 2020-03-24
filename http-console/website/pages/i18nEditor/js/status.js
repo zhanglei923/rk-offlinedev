@@ -92,7 +92,7 @@ init_branchInfo = ()=>{
             $('#branchInfo').html(`
                 <span>${branchName}</span>
             `)
-            console.log(branchName)
+            //console.log(branchName)
         }
     })
 }
