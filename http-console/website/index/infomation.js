@@ -72,7 +72,7 @@ let showInfomation = (result)=>{
                 <span style="margin-left:0px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                     ${highlightProjectPath(result.webpath, "apps-ingage-web")}
                 </span>
-                <span git_project_info="true" git_path="${encodeURIComponent(result.webpath)}"></span>
+                <span git_project_info="true" project="apps-ingage-web" git_path="${encodeURIComponent(result.webpath)}"></span>
             </td>
         </tr>
         <tr><td align="right" valign="top">&nbsp;</td><td>
@@ -108,7 +108,7 @@ let showInfomation = (result)=>{
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
         <td>
             <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
-            <span git_project_info="true" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
+            <span git_project_info="true" project="apps-ingage-admin" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
             ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
         </td>
         `:`<td valign="top" colspan="999" class="">Not-Found</td>`}
@@ -200,7 +200,7 @@ let showSubProjects = (result)=>{
                             <a class="" act="clone_sub_projects" project="${item.project}" def_branchname="${item.def_branchname}" href="javascript:void(0)">重新下载</a>
                         </td>
                         <td>
-                            <span git_project_info="true" git_path="${encodeURIComponent(item.projectPath)}"></span>
+                            <span git_project_info="true" project="${item.project}" git_path="${encodeURIComponent(item.projectPath)}"></span>
                             ${item.def_branchname?``:'<span class="status_negative_fill">没有指定分支</span>'}
                             ${!item.projectExist?'<button class="clone_project_btn" style="display:none;">立刻下载</button>&nbsp;<span class="status_negative_fill">目录不存在</span>':''}
                             ${item.branchname?
@@ -267,7 +267,8 @@ let showGitStatus = (elem, callback)=>{
                     let isDirty = !isClean;
                     let isSSHClone = !!status.isSSHClone;
                     if(gitpath.indexOf('offlinedev')>=0) isSSHClone = true;//忽略，只检测gerrit的工程
-                    let html = `<span class="${isDirty?'status_warn':'status_positive'}">(${status.branch?status.branch:'?'})</span>
+                    let branchHref = status.branch ? `<a href="javascript:void(0)" act="btn_change_branch" encodedpath="${encodedpath}">${status.branch}</a>`:'';
+                    let html = `<span class="${isDirty?'status_warn':'status_positive'}">(${status.branch?branchHref:'?'})</span>
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
