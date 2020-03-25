@@ -2,6 +2,7 @@
 let fs = require('fs');
 let pathutil = require('path');
 let os = require('os');
+let watch = require('../../utils/watch')
 let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('../../utils/rk')
@@ -20,33 +21,33 @@ let isFirstJs = (fpath)=>{
 let CacheOfI18n;
 let canWatch = platform.toLowerCase() !== 'linux';
 let isWatched = false;
-let doWatch = ()=>{
-    if(!canWatch) {//无法watch，只好每次都加载
-        CacheOfI18n = null;
-    }
-    if(canWatch && !isWatched){
-        console.log('[RK]Watching i18n files...')
-        let sourceDir = getConfig.getSourceFolder();
-        let i18nFolder = pathutil.resolve(sourceDir, './core/i18n')
-        watcher.watch(i18nFolder,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
-            persistent:true,
-            recursive:true,
-            ignored:/node\_modules/g
-        }).on('all',(e, filename)=>{
-            if(!/Dir$/.test(e)){//不关注文件夹
-                if(filename.match(/core\/i18n\//g)){
-                    //console.log('watch:', e, filename)
-                    CacheOfI18n = null;//置空，重新加载
-                }
-            }
-        })
-        isWatched = true;
-    }
-}
+// let doWatch = ()=>{
+//     if(!canWatch) {//无法watch，只好每次都加载
+//         CacheOfI18n = null;
+//     }
+//     if(canWatch && !isWatched){
+//         console.log('[RK]Watching i18n files...')
+//         let sourceDir = getConfig.getSourceFolder();
+//         let i18nFolder = pathutil.resolve(sourceDir, './core/i18n')
+//         watcher.watch(i18nFolder,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
+//             persistent:true,
+//             recursive:true,
+//             ignored:/node\_modules/g
+//         }).on('all',(e, filename)=>{
+//             if(!/Dir$/.test(e)){//不关注文件夹
+//                 if(filename.match(/core\/i18n\//g)){
+//                     //console.log('watch:', e, filename)
+//                     CacheOfI18n = null;//置空，重新加载
+//                 }
+//             }
+//         })
+//         isWatched = true;
+//     }
+// }
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
-    doWatch();
+    //doWatch();
     let fullfilepath = info.fullfilepath;
     if(rk.isCookedJsPath(fullfilepath)){
         return content;
@@ -54,11 +55,17 @@ let updateJs = (info, content)=>{
     let staticDir = getConfig.getStaticFolder();
     let sourceDir = getConfig.getSourceFolder();
 
+    let i18nFolder = pathutil.resolve(sourceDir, './core/i18n');
+    let watchId = 'watch_i18n';
+    watch.watchFiles({watchId, folder: i18nFolder, filereg: /\.js$/, ignored: /node\_modules/g});
+    let changed = watch.getChangedFiles(watchId);
+    if(changed.length > 0) CacheOfI18n = null;
+
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/g) && fullfilepath.match(/untranslated\.js$/)){
         //let t0=new Date()*1;
         let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
-        CacheOfI18n = c;
+        //CacheOfI18n = c;
         //console.log(new Date()*1 - t0)
         return c;
     }
