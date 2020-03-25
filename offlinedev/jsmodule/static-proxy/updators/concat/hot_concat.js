@@ -3,6 +3,7 @@ let moment = require('moment')
 let _ = require('lodash')
 let pathutil = require('path')
 let os = require('os');
+let watch = require('../../../utils/watch')
 let watcher = require('chokidar')
 let makeDir = require("make-dir")
 
@@ -38,35 +39,24 @@ global.rkStatOf_concatPlanNeedsUpdate = true;
 
 let canWatch = platform.toLowerCase() !== 'linux';
 let isWatched = false;
+let watchId = 'watch_hot_concat';
 let doWatch = ()=>{
-    if(!canWatch) {//无法watch，只好每次都加载
-        CacheOfI18n = null;
-    }
-    if(canWatch && !isWatched){
-        console.log('[RK]Watching source folder...')
-        let sourceDir = configUtil.getSourceFolder();
-        watcher.watch(sourceDir,{//linux is not avaliable, see https://nodejs.org/api/fs.html#fs_caveats
-            persistent:true,
-            recursive:true,
-            ignored:/node\_modules/g
-        }).on('all',(e, filename)=>{
-            filename = rk_formatPath(filename);
-            if(filename.indexOf('/_hot/')<=0)//不关注_hot文件夹
-            if(!/Dir$/.test(e)){//不关注文件夹
-                if(filename.match(/\.(js|tpl|json)$/)){
-                    //console.log(e, filename)
-                    global.rkStatOf_concatPlanNeedsUpdate = true;
-                }
-            }
-        })
-        isWatched = true;
-    }
+    console.log('[RK]Watching source folder...')
+    let sourceDir = configUtil.getSourceFolder();
+    watch.watchFiles({watchId, 
+                      folder: sourceDir, 
+                      filereg: /\.(js|tpl|json)$/, 
+                      ignored: [/node\_modules/g, /\_hot/g]
+                    });
+    return;
 }
 doWatch();
 
 //生成合并计划，这里不用理会缓存，只是将合并计划生成
 let loadHotFileConcatPlan = (sourcefolder)=>{
-    if(canWatch && !global.rkStatOf_concatPlanNeedsUpdate){
+    let changedfiles = watch.getChangedFiles(watchId);
+    global.rkStatOf_concatPlanNeedsUpdate = changedfiles.length > 0;
+    if(!global.rkStatOf_concatPlanNeedsUpdate){
         console.log('no change')
         return;
     }
@@ -193,7 +183,7 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
 };
 //执行合并计划，加入缓存层
 let excuteConcatPlan = (sourcefolder)=>{
-    if(canWatch && !global.rkStatOf_concatPlanNeedsUpdate){
+    if(!global.rkStatOf_concatPlanNeedsUpdate){
         console.log('no change2')
         return;
     }
