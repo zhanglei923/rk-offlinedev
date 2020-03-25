@@ -1,1 +1,0 @@
-//VPP = Virtual Path Protocal
