@@ -31,7 +31,7 @@ let showInfomation = (result)=>{
         <tr><td align="right">账号：</td>
         <td>
             ${gerritUserName?`<span>${gerritUserName}</span>`:
-                            '<span class="status_warn_fill" title="">匿名开发者，请在/user-accounts.cfg文件里指定gerrit账号名。</span>'}
+                            '<span class="status_warn_fill" title="">匿名开发者，请在/user-accounts.cfg文件里填写gerrit账号名。</span>'}
         </td></tr>
         <tr><td align="right">工具地址：</td>
         <td>
