@@ -23,7 +23,7 @@
     "moment": "2.24.0",
     "decomment": "0.9.2",
     "strip-comments": "2.0.1",
-    "eachcontent-js": "1.0.8",
+    "eachcontent-js": "1.0.9",
     "make-dir": "3.0.0",
     "compression": "1.7.4",
     "exec-sh": "0.3.2",
