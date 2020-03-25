@@ -13,7 +13,15 @@ let KEY_ARROW_DOWN = 40;
 let query = window.location.search;
 let prjpath = decodeURIComponent(query.replace(/^\?folder=/,''));
 $('#prjpath').html(`当前目录: "<span style="color:blue;">${prjpath}</span>"。临时应急用，请勿当正常终端。`)
-
+$('body').on('click', 'button[act]', (e)=>{
+    let btn = $(e.target);
+    let act=  btn.attr('act');
+    if(act==='reset-git-project' && confirm(`确定重置${prjpath}工程吗？改动全丢弃啦？`)){
+        submit(`git checkout . && git clean -xdf && git reset --hard HEAD`, ()=>{
+            submit(`git status`)
+        })
+    }
+})
 $(function () {
     var term = new Terminal({rows:30});
     window.term=term;
@@ -66,7 +74,8 @@ $(function () {
     }
     runFakeTerminal();
 });
-let submit = (inputline)=>{
+let submit = (inputline, callback)=>{
+    if(typeof callback === 'undefined') callback = ()=>{};
     console.log(inputline)
     history.push(inputline)
     $.ajax({
@@ -89,9 +98,10 @@ let submit = (inputline)=>{
           }
           term.write(`${prefix}`)
           term.scrollToBottom()
-
+          callback(true)
         },
         error:function(ajaxObj,msg,err){
+            callback(false)
         }
     });
 }

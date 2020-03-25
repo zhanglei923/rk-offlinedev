@@ -8,12 +8,19 @@
         body{
             background-color: gray;
         }
+        .dangerous_act{
+          background-color: red;
+          color:aliceblue;
+        }
       </style>
       <title>rk-Terminal</title>
     </head>
     <body>
       <div id="prjpath" class="prjpath"></div>
       <div id="terminal"></div>
+      <div id="buttonarea">
+        <button act="reset-git-project" class="dangerous_act">reset-git-project</button>
+      </div>
       <script src="../../lib/js/jquery.min.js"></script>
       <script src="../../lib/js/lodash.min.js"></script>
       <script src="../../lib/js/moment.min.js"></script>
