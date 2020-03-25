@@ -1,16 +1,16 @@
 let openTerminal = (prjpath)=>{
     window.open('./pages/terminal/xterm.html?folder='+(prjpath))
 }
-let resetGit = (myid, prjpath, callback)=>{
+let resetGit = (myid, prjpath, callback, update)=>{
     if(typeof callback === 'undefined') callback = false;
+    if(typeof update === 'undefined') update = true;
     prjpath = decodeURIComponent(prjpath);
     if(!confirm(`确定重置${prjpath}工程吗？改动全丢弃啦？`)) return;
     execShell(prjpath, `git checkout . && git clean -df && git reset --hard HEAD`, ()=>{
         if(callback){
             callback()
-        }else{
-            showGitStatus($(`[myid="${myid}"]`))
         }
+        if(update)showGitStatus($(`[myid="${myid}"]`))
     })
 }
 let resetAndPullGit = (myid, prjpath, callback)=>{
@@ -20,7 +20,7 @@ let resetAndPullGit = (myid, prjpath, callback)=>{
         execShell(prjpath, `git pull`, ()=>{
             showGitStatus($(`[myid="${myid}"]`))
             callback()
-        })
+        }, false)
     })
 }
 let execShell = (prjpath, inputline, callback)=>{

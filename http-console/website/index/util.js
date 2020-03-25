@@ -2,9 +2,11 @@ let beWorkingBtn = (btn)=>{
     btn = $(btn)
     if(btn.hasClass('is_working'))return;
     let orignal_html = btn.html();
+    let orignal_txt = btn.text();
     btn.attr('orignal_html', encodeURIComponent(orignal_html));
+    btn.attr('orignal_txt', encodeURIComponent(orignal_txt));
     btn.addClass('is_working');
-    btn.html('working...');
+    btn.html(`${orignal_txt}...`);
 
     let randomid = 'r'+Math.random()+'';
     btn.attr('working_timer', randomid)
@@ -15,11 +17,13 @@ let showWorkingCounting = (btn)=>{
     let randomid = btn.attr('working_timer')
     clearTimeout(window[randomid])
     let newtime = 1000+Math.random()*500;
+    let orignal_txt = btn.attr('orignal_txt');
+    orignal_txt = decodeURIComponent(orignal_txt)
     window[randomid] = setTimeout(()=>{
         let working_timer_val = btn.attr('working_timer_val')*1;
         working_timer_val = working_timer_val + newtime;
         btn.attr('working_timer_val', working_timer_val)
-        btn.html(`working...(${Math.round(working_timer_val/1000)}s)`);
+        btn.html(`${orignal_txt}...(${Math.round(working_timer_val/1000)}s)`);
         showWorkingCounting(btn);
     }, newtime)
 }
