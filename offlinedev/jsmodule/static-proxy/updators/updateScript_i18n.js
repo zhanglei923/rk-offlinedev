@@ -46,7 +46,7 @@ let doWatch = ()=>{
 let updateJs = (info, content)=>{
     let enable = getConfig.getValue('debug.concatStaticTplRequests')
     if(!enable) return content;
-    doWatch();
+    //doWatch();
     let fullfilepath = info.fullfilepath;
     if(rk.isCookedJsPath(fullfilepath)){
         return content;
@@ -57,8 +57,8 @@ let updateJs = (info, content)=>{
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/g) && fullfilepath.match(/untranslated\.js$/)){
         //let t0=new Date()*1;
-        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
-        CacheOfI18n = c;
+        let c = updateI18nJs(sourceDir, fullfilepath, content, deps);//CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
+        //CacheOfI18n = c;
         //console.log(new Date()*1 - t0)
         return c;
     }
