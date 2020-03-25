@@ -17,7 +17,7 @@ $('body').on('click', 'button[act]', (e)=>{
     let btn = $(e.target);
     let act=  btn.attr('act');
     if(act==='reset-git-project' && confirm(`确定重置${prjpath}工程吗？改动全丢弃啦？`)){
-        submit(`git checkout . && git clean -xdf && git reset --hard HEAD`, ()=>{
+        submit(`git checkout . && git clean -df && git reset --hard HEAD`, ()=>{
             submit(`git status`)
         })
     }
