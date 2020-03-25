@@ -7,6 +7,7 @@ let filereg =  /\.(tpl|js)$/;
 watch.watchFiles({watchId, folder, filereg})
 
 let test = ()=>{
+    watch.watchFiles({watchId, folder, filereg})
     let changed = watch.getChangedFiles(watchId)
     console.log(changed)
     setTimeout(()=>{

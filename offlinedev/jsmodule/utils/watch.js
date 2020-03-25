@@ -4,6 +4,7 @@ require('./global')
 global.GLOBAL_DATA = {};
 
 let watchFiles = (opt)=>{
+    if(global.GLOBAL_DATA[opt.watchId]) return;
     global.GLOBAL_DATA[opt.watchId] = opt;
 }
 let getChangedFiles = (watchId)=>{
