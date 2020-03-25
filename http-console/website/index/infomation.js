@@ -227,11 +227,18 @@ let showGitStatus = (elem)=>{
     let targetelem;
     if(typeof elem === 'undefined'){
         targetelem = $('span[git_project_info="true"]')
+    }else if(elem.attr('git_project_info')){
+        targetelem = elem;
     }else{
         targetelem = elem.find('span[git_project_info="true"]')
     }
     targetelem.each((i, span)=>{
         span = $(span);
+        let myid = span.attr('myid')
+        if(!myid) {
+            myid = 'myid'+Math.random()
+            span.attr('myid', myid)
+        }
         span.html('[?]')
         let time = Math.random()*10;
         while(time > 5){
@@ -263,6 +270,7 @@ let showGitStatus = (elem)=>{
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
+                                <button class="gitreset_btn" onclick="resetGit('${myid}','${encodeURIComponent(gitpath)}')" ppath="${gitpath}">Reset</button>
                                 `;
                     span.html(html);   
                     span.removeClass(loadingCss) 
