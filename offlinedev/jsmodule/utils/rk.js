@@ -81,6 +81,24 @@ var rk = {
             .replace(/"/g, '&quot;')
             .replace(/\n/g, '<br />');
     },
+    onlyCleanLineComment: function(str){
+        //不建议，这个函数无法去掉类似这种的情况：
+        /**
+         *   这是代码 //这里的就去不掉         * 
+         * 
+         */
+        if(typeof str !== 'string') return str;
+        if(!str) return str;
+
+        str = rk_formatLineBreaker(str);
+        str = str.split('\n');
+        let arr = []
+        str.forEach((line)=>{
+            if(!line.match(/^\s{0,}\/\//)) arr.push(line)
+        })    
+        let newstr = arr.join('\n');
+        return newstr;
+    },
     cleanCommentsFast2: function(str){
         //不建议，这个函数无法去掉类似这种的情况：
         /**
