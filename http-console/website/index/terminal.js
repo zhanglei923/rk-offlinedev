@@ -20,8 +20,8 @@ let resetAndPullGit = (myid, prjpath, callback)=>{
         execShell(prjpath, `git pull`, ()=>{
             showGitStatus($(`[myid="${myid}"]`))
             callback()
-        }, false)
-    })
+        })
+    }, false);
 }
 let execShell = (prjpath, inputline, callback)=>{
     if(typeof callback === 'undefined') callback = ()=>{};
