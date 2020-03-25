@@ -50,7 +50,9 @@ let updateAllTplJson = ()=>{
     let watchId = 'watch_tpl';
     watch.watchFiles({watchId, folder: sourceDir, filereg: /\.tpl$/, ignored: /node\_modules/g});
     let changedfiles = watch.getChangedFiles(watchId);
-    changedfiles.forEach((filename)=>{
+    changedfiles.forEach((info)=>{
+        let filename = info.fpath;
+        let act = info.act;
         let pathid = pathutil.relative(sourceDir, filename);
         pathid = rk_formatPath(pathid)
         let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);

@@ -38,17 +38,17 @@ let getChangedFiles = (watchId)=>{
                 if(status){
                     let mc36 = global.getStatMC36(status).replace(/(\.|\-)/g,'');
                     if(watch_data.files36[fpath] && mc36 !== watch_data.files36[fpath].mc36){
-                        changedfiles.push(fpath);
+                        changedfiles.push({fpath, act:'changed'});
                         watch_data.files36[fpath].mc36 = mc36;
                     }
                     if(!watch_data.files36[fpath]){
-                        changedfiles.push(fpath);
+                        changedfiles.push({fpath, act:'added'});
                         watch_data.files36[fpath] = {
                             mc36
                         };
                     }
                 }else{
-                    changedfiles.push(fpath);
+                    changedfiles.push({fpath, act:'removed'});
                 }
                 watch_data.files36[fpath].r = r;
             }
@@ -62,7 +62,7 @@ let getChangedFiles = (watchId)=>{
         if(ok)
         if(watch_data.files36[fpath].r !== r){
             //console.log(fpath, watch_data.files36[fpath].r, r)
-            changedfiles.push(fpath);
+            changedfiles.push({fpath, act:'removed'});
             delete watch_data.files36[fpath];//清除
         }
     }
