@@ -148,6 +148,7 @@ table td{
 button{
     background: #0101011c;
     color: #d5e5ff !important;
+    border-radius: 2px;
 }
 .comment{
     margin-left:2px;
