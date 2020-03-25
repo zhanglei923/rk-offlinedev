@@ -222,7 +222,8 @@ let highlightProjectPath = (prjpath, prjname)=>{
     prjpath = prjpath.replace(reg, `<span class="prjname_in_path">${prjname}</span>`)
     return prjpath;
 };
-let showGitStatus = (elem)=>{
+let showGitStatus = (elem, callback)=>{
+    if(typeof callback === 'undefined') callback = ()=>{};
     let loadingCss = 'status_loading';
     let targetelem;
     if(typeof elem === 'undefined'){
@@ -270,14 +271,17 @@ let showGitStatus = (elem)=>{
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
+                                <button class="gitreset_btn" onclick="beWorkingBtn(this);updateGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">refresh</button>
                                 <button class="gitreset_btn" onclick="beWorkingBtn(this);resetGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">Reset</button>
                                 <button class="gitreset_btn" onclick="beWorkingBtn(this);resetAndPullGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">&Pull</button>
                                 `;
                     span.html(html);   
                     span.removeClass(loadingCss) 
+                    callback()
                 },
                 error:function(ajaxObj,msg,err){
                     span.html(`<span class="status_negative_fill">Load-Git-Info-Failed!${err}</span>`)
+                    callback()
                 }
             });
         }, time*200)                         

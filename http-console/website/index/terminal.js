@@ -1,6 +1,12 @@
 let openTerminal = (prjpath)=>{
     window.open('./pages/terminal/xterm.html?folder='+(prjpath))
 }
+let updateGit = (myid, prjpath, callback)=>{
+    if(typeof callback === 'undefined') callback = ()=>{};
+    showGitStatus($(`[myid="${myid}"]`), ()=>{
+        callback()
+    })
+}
 let resetGit = (myid, prjpath, callback, update)=>{
     if(typeof callback === 'undefined') callback = false;
     if(typeof update === 'undefined') update = true;
