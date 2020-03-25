@@ -290,4 +290,5 @@ button{
 }
 .prjname_in_path{
     text-decoration:underline;
+    color: #00ffd0 !important;
 }
