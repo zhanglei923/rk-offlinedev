@@ -2,6 +2,7 @@
 let fs = require('fs');
 let pathutil = require('path');
 let os = require('os');
+let watch = require('../../utils/watch')
 let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('../../utils/rk')
@@ -54,10 +55,16 @@ let updateJs = (info, content)=>{
     let staticDir = getConfig.getStaticFolder();
     let sourceDir = getConfig.getSourceFolder();
 
+    let i18nFolder = pathutil.resolve(sourceDir, './core/i18n');
+    let watchId = 'watch_i18n';
+    watch.watchFiles({watchId, folder: i18nFolder, filereg: /\.js$/, ignored: /node\_modules/g});
+    let changed = watch.getChangedFiles(watchId);
+    if(changed.length > 0) CacheOfI18n = null;
+
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/g) && fullfilepath.match(/untranslated\.js$/)){
         //let t0=new Date()*1;
-        let c = updateI18nJs(sourceDir, fullfilepath, content, deps);//CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
+        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
         //CacheOfI18n = c;
         //console.log(new Date()*1 - t0)
         return c;
