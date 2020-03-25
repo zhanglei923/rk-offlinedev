@@ -7,10 +7,10 @@ let resetGit = (myid, prjpath, callback, update)=>{
     prjpath = decodeURIComponent(prjpath);
     if(!confirm(`确定重置${prjpath}工程吗？改动全丢弃啦？`)) return;
     execShell(prjpath, `git checkout . && git clean -df && git reset --hard HEAD`, ()=>{
+        if(update)showGitStatus($(`[myid="${myid}"]`))
         if(callback){
             callback()
         }
-        if(update)showGitStatus($(`[myid="${myid}"]`))
     })
 }
 let resetAndPullGit = (myid, prjpath, callback)=>{
