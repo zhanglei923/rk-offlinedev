@@ -1,14 +1,27 @@
 let eachcontentjs = require('eachcontent-js')
 let md5 = require('blueimp-md5')
+let _ = require('lodash')
 require('./global')
 global.GLOBAL_DATA = {};
 
 let watchFiles = (opt)=>{
     if(global.GLOBAL_DATA[opt.watchId]) return;
+    if(opt.ignored && !_.isArray(opt.ignored)) opt.ignored = [opt.ignored];
     global.GLOBAL_DATA[opt.watchId] = opt;
+}
+let isIgnored = (ignored, fpath)=>{
+    let ok = true;
+    for(let i=0;i<ignored.length;i++){
+        if(fpath.match(ignored[i])){
+            ok = false;
+            break;
+        }
+    }
+    return ok;
 }
 let getChangedFiles = (watchId)=>{
     let watch_data = global.GLOBAL_DATA[watchId];
+    let opt = watch_data;
     let folder = watch_data.folder;
     let filereg = watch_data.filereg;
     if(!watch_data.files36) watch_data.files36 = {};
@@ -17,28 +30,34 @@ let getChangedFiles = (watchId)=>{
     let changedfiles = [];
     let r = Math.random()+'';
     eachcontentjs.eachStatus(folder, filereg, (status, fpath)=>{
-        fpath = global.rk_formatPath(fpath);
-        if(status){
-            let mc36 = global.getStatMC36(status).replace(/(\.|\-)/g,'');
-            if(watch_data.files36[fpath] && mc36 !== watch_data.files36[fpath].mc36){
+        let ok = true;
+        if(opt.ignored){ok = isIgnored(opt.ignored, fpath);}
+        if(ok){
+            fpath = global.rk_formatPath(fpath);
+            if(status){
+                let mc36 = global.getStatMC36(status).replace(/(\.|\-)/g,'');
+                if(watch_data.files36[fpath] && mc36 !== watch_data.files36[fpath].mc36){
+                    changedfiles.push(fpath);
+                    watch_data.files36[fpath].mc36 = mc36;
+                }
+                if(!watch_data.files36[fpath]){
+                    changedfiles.push(fpath);
+                    watch_data.files36[fpath] = {
+                        mc36
+                    };
+                }
+            }else{
                 changedfiles.push(fpath);
-                watch_data.files36[fpath].mc36 = mc36;
             }
-            if(!watch_data.files36[fpath]){
-                changedfiles.push(fpath);
-                watch_data.files36[fpath] = {
-                    mc36
-                };
-            }
-        }else{
-            changedfiles.push(fpath);
+            watch_data.files36[fpath].r = r;
         }
-        watch_data.files36[fpath].r = r;
         //console.log(fpath, watch_data.files36[fpath].r, r)
         //totalmc36_1 += mc36;
     })
     for(let fpath in watch_data.files36){//被删掉的
-        //console.log(fpath, watch_data.files36[fpath].r, r)
+        let ok = true;
+        if(opt.ignored){ok = isIgnored(opt.ignored, fpath);}
+        if(ok)
         if(watch_data.files36[fpath].r !== r){
             //console.log(fpath, watch_data.files36[fpath].r, r)
             changedfiles.push(fpath);
