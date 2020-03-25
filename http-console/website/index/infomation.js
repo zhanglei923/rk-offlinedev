@@ -271,6 +271,7 @@ let showGitStatus = (elem)=>{
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
                                 <button class="gitreset_btn" onclick="resetGit('${myid}','${encodeURIComponent(gitpath)}')" ppath="${gitpath}">Reset</button>
+                                <button class="gitreset_btn" onclick="resetAndPullGit('${myid}','${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&Pull</button>
                                 `;
                     span.html(html);   
                     span.removeClass(loadingCss) 
