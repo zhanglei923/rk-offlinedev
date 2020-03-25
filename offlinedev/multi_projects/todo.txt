@@ -1,0 +1,4 @@
+
+watch.watchFiles: sourceDir
+fs.existsSync
+fs_readFile.fs_readFile
