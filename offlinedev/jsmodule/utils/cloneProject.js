@@ -1,7 +1,7 @@
 const fs = require('fs');
 let _ = require('lodash')
 var execSh = require("exec-sh");
-let configUtil = require('../jsmodule/config/configUtil')
+let configUtil = require('../config/configUtil')
 
 let cloneProject = (targetFolder, projectName, branchName, opt, callback)=>{
     // let targetFolder = `/Users/zhanglei/workspaces/subprojects/`;

@@ -15,7 +15,7 @@ var i18nValidator = require('../../offlinedev/jsmodule/i18n/i18nValidator')
 var loadMockingData = require('../../offlinedev/jsmodule/mocking/loadMockingData')
 var saveMockingData = require('../../offlinedev/jsmodule/mocking/saveMockingData')
 let multiProjectsMgr = require('../../offlinedev/multi_projects/multiProjectsMgr')
-let cloneProject = require('../../offlinedev/multi_projects/cloneProject')
+let cloneProject = require('../../offlinedev/jsmodule/utils/cloneProject')
 let filter = require('../../offlinedev/jsmodule/static-filter/filter');
 module.exports = {
     processPost: function (req, res, callback){
