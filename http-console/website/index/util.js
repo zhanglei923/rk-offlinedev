@@ -1,4 +1,5 @@
 let beWorkingBtn = (btn)=>{
+    btn = $(btn)
     if(btn.hasClass('is_working'))return;
     let orignal_html = btn.html();
     btn.attr('orignal_html', encodeURIComponent(orignal_html));
@@ -23,6 +24,7 @@ let showWorkingCounting = (btn)=>{
     }, newtime)
 }
 let unWorkingBtn = (btn)=>{
+    btn = $(btn)
     let orignal_html = btn.attr('orignal_html');
     orignal_html = decodeURIComponent(orignal_html);
     btn.removeClass('is_working');

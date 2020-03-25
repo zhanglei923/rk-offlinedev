@@ -270,8 +270,8 @@ let showGitStatus = (elem)=>{
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
-                                <button class="gitreset_btn" onclick="resetGit('${myid}','${encodeURIComponent(gitpath)}')" ppath="${gitpath}">Reset</button>
-                                <button class="gitreset_btn" onclick="resetAndPullGit('${myid}','${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&Pull</button>
+                                <button class="gitreset_btn" onclick="beWorkingBtn(this);resetGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">Reset</button>
+                                <button class="gitreset_btn" onclick="beWorkingBtn(this);resetAndPullGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">&Pull</button>
                                 `;
                     span.html(html);   
                     span.removeClass(loadingCss) 
