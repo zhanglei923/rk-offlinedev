@@ -71,7 +71,7 @@ let showInfomation = (result)=>{
         <table border=0 class="infotable">
     <thead class="table_title">
         <tr>
-            <th align="left" colspan="999">状态：</th>
+            <th align="left" colspan="999">Web开发：</th>
         </tr>
     </thead>
     <tbody>
