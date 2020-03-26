@@ -64,7 +64,6 @@ let showInfomation = (result)=>{
             <span id="cacheinfo">Loading cache status...</span>
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
-        <tr><td align="right"></td><td colspan="999"><hr></td></tr>
         </tbody>
         </table>
 
