@@ -77,7 +77,7 @@ let showInfomation = (result)=>{
     <tbody>
         <tr><td align="right">Web工程：</td><td>
                 <span style="display:none;" class="projectname">
-                    <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>
+                    <a target="_blank" href="http://ger${'rit.ingage'}app.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>
                 </span>
                 <span style="margin-left:0px;" class="status_positive ${result.isCustomizedWebRoot?' customized ':''}">
                     ${highlightProjectPath(result.webpath, "apps-ingage-web")}
@@ -229,7 +229,7 @@ let showSubProjects = (result)=>{
 };
 let highlightProjectPath = (prjpath, prjname)=>{
     let reg = new RegExp(prjname);
-    prjpath = prjpath.replace(reg, `<span class="prjname_in_path">${prjname}</span>`)
+    prjpath = prjpath.replace(reg, `<span><a class="prjname_in_path" href="http://ger${'rit.ingage'}app.com/#/admin/projects/${"apps-ingage-web"}" target="_blank">${prjname}</a></span>`)
     return prjpath;
 };
 let showGitStatus = (elem, callback)=>{
