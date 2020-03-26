@@ -21,6 +21,15 @@
   li{
     list-style: none;
   }
+  .offlineinfo{
+    margin-bottom: 5px;
+    min-width: 500px;
+    background-color: #843915ab;
+    /* background-color: #010101c2; */
+    color: #d5e5ff;
+    border-radius:4px;
+    padding-top:10px;
+  }
   .infotable{
       margin-bottom: 5px;
       min-width: 500px;

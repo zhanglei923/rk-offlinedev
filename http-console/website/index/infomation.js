@@ -21,8 +21,8 @@ let showInfomation = (result)=>{
     }
     let httpurl = `http://${hostname}:${userConfig.http.port}/static/sea-config.js`;
     let httpsurl = `https://${hostname}:${userConfig.https.port}/static/sea-config.js`;
-    let html = `<table border=0 class="infotable">
-    <thead class="table_title">
+    let html = `<table border=0 class="offlineinfo">
+    <thead class="table_title" style="display:none;">
         <tr>
             <th align="left" colspan="999">状态：</th>
         </tr>
@@ -65,6 +65,16 @@ let showInfomation = (result)=>{
         </td></tr>
         <tr style="display:none;"><td align="right">当前工作区：</td><td><span>${result.webParentPath}</span></td></tr>
         <tr><td align="right"></td><td colspan="999"><hr></td></tr>
+        </tbody>
+        </table>
+
+        <table border=0 class="infotable">
+    <thead class="table_title">
+        <tr>
+            <th align="left" colspan="999">状态：</th>
+        </tr>
+    </thead>
+    <tbody>
         <tr><td align="right">Web工程：</td><td>
                 <span style="display:none;" class="projectname">
                     <a target="_blank" href="http://gerrit.ingageapp.com/#/admin/projects/${"apps-ingage-web"}">${"apps-ingage-web"}</a>
