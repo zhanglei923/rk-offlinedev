@@ -10,6 +10,7 @@ let scanner = require('../../codeScan/scan')
 redirect_config.init();
 
 let linkToStaticFile = (req, res, next) => {
+    getConfig.checkIfConfigChanged();
     let req_path = req.path;
     res.set('.rk', 'This is by rk-offlinedev!');
     if(/\.js$/.test(req_path)) res.set('Content-Type', 'application/javascript');

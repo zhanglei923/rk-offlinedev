@@ -109,8 +109,7 @@ let getDeployDebugWebPath = (branchname)=>{
     let nginxDeployFolder = auxiliaryUtil.nginxDeployFolder;
     return pathutil.resolve(nginxDeployFolder, nickname+'/apps-ingage-web');
 }
-let reloadConfig = (printinfo)=>{
-    if(typeof printinfo === 'undefined') printinfo = true;
+let checkIfConfigChanged = ()=>{
     let new_mc36 = getFileMC36(configFilePath);
     if(global.rk_userconfig_mc36 && global.rk_userconfig_mc36!==new_mc36){
         console.log('----STOP----')
@@ -122,6 +121,10 @@ let reloadConfig = (printinfo)=>{
         process.exit(0);
     }
     global.rk_userconfig_mc36 = new_mc36;
+};
+let reloadConfig = (printinfo)=>{
+    if(typeof printinfo === 'undefined') printinfo = true;
+    checkIfConfigChanged();
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
         fs.writeFileSync(configFilePath, jsonformat(config));
@@ -215,6 +218,7 @@ reloadConfig();
 // });
 
 let thisUtil = {
+    checkIfConfigChanged,
     reloadConfig,
     getAllPathInfo,
     getBranchNickName,
