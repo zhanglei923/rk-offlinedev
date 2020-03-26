@@ -21,10 +21,13 @@
   li{
     list-style: none;
   }
+  td{
+    height: 20px;
+}
   .offlineinfo{
     margin-bottom: 5px;
     min-width: 500px;
-    background-color: #157084f2;
+    background-color: #034250e3;
     /* background-color: #010101c2; */
     color: #d5e5ff;
     border-radius:4px;
