@@ -26,7 +26,9 @@ let isExcludePathid = (pathid)=>{
             is=true;
             break;
         }
-        let match = micromatch(pathid, excludepath, { basename: true })
+        let match = micromatch(pathid, excludepath, { 
+            //basename: true 
+        })
         if(match && match.length > 0){
             is=true;
             break;
