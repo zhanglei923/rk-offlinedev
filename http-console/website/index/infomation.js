@@ -229,7 +229,7 @@ let showSubProjects = (result)=>{
 };
 let highlightProjectPath = (prjpath, prjname)=>{
     let reg = new RegExp(prjname);
-    prjpath = prjpath.replace(reg, `<span><a class="prjname_in_path" href="http://ger${'rit.ingage'}app.com/#/admin/projects/${"apps-ingage-web"}" target="_blank">${prjname}</a></span>`)
+    prjpath = prjpath.replace(reg, `<span><a class="prjname_in_path" href="http://ger${'rit.ingage'}app.com/#/admin/projects/${prjname}" target="_blank">${prjname}</a></span>`)
     return prjpath;
 };
 let showGitStatus = (elem, callback)=>{
