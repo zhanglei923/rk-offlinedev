@@ -111,6 +111,17 @@ let getDeployDebugWebPath = (branchname)=>{
 }
 let reloadConfig = (printinfo)=>{
     if(typeof printinfo === 'undefined') printinfo = true;
+    let new_mc36 = getFileMC36(configFilePath);
+    if(global.rk_userconfig_mc36 && global.rk_userconfig_mc36!==new_mc36){
+        console.log('----STOP----')
+        console.log('[rk-exit]您的user-config.json被改动过了，请重启server。')
+        console.log('[rk-exit]您的user-config.json被改动过了，请重启server。')
+        console.log('[rk-exit]user-config.json has been "changed", Please restart server.')
+        console.log('[rk-exit]user-config.json has been "changed", Please restart server.')
+        console.log('')
+        process.exit(0);
+    }
+    global.rk_userconfig_mc36 = new_mc36;
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
         fs.writeFileSync(configFilePath, jsonformat(config));
