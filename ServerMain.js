@@ -29,7 +29,7 @@ if(!fs.existsSync(webPath)){
     console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webPath)
     console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
     return;
-} 
+};
 //
 let masterFolder = pathutil.resolve(__dirname, './');
 makeDir.sync(pathutil.resolve(masterFolder, './logs'))

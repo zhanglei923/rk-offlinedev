@@ -140,9 +140,12 @@ let reloadConfig = (printinfo)=>{
     staticFilter.loadFilterDef(webroot);
 
     global.rkGlobalConfig = config;
+    let node_version_detail = process.version.replace(/[a-z]/g,'').split('.');
+    let version_main = node_version_detail[0]*1;
     if(printinfo){
         console.log('\n>>>>>>>> [User-Config] >>>>>>>>\n', JSON.stringify(config),'\n<<<<<<<< [User-Config] <<<<<<<<\n')
         console.log('----------')
+        console.log(`    [Node]= "${process.version}"`);
         console.log('     [Web]=', `"${webroot}"(${webProjectBranch})`)
         //console.log(' [Web-Branch]=', `""`)
         console.log('  [Static]=', `"${static_project_root}"`)
@@ -150,6 +153,10 @@ let reloadConfig = (printinfo)=>{
         console.log('[Platform]=', `"${os.platform()}"`)
         console.log('    [Mode]=', '"'+config.debug.mode+'"')
         console.log('----------')
+    }
+    if(version_main <10){
+        console.log('[Exit]node版本要v10以上');
+        process.exit(0);
     }
 }
 reloadConfig();

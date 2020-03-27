@@ -4,7 +4,7 @@ let _ = require('lodash')
 let pathutil = require('path')
 let os = require('os');
 let watch = require('../../../utils/watch')
-let watcher = require('chokidar')
+//let watcher = require('chokidar')
 let makeDir = require("make-dir")
 
 let platform = os.platform();
