@@ -116,7 +116,7 @@ let showInfomation = (result)=>{
     <tbody>
         <tr><td align="right" valign="top">Admin工程：</td>${result.adminInfo?`
         <td>
-            <span class="projectpath status_positive">${result.adminInfo.adminFolder}</span>
+            <span class="projectpath status_positive">${highlightProjectPath(result.adminInfo.adminFolder, 'apps-ingage-admin')}</span>
             <span git_project_info="true" project="apps-ingage-admin" git_path="${encodeURIComponent(result.adminInfo.adminFolder)}"></span>
             ${adminWebBranchMatch?'<span class="status_positive">=web':'<span class="status_warn">!=web'}</span>
         </td>
