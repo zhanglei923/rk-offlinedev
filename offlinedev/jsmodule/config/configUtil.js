@@ -125,10 +125,11 @@ let checkIfConfigChanged = ()=>{
 };
 let reloadConfig = (printinfo)=>{
     if(typeof printinfo === 'undefined') printinfo = true;
-    checkIfConfigChanged();
     if(!fs.existsSync(configFilePath)){
         config = defaultConfig;
         fs.writeFileSync(configFilePath, jsonformat(config));
+    }else{        
+        checkIfConfigChanged();
     }
     let txtconfig = fs.readFileSync(configFilePath, 'utf8');
     eval('config='+txtconfig)
