@@ -153,8 +153,10 @@ let reloadConfig = (printinfo)=>{
 
     webroot = config.webProjectPath ? config.webProjectPath : pathutil.resolve(parentFolder, './apps-ingage-web');
     if(!fs.existsSync(webroot)){
+        console.log('[致命错误]找不到web工程目录', config.webProjectPath)
+        console.log('[FATAL ERROR]Can not find webProjectPath:', config.webProjectPath)
         config = null;
-        return;
+        process.exit(0)
     }
     let branchnameOfDeployDebug = statusUtil.getData('branchnameOfDeployDebug');
     branchnameOfDeployDebug = branchnameOfDeployDebug ? branchnameOfDeployDebug : 'develop';

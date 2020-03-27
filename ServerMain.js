@@ -29,8 +29,9 @@ var webappPath = getConfig.getWebAppFolder();
 redirect_config.init();
 if(!fs.existsSync(webappPath)){
     console.error('致命错误！web工程目录不存在，请检查user-config文件！:', webappPath)
-    console.error('How to fix: mondify "%rk-offlinedev%/user-config.json" to assign your web project path')
-    return;
+    console.error('FATAL ERROR! Can not find webproject:', webappPath)
+    console.error('How to fix: mondify "user-config.json" to assign your web project path')
+    process.exit(0);
 }
 multiProjectsMgr.loadConfig(webPath);
 //

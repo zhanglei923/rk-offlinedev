@@ -13,8 +13,6 @@ let hot_concat = require('./offlinedev/jsmodule/static-proxy/updators/concat/hot
 let thisfolder = pathutil.parse(__filename).dir;
 let logfolder = pathutil.resolve(thisfolder, './logs')
 
-let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
-
 var format = function(bytes, tail) { 
     return (bytes/1024/1024).toFixed(tail); 
 };

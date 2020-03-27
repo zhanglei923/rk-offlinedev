@@ -20,7 +20,6 @@ let updateScript_CssUrl = require('../updateScript_CssUrl')
 
 let backupfiles = configUtil.getValue('debug.concat.backupConcatFiles')
 
-let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
 
 /**
  *  注意！不要缓存合并后的大文本，低配机内存扛不住，也没必要。
@@ -236,7 +235,8 @@ let excuteConcatPlan = (sourcefolder)=>{
                     if(content===null || typeof content === 'undefined'){
                         console.log('404:',fpath)
                     }
-                    fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存
+                    fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存                    
+                    let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
                     let deployContent = '';
                     deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, 
                                                             {
