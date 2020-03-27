@@ -98,7 +98,7 @@ let reportStatus = (webprojectPath)=>{
     }
 }
 let eachSubSourceFolder = (mainPrjSource)=>{//所有子工程和主工程
-    if(!global.rk_configOfStatic) return [];
+    if(!global.rk_configOfStatic) return [mainPrjSource];
     let dependencies = global.rk_configOfStatic.dependencies;
     let folders = [];
     dependencies.forEach((dep)=>{
