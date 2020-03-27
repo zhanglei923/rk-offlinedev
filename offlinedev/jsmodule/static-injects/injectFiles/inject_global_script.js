@@ -9,7 +9,7 @@
          document.body.appendChild(div)
          div.setAttribute('id','rk-offlinediv')
          div.style.position='fixed';
-         div.style['background-color']='#002520';
+         div.style['background-color']='#002520'+'c9';
          div.style.color='#2fff56'
          div.style['font-size']= '11px';
          div.style.right='0px';
