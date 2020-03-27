@@ -66,6 +66,7 @@ let parseUserAccounts = ()=>{
     arr.forEach((line)=>{
         line = _.trim(line);
         if(line && !line.match(/^\#/) && line.indexOf('=')>=0){
+            line = line.split('#')[0];
             let linearr = line.split('=');
             let key = _.trim(linearr[0])
             let val = _.trim(linearr[1])
@@ -136,7 +137,7 @@ let reloadConfig = (printinfo)=>{
     //console.log(JSON.stringify(config))
     let accounts = parseUserAccounts();
     config.$userAccounts = accounts;
-    if(accounts['gerrit.username']) console.log('hello: ', accounts['gerrit.username'])
+    if(accounts['gerrit.username']) console.log('[Gerrit Account]=', accounts['gerrit.username'])
 
     if(config.debug){
         let modeconfig = config.debug[`${config.debug.mode}`];
