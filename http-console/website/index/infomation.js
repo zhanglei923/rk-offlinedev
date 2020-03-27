@@ -31,7 +31,7 @@ let showInfomation = (result)=>{
         <tr><td align="right">账号：</td>
         <td>
             ${gerritUserName?`<span>${gerritUserName}</span>`:
-                            '<span class="status_warn_fill" title="">匿名开发者，请在/user-accounts.cfg文件里填写gerrit账号名。</span>'}
+                            '<span class="status_warn_fill" title="">匿名</span><span class="comment">请在/user-accounts.cfg文件里填写gerrit账号名。</span>'}
         </td></tr>
         <tr><td align="right">工具地址：</td>
         <td>
@@ -271,13 +271,13 @@ let showGitStatus = (elem, callback)=>{
                     let status = result.status;
                     if(!status) return;
                     let isClean = status && (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
-                    let txt = 'file-dirty'
-                    if(status.ahead===1) txt += ', unfresh'
+                    let txt = 'modified';
+                    if(status.ahead===1) txt += ', need-pull';
                     let isDirty = !isClean;
                     let isSSHClone = !!status.isSSHClone;
                     if(gitpath.indexOf('offlinedev')>=0) isSSHClone = true;//忽略，只检测gerrit的工程
                     let branchHref = status.branch ? `<a href="javascript:void(0)" act="btn_change_branch" encodedpath="${encodedpath}">${status.branch}</a>`:'';
-                    let html = `<span class="${isDirty?'status_warn':'status_positive'}">(${status.branch?branchHref:'?'})</span>
+                    let html = `<span class="${isDirty?'status_positive':'status_positive'}">(${status.branch?branchHref:'?'})</span>
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
