@@ -270,7 +270,11 @@ let showGitStatus = (elem, callback)=>{
                     console.log(response.result)
                     let result = response.result;
                     let status = result.status;
-                    if(!status) return;
+                    span.removeClass(loadingCss) 
+                    if(!status) {
+                        span.html(`<span class="status_negative_fill">Not Found!${''}</span>`)
+                        return;
+                    };
                     let isClean = status && (status.ahead===0&&status.dirty===0&&status.stashes===0&&status.untracked===0)
                     let txt = 'modified';
                     if(status.ahead===1) txt += ', need-pull';
