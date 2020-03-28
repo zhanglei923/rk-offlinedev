@@ -2,6 +2,7 @@
 let fs = require('fs');
 let pathutil = require('path');
 let os = require('os');
+let vpp = require('../../utils/fs-vpp')
 let watch = require('../../utils/watch')
 //let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')

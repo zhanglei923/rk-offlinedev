@@ -3,6 +3,7 @@ let moment = require('moment')
 let _ = require('lodash')
 let pathutil = require('path')
 let os = require('os');
+let vpp = require('../../../utils/fs-vpp')
 let watch = require('../../../utils/watch')
 //let watcher = require('chokidar')
 let makeDir = require("make-dir")
@@ -43,8 +44,9 @@ let watchId = 'watch_hot_concat';
 let doWatch = ()=>{
     console.log('[RK]Watching source folder...')
     let sourceDir = configUtil.getSourceFolder();
+    let sourceDirs = vpp.getAllSourceFolders()
     watch.watchFiles({watchId, 
-                      folder: sourceDir, 
+                      folder: sourceDirs, 
                       filereg: /\.(js|tpl|json)$/, 
                       ignored: [/node\_modules/g, /\_hot/g]
                     });
