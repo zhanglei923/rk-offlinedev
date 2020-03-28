@@ -43,7 +43,7 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     if(realfpath)cacheof_realfpath[fpath] = realfpath;
 
     return realfpath;
-}
+};
 let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实可能并不存在于web，而是在子工程里
     fpath = rk_formatPath(fpath);
     let webparent = pathinfo.webparent;
@@ -96,6 +96,9 @@ let vpp_on = false;
 let pathinfo = {
     all_project_path:{}
 }
+
+global.c2real = changeto_realfpath;
+global.c2virtual = changeto_virtualfpath;
 var _thisUtil = {
     changeto_realfpath,
     changeto_virtualfpath,

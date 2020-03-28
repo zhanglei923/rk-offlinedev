@@ -64,7 +64,7 @@ module.exports = {
         }
         let fullfilepath = findinfo.fullfilepath;
         let fromSubPrj = findinfo.fromSubPrj;
-        fs_readFile(fullfilepath, {encoding:'utf8'}, (err, jsContent, fileinfo) => {
+        fs_readFile(c2real(fullfilepath), {encoding:'utf8'}, (err, jsContent, fileinfo) => {
             if (err) jsContent=null;                
             if(jsContent === ''){
                 callback('', {fromSubPrj, fullfilepath, fileinfo});
