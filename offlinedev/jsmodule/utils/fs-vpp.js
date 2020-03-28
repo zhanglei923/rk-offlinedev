@@ -62,6 +62,12 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
         let virtualfpath = pathutil.resolve(pathinfo.webappFolder, projectrelatived);
         return virtualfpath;
     }
+};
+let getSourceDir = (fpath)=>{
+    fpath = rk_formatPath(fpath);
+    let arr = fpath.split('/static/');
+    let base = arr[0];
+    return base + '/static/source';
 }
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
@@ -124,6 +130,7 @@ var _thisUtil = {
     },
     getProjectsDef:()=>{
         return pathinfo.all_project_path;
-    }
+    },
+    getSourceDir
 };
 module.exports = _thisUtil;
