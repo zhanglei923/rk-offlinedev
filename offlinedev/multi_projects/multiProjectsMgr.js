@@ -49,7 +49,7 @@ let searchFile =(path)=>{
         //console.log(fpath)
         if(fs.existsSync(fpath0)){
             project = prjname;
-            fpath = fapth0;
+            fpath = fpath0;
         }
     }
     //console.log(path)
