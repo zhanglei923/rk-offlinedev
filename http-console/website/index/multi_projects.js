@@ -1,5 +1,5 @@
 let initMultiProjectEvents = ()=>{
-    $('body').on('click', 'a[act="clone_sub_projects"]', function(){
+    $('body').on('click', '[act="clone_sub_projects"]', function(){
         let btn = $(this);
         if(btn.hasClass('is_working')) return;
         let project = btn.attr('project');
@@ -19,7 +19,7 @@ let cloneAllSubProjects = (masterbtn)=>{
     masterbtn = $(masterbtn);
     beWorkingBtn(masterbtn);
     let btns = [];
-    $('a[act="clone_sub_projects"]').each(function(){
+    $('[act="clone_sub_projects"]').each(function(){
         let btn = $(this)
         beWorkingBtn(btn);
         btns.push(btn);

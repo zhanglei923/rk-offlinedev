@@ -190,7 +190,7 @@ let showSubProjects = (result)=>{
         html += `<tr>
                     <td style="display:none;">工程名</td>
                     <td>地址</td>
-                    <td><a class="" href="javascript:void(0)" onclick="javascript:cloneAllSubProjects(this);">全下载</a></td>
+                    <td><button class="" href="javascript:void(0)" onclick="javascript:cloneAllSubProjects(this);">全下载</button></td>
                     <td></td>
                 </tr>`;
         result.projects.forEach((item)=>{
@@ -207,7 +207,7 @@ let showSubProjects = (result)=>{
                             </span>
                         </td>
                         <td>
-                            <a class="" act="clone_sub_projects" project="${item.project}" def_branchname="${item.def_branchname}" href="javascript:void(0)">重新下载</a>
+                            <button class="" act="clone_sub_projects" project="${item.project}" def_branchname="${item.def_branchname}" href="javascript:void(0)">重新下载</button>
                         </td>
                         <td>
                             <span git_project_info="true" project="${item.project}" git_path="${encodeURIComponent(item.projectPath)}"></span>
