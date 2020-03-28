@@ -23,6 +23,7 @@ global.vpp_setSourceFolder = (sourcedir)=>{
 let cacheof_realfpath = {}
 let cacheof_virtualfpath = {}
 let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
+    if(fs.existsSync(fpath)) return fpath;
     fpath = rk_formatPath(fpath);
     if(cacheof_realfpath[fpath]) return cacheof_realfpath[fpath];
 
