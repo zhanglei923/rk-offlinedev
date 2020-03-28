@@ -81,7 +81,8 @@ let getSourceDir = (fpath)=>{
 let getPathId = (fpath)=>{
     fpath = rk_formatPath(fpath);
     let arr = fpath.split('/static/source/');
-    let pathid = arr[1];
+    arr.shift();
+    let pathid = arr.join('/static/source/');
     return pathid;
 };
 
