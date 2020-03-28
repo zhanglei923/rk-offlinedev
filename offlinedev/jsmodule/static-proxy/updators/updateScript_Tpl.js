@@ -6,6 +6,7 @@ let watch = require('../../utils/watch')
 //let watcher = require('chokidar')
 let eachcontentjs = require('eachcontent-js')
 let rk = require('../../utils/rk')
+let vpp = require('../../utils/fs-vpp')
 let fs_readFile = require('../../utils/fs_readFile')
 var getConfig = require('../../config/configUtil')
 let regParserMini = require('../../utils/seajs/regParserMini');
@@ -24,6 +25,7 @@ let canWatch = platform.toLowerCase() !== 'linux';
 let tplWatched = false;
 let updateAllTplJson = ()=>{
     let sourceDir = getConfig.getSourceFolder();
+    let sourceDirList = vpp.getAllSourceFolders();
     if(!global.rkCacheOfAllTpl){
         global.rkCacheOfAllTpl = {}
         // //console.log('[RK]Load all tpl')
@@ -48,12 +50,12 @@ let updateAllTplJson = ()=>{
         console.log('[RK]Watching tpl files...')
     }
     let watchId = 'watch_tpl';
-    watch.watchFiles({watchId, folder: sourceDir, filereg: /\.tpl$/, ignored: /node\_modules/g});
+    watch.watchFiles({watchId, folder: sourceDirList, filereg: /\.tpl$/, ignored: /node\_modules/g});
     let changedfiles = watch.getChangedFiles(watchId);
     changedfiles.forEach((info)=>{
         let filename = info.fpath;
         let act = info.act;
-        let pathid = pathutil.relative(sourceDir, filename);
+        let pathid = vpp.getPathId(filename);
         pathid = rk_formatPath(pathid)
         let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
         if(fs.existsSync(fulltplpath)){
@@ -93,7 +95,7 @@ let updateJs = (info, content)=>{
         return updateFirstJs(info, content);
     }
     let staticDir = getConfig.getStaticFolder();
-    let sourceDir = getConfig.getSourceFolder();
+    let sourceDir = vpp.getSourceDir(fullfilepath)//getConfig.getSourceFolder();
 
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
