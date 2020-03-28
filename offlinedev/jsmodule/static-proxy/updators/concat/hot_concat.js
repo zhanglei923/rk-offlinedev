@@ -255,7 +255,7 @@ let excuteConcatPlan = (sourcefolder)=>{
                                                                 }
                                                             });
                     if(configUtil.getValue('es6.autoTransformJs')){
-                        deployContent = es6.transform(deployContent)
+                        deployContent = `//[rk]Babel transformed es6->es5\n` + es6.transform(deployContent)
                     }
                     global.rkCacheOf_DeployfilesData[pathid] = {
                         deployContent,

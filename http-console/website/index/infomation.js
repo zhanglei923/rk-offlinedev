@@ -55,7 +55,7 @@ let showInfomation = (result)=>{
             <span title="更改user-config里的: debug.concatStaticJsRequests" class="${userConfig.debug && userConfig.debug.concatStaticJsRequests?'status_is_on status_is_neutral':'status_is_off status_is_neutral'}">+Js</span>
             <span title="更改user-config里的: debug.concatStaticCssRequests" class="${userConfig.debug && userConfig.debug.concatStaticCssRequests?'status_is_on status_is_neutral':'status_is_off status_is_neutral'}">+Css</span>
             <span title="更改user-config里的: es6.autoTransformJs" class="${userConfig.es6.autoTransformJs?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">ES6</span>
-            <span title="更改user-config里的: es6.autoTransformJs & debug.mode" class="${userConfig.es6.autoTransformJs && userConfig.debug.mode!=='source'?'status_negative_fill':'status_invisible'}">ES6 Can Not Work!</span>
+            <span title="更改user-config里的: es6.autoTransformJs & debug.mode" class="${userConfig.es6.autoTransformJs && userConfig.debug.mode!=='source'?'status_negative_fill':'status_invisible'}">ES6 Low Perf!</span>
             <span title="更改user-config里的: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
         </td></tr>
         <tr><td align="right" valign="top">状态：</td><td>
