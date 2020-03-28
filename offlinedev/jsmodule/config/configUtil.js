@@ -6,6 +6,8 @@ var makeDir = require('make-dir');
 var watcher = require('node-watch');
 let jsonformat = require('json-format')
 
+let vpp = require('../utils/fs-vpp')
+
 let gitUtil = require('../utils/gitUtil')
 let statusUtil = require('./statusUtil')
 
@@ -174,6 +176,7 @@ let reloadConfig = (printinfo)=>{
     config.deployStaticPath_val = pathutil.resolve(deployWebProjectPath_val, './src/main/webapp/static')
     config.deployStaticPath_val_exist = fs.existsSync(config.deployStaticPath_val)
     let allpathinfo = getAllPathInfo(webroot);
+    vpp.setPathInfo(allpathinfo);
     let offlineDevBranch = gitUtil.getBranchName(projectFolder)
     let webProjectBranch = gitUtil.getBranchName(webroot)
     config.webProjectInfo = {
