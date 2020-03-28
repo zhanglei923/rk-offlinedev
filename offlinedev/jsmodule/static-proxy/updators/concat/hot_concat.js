@@ -9,6 +9,7 @@ let makeDir = require("make-dir")
 
 let platform = os.platform();
 
+let es6 = require('../../../utils/es6');
 let rk = require('../../../utils/rk')
 let fs_readFile = require('../../../utils/fs_readFile')
 let configUtil = require('../../../config/configUtil')
@@ -253,6 +254,9 @@ let excuteConcatPlan = (sourcefolder)=>{
                                                                     return depspathid;
                                                                 }
                                                             });
+                    if(configUtil.getValue('es6.autoTransformJs')){
+                        deployContent = es6.transform(deployContent)
+                    }
                     global.rkCacheOf_DeployfilesData[pathid] = {
                         deployContent,
                         pathid,
