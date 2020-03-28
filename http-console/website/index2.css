@@ -226,7 +226,7 @@ button{
 .status_positive_fill *{
     color: #2fff56 !important;
 }
-.status_negative_fill{
+/* .status_negative_fill{
     width: fit-content;
     border: 1px solid #dc0000 !important;
     padding-left: 2px;
@@ -235,6 +235,17 @@ button{
 }
 .status_negative_fill *{
     color: red !important;
+} */
+.status_negative_fill{
+    width: fit-content;
+    border: 1px solid #dc0000 !important;
+    padding-left: 2px;
+    padding-right: 2px;
+    color: white !important;
+    background-color: #ff0000b3;
+}
+.status_negative_fill *{
+    color: white !important;
 }
 .status_warn_fill{
     width: fit-content;
