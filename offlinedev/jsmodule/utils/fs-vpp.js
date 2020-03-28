@@ -63,12 +63,27 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
         return virtualfpath;
     }
 };
+let getAllSourceFolders = ()=>{
+    let folders = [];
+    for(let prjname in pathinfo.all_project_path){
+        let prjinfo = pathinfo.all_project_path[prjname];
+        let prjstatic = prjinfo.projectstaticpath;
+        folders.push(pathutil.resolve(prjstatic, './source'));
+    }
+    return folders;
+};
 let getSourceDir = (fpath)=>{
     fpath = rk_formatPath(fpath);
     let arr = fpath.split('/static/');
     let base = arr[0];
     return base + '/static/source';
 }
+let getPathId = (fpath)=>{
+    fpath = rk_formatPath(fpath);
+    let arr = fpath.split('/static/source/');
+    let pathid = arr[1];
+    return pathid;
+};
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
@@ -131,6 +146,8 @@ var _thisUtil = {
     getProjectsDef:()=>{
         return pathinfo.all_project_path;
     },
-    getSourceDir
+    getPathId,
+    getSourceDir,
+    getAllSourceFolders
 };
 module.exports = _thisUtil;
