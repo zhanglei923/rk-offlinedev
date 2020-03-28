@@ -31,7 +31,7 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     let arr = fpath.split('/static/');
     arr.shift();
     let staticrelatived = arr.join('/');
-    console.log('>>', staticrelatived)
+    //console.log('>>', staticrelatived)
 
     let realfpath;
     for(let prjname in pathinfo.all_project_path){
