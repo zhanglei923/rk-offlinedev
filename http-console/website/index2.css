@@ -241,11 +241,11 @@ button{
     border: 1px solid #dc0000 !important;
     padding-left: 2px;
     padding-right: 2px;
-    color: white !important;
+    color: #ffff9c !important;
     background-color: #ff0000b3;
 }
 .status_negative_fill *{
-    color: white !important;
+    color: #ffff9c !important;
 }
 .status_warn_fill{
     width: fit-content;
