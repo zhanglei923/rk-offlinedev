@@ -1,6 +1,5 @@
 var fs = require('fs');
 var pathutil = require('path');
-let projectFileSearch = require('./projectFileSearch')
 let multiProjectsMgr = require('../../../multi_projects/multiProjectsMgr')
 let deploydebug = require('../../../../offlinedev/deployDebug/deployDebug')
 let configUtil = require('../../config/configUtil')
