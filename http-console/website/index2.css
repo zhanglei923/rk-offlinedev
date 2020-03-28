@@ -175,6 +175,9 @@ button{
     color: #2fff56;
     -webkit-animation: twinkling 0.5s infinite ease-in-out;
 }
+.status_invisible{
+    display: none;
+}
 .status_positive{
     color:#2fff56 !important;
 }
