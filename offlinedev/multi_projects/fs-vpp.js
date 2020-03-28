@@ -7,6 +7,9 @@ global.vpp_setSourceFolder = (sourcedir)=>{
     vpp_sourcefolder = sourcedir;
 }
 
+// vpp_toreal();
+// vpp_tovirtual();
+
 // setWebProjectPath();
 // getSourceList();//返回所有主子工程的source目录地址
 // eachSourceList();//返回所有主子工程的source目录地址
