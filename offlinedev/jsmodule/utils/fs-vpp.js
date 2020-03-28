@@ -9,14 +9,21 @@ global.vpp_setSourceFolder = (sourcedir)=>{
     vpp_sourcefolder = sourcedir;
 }
 
-// vpp_toreal();
-// vpp_tovirtual();
+// vpp_to_realfpath();
+// vpp_to_virtualfpath();
 
 // setWebProjectPath();
 // getSourceList();//返回所有主子工程的source目录地址
 // eachSourceList();//返回所有主子工程的source目录地址
 // existSync(fullfilepath);
 // getRealFilePath(fullfilepath);//返回真正地址
+let vpp_to_realfpath = ()=>{
+
+}
+let vpp_to_virtualfpath = ()=>{
+
+}
+
 let searchSubProjects = (pfolder, webroot, dependencies)=>{
     console.log(pfolder, webroot, dependencies)
     pathinfo.all_project_path['apps-ingage-web'] = {
@@ -48,6 +55,8 @@ let pathinfo = {
     all_project_path:{}
 }
 var _thisUtil = {
+    vpp_to_realfpath,
+    vpp_to_virtualfpath,
     setPathInfo:(info)=>{
         for(let name in info){
             pathinfo[name] = info[name];
