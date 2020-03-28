@@ -117,6 +117,9 @@ var _thisUtil = {
             console.log('[VPP] path set.')
             //process.exit(0)
         }
+    },
+    getProjectsDef:()=>{
+        return pathinfo.all_project_path;
     }
 };
 module.exports = _thisUtil;

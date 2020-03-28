@@ -1,6 +1,7 @@
 var fs = require('fs');
 var pathutil = require('path');
 let projectFileSearch = require('./projectFileSearch')
+let multiProjectsMgr = require('../../../multi_projects/multiProjectsMgr')
 let deploydebug = require('../../../../offlinedev/deployDebug/deployDebug')
 let configUtil = require('../../config/configUtil')
 let prettifyFilePath = (fpath)=>{
@@ -40,7 +41,7 @@ module.exports = {
         }
         //去子工程里找
         if(!fs.existsSync(fullfilepath)){
-            let o = projectFileSearch.searchFile(path)
+            let o = multiProjectsMgr.searchFile(path);//projectFileSearch.searchFile(path)
             if(o) {
                 fromSubPrj = o.project;
                 fullfilepath = o.fpath;

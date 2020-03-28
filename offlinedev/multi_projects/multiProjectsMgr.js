@@ -5,6 +5,7 @@ var execSh = require("exec-sh");
 let moment = require('moment')
 let eachcontentjs = require('eachcontent-js')
 require('../../offlinedev/jsmodule/utils/global')
+let vpp = require('../../offlinedev/jsmodule/utils/fs-vpp')
 
 global.rk_configOfStatic;
 let loadConfig = (webprojectPath)=>{
@@ -36,6 +37,27 @@ let loadConfig = (webprojectPath)=>{
         console.log('[MultiPrj]: no.');
     }
 };
+let searchFile =(path)=>{
+    let projects = vpp.getProjectsDef();
+    //console.log(projects)
+    let fpath;
+    let project;
+    for(let prjname in projects){
+        let prj = projects[prjname];
+        let projectpath = prj.projectpath;
+        let fpath0 = projectpath + '/' +path;
+        //console.log(fpath)
+        if(fs.existsSync(fpath0)){
+            project = prjname;
+            fpath = fapth0;
+        }
+    }
+    //console.log(path)
+    return fpath?{
+        fpath,
+        project
+    }:null;
+}
 let findRealFilePath = (fullfilepath)=>{
     return ;
 };
@@ -110,6 +132,7 @@ let eachSubSourceFolder = (mainPrjSource)=>{//所有子工程和主工程
 
 module.exports = {
     loadConfig,
+    searchFile,
     eachSubSourceFolder,
     findDupFiles,
     reportStatus
