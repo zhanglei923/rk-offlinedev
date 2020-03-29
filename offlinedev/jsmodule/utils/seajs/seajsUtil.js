@@ -232,7 +232,7 @@ let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
 }
 let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
     let fdir = pathutil.parse(fullfilepath).dir;
-    let pathid = pathutil.relative(sourcepath, fullfilepath);
+    let pathid = rk_getPathId(fullfilepath);
     pathid = rk_formatPath(pathid)
     let content2 = content;
     content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
@@ -246,7 +246,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     if(typeof info==='undefined') info = {}
 
     let fdir = pathutil.parse(fullfilepath).dir;
-    let pathid = pathutil.relative(sourcepath, fullfilepath);
+    let pathid = rk_getPathId(fullfilepath);
     pathid = rk_formatPath(pathid);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
     let bad_requires = [];
