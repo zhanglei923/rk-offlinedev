@@ -20,6 +20,7 @@ global.rk_getPathId = (fullfilepath)=>{
 };
 global.rk_getSourceDir = (fpath)=>{
     fpath = rk_formatPath(fpath);
+    if(fpath.indexOf('/static/')<0)return null;
     let arr = fpath.split('/static/');
     let base = arr[0];
     return base + '/static/source';

@@ -15,6 +15,14 @@ console.log('pid:', rk_getPathId(`/Users/zhanglei/workspaces/subprojects/apps-in
 console.log('pid:', rk_getPathId(`/Users/zhanglei/workspaces/subprojects/xsy-static-creekflow/static/source/core/rk.crm.js`))
 console.log('pid:', rk_getPathId(`/Users/zhanglei/workspaces/subprojects/xsy-static-creekflow/static/source/core//sth//static/source//rk.crm.js`))
 
+console.log('pid2:', vpp.changeRealPathToPathId(`/Users/zhanglei/workspaces/subprojects/apps-ingage-web/src/main/webapp/static/router.js`))
+console.log('pid2:', vpp.changeRealPathToPathId(`/Users/zhanglei/workspaces/subprojects/xsy-static-creekflow/static/source/core/rk.crm.js`))
+console.log('pid2:', vpp.changeRealPathToPathId(`/Users/zhanglei/workspaces/subprojects/xsy-static-creekflow/static/source/core//sth//static/source//rk.crm.js`))
+
 vpp.eachSourceFolders((f)=>{
     console.log(f);
 })
+
+console.log(vpp.changePathIdToRealPath('core/rk.crm.js'))
+console.log(vpp.changePathIdToRealPath('designer/common/designer'))
+console.log(vpp.changePathIdToRealPath('xxx/yyy'))

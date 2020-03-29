@@ -77,7 +77,29 @@ let eachSourceFolders = (callback)=>{
     folders.forEach((fd)=>{
         callback(fd);
     })
-}
+};
+let changeRealPathToPathId = (realfpath)=>{
+    return rk_getPathId(realfpath)
+};
+let changePathIdToRealPath = (requirePath)=>{
+    let folders = getAllSourceFolders();
+    let result;
+    for(let i=0;i<folders.length;i++){
+        let sourcePath = folders[i];
+        let realpath = pathutil.resolve(sourcePath, requirePath);
+        if(fs.existsSync(realpath)){
+            result = realpath;
+            break;
+        }else{
+            realpath += '.js';
+            if(fs.existsSync(realpath)){
+                result = realpath;
+                break;
+            }
+        }
+    }
+    return result;
+};
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
@@ -108,6 +130,26 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
 
     console.log('all_project_path', pathinfo.all_project_path)
 }
+let setPathInfo =(info)=>{
+    for(let name in info){
+        pathinfo[name] = info[name];
+        console.log(name, info[name])
+    }
+    pathinfo.main_source_folder = pathutil.resolve(pathinfo.static_project_root, './source')
+    pathinfo.main_deploy_folder = pathutil.resolve(pathinfo.static_project_root, './deploy')
+    pathinfo.staticConfigFilePath = pathutil.resolve(pathinfo.webappFolder, './static-config.json');
+    if(!fs.existsSync(pathinfo.staticConfigFilePath)){
+        searchSubProjects(info, info.webparent, info.webroot, []);
+        console.log('[VPP] off.')
+    }else{
+        vpp_on = true;
+        let staticConfig = fs.readFileSync(pathinfo.staticConfigFilePath, 'utf8')
+        eval(`staticConfig = ${staticConfig}`);
+        searchSubProjects(info, info.webparent, info.webroot, staticConfig.dependencies);
+        console.log('[VPP] path set.')
+        //process.exit(0)
+    }
+};
 let vpp_on = false;
 let pathinfo = {
     all_project_path:{}
@@ -118,30 +160,13 @@ global.c2virtual = changeto_virtualfpath;
 var _thisUtil = {
     changeto_realfpath,
     changeto_virtualfpath,
-    setPathInfo:(info)=>{
-        for(let name in info){
-            pathinfo[name] = info[name];
-            console.log(name, info[name])
-        }
-        pathinfo.main_source_folder = pathutil.resolve(pathinfo.static_project_root, './source')
-        pathinfo.main_deploy_folder = pathutil.resolve(pathinfo.static_project_root, './deploy')
-        pathinfo.staticConfigFilePath = pathutil.resolve(pathinfo.webappFolder, './static-config.json');
-        if(!fs.existsSync(pathinfo.staticConfigFilePath)){
-            searchSubProjects(info, info.webparent, info.webroot, []);
-            console.log('[VPP] off.')
-        }else{
-            vpp_on = true;
-            let staticConfig = fs.readFileSync(pathinfo.staticConfigFilePath, 'utf8')
-            eval(`staticConfig = ${staticConfig}`);
-            searchSubProjects(info, info.webparent, info.webroot, staticConfig.dependencies);
-            console.log('[VPP] path set.')
-            //process.exit(0)
-        }
-    },
+    setPathInfo,
     getProjectsDef:()=>{
         return pathinfo.all_project_path;
     },
     getAllSourceFolders,
-    eachSourceFolders
+    eachSourceFolders,
+    changePathIdToRealPath,
+    changeRealPathToPathId
 };
 module.exports = _thisUtil;
