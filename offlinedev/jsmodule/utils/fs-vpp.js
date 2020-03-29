@@ -127,6 +127,7 @@ var _thisUtil = {
         pathinfo.main_deploy_folder = pathutil.resolve(pathinfo.static_project_root, './deploy')
         pathinfo.staticConfigFilePath = pathutil.resolve(pathinfo.webappFolder, './static-config.json');
         if(!fs.existsSync(pathinfo.staticConfigFilePath)){
+            searchSubProjects(info, info.webparent, info.webroot, []);
             console.log('[VPP] off.')
         }else{
             vpp_on = true;
