@@ -18,10 +18,16 @@ global.rk_getPathId = (fullfilepath)=>{
     let pathid = arr.join('/static/source/');
     return pathid;
 };
+global.rk_getSourceDir = (fpath)=>{
+    fpath = rk_formatPath(fpath);
+    let arr = fpath.split('/static/');
+    let base = arr[0];
+    return base + '/static/source';
+};
 global.rk_formatLineBreaker = (content)=>{
     if(!content) return content;
     return content.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
-}
+};
 global.rk_formatMB = function(bytes, tail) {
     if(typeof tail === 'undefined') tail = 1;
     return (bytes/1024/1024).toFixed(tail); 

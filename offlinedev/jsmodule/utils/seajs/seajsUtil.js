@@ -167,7 +167,7 @@ let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
 let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let mc36 = global.getFileMC36(fullfilepath);
     
-    let pathid = pathutil.relative(sourcefolder, fullfilepath)
+    let pathid = rk_getPathId(fullfilepath)
     pathid = rk_formatPath(pathid);
     //console.log(pathid)
     let deps = [];
@@ -190,7 +190,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             for(let i=0;i<deps2.length;i++){
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
-                let thispathid = pathutil.relative(sourcefolder, fullpath);
+                let thispathid = rk_getPathId(fullpath);
                 thispathid = rk_formatPath(thispathid)
                 deps2[i].fullpath = fullpath;
                 deps2[i].pathid = thispathid;
