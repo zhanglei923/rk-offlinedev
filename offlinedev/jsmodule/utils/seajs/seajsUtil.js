@@ -3,6 +3,7 @@ let _ = require('lodash')
 let pathutil = require('path')
 let util = require('util')
 let eachcontentjs = require('eachcontent-js')
+let vpp = require('../fs-vpp')
 let rk = require('../../utils/rk')
 let fs_readFile = require('../fs_readFile')
 let regParserMini = require('./regParserMini');
