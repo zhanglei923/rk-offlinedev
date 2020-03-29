@@ -72,6 +72,12 @@ let getAllSourceFolders = ()=>{
     }
     return folders;
 };
+let eachSourceFolders = (callback)=>{
+    let folders = getAllSourceFolders();
+    folders.forEach((fd)=>{
+        callback(fd);
+    })
+}
 let getSourceDir = (fpath)=>{
     fpath = rk_formatPath(fpath);
     let arr = fpath.split('/static/');
@@ -149,6 +155,7 @@ var _thisUtil = {
     },
     getPathId,
     getSourceDir,
-    getAllSourceFolders
+    getAllSourceFolders,
+    eachSourceFolders
 };
 module.exports = _thisUtil;
