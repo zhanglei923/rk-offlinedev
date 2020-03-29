@@ -104,12 +104,13 @@ let linkToStaticFile = (req, res, next) => {
                 if(!info.fromSubPrj)res.set('.rk-web-path', `${filterDef?'[proxy]':''}${root}`);
                 if(info.fullfilepath)res.set('.rk-local-file', info.fullfilepath);
                 res.set('.rk-cached', is_rk_cached);
-
-                if(getConfig.getValue('debug.mode') === 'source'){
-                    jscontent = require('./updators/mode_source').updateSource(req_path, info, jscontent);
-                }else
-                if(getConfig.getValue('debug.mode') === 'concat'){
-                    jscontent = require('./updators/mode_concat').updateSource(req_path, info, jscontent);
+                if(req_path.match(/^\/static\//)){
+                    if(getConfig.getValue('debug.mode') === 'source'){
+                        jscontent = require('./updators/mode_source').updateSource(req_path, info, jscontent);
+                    }else
+                    if(getConfig.getValue('debug.mode') === 'concat'){
+                        jscontent = require('./updators/mode_concat').updateSource(req_path, info, jscontent);
+                    }
                 }
 
                 if(root) jscontent =//`//[rk][main]${root}\n`+ 
