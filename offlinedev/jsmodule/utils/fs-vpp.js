@@ -84,13 +84,6 @@ let getSourceDir = (fpath)=>{
     let base = arr[0];
     return base + '/static/source';
 }
-let getPathId = (fpath)=>{
-    fpath = rk_formatPath(fpath);
-    let arr = fpath.split('/static/source/');
-    arr.shift();
-    let pathid = arr.join('/static/source/');
-    return pathid;
-};
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
@@ -153,7 +146,6 @@ var _thisUtil = {
     getProjectsDef:()=>{
         return pathinfo.all_project_path;
     },
-    getPathId,
     getSourceDir,
     getAllSourceFolders,
     eachSourceFolders

@@ -55,7 +55,7 @@ let updateAllTplJson = ()=>{
     changedfiles.forEach((info)=>{
         let filename = info.fpath;
         let act = info.act;
-        let pathid = vpp.getPathId(filename);
+        let pathid = rk_getPathId(filename);
         pathid = rk_formatPath(pathid)
         let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
         if(fs.existsSync(fulltplpath)){

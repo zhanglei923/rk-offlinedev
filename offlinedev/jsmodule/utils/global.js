@@ -10,7 +10,12 @@ global.rk_formatPath = (fpath)=>{
 }
 global.rk_getPathId = (fullfilepath)=>{
     fullfilepath = global.rk_formatPath(fullfilepath);
-    let pathid = fullfilepath.split('/static/source/')[1];
+    // let pathid = fullfilepath.split('/static/source/')[1];
+    // return pathid;
+    fullfilepath = global.rk_formatPath(fullfilepath);
+    let arr = fullfilepath.split('/static/source/');
+    arr.shift();
+    let pathid = arr.join('/static/source/');
     return pathid;
 };
 global.rk_formatLineBreaker = (content)=>{
