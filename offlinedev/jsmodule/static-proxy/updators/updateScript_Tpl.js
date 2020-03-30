@@ -95,7 +95,7 @@ let updateJs = (info, content)=>{
         return updateFirstJs(info, content);
     }
     let staticDir = getConfig.getStaticFolder();
-    let sourceDir = rk_getSourceDir(fullfilepath)//getConfig.getSourceFolder();
+    let sourceDir = getConfig.getSourceFolder();//rk_getSourceDir(fullfilepath)
 
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
