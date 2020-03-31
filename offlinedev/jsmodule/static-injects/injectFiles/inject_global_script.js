@@ -18,6 +18,7 @@
          div.style['z-index']='999998765';
          div.style['pointer-events']='none';
    
+         let webfolder = rk_offlinedev.userConfig.webProjectInfo.folder;
          let webbranch = rk_offlinedev.userConfig.webProjectInfo.branch;
          let offlinedevbranch = rk_offlinedev.userConfig.offlineDevInfo.branch;
          let debugmode = rk_offlinedev.userConfig.debug.mode;
@@ -30,7 +31,7 @@
                         '</a>'+
                         '('+offlinedevbranch+')'+
                         ',&nbsp;"<span style="'+debugcolor+'">'+debugmode+'</span>"'+
-                        '[<span title="css/tpl/js">'+modestatbrief+'<span>],&nbsp;web('+
+                        '[<span title="css/tpl/js">'+modestatbrief+'<span>],&nbsp;'+webfolder+'('+
                         webbranch+')'
          console.warn('[rk-offlinedev]seajs-text注入成功')
      };

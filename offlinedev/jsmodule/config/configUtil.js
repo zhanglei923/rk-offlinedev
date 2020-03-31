@@ -180,9 +180,11 @@ let reloadConfig = (printinfo)=>{
     let offlineDevBranch = gitUtil.getBranchName(projectFolder)
     let webProjectBranch = gitUtil.getBranchName(webroot)
     config.webProjectInfo = {
+        folder: webroot,
         branch: webProjectBranch
     };
     config.offlineDevInfo = {
+        folder:projectFolder,
         branch: offlineDevBranch
     };
     webparent = allpathinfo.webparent;

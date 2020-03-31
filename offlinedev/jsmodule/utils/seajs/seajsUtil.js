@@ -167,12 +167,12 @@ let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
 let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let mc36 = global.getFileMC36(fullfilepath);
     
+    fullfilepath = rk_formatPath(fullfilepath);
     let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcefolder, fullfilepath)
-    pathid = rk_formatPath(pathid);
     //console.log(pathid)
     let deps = [];
     let cache = global.rkCacheOf_seajsFileDeps[fullfilepath];
-    if(rk.isCookedJsPath(fullfilepath)){
+    if(rk.isCookedJsPath(fullfilepath) || !pathid){
         global.rkCacheOf_seajsFileDeps[fullfilepath] = {
             pathid,
             isCmd: false,
