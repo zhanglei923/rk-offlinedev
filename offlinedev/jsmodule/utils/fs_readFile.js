@@ -68,6 +68,7 @@ let fs_readFile = (fpath, opt, cb)=>{
     if(typeof opt.be_sync === 'undefined') opt.be_sync = false;
     (opt.be_sync?my_lstatSync:my_lstat)(fpath, (err, fstate)=>{
         if(err){ 
+            console.log('fs_readFile:', err);
             cb({error: err}, null);
             return;
         }

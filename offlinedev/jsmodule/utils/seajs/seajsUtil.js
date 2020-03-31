@@ -191,7 +191,8 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
                 let thispathid = rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
-                thispathid = rk_formatPath(thispathid)
+                if(!thispathid)thispathid = 'bad/404/require/'+rawPath;
+                if(thispathid)thispathid = rk_formatPath(thispathid);
                 deps2[i].fullpath = fullpath;
                 deps2[i].pathid = thispathid;
             }
