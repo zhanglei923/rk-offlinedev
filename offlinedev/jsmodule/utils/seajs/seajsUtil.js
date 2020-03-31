@@ -3,6 +3,7 @@ let _ = require('lodash')
 let pathutil = require('path')
 let util = require('util')
 let eachcontentjs = require('eachcontent-js')
+let ispathinside = require('is-path-inside');
 let vpp = require('../fs-vpp')
 let rk = require('../../utils/rk')
 let fs_readFile = require('../fs_readFile')
@@ -265,8 +266,17 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     let hotlist = [];
     deps.forEach((raw_req)=>{
         let req_pathid;
-        let req_fullpath = resolveRequirePath(sourcepath, fullfilepath, raw_req, false, sea_alias)   
-        req_pathid = pathutil.relative(sourcepath, req_fullpath);
+        let req_fullpath = resolveRequirePath(sourcepath, fullfilepath, raw_req, false, sea_alias);
+        if(ispathinside(req_fullpath, sourcepath)){//正常的，在/static/source目录下的
+            req_pathid = pathutil.relative(sourcepath, req_fullpath);
+        }else{
+            let staticpath = pathutil.resolve(sourcepath, '../');//有些是require了/static/gcss，这些也兼容下
+            if(ispathinside(req_fullpath, staticpath)) {
+                req_pathid = '/static/'+pathutil.relative(staticpath, req_fullpath);
+                //console.log('xxxxxx!', staticpath, req_fullpath, req_pathid)
+            }
+        }
+        
         req_pathid = addJsExt(req_pathid)
         req_pathid = rk_formatPath(req_pathid)
         depspathid.push(req_pathid)

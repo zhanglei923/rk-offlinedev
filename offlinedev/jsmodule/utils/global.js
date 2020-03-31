@@ -12,7 +12,16 @@ global.rk_getPathId = (fullfilepath)=>{
     fullfilepath = global.rk_formatPath(fullfilepath);
     // let pathid = fullfilepath.split('/static/source/')[1];
     // return pathid;
-    if(fullfilepath.indexOf('/static/source/')<0) return null;
+    if(fullfilepath.indexOf('/static/source/')<0) {
+        if(fullfilepath.indexOf('/static/')<0){
+            return null;
+        }else{//有些是require了/static/gcss目录，这些也兼容下
+            let arr = fullfilepath.split('/static/');
+            arr.shift();
+            let pathid = arr.join('/static/');
+            return '/static/'+pathid;
+        }
+    }
     let arr = fullfilepath.split('/static/source/');
     arr.shift();
     let pathid = arr.join('/static/source/');
