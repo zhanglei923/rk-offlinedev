@@ -12,7 +12,7 @@ global.rk_getPathId = (fullfilepath)=>{
     fullfilepath = global.rk_formatPath(fullfilepath);
     // let pathid = fullfilepath.split('/static/source/')[1];
     // return pathid;
-    fullfilepath = global.rk_formatPath(fullfilepath);
+    if(fullfilepath.indexOf('/static/source/')<0) return null;
     let arr = fullfilepath.split('/static/source/');
     arr.shift();
     let pathid = arr.join('/static/source/');

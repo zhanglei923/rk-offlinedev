@@ -35,7 +35,7 @@ let preloadStaticFiles = (callback)=>{
         loadpathlist = []
         eachcontentjs.eachPath(sourcefd, /(\.js|\.tpl)$/,(fpath)=>{
             if(!rk.isCookedJsPath(fpath)){
-                let pathid = rk_getPathId(fpath);
+                let pathid = rk_getPathId(fpath);//rk_formatPath(pathutil.relative(sourcefd, fpath));
                 if(loaded_pathid[pathid]){
                     console.log('  -Conflict!', pathid);//在这里做一个简单的冗余检查
                 }

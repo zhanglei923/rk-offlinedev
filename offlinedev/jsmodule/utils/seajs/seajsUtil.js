@@ -167,7 +167,7 @@ let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
 let getFileDeps = (sourcefolder, fullfilepath, content)=>{
     let mc36 = global.getFileMC36(fullfilepath);
     
-    let pathid = rk_getPathId(fullfilepath)
+    let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcefolder, fullfilepath)
     pathid = rk_formatPath(pathid);
     //console.log(pathid)
     let deps = [];
@@ -190,7 +190,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             for(let i=0;i<deps2.length;i++){
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
-                let thispathid = rk_getPathId(fullpath);
+                let thispathid = rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
                 thispathid = rk_formatPath(thispathid)
                 deps2[i].fullpath = fullpath;
                 deps2[i].pathid = thispathid;
@@ -232,7 +232,7 @@ let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
 }
 let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
     let fdir = pathutil.parse(fullfilepath).dir;
-    let pathid = rk_getPathId(fullfilepath);
+    let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcepath, fullfilepath);
     pathid = rk_formatPath(pathid)
     let content2 = content;
     content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
@@ -246,7 +246,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     if(typeof info==='undefined') info = {}
 
     let fdir = pathutil.parse(fullfilepath).dir;
-    let pathid = rk_getPathId(fullfilepath);
+    let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcepath, fullfilepath);
     pathid = rk_formatPath(pathid);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
     let bad_requires = [];

@@ -55,7 +55,7 @@ let updateAllTplJson = ()=>{
     changedfiles.forEach((info)=>{
         let filename = info.fpath;
         let act = info.act;
-        let pathid = rk_getPathId(filename);
+        let pathid = rk_getPathId(filename);//pathutil.relative(sourceDir, filename);
         pathid = rk_formatPath(pathid)
         let fulltplpath = filename;//pathutil.resolve(sourceDir, filename);
         if(fs.existsSync(fulltplpath)){
@@ -108,7 +108,7 @@ let updateJs = (info, content)=>{
             if(req_path.match(/\.tpl$/)){
                 if(fs.existsSync(req_realpath)){
                     let split = `,,,`
-                    let pathid = rk_getPathId(req_realpath);
+                    let pathid = rk_getPathId(req_realpath);//pathutil.relative(sourceDir, req_realpath);
                     pathid = rk_formatPath(pathid);
                     content = content.replace(replacereg, `require("${req_path}${split}${pathid}"`)    
                     // console.log(req_path, staticDir)
