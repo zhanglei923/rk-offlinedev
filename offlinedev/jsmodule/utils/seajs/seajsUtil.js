@@ -137,6 +137,7 @@ let getAllDepsAsMap = ()=>{
         deps.forEach((dep)=>{
             depsarr.push(dep.pathid);
         })
+        depsarr = _.compact(depsarr);
         depsarr = _.uniq(depsarr);
         map[pathid] = depsarr;
     }
@@ -191,7 +192,13 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
                 let thispathid = rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
-                if(!thispathid)thispathid = 'bad/404/require/'+rawPath;
+                if(!thispathid){//这里尽量保留pathid，就算有问题，会在后面的404环节进行清理
+                    if(fs.existsSync(fullpath)){
+                        thispathid = rawPath;//有些css会require gcss目录，这时候其实是有文件的，但pathid是空
+                    }else{
+                        thispathid = 'bad/404/require/'+rawPath.replace(/\./g, 'x');
+                    }
+                }
                 if(thispathid)thispathid = rk_formatPath(thispathid);
                 deps2[i].fullpath = fullpath;
                 deps2[i].pathid = thispathid;
