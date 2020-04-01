@@ -23,29 +23,39 @@ let myPathInfo = {
 // global.rk_masterSourceFolder
 // global.rk_sourceFolders
 
-let cacheof_realfpath = {}
+let last_hit_root_of_realpath = {}
 let cacheof_virtualfpath = {}
-let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
-    if(fs.existsSync(fpath)) return fpath;
+let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
+    fpath0 = global.rk_formatPath(fpath0);
+    let fpath = fpath0;
+    if(fs.existsSync(fpath0)) return fpath0;
+    let last_hit = last_hit_root_of_realpath[fpath0];
+    if(last_hit){
+        let fpath0 = pathutil.resolve(last_hit);
+        if(fs.existsSync(fpath0)) return fpath0;
+    }
     fpath = global.rk_formatPath(fpath);
-    if(cacheof_realfpath[fpath]) return cacheof_realfpath[fpath];
 
     let webparent = myPathInfo.webparent;
     let baserelatived = pathutil.relative(webparent,fpath);
     let arr = fpath.split('/static/');
     arr.shift();
-    let staticrelatived = arr.join('/');
+    let staticrelatived = arr.join('/static/');
     //console.log('>>', staticrelatived)
 
     let realfpath;
     for(let prjname in myPathInfo.All_Projects_Info){
-        let prjinfo = myPathInfo.All_Projects_Info[prjname];
-        let prjstatic = prjinfo.projectstaticpath;
-        let fpath = pathutil.resolve(prjstatic, staticrelatived);
-        if(fs.existsSync(fpath)) realfpath = fpath;
+        if(!realfpath){
+            let prjinfo = myPathInfo.All_Projects_Info[prjname];
+            let prjstatic = prjinfo.projectstaticpath;
+            let fpath = pathutil.resolve(prjstatic, staticrelatived);
+            if(fs.existsSync(fpath)) {
+                //console.log('cfpath',fpath0,prjstatic)
+                last_hit_root_of_realpath[fpath0] = prjstatic;
+                realfpath = fpath;
+            }
+        }
     }
-    if(realfpath)cacheof_realfpath[fpath] = realfpath;
-
     return realfpath;
 };
 let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实可能并不存在于web，而是在子工程里
