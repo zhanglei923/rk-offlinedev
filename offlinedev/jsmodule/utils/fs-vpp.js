@@ -8,7 +8,7 @@ let gitUtil = require('./gitUtil')
 
 let vpp_on = false;
 let myPathInfo = {
-    all_project_path:{}
+    All_Projects_Info:{}
 }
 
 let vpp_sourcefolder;
@@ -32,7 +32,7 @@ let cacheof_realfpath = {}
 let cacheof_virtualfpath = {}
 let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
     if(fs.existsSync(fpath)) return fpath;
-    fpath = rk_formatPath(fpath);
+    fpath = global.rk_formatPath(fpath);
     if(cacheof_realfpath[fpath]) return cacheof_realfpath[fpath];
 
     let webparent = myPathInfo.webparent;
@@ -43,8 +43,8 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     //console.log('>>', staticrelatived)
 
     let realfpath;
-    for(let prjname in myPathInfo.all_project_path){
-        let prjinfo = myPathInfo.all_project_path[prjname];
+    for(let prjname in myPathInfo.All_Projects_Info){
+        let prjinfo = myPathInfo.All_Projects_Info[prjname];
         let prjstatic = prjinfo.projectstaticpath;
         let fpath = pathutil.resolve(prjstatic, staticrelatived);
         if(fs.existsSync(fpath)) realfpath = fpath;
@@ -54,15 +54,15 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     return realfpath;
 };
 let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实可能并不存在于web，而是在子工程里
-    fpath = rk_formatPath(fpath);
+    fpath = global.rk_formatPath(fpath);
     let webparent = myPathInfo.webparent;
-    let webroot = myPathInfo.all_project_path['apps-ingage-web'].projectpath;
+    let webroot = myPathInfo.All_Projects_Info['apps-ingage-web'].projectpath;
 
     if(is_path_inside(fpath, webroot)){
         return fpath;
     }else{
         let baserelatived = pathutil.relative(webparent,fpath);
-        baserelatived = rk_formatPath(baserelatived);
+        baserelatived = global.rk_formatPath(baserelatived);
         let arr = baserelatived.split('/');
         let project = arr.shift();
         let projectrelatived = arr.join('/');
@@ -73,8 +73,8 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
 };
 let getAllSourceFolders = ()=>{
     let folders = [];
-    for(let prjname in myPathInfo.all_project_path){
-        let prjinfo = myPathInfo.all_project_path[prjname];
+    for(let prjname in myPathInfo.All_Projects_Info){
+        let prjinfo = myPathInfo.All_Projects_Info[prjname];
         let prjstatic = prjinfo.projectstaticpath;
         folders.push(pathutil.resolve(prjstatic, './source'));
     }
@@ -112,7 +112,7 @@ let changePathIdToRealPath = (requirePath)=>{
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
     console.log(pfolder, webroot, dependencies)
-    myPathInfo.all_project_path['apps-ingage-web'] = {
+    myPathInfo.All_Projects_Info['apps-ingage-web'] = {
         project: 'apps-ingage-web',
         projectpath: webroot,
         projectstaticpath: static_project_root,
@@ -133,10 +133,10 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
         dep.real_branch = gitUtil.getBranchName(projectpath);
         dep.def_branch = def_branch;
         dep.branchIsMatch = (dep.real_branch === def_branch);
-        myPathInfo.all_project_path[project] = dep;
+        myPathInfo.All_Projects_Info[project] = dep;
     })
 
-    console.log('all_project_path', myPathInfo.all_project_path)
+    console.log('All_Projects_Info', myPathInfo.All_Projects_Info)
 }
 let setPathInfo =(info)=>{
     for(let name in info){
@@ -166,7 +166,7 @@ var _thisUtil = {
     changeto_virtualfpath,
     setPathInfo,
     getProjectsDef:()=>{
-        return myPathInfo.all_project_path;
+        return myPathInfo.All_Projects_Info;
     },
     getAllSourceFolders,
     eachSourceFolders,
