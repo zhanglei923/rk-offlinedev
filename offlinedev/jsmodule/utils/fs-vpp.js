@@ -6,6 +6,11 @@ let is_path_inside = require('is-path-inside')
 require('./global')
 let gitUtil = require('./gitUtil')
 
+let vpp_on = false;
+let myPathInfo = {
+    all_project_path:{}
+}
+
 let vpp_sourcefolder;
 global.vpp_setSourceFolder = (sourcedir)=>{
     vpp_sourcefolder = sourcedir;
@@ -30,7 +35,7 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     fpath = rk_formatPath(fpath);
     if(cacheof_realfpath[fpath]) return cacheof_realfpath[fpath];
 
-    let webparent = pathinfo.webparent;
+    let webparent = myPathInfo.webparent;
     let baserelatived = pathutil.relative(webparent,fpath);
     let arr = fpath.split('/static/');
     arr.shift();
@@ -38,8 +43,8 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
     //console.log('>>', staticrelatived)
 
     let realfpath;
-    for(let prjname in pathinfo.all_project_path){
-        let prjinfo = pathinfo.all_project_path[prjname];
+    for(let prjname in myPathInfo.all_project_path){
+        let prjinfo = myPathInfo.all_project_path[prjname];
         let prjstatic = prjinfo.projectstaticpath;
         let fpath = pathutil.resolve(prjstatic, staticrelatived);
         if(fs.existsSync(fpath)) realfpath = fpath;
@@ -50,8 +55,8 @@ let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径
 };
 let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实可能并不存在于web，而是在子工程里
     fpath = rk_formatPath(fpath);
-    let webparent = pathinfo.webparent;
-    let webroot = pathinfo.all_project_path['apps-ingage-web'].projectpath;
+    let webparent = myPathInfo.webparent;
+    let webroot = myPathInfo.all_project_path['apps-ingage-web'].projectpath;
 
     if(is_path_inside(fpath, webroot)){
         return fpath;
@@ -62,14 +67,14 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
         let project = arr.shift();
         let projectrelatived = arr.join('/');
         //console.log('>>', webparent, project, projectrelatived)
-        let virtualfpath = pathutil.resolve(pathinfo.webappFolder, projectrelatived);
+        let virtualfpath = pathutil.resolve(myPathInfo.webappFolder, projectrelatived);
         return virtualfpath;
     }
 };
 let getAllSourceFolders = ()=>{
     let folders = [];
-    for(let prjname in pathinfo.all_project_path){
-        let prjinfo = pathinfo.all_project_path[prjname];
+    for(let prjname in myPathInfo.all_project_path){
+        let prjinfo = myPathInfo.all_project_path[prjname];
         let prjstatic = prjinfo.projectstaticpath;
         folders.push(pathutil.resolve(prjstatic, './source'));
     }
@@ -107,7 +112,7 @@ let changePathIdToRealPath = (requirePath)=>{
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
     console.log(pfolder, webroot, dependencies)
-    pathinfo.all_project_path['apps-ingage-web'] = {
+    myPathInfo.all_project_path['apps-ingage-web'] = {
         project: 'apps-ingage-web',
         projectpath: webroot,
         projectstaticpath: static_project_root,
@@ -128,35 +133,31 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
         dep.real_branch = gitUtil.getBranchName(projectpath);
         dep.def_branch = def_branch;
         dep.branchIsMatch = (dep.real_branch === def_branch);
-        pathinfo.all_project_path[project] = dep;
+        myPathInfo.all_project_path[project] = dep;
     })
 
-    console.log('all_project_path', pathinfo.all_project_path)
+    console.log('all_project_path', myPathInfo.all_project_path)
 }
 let setPathInfo =(info)=>{
     for(let name in info){
-        pathinfo[name] = info[name];
+        myPathInfo[name] = info[name];
         console.log(name, info[name])
     }
-    pathinfo.main_source_folder = pathutil.resolve(pathinfo.static_project_root, './source')
-    pathinfo.main_deploy_folder = pathutil.resolve(pathinfo.static_project_root, './deploy')
-    pathinfo.staticConfigFilePath = pathutil.resolve(pathinfo.webappFolder, './static-config.json');
-    if(!fs.existsSync(pathinfo.staticConfigFilePath)){
+    myPathInfo.main_source_folder = pathutil.resolve(myPathInfo.static_project_root, './source')
+    myPathInfo.main_deploy_folder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
+    myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.webappFolder, './static-config.json');
+    if(!fs.existsSync(myPathInfo.staticConfigFilePath)){
         searchSubProjects(info, info.webparent, info.webroot, []);
         console.log('[VPP] off.')
     }else{
         vpp_on = true;
-        let staticConfig = fs.readFileSync(pathinfo.staticConfigFilePath, 'utf8')
+        let staticConfig = fs.readFileSync(myPathInfo.staticConfigFilePath, 'utf8')
         eval(`staticConfig = ${staticConfig}`);
         searchSubProjects(info, info.webparent, info.webroot, staticConfig.dependencies);
         console.log('[VPP] path set.')
         //process.exit(0)
     }
 };
-let vpp_on = false;
-let pathinfo = {
-    all_project_path:{}
-}
 
 global.c2real = changeto_realfpath;
 global.c2virtual = changeto_virtualfpath;
@@ -165,7 +166,7 @@ var _thisUtil = {
     changeto_virtualfpath,
     setPathInfo,
     getProjectsDef:()=>{
-        return pathinfo.all_project_path;
+        return myPathInfo.all_project_path;
     },
     getAllSourceFolders,
     eachSourceFolders,
