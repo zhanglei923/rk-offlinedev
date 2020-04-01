@@ -53,8 +53,7 @@ let updateJs = (info, content)=>{
     if(rk.isCookedJsPath(fullfilepath)){
         return content;
     }
-    let staticDir = getConfig.getStaticFolder();
-    let sourceDir = getConfig.getSourceFolder();
+    let sourceDir = global.rk_masterSourceFolder;//getConfig.getSourceFolder();
 
     let i18nFolder = pathutil.resolve(sourceDir, './core/i18n');
     let watchId = 'watch_i18n';

@@ -131,6 +131,8 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
         let projectpath = pathutil.resolve(pfolder, project);
         dep.projectpath = projectpath;
         dep.projectstaticpath = pathutil.resolve(projectpath, './static');
+        dep.projectsourcepath = pathutil.resolve(dep.projectstaticpath, './source');
+        global.rk_sourceFolderList.push(dep.projectsourcepath)
         dep.projectexist = fs.existsSync(projectpath);
         dep.real_branch = gitUtil.getBranchName(projectpath);
         dep.def_branch = def_branch;
@@ -145,11 +147,13 @@ let setPathInfo =(info)=>{
         myPathInfo[name] = info[name];
         console.log(name, info[name])
     }
-    myPathInfo.masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
-    myPathInfo.masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
+    let masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
+    let masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
 
-    global.rk_masterSourceFolder = myPathInfo.masterSourceFolder;
-    global.rk_masterDeployFolder = myPathInfo.masterDeployFolder;
+    global.rk_static_project_root = myPathInfo.static_project_root;
+    global.rk_masterSourceFolder = masterSourceFolder;
+    global.rk_masterDeployFolder = masterDeployFolder;
+    global.rk_sourceFolderList = [global.rk_masterSourceFolder];
 
     myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.webappFolder, './static-config.json');
     if(!fs.existsSync(myPathInfo.staticConfigFilePath)){
