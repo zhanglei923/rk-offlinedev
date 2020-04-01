@@ -11,11 +11,6 @@ let myPathInfo = {
     All_Projects_Info:{}
 }
 
-let vpp_sourcefolder;
-global.vpp_setSourceFolder = (sourcedir)=>{
-    vpp_sourcefolder = sourcedir;
-}
-
 // changeto_realfpath();
 // changeto_virtualfpath();
 
