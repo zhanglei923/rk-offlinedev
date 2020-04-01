@@ -8,7 +8,9 @@ var format = function(bytes) {
 module.exports = {
     reportStatus: ()=>{
         var mem = process.memoryUsage();
+        let node_version = process.version;
         return {
+            node_version,
             mem,
             meminfo:{
                 usedtotalPersentage: ((mem.heapUsed/mem.heapTotal)*100).toFixed(2),

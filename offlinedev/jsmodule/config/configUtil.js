@@ -206,6 +206,7 @@ let reloadConfig = (printinfo)=>{
     })();
 
     global.rkGlobalConfig = config;
+    let node_version = process.version;
     let node_version_detail = process.version.replace(/[a-z]/g,'').split('.');
     let version_main = node_version_detail[0]*1;
     if(printinfo){

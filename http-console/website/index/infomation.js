@@ -62,8 +62,9 @@ let showInfomation = (result)=>{
                 <span title="更改user-config里的: debug.detect404RequireUrls" class="${userConfig.debug && userConfig.debug.detect404RequireUrls?'status_is_on status_is_warn':'status_is_off status_is_neutral'}">404</span>
             </div>
         </td></tr>
-        <tr><td align="right" valign="top">状态：</td><td>
-            <span>Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
+        <tr><td align="right" valign="top">状态：</td>
+        <td><span>node:&nbsp;${sysStatus.node_version}</span>
+            <span>,&nbsp;Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
             <span>,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
             <br>
             <span id="cacheinfo">Loading cache status...</span>
