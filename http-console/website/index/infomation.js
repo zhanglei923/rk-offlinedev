@@ -63,9 +63,9 @@ let showInfomation = (result)=>{
             </div>
         </td></tr>
         <tr><td align="right" valign="top">状态：</td>
-        <td><span>node:&nbsp;${sysStatus.node_version}</span>
-            <span>,&nbsp;Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
-            <span>,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
+        <td><span class="comment">node:&nbsp;${sysStatus.node_version}</span>
+            <span class="comment">,&nbsp;Heap:&nbsp;${sysStatus.meminfo.heapUsedMB}MB&nbsp;/&nbsp;${sysStatus.meminfo.heapTotalMB}MB&nbsp;=&nbsp;${sysStatus.meminfo.usedtotalPersentage}%</span>
+            <span class="comment">,&nbsp;rss:&nbsp;${sysStatus.meminfo.rssMB}MB</span>
             <br>
             <span id="cacheinfo">Loading cache status...</span>
         </td></tr>
