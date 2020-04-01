@@ -35,7 +35,7 @@ let showInfomation = (result)=>{
         </td></tr>
         <tr><td align="right">工具地址：</td>
         <td>
-            <span>${result.masterFolder}</span>
+            <span class="comment">${result.masterFolder}</span>
             <span git_project_info="true" git_path="${encodeURIComponent(result.masterFolder)}"></span>
         </td></tr>
         <tr><td align="right" valign="top">配置：</td><td>
