@@ -17,6 +17,10 @@
   }
   button{
       color:black !important;
+      background: #0101011c;
+      color: #d5e5ff !important;
+      border: 1px solid #d5e5ff;
+      border-radius: 2px;
   }
   li{
     list-style: none;
@@ -157,11 +161,6 @@ table td{
 .url{
     font-family: monospace !important;
     font-size: 14px;
-}
-button{
-    background: #0101011c;
-    color: #d5e5ff !important;
-    border-radius: 2px;
 }
 .comment{
     margin-left:2px;
