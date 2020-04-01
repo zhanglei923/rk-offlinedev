@@ -72,6 +72,7 @@ let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars, a
         let fdir = pathutil.parse(ownerFilePath).dir;
         realpath = pathutil.resolve(fdir, requirePath)
     }else{
+        let sourcePath = global.rk_masterSourceFolder;
         realpath = pathutil.resolve(sourcePath, requirePath)
     }
     if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';

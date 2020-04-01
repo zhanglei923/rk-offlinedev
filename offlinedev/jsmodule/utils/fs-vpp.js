@@ -69,7 +69,7 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
         let project = arr.shift();
         let projectrelatived = arr.join('/');
         //console.log('>>', webparent, project, projectrelatived)
-        let virtualfpath = pathutil.resolve(myPathInfo.webappFolder, projectrelatived);
+        let virtualfpath = pathutil.resolve(myPathInfo.masterWebappFolder, projectrelatived);
         return virtualfpath;
     }
 };
@@ -147,6 +147,7 @@ let setPathInfo =(info)=>{
         myPathInfo[name] = info[name];
         console.log(name, info[name])
     }
+    myPathInfo.masterWebappFolder = info.webappFolder;
     let masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
     let masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
 
@@ -155,7 +156,7 @@ let setPathInfo =(info)=>{
     global.rk_masterDeployFolder = masterDeployFolder;
     global.rk_sourceFolderList = [global.rk_masterSourceFolder];
 
-    myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.webappFolder, './static-config.json');
+    myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.masterWebappFolder, './static-config.json');
     if(!fs.existsSync(myPathInfo.staticConfigFilePath)){
         searchSubProjects(info, info.webparent, info.webroot, []);
         console.log('[VPP] off.')
