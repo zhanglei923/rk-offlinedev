@@ -20,6 +20,9 @@ global.vpp_setSourceFolder = (sourcedir)=>{
 // existSync(fullfilepath);
 // getRealFilePath(fullfilepath);//返回真正地址
 
+// global.rk_masterSourceFolder
+// global.rk_sourceFolders
+
 let cacheof_realfpath = {}
 let cacheof_virtualfpath = {}
 let changeto_realfpath = (fpath)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
