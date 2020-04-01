@@ -20,11 +20,8 @@ let myPathInfo = {
 // existSync(fullfilepath);
 // getRealFilePath(fullfilepath);//返回真正地址
 
-// global.rk_masterSourceFolder
-// global.rk_sourceFolders
 
 let last_hit_root_of_realpath = {}
-let cacheof_virtualfpath = {}
 let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
     fpath0 = global.rk_formatPath(fpath0);
     let fpath = fpath0;
@@ -92,7 +89,7 @@ let eachSourceFolders = (callback)=>{
     })
 };
 let changeRealPathToPathId = (realfpath)=>{
-    return rk_getPathId(realfpath)
+    return global.rk_getPathId(realfpath)
 };
 let changePathIdToRealPath = (requirePath)=>{
     let folders = getAllSourceFolders();
@@ -148,8 +145,12 @@ let setPathInfo =(info)=>{
         myPathInfo[name] = info[name];
         console.log(name, info[name])
     }
-    myPathInfo.main_source_folder = pathutil.resolve(myPathInfo.static_project_root, './source')
-    myPathInfo.main_deploy_folder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
+    myPathInfo.masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
+    myPathInfo.masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
+
+    global.rk_masterSourceFolder = myPathInfo.masterSourceFolder;
+    global.rk_masterDeployFolder = myPathInfo.masterDeployFolder;
+
     myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.webappFolder, './static-config.json');
     if(!fs.existsSync(myPathInfo.staticConfigFilePath)){
         searchSubProjects(info, info.webparent, info.webroot, []);
