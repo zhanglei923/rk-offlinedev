@@ -83,7 +83,7 @@ let getAllPathInfo = (_webroot)=>{
     let webparent = pathutil.resolve(_webroot, '../')
     let webappFolder = pathutil.resolve(_webroot, './src/main/webapp/');
 
-    let adminFolder = pathutil.resolve(webparent, './apps-ingage-admin')
+    let adminFolder = config.adminProjectPath ? config.adminProjectPath : pathutil.resolve(webparent, './apps-ingage-admin')
     let admin_webappFolder = pathutil.resolve(adminFolder, './src/main/webapp/')
     
     let static_project_root = config.staticProjectPath ? config.staticProjectPath : pathutil.resolve(webappFolder, './static');
