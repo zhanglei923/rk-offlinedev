@@ -291,8 +291,8 @@ let showGitStatus = (elem, callback)=>{
                                 ${isSSHClone?`<span class="status_positive"></span>`:'<span class="status_warn">anonymous-cloned</span>'}
                                 ${isDirty?`<span class="status_warn">${txt}</span>`:'<span class="status_positive"></span>'}
                                 <button class="terminal_btn" onclick="openTerminal('${encodeURIComponent(gitpath)}')" ppath="${gitpath}">&gt;_</button>
-                                <button class="gitreset_btn" onclick="beWorkingBtn(this);updateGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">refresh</button>
-                                <button class="gitreset_btn" onclick="beWorkingBtn(this);resetGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">Reset</button>
+                                <button class="gitreset_btn" onclick="beWorkingBtn(this);updateGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">check</button>
+                                <button class="gitreset_btn" onclick="beWorkingBtn(this);resetGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">Discard</button>
                                 <button class="gitreset_btn" onclick="beWorkingBtn(this);resetAndPullGit('${myid}','${encodeURIComponent(gitpath)}', ()=>{unWorkingBtn(this);})" ppath="${gitpath}">&Pull</button>
                                 `;
                     span.html(html);   
