@@ -79,7 +79,7 @@ let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
         //console.log('raw:', info.rawPath)
         let req_path = info.rawPath;
         //var replacereg = seajsUtil.getRequireRegForReplacement(req_path, true);
-        let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path)
+        let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path)
         if(fs.existsSync(req_realpath)){
             let json = seajsUtil.loadJsonFromFile(req_realpath);
             if(json){

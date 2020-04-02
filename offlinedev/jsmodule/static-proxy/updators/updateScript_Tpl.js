@@ -103,7 +103,7 @@ let updateJs = (info, content)=>{
     }else{
         deps.forEach((info)=>{
             let req_path = info.rawPath;
-            let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+            let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
             var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
             if(req_path.match(/\.tpl$/)){
                 if(fs.existsSync(req_realpath)){

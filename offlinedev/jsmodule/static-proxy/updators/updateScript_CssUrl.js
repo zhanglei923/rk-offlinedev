@@ -24,7 +24,7 @@ let css_loaders = [
 ]
 let changeToHotPath = (fullfilepath, req_path)=>{
     let sourceDir = getConfig.getSourceFolder();
-    let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+    let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
     let req_pathid = pathutil.relative(sourceDir, req_realpath)
     let hotpathid;
     
@@ -56,7 +56,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
         let sourceDir = getConfig.getSourceFolder();
         deps.forEach((info)=>{
             let req_path = info.rawPath;
-            let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+            let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
             let req_pathid = pathutil.relative(sourceDir, req_realpath)
             let hotpathid = changeToHotPath(fullfilepath, req_path);
             

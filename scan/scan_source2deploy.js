@@ -60,7 +60,7 @@ eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fpath)=>{
                 req_pathid = seaconfig[raw_req];
             }else{
                 //let req_fullpath = pathutil.resolve(fdir, raw_req);      
-                let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req)     
+                let req_fullpath = seajsUtil.resolveRequirePath(fpath, raw_req)     
                 // if(fpath.indexOf('pageMainCtrl.js')>=0 && raw_req.indexOf('fileUploaderCtrl')>=0){
                 //     console.log(fdir)
                 //     console.log(raw_req)

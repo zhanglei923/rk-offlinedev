@@ -85,7 +85,7 @@ let updateJs = (info, content, widthDefineHeader)=>{
                 let sourceDir = getConfig.getSourceFolder();
                 deps.forEach((info)=>{
                     let req_path = info.rawPath;
-                    let req_realpath = seajsUtil.resolveRequirePath(sourceDir, fullfilepath, req_path);
+                    let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
                     var replacereg = seajsUtil.getRequireRegForReplacement(req_path);
                     if(req_realpath.match(/\.js$/)){
                         if(fs.existsSync(req_realpath)){

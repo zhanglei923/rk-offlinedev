@@ -111,7 +111,7 @@ let run = function (){
                 if(seaconfig[raw_req]) {
                     req_pathid = seaconfig[raw_req];
                 }else{
-                    let req_fullpath = seajsUtil.resolveRequirePath(sourcepath, fpath, raw_req, false)   
+                    let req_fullpath = seajsUtil.resolveRequirePath(fpath, raw_req, false)   
                     req_pathid = pathutil.relative(sourcepath, req_fullpath);
                 } 
                 req_pathid = seajsUtil.addJsExt(req_pathid)

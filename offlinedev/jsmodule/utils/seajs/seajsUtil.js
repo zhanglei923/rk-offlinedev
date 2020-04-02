@@ -60,7 +60,7 @@ let setPathVars = (requirePath)=>{
     //console.log('af:', requirePath)
     return requirePath;
 }
-let resolveRequirePath = (sourcePath, ownerFilePath, requirePath, replaceVars, alias)=>{
+let resolveRequirePath = (ownerFilePath, requirePath, replaceVars, alias)=>{
     if(typeof replaceVars === 'undefined') replaceVars = true;//在生成deploy时，期望保持请求路径的原生态，不然deploy状态无法工作了
     if(typeof alias === 'undefined') alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
     let realpath;
@@ -192,7 +192,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);   
             for(let i=0;i<deps2.length;i++){
                 let rawPath = deps2[i].rawPath;
-                let fullpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false);
+                let fullpath = resolveRequirePath(fullfilepath, rawPath, false);
                 let thispathid = rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
                 if(!thispathid){//这里尽量保留pathid，就算有问题，会在后面的404环节进行清理
                     if(fs.existsSync(fullpath)){
@@ -222,7 +222,7 @@ let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
     let deps_good = [];
     let deps_bad = [];
     deps.forEach((rawPath)=>{
-        let readpath = resolveRequirePath(sourcefolder, fullfilepath, rawPath, false, alias)
+        let readpath = resolveRequirePath(fullfilepath, rawPath, false, alias)
         if(isCommonRequirePath(rawPath) && !fs.existsSync(readpath)){
             deps_bad.push(rawPath)
             //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
@@ -267,7 +267,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     let hotlist = [];
     deps.forEach((raw_req)=>{
         let req_pathid;
-        let req_fullpath = resolveRequirePath(sourcepath, fullfilepath, raw_req, false, sea_alias);
+        let req_fullpath = resolveRequirePath(fullfilepath, raw_req, false, sea_alias);
         if(ispathinside(req_fullpath, sourcepath)){//正常的，在/static/source目录下的
             req_pathid = pathutil.relative(sourcepath, req_fullpath);
         }else{
