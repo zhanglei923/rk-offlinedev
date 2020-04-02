@@ -20,6 +20,7 @@ let canCache = (fullpath)=>{
 }
 me.canCache = canCache;
 let getFileMC36 = (fullpath)=>{
+    fullpath = c2real(fullpath)
     return global.getFileMC36(fullpath);
 };
 let getStatMC36 = (fstate)=>{
@@ -59,6 +60,7 @@ let my_readFileSync = (fpath, opt, callback)=>{//屏蔽同步和异步
     }
 };
 let fs_readFile = (fpath, opt, cb)=>{
+    fpath = c2real(fpath)
     if(typeof cb === 'undefined') cb = ()=>{};
     if(!fs.existsSync(fpath)){
         cb({error: 'file not found'}, null);

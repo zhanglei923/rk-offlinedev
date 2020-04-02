@@ -271,6 +271,7 @@ let changeJsToDeploy = (fullfilepath, sea_alias, content, info)=>{
     deps.forEach((raw_req)=>{
         let req_pathid;
         let req_fullpath = resolveRequirePath(fullfilepath, raw_req, false, sea_alias);
+        req_fullpath = c2virtual(req_fullpath)
         if(ispathinside(req_fullpath, sourcepath)){//正常的，在/static/source目录下的
             req_pathid = pathutil.relative(sourcepath, req_fullpath);
         }else{
