@@ -97,7 +97,7 @@ let getAllDeps = ()=>{
 let cleanAll404 = (sourcefolder, alldeps)=>{
     for(let fullfilepath in alldeps){
         let deps = alldeps[fullfilepath];
-        let cleaned = cleanDeps(sourcefolder, fullfilepath, deps);
+        let cleaned = cleanDeps(fullfilepath, deps);
         alldeps[fullfilepath] = cleaned.deps_good;
         //if(cleaned.deps_bad.length>0) console.log(fullfilepath, cleaned.deps_bad)
     }
@@ -106,7 +106,7 @@ let cleanAll404 = (sourcefolder, alldeps)=>{
 let findAll404 = (sourcefolder, alldeps)=>{
     for(let fullfilepath in alldeps){
         let deps = alldeps[fullfilepath];
-        let cleaned = cleanDeps(sourcefolder, fullfilepath, deps);
+        let cleaned = cleanDeps(fullfilepath, deps);
         alldeps[fullfilepath] = cleaned.deps_bad;
         //if(cleaned.deps_bad.length>0) console.log(fullfilepath, cleaned.deps_bad)
     }
@@ -189,7 +189,7 @@ let getFileDeps = (fullfilepath, content)=>{
         }else{
             content = rk.cleanCommentsFast(content);
             deps = regParserMini.getRequires(content); 
-            let deps2 = deps;//cleanDeps(sourcefolder, fullfilepath, deps);   
+            let deps2 = deps;//cleanDeps(fullfilepath, deps);   
             for(let i=0;i<deps2.length;i++){
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(fullfilepath, rawPath, false);
@@ -218,7 +218,7 @@ let getFileDeps = (fullfilepath, content)=>{
     }
     return global.rkCacheOf_seajsFileDeps[fullfilepath];
 }
-let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
+let cleanDeps = (fullfilepath, deps, alias)=>{
     let deps_good = [];
     let deps_bad = [];
     deps.forEach((rawPath)=>{
@@ -260,7 +260,7 @@ let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
     pathid = rk_formatPath(pathid);
     let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
     let bad_requires = [];
-    let result = cleanDeps(sourcepath, fullfilepath, deps, sea_alias)
+    let result = cleanDeps(fullfilepath, deps, sea_alias)
     deps = result.deps_good;
     if(result.deps_bad.length > 0)bad_requires[pathid] = result.deps_bad;
     let depspathid = [];
