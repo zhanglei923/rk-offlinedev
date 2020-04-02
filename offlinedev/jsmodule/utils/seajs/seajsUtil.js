@@ -94,7 +94,7 @@ global.rkCacheOf_seajsFileDeps = {};//缓存
 let getAllDeps = ()=>{
     return global.rkCacheOf_seajsFileDeps;
 };
-let cleanAll404 = (sourcefolder, alldeps)=>{
+let cleanAll404 = (alldeps)=>{
     for(let fullfilepath in alldeps){
         let deps = alldeps[fullfilepath];
         let cleaned = cleanDeps(fullfilepath, deps);
@@ -103,7 +103,7 @@ let cleanAll404 = (sourcefolder, alldeps)=>{
     }
     return alldeps;
 }
-let findAll404 = (sourcefolder, alldeps)=>{
+let findAll404 = (alldeps)=>{
     for(let fullfilepath in alldeps){
         let deps = alldeps[fullfilepath];
         let cleaned = cleanDeps(fullfilepath, deps);
@@ -112,8 +112,8 @@ let findAll404 = (sourcefolder, alldeps)=>{
     }
     return alldeps;
 }
-let refreshAllDeps = (sourcefolder)=>{
-    if(typeof sourcefolder === 'undefined') throw "error: need sourcefolder!"
+let refreshAllDeps = ()=>{
+    let sourcefolder = global.rk_masterSourceFolder;
     // (sourcefolder, fullfilepath, content)
     // fs_readFile
     let keep = {}

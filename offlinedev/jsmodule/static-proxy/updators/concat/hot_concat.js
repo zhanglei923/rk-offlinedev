@@ -72,9 +72,9 @@ let loadHotFileConcatPlan = ()=>{
     }
 
     timetxt = moment().format('YYYY-MM-DD HH:mm');
-    seajsUtil.refreshAllDeps(sourcefolder)
+    seajsUtil.refreshAllDeps()
     let alldepsmap = seajsUtil.getAllDepsAsMap()
-    alldepsmap = seajsUtil.cleanAll404(sourcefolder, alldepsmap);
+    alldepsmap = seajsUtil.cleanAll404(alldepsmap);
     //fs.writeFileSync('./d.json', JSON.stringify(alldepsmap))
     //seajsUtil.cleanNoOneRequired(alldepsmap)
     if(backupfiles)fs.writeFile(hotfolder+'/dependencyMap.json', `//${timetxt}\n`+JSON.stringify(alldepsmap), ()=>{});
