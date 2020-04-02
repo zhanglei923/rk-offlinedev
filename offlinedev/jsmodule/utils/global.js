@@ -10,6 +10,7 @@ global.rk_formatPath = (fpath)=>{
 }
 global.rk_getPathId = (fullfilepath)=>{
     fullfilepath = global.rk_formatPath(fullfilepath);
+    if(fullfilepath.match(/^\//)) return fullfilepath;//是根目录的，不处理
     // let pathid = fullfilepath.split('/static/source/')[1];
     // return pathid;
     if(fullfilepath.indexOf('/static/source/')<0) {
@@ -43,6 +44,7 @@ global.rk_formatMB = function(bytes, tail) {
     return (bytes/1024/1024).toFixed(tail); 
 };
 let getFileMC36 = (fullpath)=>{
+    fullpath = c2real(fullpath)
     fstate = fs.lstatSync(fullpath);
     let mc36 = getStatMC36(fstate);
     return mc36;

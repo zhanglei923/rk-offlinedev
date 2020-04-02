@@ -23,9 +23,9 @@ let myPathInfo = {
 
 let last_hit_root_of_realpath = {}
 let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
+    if(fs.existsSync(fpath0)) return fpath0;
     fpath0 = global.rk_formatPath(fpath0);
     let fpath = fpath0;
-    if(fs.existsSync(fpath0)) return fpath0;
     let last_hit_webapp = last_hit_root_of_realpath[fpath0];
     fpath = global.rk_formatPath(fpath);
 
