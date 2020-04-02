@@ -26,37 +26,43 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     fpath0 = global.rk_formatPath(fpath0);
     let fpath = fpath0;
     if(fs.existsSync(fpath0)) return fpath0;
-    let last_hit_static = last_hit_root_of_realpath[fpath0];
+    let last_hit_webapp = last_hit_root_of_realpath[fpath0];
     fpath = global.rk_formatPath(fpath);
 
-    let webparent = myPathInfo.webparent;
-    let baserelatived = pathutil.relative(webparent,fpath);
-    let arr = fpath.split('/static/');
-    arr.shift();
-    let staticrelatived = arr.join('/static/');
-    //console.log('>>', staticrelatived)
-
-    let realfpath;
-    let staticArr = [];
-    if(last_hit_static) staticArr.push(last_hit_static);
+    let relativepath_towebapp;//相对于每个工程的webapp跟目录，这样能兼容所有目录，比如embeded等
     for(let prjname in myPathInfo.All_Projects_Info){
         let prjinfo = myPathInfo.All_Projects_Info[prjname];
-        let prjstatic = prjinfo.projectstaticpath;
-        if(last_hit_static !== prjstatic){
-            staticArr.push(prjstatic);
+        let prjwebappbase = prjinfo.projectwebappbased;
+        //console.log('is_path_inside:', fpath0, prjwebappbase)
+        if(is_path_inside(fpath0, prjwebappbase)){
+            //console.log('yes')
+            relativepath_towebapp = pathutil.relative(prjwebappbase, fpath0);
         }
     }
-    for(let i=0;i<staticArr.length;i++){
-        let prjstatic = staticArr[i];
-        let fpath = pathutil.resolve(prjstatic, staticrelatived);
+    if(!relativepath_towebapp) return fpath0;//没有在任何一个工程里
+    //console.log('relativepath_towebapp=', relativepath_towebapp)
+
+    let realfpath;
+    let projectBaseArr = [];
+    if(last_hit_webapp) projectBaseArr.push(last_hit_webapp);
+    for(let prjname in myPathInfo.All_Projects_Info){
+        let prjinfo = myPathInfo.All_Projects_Info[prjname];
+        let prjwebappbase = prjinfo.projectwebappbased;
+        if(last_hit_webapp !== prjwebappbase){
+            projectBaseArr.push(prjwebappbase);
+        }
+    }
+    for(let i=0;i<projectBaseArr.length;i++){
+        let prjwebappbase = projectBaseArr[i];
+        let fpath = pathutil.resolve(prjwebappbase, relativepath_towebapp);
         if(fs.existsSync(fpath)) {
-            last_hit_root_of_realpath[fpath0] = prjstatic;
+            last_hit_root_of_realpath[fpath0] = prjwebappbase;
             realfpath = fpath;
             break;
         }else{
             fpath = fpath + '.js';
             if(fs.existsSync(fpath)) {
-                last_hit_root_of_realpath[fpath0] = prjstatic;
+                last_hit_root_of_realpath[fpath0] = prjwebappbase;
                 realfpath = fpath;
                 break;
             }
@@ -123,10 +129,12 @@ let changePathIdToRealPath = (requirePath)=>{
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
-    console.log(pfolder, webroot, dependencies)
+    let static_web_base = pathutil.resolve(static_project_root, '../');
+    //console.log(pfolder, webroot, dependencies)
     myPathInfo.All_Projects_Info['apps-ingage-web'] = {
         project: 'apps-ingage-web',
         projectpath: webroot,
+        projectwebappbased:static_web_base,
         projectstaticpath: static_project_root,
         projectexist: fs.existsSync(webroot),
         real_branch: gitUtil.getBranchName(webroot),
@@ -140,6 +148,7 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
         delete dep.branch;//名称不准确，容易混淆
         let projectpath = pathutil.resolve(pfolder, project);
         dep.projectpath = projectpath;
+        dep.projectwebappbased = projectpath;
         dep.projectstaticpath = pathutil.resolve(projectpath, './static');
         dep.projectsourcepath = pathutil.resolve(dep.projectstaticpath, './source');
         global.rk_sourceFolderList.push(dep.projectsourcepath)
@@ -155,7 +164,7 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
 let setPathInfo =(info)=>{
     for(let name in info){
         myPathInfo[name] = info[name];
-        console.log(name, info[name])
+        //console.log(name, info[name])
     }
     myPathInfo.masterWebappFolder = info.webappFolder;
     let masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
