@@ -53,11 +53,11 @@ let updateJs = (info, content, widthDefineHeader)=>{
         //fs.writeFileSync(fullfilepath, newcontent)
         let thisfileinfo = seajsUtil.getFileDeps(sourcepath, fullfilepath, content)//global.rkCacheOf_seajsFileDeps[fullfilepath]
         let deps = thisfileinfo.deps;
-        let sourceDir = getConfig.getSourceFolder();
+        //let sourceDir = getConfig.getSourceFolder();
         deps.forEach((info)=>{
             let req_path = info.rawPath;
             let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
-            let req_pathid = pathutil.relative(sourceDir, req_realpath)
+            let req_pathid = global.rk_getPathId(req_realpath);//pathutil.relative(sourceDir, req_realpath)
             let hotpathid = changeToHotPath(fullfilepath, req_path);
             
             if(hotpathid){

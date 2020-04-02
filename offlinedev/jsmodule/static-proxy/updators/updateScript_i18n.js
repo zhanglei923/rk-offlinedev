@@ -64,14 +64,14 @@ let updateJs = (info, content)=>{
     let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/g) && fullfilepath.match(/untranslated\.js$/)){
         //let t0=new Date()*1;
-        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(sourceDir, fullfilepath, content, deps);
+        let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(fullfilepath, content, deps);
         //CacheOfI18n = c;
         //console.log(new Date()*1 - t0)
         return c;
     }
     return content;
 }
-let updateI18nJs = (sourceDir, fullfilepath, content, deps)=>{
+let updateI18nJs = (fullfilepath, content, deps)=>{
     //将untranslate.js里require的json文件的内容，替换进untranslate.js的require语句里，变成一个文件    
     content = rk.onlyCleanLineComment(content);
     let arr = content.split('\n');
