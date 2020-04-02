@@ -220,7 +220,7 @@ let reloadConfig = (printinfo)=>{
         console.log('[Static]=', `"${static_project_root}"`)
         console.log('[Deploy]=', `"${config.deployStaticPath_val}"`)
         console.log('    [OS]=', `"${os.platform()}"`)
-        console.log('  [Mode]=', '"'+config.debug.mode+'"'+':'+modestatbrief)
+        console.log('  [MODE]=', '"'+config.debug.mode+'"'+':'+modestatbrief)
         console.log('----------')
     }
     if(version_main <10){
