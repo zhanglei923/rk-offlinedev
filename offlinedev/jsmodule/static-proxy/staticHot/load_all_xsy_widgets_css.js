@@ -8,7 +8,7 @@ module.exports = {
     isMyHotUrl:(url)=>{
         return url.match(/all\-xsy\-widgets\_HOT\.css$/);
     },
-    shouldReplacedWithThis:(sourceDir, req_realpath)=>{
+    shouldReplacedWithThis:(req_realpath)=>{
         if(req_realpath.match(/all\-xsy\-widgets.css$/)){
             return 'platform/core/css/all-xsy-widgets_HOT.css';
         }

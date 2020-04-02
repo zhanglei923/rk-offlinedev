@@ -9,7 +9,8 @@ module.exports = {
     isMyHotUrl:(url)=>{
         return url.match(/all\-bi\-widgets\_HOT\.css$/);
     },
-    shouldReplacedWithThis:(sourceDir, req_realpath)=>{
+    shouldReplacedWithThis:(req_realpath)=>{
+        let sourceDir = global.rk_masterSourceFolder;
         if(req_realpath.match(/\.css$/)){
             let bi_path = pathutil.resolve(sourceDir, './products/bi')
             if(is_path_inside(req_realpath, bi_path)){

@@ -23,14 +23,14 @@ let css_loaders = [
     load_all_userdefinedmeasure_css
 ]
 let changeToHotPath = (fullfilepath, req_path)=>{
-    let sourceDir = getConfig.getSourceFolder();
+    //let sourceDir = getConfig.getSourceFolder();
     let req_realpath = seajsUtil.resolveRequirePath(fullfilepath, req_path);
-    let req_pathid = pathutil.relative(sourceDir, req_realpath)
+    //let req_pathid = pathutil.relative(sourceDir, req_realpath)
     let hotpathid;
     
     for(let i = 0; i < css_loaders.length; i++){
         let loader = css_loaders[i];
-        hotpathid = loader.shouldReplacedWithThis(sourceDir, req_realpath)
+        hotpathid = loader.shouldReplacedWithThis(req_realpath);
         if(hotpathid){
             break;
         }
