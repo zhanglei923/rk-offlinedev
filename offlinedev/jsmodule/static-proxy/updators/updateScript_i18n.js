@@ -61,7 +61,7 @@ let updateJs = (info, content)=>{
     let changed = watch.getChangedFiles(watchId);
     if(changed.length > 0) CacheOfI18n = null;
 
-    let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
+    let deps = seajsUtil.getFileDeps(fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/g) && fullfilepath.match(/untranslated\.js$/)){
         //let t0=new Date()*1;
         let c = CacheOfI18n ? CacheOfI18n : updateI18nJs(fullfilepath, content, deps);

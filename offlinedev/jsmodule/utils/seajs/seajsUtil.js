@@ -121,7 +121,7 @@ let refreshAllDeps = (sourcefolder)=>{
         fullfilepath = rk_formatPath(fullfilepath)
         keep[fullfilepath] = 1;
         fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
-            getFileDeps(sourcefolder, fullfilepath, content);
+            getFileDeps(fullfilepath, content);
         });
     })    
     for(let fpath in global.rkCacheOf_seajsFileDeps){
@@ -160,14 +160,14 @@ let cleanNoOneRequired = (alldeps)=>{//去掉没有人require的废文件
     return badlist;
 };
 let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
-    let depsinfo = getFileDeps(sourcefolder, fullfilepath, content)
+    let depsinfo = getFileDeps(fullfilepath, content)
     let array = [];
     depsinfo.deps.forEach((info)=>{
         array.push(info.rawPath);
     })
     return array;
 };
-let getFileDeps = (sourcefolder, fullfilepath, content)=>{
+let getFileDeps = (fullfilepath, content)=>{
     let mc36 = global.getFileMC36(fullfilepath);
     
     fullfilepath = rk_formatPath(fullfilepath);
@@ -193,7 +193,7 @@ let getFileDeps = (sourcefolder, fullfilepath, content)=>{
             for(let i=0;i<deps2.length;i++){
                 let rawPath = deps2[i].rawPath;
                 let fullpath = resolveRequirePath(fullfilepath, rawPath, false);
-                let thispathid = rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
+                let thispathid = global.rk_getPathId(fullpath);//pathutil.relative(sourcefolder, fullpath);
                 if(!thispathid){//这里尽量保留pathid，就算有问题，会在后面的404环节进行清理
                     if(fs.existsSync(fullpath)){
                         thispathid = rawPath;//有些css会require gcss目录，这时候其实是有文件的，但pathid是空
@@ -237,7 +237,7 @@ let cleanDeps = (sourcefolder, fullfilepath, deps, alias)=>{
 }
 let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
     if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
-        getFileDeps(sourcefolder, fpath, content);
+        getFileDeps(fpath, content);
     }
 }
 let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{

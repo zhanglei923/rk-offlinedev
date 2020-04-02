@@ -97,7 +97,7 @@ let updateJs = (info, content)=>{
     let staticDir = getConfig.getStaticFolder();
     let sourceDir = getConfig.getSourceFolder();//rk_getSourceDir(fullfilepath)
 
-    let deps = seajsUtil.getFileDeps(sourceDir, fullfilepath, content).deps;
+    let deps = seajsUtil.getFileDeps(fullfilepath, content).deps;
     if(fullfilepath.match(/i18n/) && fullfilepath.match(/untranslated\.js$/)){
         //ignor i18n
     }else{
