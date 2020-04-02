@@ -8,26 +8,6 @@ global.rk_formatPath = (fpath)=>{
     fpath = fpath.replace(/\\{1,}/g, '/').replace(/\/{1,}/g, '/')
     return fpath;
 }
-global.rk_getPathId = (fullfilepath)=>{
-    fullfilepath = global.rk_formatPath(fullfilepath);
-    if(fullfilepath.match(/^\//)) return fullfilepath;//是根目录的，不处理
-    // let pathid = fullfilepath.split('/static/source/')[1];
-    // return pathid;
-    if(fullfilepath.indexOf('/static/source/')<0) {
-        if(fullfilepath.indexOf('/static/')<0){
-            return null;
-        }else{//有些是require了/static/gcss目录，这些也兼容下
-            let arr = fullfilepath.split('/static/');
-            arr.shift();
-            let pathid = arr.join('/static/');
-            return '/static/'+pathid;
-        }
-    }
-    let arr = fullfilepath.split('/static/source/');
-    arr.shift();
-    let pathid = arr.join('/static/source/');
-    return pathid;
-};
 global.rk_getSourceDir = (fpath)=>{
     fpath = rk_formatPath(fpath);
     if(fpath.indexOf('/static/')<0)return null;

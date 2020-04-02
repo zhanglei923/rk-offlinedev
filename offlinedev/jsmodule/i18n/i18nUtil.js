@@ -7,6 +7,8 @@ let webProjectPath = getConfig.getWebRoot()
 let webappPath = pathUtil.resolve(webProjectPath, './src/main/webapp')
 let sourcePath = pathUtil.resolve(webappPath, './static/source')
 let i18nPath = pathUtil.resolve(sourcePath, './core/i18n')
+i18nPath = global.c2real(i18nPath)
+console.log(i18nPath)
 
 let $ = {extend:()=>{}}
 
@@ -64,6 +66,7 @@ module.exports = {
             if(/default\_/g.test(fpath)) continue;//ignore
             if(!/\.js$/.test(fpath)) fpath = fpath + '.js';
             fpath = pathUtil.resolve(sourcePath, fpath)
+            fpath = global.c2real(fpath)
             let exist = fs.existsSync(fpath);
             if(!exist) console.log('[ERROR]File not exist: ', fpath)
             usefulPathList.push(fpath)

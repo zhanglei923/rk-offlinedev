@@ -76,6 +76,7 @@ let resolveRequirePath = (ownerFilePath, requirePath, replaceVars, alias)=>{
         realpath = pathutil.resolve(sourcePath, requirePath)
         realpath = global.c2real(realpath);
     }
+    realpath = addJsExt(realpath);
     if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';
     realpath = rk_formatPath(realpath);
     return realpath;
@@ -114,17 +115,20 @@ let findAll404 = (alldeps)=>{
     return alldeps;
 }
 let refreshAllDeps = ()=>{
-    let sourcefolder = global.rk_masterSourceFolder;
+    let sourceFolders = global.rk_sourceFolderList;
+    let keep = {}
+    sourceFolders.forEach((sourcefolder)=>{
+        eachcontentjs.eachPath(sourcefolder, /\.js$/, (fullfilepath)=>{
+            fullfilepath = rk_formatPath(fullfilepath)
+            keep[fullfilepath] = 1;
+            fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
+                getFileDeps(fullfilepath, content);
+            });
+        })    
+    })
+    //let sourcefolder = global.rk_masterSourceFolder;
     // (sourcefolder, fullfilepath, content)
     // fs_readFile
-    let keep = {}
-    eachcontentjs.eachPath(sourcefolder, /\.js$/, (fullfilepath)=>{
-        fullfilepath = rk_formatPath(fullfilepath)
-        keep[fullfilepath] = 1;
-        fs_readFile.fs_readFile(fullfilepath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
-            getFileDeps(fullfilepath, content);
-        });
-    })    
     for(let fpath in global.rkCacheOf_seajsFileDeps){
         if(!keep[fpath]) delete global.rkCacheOf_seajsFileDeps[fpath];//有些文件可能被删除，因此也要做清除
     }
@@ -340,6 +344,27 @@ let reduceAllDepsIntoArray = (alldeps, initId)=>{
     fulldeps = _.uniq(fulldeps)
     return fulldeps;
 }
+global.rk_getPathId = (fullfilepath)=>{
+    fullfilepath = global.rk_formatPath(fullfilepath);
+    //if(fullfilepath.match(/^\//)) return fullfilepath;//是根目录的，不处理，【不能这样，在linux下，fullpath就是/开头的】
+    // let pathid = fullfilepath.split('/static/source/')[1];
+    // return pathid;
+    if(fullfilepath.indexOf('/static/source/')<0) {
+        if(fullfilepath.indexOf('/static/')<0){
+            return fullfilepath;
+        }else{//有些是require了/static/gcss目录，这些也兼容下
+            let arr = fullfilepath.split('/static/');
+            arr.shift();
+            let pathid = arr.join('/static/');
+            return '/static/'+pathid;
+        }
+    }
+    let arr = fullfilepath.split('/static/source/');
+    arr.shift();
+    let pathid = arr.join('/static/source/');
+    pathid = addJsExt(pathid);
+    return pathid;
+};
 let me = {
     definetype1,
     addJsExt,
