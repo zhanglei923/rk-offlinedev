@@ -72,13 +72,14 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
     if(is_path_inside(fpath, webroot)){
         return fpath;
     }else{
-        let baserelatived = pathutil.relative(webparent,fpath);
-        baserelatived = global.rk_formatPath(baserelatived);
-        let arr = baserelatived.split('/');
-        let project = arr.shift();
-        let projectrelatived = arr.join('/');
-        //console.log('>>', webparent, project, projectrelatived)
-        let virtualfpath = pathutil.resolve(myPathInfo.masterWebappFolder, projectrelatived);
+        let pathid = rk_getPathId(fpath);
+        let virtualfpath;
+        //console.log('pathid',pathid,global.rk_masterWebappFolder)
+        if(pathid.match(/^\/static/)){//可能是require了/static/gcss这种绝对路径
+            virtualfpath = pathutil.resolve(global.rk_masterWebappFolder, '.'+pathid);
+        }else{
+            virtualfpath = pathutil.resolve(global.rk_masterSourceFolder, pathid);
+        }
         return virtualfpath;
     }
 };
@@ -161,6 +162,8 @@ let setPathInfo =(info)=>{
     let masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
 
     global.rk_static_project_root = myPathInfo.static_project_root;
+    global.rk_masterStaticFolder = pathutil.resolve(masterSourceFolder, '../')
+    global.rk_masterWebappFolder = pathutil.resolve(rk_masterStaticFolder, '../')
     global.rk_masterSourceFolder = masterSourceFolder;
     global.rk_masterDeployFolder = masterDeployFolder;
     global.rk_sourceFolderList = [global.rk_masterSourceFolder];

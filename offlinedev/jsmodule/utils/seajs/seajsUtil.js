@@ -74,6 +74,7 @@ let resolveRequirePath = (ownerFilePath, requirePath, replaceVars, alias)=>{
     }else{
         let sourcePath = global.rk_masterSourceFolder;
         realpath = pathutil.resolve(sourcePath, requirePath)
+        realpath = global.c2real(realpath);
     }
     if(!fs.existsSync(realpath) && fs.existsSync(realpath+'.js')) realpath += '.js';
     realpath = rk_formatPath(realpath);
