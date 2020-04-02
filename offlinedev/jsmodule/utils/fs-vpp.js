@@ -26,11 +26,7 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     fpath0 = global.rk_formatPath(fpath0);
     let fpath = fpath0;
     if(fs.existsSync(fpath0)) return fpath0;
-    let last_hit = last_hit_root_of_realpath[fpath0];
-    if(last_hit){
-        let fpath0 = pathutil.resolve(last_hit);
-        if(fs.existsSync(fpath0)) return fpath0;
-    }
+    let last_hit_static = last_hit_root_of_realpath[fpath0];
     fpath = global.rk_formatPath(fpath);
 
     let webparent = myPathInfo.webparent;
@@ -41,24 +37,32 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     //console.log('>>', staticrelatived)
 
     let realfpath;
+    let staticArr = [];
+    if(last_hit_static) staticArr.push(last_hit_static);
     for(let prjname in myPathInfo.All_Projects_Info){
-        if(!realfpath){
-            let prjinfo = myPathInfo.All_Projects_Info[prjname];
-            let prjstatic = prjinfo.projectstaticpath;
-            let fpath = pathutil.resolve(prjstatic, staticrelatived);
+        let prjinfo = myPathInfo.All_Projects_Info[prjname];
+        let prjstatic = prjinfo.projectstaticpath;
+        if(last_hit_static !== prjstatic){
+            staticArr.push(prjstatic);
+        }
+    }
+    for(let i=0;i<staticArr.length;i++){
+        let prjstatic = staticArr[i];
+        let fpath = pathutil.resolve(prjstatic, staticrelatived);
+        if(fs.existsSync(fpath)) {
+            last_hit_root_of_realpath[fpath0] = prjstatic;
+            realfpath = fpath;
+            break;
+        }else{
+            fpath = fpath + '.js';
             if(fs.existsSync(fpath)) {
                 last_hit_root_of_realpath[fpath0] = prjstatic;
                 realfpath = fpath;
-            }else{
-                fpath = fpath + '.js';
-                if(fs.existsSync(fpath)) {
-                    last_hit_root_of_realpath[fpath0] = prjstatic;
-                    realfpath = fpath;
-                }
+                break;
             }
         }
     }
-    return realfpath;
+    return realfpath ? realfpath : fpath0;
 };
 let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实可能并不存在于web，而是在子工程里
     fpath = global.rk_formatPath(fpath);
