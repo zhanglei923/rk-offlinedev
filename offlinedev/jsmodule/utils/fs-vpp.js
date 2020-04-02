@@ -47,9 +47,14 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
             let prjstatic = prjinfo.projectstaticpath;
             let fpath = pathutil.resolve(prjstatic, staticrelatived);
             if(fs.existsSync(fpath)) {
-                //console.log('cfpath',fpath0,prjstatic)
                 last_hit_root_of_realpath[fpath0] = prjstatic;
                 realfpath = fpath;
+            }else{
+                fpath = fpath + '.js';
+                if(fs.existsSync(fpath)) {
+                    last_hit_root_of_realpath[fpath0] = prjstatic;
+                    realfpath = fpath;
+                }
             }
         }
     }
