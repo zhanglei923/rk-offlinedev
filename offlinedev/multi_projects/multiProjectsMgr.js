@@ -32,9 +32,9 @@ let loadConfig = (webprojectPath)=>{
             webapppath: rk_formatPath(pathutil.resolve(webprojectPath, './src/main/webapp/'))
         };
         global.rk_configOfStatic = config;
-        console.log(`[MultiPrj]: ${rpt}`);
+        console.log(`[Multi-Prj]: ${rpt}`);
     }else{
-        console.log('[MultiPrj]: no.');
+        console.log('[Multi-Prj]: no.');
     }
 };
 let searchFile =(path)=>{
