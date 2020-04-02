@@ -159,7 +159,7 @@ let cleanNoOneRequired = (alldeps)=>{//去掉没有人require的废文件
     console.log(badlist)
     return badlist;
 };
-let getFileDepsAsArray = (sourcefolder, fullfilepath, content)=>{
+let getFileDepsAsArray = (fullfilepath, content)=>{
     let depsinfo = getFileDeps(fullfilepath, content)
     let array = [];
     depsinfo.deps.forEach((info)=>{
@@ -235,14 +235,14 @@ let cleanDeps = (fullfilepath, deps, alias)=>{
         deps_bad
     };
 }
-let loadAndCacheDeps = (sourcefolder, fpath, content)=>{
+let loadAndCacheDeps = (fpath, content)=>{
     if(typeof fpath !== 'undefined' && typeof content !== 'undefined'){
         getFileDeps(fpath, content);
     }
 }
-let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
+let changeTplToDeploy = (fullfilepath, content)=>{
     let fdir = pathutil.parse(fullfilepath).dir;
-    let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcepath, fullfilepath);
+    let pathid = global.rk_getPathId(fullfilepath);//pathutil.relative(sourcepath, fullfilepath);
     pathid = rk_formatPath(pathid)
     let content2 = content;
     content2 = content2.trim().replace(/\s*\r?\n\s*/g, ' ').replace(/\"/g, '\\\"')
@@ -250,15 +250,17 @@ let changeTplToDeploy = (sourcepath, fullfilepath, content)=>{
 
     return content2;
 }
-let changeJsToDeploy = (sourcepath, fullfilepath, sea_alias, content, info)=>{
+let changeJsToDeploy = (fullfilepath, sea_alias, content, info)=>{
     if(rk.isCookedJsPath(fullfilepath)) return content;
     if(!content.match(definetype1)) return content;
     if(typeof info==='undefined') info = {}
 
+    let sourcepath = global.rk_masterSourceFolder;
+
     let fdir = pathutil.parse(fullfilepath).dir;
     let pathid = rk_getPathId(fullfilepath);//pathutil.relative(sourcepath, fullfilepath);
     pathid = rk_formatPath(pathid);
-    let deps = getFileDepsAsArray(sourcepath, fullfilepath, content);
+    let deps = getFileDepsAsArray(fullfilepath, content);
     let bad_requires = [];
     let result = cleanDeps(fullfilepath, deps, sea_alias)
     deps = result.deps_good;

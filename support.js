@@ -58,7 +58,7 @@ let preloadStaticFiles = (callback)=>{
         fs_readFile.fs_readFile(fpath, {encoding:'utf8', be_sync: true}, (err, content, fileinfo) => {   
             filesize += content.length; 
             if(shouldParseDeps){
-                seajsUtil.loadAndCacheDeps(sourcefolder, fpath, content)
+                seajsUtil.loadAndCacheDeps(fpath, content)
             }
         });
     }

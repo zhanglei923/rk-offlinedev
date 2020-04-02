@@ -184,7 +184,8 @@ let loadHotFileConcatPlan = (sourcefolder)=>{
     if(backupfiles)fs.writeFile(`${sourcefolder}/_hot/concat_plan.json`, `//${timetxt}\n`+JSON.stringify(global.rkCacheOf_autoConcatPlan), ()=>{});
 };
 //执行合并计划，加入缓存层
-let excuteConcatPlan = (sourcefolder)=>{
+let excuteConcatPlan = ()=>{
+    let sourcefolder = global.rk_masterSourceFolder;
     if(!global.rkStatOf_concatPlanNeedsUpdate){
         console.log('no change2')
         return;
@@ -206,7 +207,7 @@ let excuteConcatPlan = (sourcefolder)=>{
                 console.log('404:',fpath)
             }
             let deployContent = '';
-            deployContent = seajsUtil.changeTplToDeploy(sourcefolder, fpath, content)
+            deployContent = seajsUtil.changeTplToDeploy(fpath, content)
             global.rkCacheOf_autoConcatPlan[tplbundleid].files[pathid] = 1;
             global.rkCacheOf_DeployfilesData[pathid] = {
                 deployContent,
@@ -241,7 +242,7 @@ let excuteConcatPlan = (sourcefolder)=>{
                     fs_readFile.removeCache(fpath);//因为已经被转译过，因此没必要保留原始的文本了，节约内存                    
                     let sea_alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
                     let deployContent = '';
-                    deployContent = seajsUtil.changeJsToDeploy(sourcefolder, fullfilepath, sea_alias, content, 
+                    deployContent = seajsUtil.changeJsToDeploy(fullfilepath, sea_alias, content, 
                                                             {
                                                                 no_hot_url:true,
                                                                 depsPathIdUpdate:(depspathid)=>{//更新css的hot url，打包状态下，只需跟新define函数的就行。

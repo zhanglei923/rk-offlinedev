@@ -85,7 +85,7 @@ module.exports = {
                         info.no_hot_url = true;
                         let sourcepath = info.sourceFolder;
                         let alias = global.rkGlobalConfig.runtime.seajsConfig.alias;
-                        let deploycontent = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, alias, jsContent, info)
+                        let deploycontent = seajsUtil.changeJsToDeploy(fullfilepath, alias, jsContent, info)
                         fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                     }
                 }
@@ -101,8 +101,7 @@ module.exports = {
                     let fromSubPrj = {};
                     let cmdinfo = {};
                     let info = {fromSubPrj, fullfilepath, fileinfo, sourceFolder, cmdinfo}
-                    let sourcepath = info.sourceFolder;                
-                    let deploycontent = seajsUtil.changeTplToDeploy(sourcepath, fullfilepath, tplContent)
+                    let deploycontent = seajsUtil.changeTplToDeploy(fullfilepath, tplContent)
                     fullcontent += `;\n//${fullfilepath}\n;${deploycontent}`
                 }
                 if(len === 0){

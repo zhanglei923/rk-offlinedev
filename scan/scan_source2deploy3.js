@@ -28,10 +28,11 @@ let sea_alias = {
 
 let sourcepath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/source`
 let deploypath = `/Users/zhanglei/workspaces/apps-${'ingage'}-web/src/main/webapp/static/deploy`
+global.rk_masterSourceFolder=sourcepath;
 
 eachcontentjs.eachContent(sourcepath, /\.js$/, (content, fullfilepath, states)=>{
     if(!rk.isCookedJsPath(fullfilepath)){
-        let content2 = seajsUtil.changeJsToDeploy(sourcepath, fullfilepath, sea_alias, content)
+        let content2 = seajsUtil.changeJsToDeploy(fullfilepath, sea_alias, content)
         let deploypath = fullfilepath.replace(/\/\bsource\b\//g, '/deploy/');
         //console.log(deploypath)
         // fs.writeFileSync(deploypath, content2)
