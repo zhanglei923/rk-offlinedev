@@ -16,10 +16,9 @@ let updateJs = (info, content)=>{
     if(isFirstJs(fullfilepath)){
         //在第一个请求这里，更新聚合计划
         //
-        let sourcefolder = info.sourceFolder;
         let t0 = new Date()*1;
-        hot_concat.loadHotFileConcatPlan(sourcefolder);
-        hot_concat.excuteConcatPlan(sourcefolder);
+        hot_concat.loadHotFileConcatPlan();
+        hot_concat.excuteConcatPlan();
         console.log('plan cost:')
         console.log(new Date()*1 - t0)
         //hot_concat.loadHotFileConcats(sourcefolder)

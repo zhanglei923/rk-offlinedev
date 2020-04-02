@@ -81,8 +81,8 @@ let preloadStaticFiles = (callback)=>{
     if(0)
     if(shouldParseDeps){
         let t0 = new Date()*1;
-        hot_concat.loadHotFileConcatPlan(sourcefolder);
-        hot_concat.excuteConcatPlan(sourcefolder);
+        hot_concat.loadHotFileConcatPlan();
+        hot_concat.excuteConcatPlan();
         console.log(new Date()*1 - t0)
         //hot_concat.loadHotFileConcats(sourcefolder)
     }

@@ -55,7 +55,8 @@ let doWatch = ()=>{
 doWatch();
 
 //生成合并计划，这里不用理会缓存，只是将合并计划生成
-let loadHotFileConcatPlan = (sourcefolder)=>{
+let loadHotFileConcatPlan = ()=>{
+    let sourcefolder = global.rk_masterSourceFolder;
     let changedfiles = watch.getChangedFiles(watchId);
     global.rkStatOf_concatPlanNeedsUpdate = changedfiles.length > 0;
     if(!global.rkStatOf_concatPlanNeedsUpdate){
