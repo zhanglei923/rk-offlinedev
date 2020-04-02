@@ -25,13 +25,14 @@
          let modestatbrief = rk_offlinedev.userConfig.debug.modestatbrief;
          debugmode = debugmode?debugmode:'?'
          let debugcolor = (debugmode==='concat'?'color:#3497ff;':'')
+         let webfolder_display = webfolder.replace(/\/{1,}/g, '<span style="color:#e0a722;font-weight: bolder;font-size: 12px;">/</span>')
          div.setAttribute('about', 'mini-console')
          div.innerHTML='<a style="color:#2fff56 !important;" href="http://localhost:666/offlinedev-http-console/" target="_blank">'+
                         'rk-dev'+
                         '</a>'+
                         '('+offlinedevbranch+')'+
                         ',&nbsp;"<span style="'+debugcolor+'">'+debugmode+'</span>"'+
-                        '[<span title="css/tpl/js">'+modestatbrief+'<span>],&nbsp;'+webfolder+'('+
+                        '[<span title="css/tpl/js">'+modestatbrief+'<span>],&nbsp;'+webfolder_display+'('+
                         webbranch+')'
          console.warn('[rk-offlinedev]seajs-text注入成功')
      };
