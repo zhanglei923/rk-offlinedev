@@ -15,8 +15,10 @@ console.log(parr)
 Promise.all(parr).then(function(values) {
     let results = []
     values.forEach((res)=>{
-        let data = res.getBody().toString('utf8')
-        results.push(JSON.parse(data));
+        if(res.statusCode===200){
+            let data = res.getBody().toString('utf8')
+            results.push(JSON.parse(data));
+        }
     })
     console.log('ALL:');
     console.log(results);
