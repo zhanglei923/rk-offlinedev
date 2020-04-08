@@ -93,7 +93,7 @@ let linkToStaticFile = (req, res, next) => {
     }
     let posible_filepath = pathutil.resolve(deploywebapppath, '.'+req_path);
     // 这种情况： https://crm-citestrs.ingageapp.com/static/hash_val.js
-    if(fs.existsSync(posible_filepath)){
+    if(fs.existsSync(posible_filepath) && req_path.match(/\.(js|css|tpl|txt)$/)){
         let jscontent = fs.readFileSync(posible_filepath, 'utf8');
             jscontent = `/**[rk-offlinedev]${posible_filepath}**/\n` + jscontent;
         if(jscontent)  return res.send(jscontent);
