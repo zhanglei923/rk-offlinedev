@@ -8,7 +8,17 @@ let redirect_config = require('./redirects/redirect-config')
 
 let scanner = require('../../codeScan/scan')
 redirect_config.init();
-
+let getFiles = (dir)=>{
+    var list = fs.readdirSync(dir)
+    let files = [];
+    list.forEach(function(file) {
+        let fname = file;
+        file = dir + '/' + file
+        var stat = fs.statSync(file)
+        if (stat && !stat.isDirectory()) files.push(fname);
+    })
+    return files;
+};
 let linkToStaticFile = (req, res, next) => {
     getConfig.checkIfConfigChanged();
     let req_path = req.path;
@@ -48,19 +58,65 @@ let linkToStaticFile = (req, res, next) => {
         next();
         return;
     }
+    
+    let deploywebpath = getConfig.getValue('webProjectPathOfDeploy')
+    //处理hash.js
+    if(req_path.match(/\/hash\.\d{12,}\.js$/) && deploywebpath) {//自动找目录下的hash文件
+        //console.log('hash!!', req_path)
+        let hash = req_path.match(/\/hash\.\d{12,}\.js$/)[0];
+        hash = hash.match(/\.\d{12,}\./g)[0].replace(/\./g, '')
+        //console.log('hash=', hash)
+        let webapp = pathutil.resolve(deploywebpath, './src/main/webapp');
+        let fulldeploypath = pathutil.resolve(webapp, '.'+req_path);
+        if(!fs.existsSync(fulldeploypath)){
+            fulldeploypath = pathutil.resolve(webapp, './static/hash.js');            
+        }
+        if(fs.existsSync(fulldeploypath)){
+            let jscontent = fs.readFileSync(fulldeploypath, 'utf8');
+            jscontent = `//[rk-offlinedev]${fulldeploypath}\n` + jscontent;
+            res.send(jscontent);
+            return;
+        }
+    }
+    //处理deploy目录下的文件
     if(req_path.match(/^\/static\/deploy\//)){
-        let deploywebpath = getConfig.getValue('webProjectPathOfDeploy')
+        let fname = pathutil.parse(req_path).base;
         let webapp='%undefined-web-path%';
         if(deploywebpath) {
             webapp = pathutil.resolve(deploywebpath, './src/main/webapp');
         }
+        let deploypath = pathutil.resolve(webapp, './static/deploy');
         let fulldeploypath = pathutil.resolve(webapp, '.'+req_path)
         //console.log('deploy!', deploywebpath, webapp, req_path)
         //console.log('deploy!', fs.existsSync(fulldeploypath),fulldeploypath)
+        let hashReg = /\.[a-z0-9]{7}\./g;
         if(fs.existsSync(fulldeploypath)){
             jscontent = fs.readFileSync(fulldeploypath, 'utf8');
-            jscontent = `//[rk-offlinedev]${fulldeploypath}\n` + jscontent;
+            jscontent = `/**[rk-offlinedev]${fulldeploypath}**/\n` + jscontent;
             res.send(jscontent);
+        }else if(fname.match(hashReg)){//明显是打包的   
+            //这种是直接在static/deploy目录下，因此会找不到
+            //console.log('xxxx=', fname)
+            let realfname = fname.replace(hashReg, '.');
+            //console.log('====', realfname)
+            let matchedsubfname;
+            let files = getFiles(deploypath);
+            for(let i=0;i<files.length;i++){
+                let subfname = files[i];
+                if(subfname.replace(hashReg, '.') === realfname){
+                    matchedsubfname = subfname;
+                    break;
+                }
+            }
+            if(matchedsubfname){
+                //console.log('get!', matchedsubfname)
+                let realsubfpath = pathutil.resolve(deploypath, matchedsubfname);
+                let jscontent = fs.readFileSync(realsubfpath, 'utf8')
+                jscontent = `/**[rk-offlinedev]${realsubfpath}**/\n` + jscontent;
+                res.send(jscontent);
+                return;
+            }
+
         }else{
             res.status(404).send(`Can not find:${fulldeploypath}`)
         }
