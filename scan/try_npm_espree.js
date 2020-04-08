@@ -14,7 +14,8 @@ eachcontentjs.eachContent(staticroot, [/\.js$/], (content, csspath, states)=>{
         const ast = espree.parse(content, {
             ecmaVersion: 10,
         });
-        //console.log(ast)
+        fs.writeFileSync(csspath, JSON.stringify(ast))
+        console.log(ast)
     }catch(e){
         console.log(e,'\n',csspath)
     }
