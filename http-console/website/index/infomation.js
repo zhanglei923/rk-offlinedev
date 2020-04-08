@@ -91,6 +91,8 @@ let showInfomation = (result)=>{
             </td>
         </tr>
         <tr><td align="right" valign="top">&nbsp;</td><td>
+            ${userConfig.webProjectPathOfDeploy?'<span class="status_warn_fill">注意：目前已开启"webProjectPathOfDeploy"，源代码调试会失效，请不要同时使用。</span>':''}
+            <br>
             <button id="deepCheck_web_project" class="status_off_fill" onclick="javascript:deepCheck_web_project();">Web工程全面自检</button>
         </td></tr>
         <tr><td align="right" valign="top">子工程：</td><td><table><tbody id="subproject_list"></tbody></table></td></tr>
@@ -143,7 +145,10 @@ let showInfomation = (result)=>{
         
         <tr>
             <td align="right" valign="top">调试Deploy：</td>
-            <td><span class="${userConfig.webProjectPathOfDeploy?'projectpath status_positive':''}">${userConfig.webProjectPathOfDeploy?userConfig.webProjectPathOfDeploy:'未定义'}</span></td>
+            <td>
+                <span class="${userConfig.webProjectPathOfDeploy?'projectpath status_positive':''}">${userConfig.webProjectPathOfDeploy?userConfig.webProjectPathOfDeploy:'未定义'}</span>
+                ${userConfig.webProjectPathOfDeploy?'<span class="status_warn_fill">注意：目前已开启"webProjectPathOfDeploy"，源代码调试会失效，请不要同时使用。</span>':''}
+            </td>
         </tr>
         <tr><td align="right"><span class="comment">URLs：</span></td><td>
                 <a class="url" target="_blank" href="${'https://localhost/static/hash.js'}">${'https://localhost/static/hash.js'}</a><span class="comment">//把线上rs资源通过hosts映射到这个路径</span>
