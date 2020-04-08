@@ -60,23 +60,43 @@ let linkToStaticFile = (req, res, next) => {
     }
     
     let deploywebpath = getConfig.getValue('webProjectPathOfDeploy')
+    let deploywebapppath = pathutil.resolve(deploywebpath, './src/main/webapp');
     //处理hash.js
-    if(req_path.match(/\/hash\.\d{12,}\.js$/) && deploywebpath) {//自动找目录下的hash文件
-        //console.log('hash!!', req_path)
-        let hash = req_path.match(/\/hash\.\d{12,}\.js$/)[0];
-        hash = hash.match(/\.\d{12,}\./g)[0].replace(/\./g, '')
-        //console.log('hash=', hash)
-        let webapp = pathutil.resolve(deploywebpath, './src/main/webapp');
-        let fulldeploypath = pathutil.resolve(webapp, '.'+req_path);
+    let loadHashContent = (hashname)=>{
+        let fulldeploypath = pathutil.resolve(deploywebapppath, '.'+req_path);
         if(!fs.existsSync(fulldeploypath)){
-            fulldeploypath = pathutil.resolve(webapp, './static/hash.js');            
+            fulldeploypath = pathutil.resolve(deploywebapppath, `./static/${hashname}.js`);            
         }
         if(fs.existsSync(fulldeploypath)){
             let jscontent = fs.readFileSync(fulldeploypath, 'utf8');
             jscontent = `//[rk-offlinedev]${fulldeploypath}\n` + jscontent;
+            return jscontent;
+        }
+    };
+    if(req_path.match(/\/hash\.\d{12,}\.js$/) && deploywebpath) {//自动找目录下的hash文件
+        let hash = req_path.match(/\/hash\.\d{12,}\.js$/)[0];
+        hash = hash.match(/\.\d{12,}\./g)[0].replace(/\./g, '')
+        let jscontent = loadHashContent('hash');
+        if(jscontent){
             res.send(jscontent);
             return;
         }
+    }else
+    if(req_path.match(/\/hash_val\.\d{12,}\.js$/) && deploywebpath) {//自动找目录下的hash文件
+        let hash = req_path.match(/\/hash_val\.\d{12,}\.js$/)[0];
+        hash = hash.match(/\.\d{12,}\./g)[0].replace(/\./g, '')
+        let jscontent = loadHashContent('hash_val');
+        if(jscontent){
+            res.send(jscontent);
+            return;
+        }
+    }
+    let posible_filepath = pathutil.resolve(deploywebapppath, '.'+req_path);
+    // 这种情况： https://crm-citestrs.ingageapp.com/static/hash_val.js
+    if(fs.existsSync(posible_filepath)){
+        let jscontent = fs.readFileSync(posible_filepath, 'utf8');
+            jscontent = `/**[rk-offlinedev]${posible_filepath}**/\n` + jscontent;
+        if(jscontent)  return res.send(jscontent);
     }
     //处理deploy目录下的文件
     if(req_path.match(/^\/static\/deploy\//)){
