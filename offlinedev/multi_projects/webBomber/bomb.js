@@ -10,8 +10,13 @@ let eachcontentjs = require('eachcontent-js');
 let web_path = `E:/workspaceGerrit/apps-ingage-web`;
 
 let new_workspace = `E:/workspaceGerrit/a_new_home`;
-let new_web_path = pathutil.relative(new_workspace, './apps-ingage-web')
+let new_web_path = pathutil.resolve(new_workspace, './apps-ingage-web')
 let static_path = pathutil.resolve(new_web_path, `./src/main/webapp/static`);
+
+console.log('new_workspace=', new_workspace)
+console.log('new_web_path=', new_web_path)
+console.log('static_path=', static_path)
+
 let plan = [
     'source/products/creekflow,xsy-static-creekflow,test/2006',
     'source/products/bi,xsy-static-bi',
