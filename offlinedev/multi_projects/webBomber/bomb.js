@@ -10,15 +10,15 @@ let eachcontentjs = require('eachcontent-js');
 let static_path = `E:/workspaceGerrit/apps-ingage-web/src/main/webapp/static`;
 let new_workspace = `E:/workspaceGerrit/a_new_home`;
 let plan = [
-'source/products/creekflow,xsy-static-creekflow,test/2006',
-'source/products/bi,xsy-static-bi',
-'source/breeze,xsy-static-breeze',
-'source/core,xsy-static-core',
-'source/cpq,xsy-static-cpq',
-'source/crm,xsy-static-crm',
-'source/core/i18n,xsy-static-i18n',
-'source/lib,xsy-static-lib',
-'source/oldcrm,xsy-static-oldcrm'
+    'source/products/creekflow,xsy-static-creekflow,test/2006',
+    'source/products/bi,xsy-static-bi',
+    'source/breeze,xsy-static-breeze',
+    'source/cpq,xsy-static-cpq',
+    'source/crm,xsy-static-crm',
+    'source/core/i18n,xsy-static-i18n',
+    'source/core,xsy-static-core',
+    'source/lib,xsy-static-lib',
+    'source/oldcrm,xsy-static-oldcrm'
 ];
 
 let cloneProject = (dir, pname, branch, callback)=>{
@@ -69,9 +69,10 @@ let doPlan = (theplan)=>{
     let fullfolder = pathutil.resolve(static_path, folder);
     let targetfolder = pathutil.resolve(`${new_workspace}/${projectname}/static/${folder}`);
     let targetparentfolder = pathutil.resolve(targetfolder, '../')
-    console.log(fs.existsSync(fullfolder), fullfolder);
 
     cloneProject(new_workspace, projectname, projectbranch, ()=>{
+        makeDir.sync(targetparentfolder)
+        console.log(fs.existsSync(targetparentfolder), targetparentfolder);
         let staticdir = `${new_workspace}/xsy-static/static`
         let split_static_cmd = [
             `echo "split /static"`,
