@@ -13,6 +13,7 @@ let new_workspace = `E:/workspaceGerrit/a_new_home`;
 let new_web_path = pathutil.resolve(new_workspace, './apps-ingage-web')
 let static_path = pathutil.resolve(new_web_path, `./src/main/webapp/static`);
 
+console.log('web_path=', web_path)
 console.log('new_workspace=', new_workspace)
 console.log('new_web_path=', new_web_path)
 console.log('static_path=', static_path)
@@ -44,8 +45,8 @@ let cloneProject = (dir, pname, branch, callback)=>{
         callback();
     });
 };
-console.log('cp web')
-execSh(`rm -rf ${new_web_path} && cp -r ${web_path} ${new_workspace}`, true, function(err, stdout, stderr){
+console.log(`echo "cp web" && rm -rf ${new_web_path} && cp -r ${web_path} ${new_workspace}`)
+execSh(`echo "cp web" && rm -rf ${new_web_path} && cp -r ${web_path} ${new_workspace}`, true, function(err, stdout, stderr){
     console.log('cp web done')
 
     cloneProject(new_workspace, 'xsy-static', 'master', ()=>{
