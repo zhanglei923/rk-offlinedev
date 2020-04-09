@@ -8,7 +8,7 @@ let makeDir = require('make-dir');
 let eachcontentjs = require('eachcontent-js');
 
 let static_path = `E:/workspaceGerrit/apps-ingage-web/src/main/webapp/static`;
-let new_workspace = `E:/workspaceGerrit/new_home`;
+let new_workspace = `E:/workspaceGerrit/a_new_home`;
 let plan = [
 'source/products/creekflow,xsy-static-creekflow,test/2006',
 'source/products/bi,xsy-static-bi',
@@ -19,7 +19,24 @@ let plan = [
 'source/core/i18n,xsy-static-i18n',
 'source/lib,xsy-static-lib',
 'source/oldcrm,xsy-static-oldcrm'
-]
+];
+
+let cloneProject = (dir, pname, branch, callback)=>{
+    makeDir.sync(new_workspace);
+    let init_static_cmd = [
+        `cd ${new_workspace} && rm -rf ${pname}`,
+        `git clone http://gerrit.ingageapp.com/${pname}`,
+        `cd ${pname}`,
+        `git pull`,
+        `git checkout ${branch}`
+    ];
+    execSh(`${init_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
+        callback();
+    });
+}
+cloneProject(new_workspace, 'xsy-static', 'master', ()=>{
+    console.log('done')
+})
 
 plan.forEach((msg)=>{
     let arr = msg.split(',');
@@ -30,4 +47,8 @@ plan.forEach((msg)=>{
     let fullfolder = pathutil.resolve(static_path, folder);
 
     console.log(fs.existsSync(fullfolder), fullfolder)
+
+
+
+
 })
