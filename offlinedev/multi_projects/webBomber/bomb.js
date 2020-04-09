@@ -7,8 +7,11 @@ let moment = require('moment');
 let makeDir = require('make-dir');
 let eachcontentjs = require('eachcontent-js');
 
-let static_path = `E:/workspaceGerrit/apps-ingage-web/src/main/webapp/static`;
+let web_path = `E:/workspaceGerrit/apps-ingage-web`;
+
 let new_workspace = `E:/workspaceGerrit/a_new_home`;
+let new_web_path = pathutil.relative(new_workspace, './apps-ingage-web')
+let static_path = pathutil.resolve(new_web_path, `./src/main/webapp/static`);
 let plan = [
     'source/products/creekflow,xsy-static-creekflow,test/2006',
     'source/products/bi,xsy-static-bi',
@@ -36,24 +39,29 @@ let cloneProject = (dir, pname, branch, callback)=>{
         callback();
     });
 };
-cloneProject(new_workspace, 'xsy-static', 'master', ()=>{
-    console.log('init done')
-    let staticdir = `${new_workspace}/xsy-static`;
-    let cp_static_cmd = [
-        `echo "copy /static"`,
-        `cd ${staticdir}`,
-        `pwd`,
-        `rm -rf static`,
-        `mkdir static && cd static`,
-        `cp -r ${static_path}/* ./`
-    ];
-    console.log(cp_static_cmd.join(' && '));
-    execSh(`${cp_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
-        console.log('cp done')
-        doPlan(plan);
-    });
+console.log('cp web')
+execSh(`rm -rf ${new_web_path} && cp -r ${web_path} ${new_workspace}`, true, function(err, stdout, stderr){
+    console.log('cp web done')
 
-})
+    cloneProject(new_workspace, 'xsy-static', 'master', ()=>{
+        console.log('init done')
+        let staticdir = `${new_workspace}/xsy-static`;
+        let cp_static_cmd = [
+            `echo "copy /static"`,
+            `cd ${staticdir}`,
+            `pwd`,
+            `rm -rf static`,
+            `mkdir static && cd static`,
+            `cp -r ${static_path}/* ./`
+        ];
+        console.log(cp_static_cmd.join(' && '));
+        execSh(`${cp_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
+            console.log('cp done')
+            doPlan(plan);
+        });
+    
+    })
+});
 
 let doPlan = (theplan)=>{
     if(theplan.length === 0) {
