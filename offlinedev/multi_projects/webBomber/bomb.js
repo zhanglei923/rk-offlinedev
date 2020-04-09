@@ -30,7 +30,9 @@ let cloneProject = (dir, pname, branch, callback)=>{
         `git pull`,
         `git checkout ${branch}`
     ];
+    console.log(init_static_cmd.join(' && '));
     execSh(`${init_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
+        makeDir.sync(`${new_workspace}/${pname}/static`);
         callback();
     });
 };
@@ -40,9 +42,12 @@ cloneProject(new_workspace, 'xsy-static', 'master', ()=>{
     let cp_static_cmd = [
         `echo "copy /static"`,
         `cd ${staticdir}`,
+        `pwd`,
+        `rm -rf static`,
         `mkdir static && cd static`,
         `cp -r ${static_path}/* ./`
     ];
+    console.log(cp_static_cmd.join(' && '));
     execSh(`${cp_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
         console.log('cp done')
         doPlan(plan);
@@ -71,12 +76,11 @@ let doPlan = (theplan)=>{
             `cd ${staticdir}`,
             `mv ${folder} ${new_workspace}/${projectname}/static/source`
         ];
+        console.log(split_static_cmd.join(' && '));
         execSh(`${split_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
-            console.log('cp done')
+            console.log('mv done')
+            doPlan(theplan);//执行下一个
         });
-
-
-        doPlan(theplan);//执行下一个
     })
 }
 
