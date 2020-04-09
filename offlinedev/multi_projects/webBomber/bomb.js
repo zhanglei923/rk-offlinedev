@@ -67,6 +67,8 @@ let doPlan = (theplan)=>{
     let projectbranch = arr[2]?arr[2]:'master';
 
     let fullfolder = pathutil.resolve(static_path, folder);
+    let targetfolder = pathutil.resolve(`${new_workspace}/${projectname}/static/${folder}`);
+    let targetparentfolder = pathutil.resolve(targetfolder, '../')
     console.log(fs.existsSync(fullfolder), fullfolder);
 
     cloneProject(new_workspace, projectname, projectbranch, ()=>{
@@ -74,7 +76,7 @@ let doPlan = (theplan)=>{
         let split_static_cmd = [
             `echo "split /static"`,
             `cd ${staticdir}`,
-            `mv ${folder} ${new_workspace}/${projectname}/static/source`
+            `mv ${folder} ${targetparentfolder}`
         ];
         console.log(split_static_cmd.join(' && '));
         execSh(`${split_static_cmd.join(' && ')}`, true, function(err, stdout, stderr){
