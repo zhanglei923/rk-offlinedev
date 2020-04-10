@@ -68,9 +68,10 @@ execSh(`echo "cp web" && rm -rf ${new_web_path} && cp -r ${web_path} ${new_works
     
     })
 });
-
+let static_config = [];
 let doPlan = (theplan)=>{
     if(theplan.length === 0) {
+        breakFinished();
         return;
     }
     let oneplan = theplan.shift();
@@ -79,6 +80,11 @@ let doPlan = (theplan)=>{
     let folder = arr[0];
     let projectname = arr[1];
     let projectbranch = arr[2]?arr[2]:'master';
+
+    static_config.push( {
+        "project":projectname,
+        "branch":projectbranch
+    })
 
     let fullfolder = pathutil.resolve(static_path, folder);
     let targetfolder = pathutil.resolve(`${new_workspace}/${projectname}/static/${folder}`);
@@ -101,4 +107,7 @@ let doPlan = (theplan)=>{
     })
 }
 
-//doPlan(plan);
+let breakFinished = ()=>{
+    console.log('break finished.')
+    console.log(JSON.stringify(static_config))
+};
