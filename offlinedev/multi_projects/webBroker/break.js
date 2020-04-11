@@ -7,11 +7,12 @@ let moment = require('moment');
 let makeDir = require('make-dir');
 let eachcontentjs = require('eachcontent-js');
 
-let web_path = `E:/workspaceGerrit/apps-ingage-web`;
+let web_path = `/Users/zhanglei/workspaces/apps-ingage-web`;
 
-let new_workspace = `E:/workspaceGerrit/a_new_home`;
+let new_workspace = `/Users/zhanglei/workspaces/a_new_home`;
 let new_web_path = pathutil.resolve(new_workspace, './apps-ingage-web')
-let static_path = pathutil.resolve(new_web_path, `./src/main/webapp/static`);
+let webapp_path = pathutil.resolve(new_web_path, `./src/main/webapp`);
+let static_path = pathutil.resolve(webapp_path, `./static`);
 
 console.log('web_path=', web_path)
 console.log('new_workspace=', new_workspace)
@@ -109,5 +110,9 @@ let doPlan = (theplan)=>{
 
 let breakFinished = ()=>{
     console.log('break finished.')
-    console.log(JSON.stringify(static_config))
+    let jsonstr = JSON.stringify(static_config)
+    console.log(jsonstr)
+    fs.writeFileSync(pathutil.resolve(webapp_path, './static-config.json'),`{"dependencies": ${jsonstr}}`);
+
+    console.log('broker done')
 };
