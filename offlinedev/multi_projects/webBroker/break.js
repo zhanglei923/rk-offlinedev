@@ -21,7 +21,7 @@ console.log('new_web_path=', new_web_path)
 console.log('static_path=', static_path)
 
 let plan = [
-    'source/products/creekflow,xsy-static-creekflow,test/2006',
+    'source/products/creekflow,xsy-static-creekflow,master',
     'source/products/bi,xsy-static-bi',
     'source/breeze,xsy-static-breeze',
     'source/cpq,xsy-static-cpq',
