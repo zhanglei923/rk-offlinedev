@@ -62,10 +62,10 @@ let linkToStaticFile = (req, res, next) => {
     let deploywebpath = getConfig.getValue('webProjectPathOfDeploy')
     let deploywebapppath = pathutil.resolve(deploywebpath, './src/main/webapp');
     //处理hash.js
-    let loadHashContent = (hashname)=>{
+    let loadHashContent = (hashfilename)=>{
         let fulldeploypath = pathutil.resolve(deploywebapppath, '.'+req_path);
         if(!fs.existsSync(fulldeploypath)){
-            fulldeploypath = pathutil.resolve(deploywebapppath, `./static/${hashname}.js`);            
+            fulldeploypath = pathutil.resolve(deploywebapppath, `./static/${hashfilename}.js`);            
         }
         if(fs.existsSync(fulldeploypath)){
             let jscontent = fs.readFileSync(fulldeploypath, 'utf8');
