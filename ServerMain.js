@@ -98,12 +98,7 @@ app.use(function (req, res, next) {
             if(prjname === 'apps-ingage-web'){
                 next();
             }else{
-                    // console.log('f!', 
-                    //     req.path,    
-                    //     realfpathinfo.fpath,
-                    //     ,
-                    //     realfpathinfo.prjwebappbase
-                    // )
+                    //转接到子工程
                     let url = `https://localhost:44301/${realfpathinfo.prjname}/static/source/core/1.png`;
                     res.redirect(301, `${url}`);
             }
