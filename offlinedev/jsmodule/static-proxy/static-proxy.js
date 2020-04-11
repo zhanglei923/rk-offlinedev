@@ -19,9 +19,21 @@ let getFiles = (dir)=>{
     })
     return files;
 };
-let linkToStaticFile = (req, res, next) => {
+let isAcceptedFileType = (req, res, next)=>{
     getConfig.checkIfConfigChanged();
     let req_path = req.path;
+    let req_pathinfo = pathutil.parse(req_path);
+    let ext = req_pathinfo.ext;
+    //console.log(ext)
+    if(ext==='.js' || ext==='.tpl' || ext==='.css'){
+        return req_pathinfo;
+    }
+    return;
+};
+let linkToStaticFile = (fileinfo, req, res, next) => {
+    //getConfig.checkIfConfigChanged();
+    let req_path = req.path;
+    let ext = fileinfo.ext;
     res.set('.rk', 'This is by rk-offlinedev!');
     if(/\.js$/.test(req_path)) res.set('Content-Type', 'application/javascript');
     if(/\.css$/.test(req_path)) res.set('Content-Type', 'text/css');
@@ -243,5 +255,6 @@ let linkToStaticFile = (req, res, next) => {
     next();//非静态文件，放行
 }
 module.exports = {
+    isAcceptedFileType,
     linkToStaticFile
 };

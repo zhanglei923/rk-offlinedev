@@ -8,7 +8,10 @@ const ServerMain = require('./ServerMain')
 ServerMain.startHttp();
 ServerMain.startHttps();
 
-const ServerRs = require('./ServerRs')
-ServerRs.startHttps(()=>{    
+require('./ServerRs').startHttps(()=>{    
     //console.log('[SUCCESS] Visit: http://localhost:666 to Use.')
+});
+//启动workspace的静态服务，用于直接跳转到子工程的资源
+require('./ServerWs').startHttps(()=>{
+    
 });

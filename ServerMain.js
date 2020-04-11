@@ -87,7 +87,13 @@ app.use(function (req, res, next) {
         return;
     }
     const static_proxy = require('./offlinedev/jsmodule/static-proxy/static-proxy');
-    static_proxy.linkToStaticFile(req, res, next)
+    let fileinfo = static_proxy.isAcceptedFileType(req, res, next);
+    if(fileinfo){
+        static_proxy.linkToStaticFile(fileinfo, req, res, next)
+    }else{
+        //console.log('ooohhhhhh!', req.path)
+        next();
+    }
 });
 //静态资源转接到web
 app.use('/', express.static(webappPath));//注意：必须在全局拦截器之后，否则拦截器无法运行
@@ -251,10 +257,6 @@ let afterStart = (callback)=>{
     }
     preloaded = true;
 }
-//启动workspace的静态服务，用于直接跳转到子工程的资源
-require('./ServerWs').startHttps(()=>{
-    
-});
 module.exports = {
     startHttp:()=>{
         var server = httpServer.listen(PORT, function() {
