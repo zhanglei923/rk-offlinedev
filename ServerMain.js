@@ -251,7 +251,10 @@ let afterStart = (callback)=>{
     }
     preloaded = true;
 }
-
+//启动workspace的静态服务，用于直接跳转到子工程的资源
+require('./ServerWs').startHttps(()=>{
+    
+});
 module.exports = {
     startHttp:()=>{
         var server = httpServer.listen(PORT, function() {
