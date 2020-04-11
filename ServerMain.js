@@ -99,7 +99,7 @@ app.use(function (req, res, next) {
                 next();
             }else{
                 //转接到子工程
-                let url = `https://localhost:44301/${realfpathinfo.prjname}/static/source/core/1.png`;
+                let url = `https://localhost:44301/${realfpathinfo.prjname}${req.path}`;
                 res.redirect(301, `${url}`);
             }
         }else{
