@@ -13,6 +13,7 @@ let new_workspace = `/Users/zhanglei/workspaces/a_new_home`;
 let new_web_path = pathutil.resolve(new_workspace, './apps-ingage-web')
 let webapp_path = pathutil.resolve(new_web_path, `./src/main/webapp`);
 let static_path = pathutil.resolve(webapp_path, `./static`);
+let source_path = pathutil.resolve(static_path, `./source`);
 
 console.log('web_path=', web_path)
 console.log('new_workspace=', new_workspace)
@@ -110,9 +111,15 @@ let doPlan = (theplan)=>{
 
 let breakFinished = ()=>{
     console.log('break finished.')
+    static_config.push({"project":"xsy-static","branch":"master"})
     let jsonstr = JSON.stringify(static_config)
     console.log(jsonstr)
     fs.writeFileSync(pathutil.resolve(webapp_path, './static-config.json'),`{"dependencies": ${jsonstr}}`);
+
+    fs.renameSync(
+        pathutil.resolve(static_path, `./source`), 
+        pathutil.resolve(static_path, `./source_bk`)
+    );
 
     console.log('broker done')
 };
