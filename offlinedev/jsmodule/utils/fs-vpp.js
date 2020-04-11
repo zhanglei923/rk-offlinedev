@@ -20,6 +20,42 @@ let myPathInfo = {
 // existSync(fullfilepath);
 // getRealFilePath(fullfilepath);//返回真正地址
 
+let last_hit_root_of_urlrealpath = {}
+let find_realpath_for_url = (req_path)=>{
+    let last_hit_webapp = last_hit_root_of_urlrealpath[req_path];
+    let realfpathinfo;
+    let webappArr = [];
+    if(last_hit_webapp) webappArr.push(last_hit_webapp);
+    for(let prjname in myPathInfo.All_Projects_Info){
+        let prjinfo = myPathInfo.All_Projects_Info[prjname];
+        let prjwebappbase = prjinfo.projectwebappbased;
+        if(last_hit_webapp !== prjwebappbase){
+            webappArr.push({
+                prjname,
+                prjwebappbase
+            });
+        }
+    }
+    for(let i=0;i<webappArr.length;i++){
+        let prjname = webappArr[i].prjname;
+        let prjwebappbase = webappArr[i].prjwebappbase;
+        //console.log('rlsl', prjwebappbase, '.'+req_path)
+        let fpath = pathutil.resolve(prjwebappbase, '.'+req_path);
+        if(fs.existsSync(fpath)) {
+            last_hit_root_of_urlrealpath[req_path] = {
+                prjname,
+                prjwebappbase
+            };
+            realfpathinfo = {
+                fpath,
+                prjname,
+                prjwebappbase
+            }
+            break;
+        }
+    }
+    return realfpathinfo;
+};
 
 let last_hit_root_of_realpath = {}
 let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路径，换算成真正的文件路径
@@ -43,17 +79,17 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     //console.log('relativepath_towebapp=', relativepath_towebapp)
 
     let realfpath;
-    let projectBaseArr = [];
-    if(last_hit_webapp) projectBaseArr.push(last_hit_webapp);
+    let webappArr = [];
+    if(last_hit_webapp) webappArr.push(last_hit_webapp);
     for(let prjname in myPathInfo.All_Projects_Info){
         let prjinfo = myPathInfo.All_Projects_Info[prjname];
         let prjwebappbase = prjinfo.projectwebappbased;
         if(last_hit_webapp !== prjwebappbase){
-            projectBaseArr.push(prjwebappbase);
+            webappArr.push(prjwebappbase);
         }
     }
-    for(let i=0;i<projectBaseArr.length;i++){
-        let prjwebappbase = projectBaseArr[i];
+    for(let i=0;i<webappArr.length;i++){
+        let prjwebappbase = webappArr[i];
         let fpath = pathutil.resolve(prjwebappbase, relativepath_towebapp);
         if(fs.existsSync(fpath)) {
             last_hit_root_of_realpath[fpath0] = prjwebappbase;
@@ -194,6 +230,7 @@ let setPathInfo =(info)=>{
 global.c2real = changeto_realfpath;
 global.c2virtual = changeto_virtualfpath;
 var _thisUtil = {
+    find_realpath_for_url,
     changeto_realfpath,
     changeto_virtualfpath,
     setPathInfo,

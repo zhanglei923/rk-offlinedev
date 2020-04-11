@@ -19,6 +19,7 @@ var certificate = fs.readFileSync('./offlinedev/sslKey/v2/file.crt','utf8');
 var getConfig = require('./offlinedev/jsmodule/config/configUtil')
 var localStatus = require('./offlinedev/jsmodule/config/statusUtil')
 var fpowerUtil = require('./offlinedev/jsmodule/utils/fpowerUtil')
+let vpp = require('./offlinedev/jsmodule/utils/fs-vpp')
 let multiProjectsMgr = require('./offlinedev/multi_projects/multiProjectsMgr')
 let mysupport = require('./support');
 var credentials = {key: privateKey, cert: certificate};
@@ -89,10 +90,28 @@ app.use(function (req, res, next) {
     const static_proxy = require('./offlinedev/jsmodule/static-proxy/static-proxy');
     let fileinfo = static_proxy.isAcceptedFileType(req, res, next);
     if(fileinfo){
-        static_proxy.linkToStaticFile(fileinfo, req, res, next)
+        static_proxy.linkToStaticFile(fileinfo, req, res, next);
     }else{
-        //console.log('ooohhhhhh!', req.path)
-        next();
+        let realfpathinfo = vpp.find_realpath_for_url(req.path);
+        if(realfpathinfo){
+            let prjname = realfpathinfo.prjname;
+            if(prjname === 'apps-ingage-web'){
+                next();
+            }else{
+                    // fpath,
+                    // prjname,
+                    // prjwebappbase
+                    
+                    console.log('f!', 
+                        req.path,    
+                        realfpathinfo.fpath,
+                        realfpathinfo.prjname,
+                        realfpathinfo.prjwebappbase
+                    )
+            }
+        }else{
+            next();
+        }
     }
 });
 //静态资源转接到web
