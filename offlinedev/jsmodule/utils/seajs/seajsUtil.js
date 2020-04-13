@@ -227,7 +227,8 @@ let cleanDeps = (fullfilepath, deps, alias)=>{
     let deps_good = [];
     let deps_bad = [];
     deps.forEach((rawPath)=>{
-        let readpath = resolveRequirePath(fullfilepath, rawPath, false, alias)
+        let readpath = resolveRequirePath(fullfilepath, rawPath, false, alias);
+        readpath = c2real(readpath)
         if(isCommonRequirePath(rawPath) && !fs.existsSync(readpath)){
             deps_bad.push(rawPath)
             //console.log('[404]', rawPath, readpath,isCommonRequirePath(rawPath))
