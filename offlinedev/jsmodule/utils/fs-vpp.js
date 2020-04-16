@@ -110,17 +110,18 @@ let changeto_virtualfpath = (fpath)=>{//就是基于web工程的路径，其实�
     fpath = global.rk_formatPath(fpath);
     let webparent = myPathInfo.webparent;
     let webroot = myPathInfo.All_Projects_Info['apps-ingage-web'].projectpath;
+    webroot = global.rk_formatPath(webroot);
 
-    if(is_path_inside(fpath, webroot)){
+    if(fpath.indexOf(webroot)>=0){//indexOf的速度要比path判断快的多
         return fpath;
     }else{
         let pathid = rk_getPathId(fpath);
         let virtualfpath;
         //console.log('pathid',pathid,global.rk_masterWebappFolder)
         if(pathid.match(/^\/static/)){//可能是require了/static/gcss这种绝对路径
-            virtualfpath = pathutil.resolve(global.rk_masterWebappFolder, '.'+pathid);
+            virtualfpath = global.rk_masterWebappFolder+'/'+pathid;//字符串拼接速度最快。pathutil.resolve(global.rk_masterWebappFolder, '.'+pathid);
         }else{
-            virtualfpath = pathutil.resolve(global.rk_masterSourceFolder, pathid);
+            virtualfpath = global.rk_masterSourceFolder+'/'+pathid;
         }
         return virtualfpath;
     }
@@ -206,11 +207,11 @@ let setPathInfo =(info)=>{
     let masterSourceFolder = pathutil.resolve(myPathInfo.static_project_root, './source')
     let masterDeployFolder = pathutil.resolve(myPathInfo.static_project_root, './deploy')
 
-    global.rk_static_project_root = myPathInfo.static_project_root;
-    global.rk_masterStaticFolder = pathutil.resolve(masterSourceFolder, '../')
-    global.rk_masterWebappFolder = pathutil.resolve(rk_masterStaticFolder, '../')
-    global.rk_masterSourceFolder = masterSourceFolder;
-    global.rk_masterDeployFolder = masterDeployFolder;
+    global.rk_static_project_root = rk_formatPath(myPathInfo.static_project_root);
+    global.rk_masterStaticFolder = rk_formatPath(pathutil.resolve(masterSourceFolder, '../'))
+    global.rk_masterWebappFolder = rk_formatPath(pathutil.resolve(rk_masterStaticFolder, '../'))
+    global.rk_masterSourceFolder = rk_formatPath(masterSourceFolder);
+    global.rk_masterDeployFolder = rk_formatPath(masterDeployFolder);
     global.rk_sourceFolderList = [global.rk_masterSourceFolder];
 
     myPathInfo.staticConfigFilePath = pathutil.resolve(myPathInfo.masterWebappFolder, './static-config.json');
