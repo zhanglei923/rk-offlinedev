@@ -2,7 +2,8 @@
 //用来切换实体文件在子工程和seajs pathid虚拟地址
 let fs = require('fs-extra');
 let pathutil = require('path');
-let is_path_inside = require('is-path-inside')
+let eachcontentjs = require('eachcontent-js')
+let is_path_inside = require('is-path-inside') //速度太慢了，不适合在这里用
 require('./global')
 let gitUtil = require('./gitUtil')
 
@@ -68,11 +69,10 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     let relativepath_towebapp;//相对于每个工程的webapp跟目录，这样能兼容所有目录，比如embeded等
     for(let prjname in myPathInfo.All_Projects_Info){
         let prjinfo = myPathInfo.All_Projects_Info[prjname];
-        let prjwebappbase = prjinfo.projectwebappbased;
+        let prjwebappbase = global.rk_formatPath(prjinfo.projectwebappbased);
         //console.log('is_path_inside:', fpath0, prjwebappbase)
-        if(is_path_inside(fpath0, prjwebappbase)){
-            //console.log('yes')
-            relativepath_towebapp = pathutil.relative(prjwebappbase, fpath0);
+        if(fpath0.indexOf(prjwebappbase)>=0){
+            relativepath_towebapp = '/'+fpath0.substring(prjwebappbase.length)//pathutil.relative(prjwebappbase, fpath0);
         }
     }
     if(!relativepath_towebapp) return fpath0;//没有在任何一个工程里
@@ -90,7 +90,7 @@ let changeto_realfpath = (fpath0)=>{//和virtual相反，给出web的虚拟路�
     }
     for(let i=0;i<webappArr.length;i++){
         let prjwebappbase = webappArr[i];
-        let fpath = pathutil.resolve(prjwebappbase, relativepath_towebapp);
+        let fpath = prjwebappbase +'/'+ relativepath_towebapp;//pathutil.resolve(prjwebappbase, relativepath_towebapp);
         if(fs.existsSync(fpath)) {
             last_hit_root_of_realpath[fpath0] = prjwebappbase;
             realfpath = fpath;
@@ -166,7 +166,7 @@ let changePathIdToRealPath = (requirePath)=>{
 
 let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
     let static_project_root = info.static_project_root;
-    let static_web_base = pathutil.resolve(static_project_root, '../');
+    let static_web_base = global.rk_formatPath(pathutil.resolve(static_project_root, '../'));
     //console.log(pfolder, webroot, dependencies)
     myPathInfo.All_Projects_Info['apps-ingage-web'] = {
         project: 'apps-ingage-web',
@@ -183,11 +183,11 @@ let searchSubProjects = (info, pfolder, webroot, dependencies)=>{
         let project = dep.project;
         let def_branch = dep.branch;
         delete dep.branch;//名称不准确，容易混淆
-        let projectpath = pathutil.resolve(pfolder, project);
+        let projectpath = global.rk_formatPath(pathutil.resolve(pfolder, project));
         dep.projectpath = projectpath;
         dep.projectwebappbased = projectpath;
-        dep.projectstaticpath = pathutil.resolve(projectpath, './static');
-        dep.projectsourcepath = pathutil.resolve(dep.projectstaticpath, './source');
+        dep.projectstaticpath = global.rk_formatPath(pathutil.resolve(projectpath, './static'));
+        dep.projectsourcepath = global.rk_formatPath(pathutil.resolve(dep.projectstaticpath, './source'));
         global.rk_sourceFolderList.push(dep.projectsourcepath)
         dep.projectexist = fs.existsSync(projectpath);
         dep.real_branch = gitUtil.getBranchName(projectpath);
