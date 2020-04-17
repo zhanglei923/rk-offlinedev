@@ -12,14 +12,32 @@ let myPathInfo = {
     All_Projects_Info:{}
 }
 
-// changeto_realfpath();
-// changeto_virtualfpath();
-
-// setWebProjectPath();
-// getSourceList();//返回所有主子工程的source目录地址
-// eachSourceList();//返回所有主子工程的source目录地址
-// existSync(fullfilepath);
-// getRealFilePath(fullfilepath);//返回真正地址
+let suggest = {
+    'source/products/creekflow':'xsy-static-creekflow',
+    'source/products/bi':'xsy-static-bi',
+    'source/breeze':'xsy-static-breeze',
+    'source/cpq':'xsy-static-cpq',
+    'source/crm':'xsy-static-crm',
+    'source/core/i18n':'xsy-static-i18n',
+    'source/core':'xsy-static-core',
+    'source/lib':'xsy-static-lib',
+    'source/oldcrm':'xsy-static-oldcrm'
+}
+let getSuggestWebapp = (req_path)=>{
+    for(let k in suggest){
+        if(req_path.indexOf(k)>=0) {
+            let prjname = suggest[k];
+            let prjinfo = myPathInfo.All_Projects_Info[prjname];
+            if(prjinfo){
+                let prjwebappbase = prjinfo.projectwebappbased;
+                return {
+                    prjname,
+                    prjwebappbase
+                };
+            }
+        }
+    }
+};
 
 let last_hit_root_of_urlrealpath = {}
 let find_realpath_for_url = (req_path)=>{
