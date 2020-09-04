@@ -12,7 +12,7 @@
     "spdy":"4.0.1",
     "format-json": "^1.0.3",
     "json-format": "1.0.1",
-    "handlebars": "4.3.0",
+    "handlebars": "4.7.6",
     "http": "^0.0.0",
     "https": "^1.0.0",
     "lodash": "4.17.15",
